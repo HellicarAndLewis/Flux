@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>A2371CC4-5985-4242-B79C-A23077C60404</string>
+	<key>IDESourceControlProjectName</key>
+	<string>FLUX</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>4FE3E04C-4AD4-4D4D-9499-287D69611B1E</key>
+		<string>https://github.com/HellicarAndLewis/Flux.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>FluxOF/FLUX.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>4FE3E04C-4AD4-4D4D-9499-287D69611B1E</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/HellicarAndLewis/Flux.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>4FE3E04C-4AD4-4D4D-9499-287D69611B1E</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>4FE3E04C-4AD4-4D4D-9499-287D69611B1E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Flux</string>
+		</dict>
+	</array>
+</dict>
+</plist>
