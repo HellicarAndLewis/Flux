@@ -1,23 +1,6 @@
 <Map>
     <Bangs></Bangs>
     <Switches></Switches>
-    <SliderCurves>
-        <Mapping>
-            <Widget>
-                <WidgetName>x</WidgetName>
-                <WidgetID>6</WidgetID>
-                <WidgetCanvasParent>terrainTrans</WidgetCanvasParent>
-            </Widget>
-            <Track></Track>
-        </Mapping>
-        <Mapping>
-            <Widget>
-                <WidgetName>y</WidgetName>
-                <WidgetID>8</WidgetID>
-                <WidgetCanvasParent>terrainTrans</WidgetCanvasParent>
-            </Widget>
-            <Track></Track>
-        </Mapping>
-    </SliderCurves>
+    <SliderCurves></SliderCurves>
     <NumberDialerCurves></NumberDialerCurves>
 </Map>

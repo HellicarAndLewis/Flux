@@ -2,8 +2,8 @@
     <Kind>40</Kind>
     <Name>terrainTrans</Name>
     <IsMinified>1</IsMinified>
-    <XPosition>1.000000000</XPosition>
-    <YPosition>401.000000000</YPosition>
+    <XPosition>759.000000000</XPosition>
+    <YPosition>237.000000000</YPosition>
 </Canvas>
 <Widget>
     <Kind>2</Kind>
@@ -18,7 +18,7 @@
 <Widget>
     <Kind>25</Kind>
     <Name>y</Name>
-    <Value>0.000000000</Value>
+    <Value>0.005235282</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>

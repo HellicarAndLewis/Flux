@@ -12,9 +12,8 @@ void main(){
 	norm = norm;// * .5 + .5;
 
 	vec4 ecPosition = gl_ModelViewMatrix * vPos;
-	
 	ePos = normalize(ecPosition.xyz/ecPosition.w);
-	gl_Position = gl_ProjectionMatrix * ecPosition;
 
+	gl_Position = gl_ProjectionMatrix * ecPosition;
 	gl_FrontColor = gl_Color;
 }
