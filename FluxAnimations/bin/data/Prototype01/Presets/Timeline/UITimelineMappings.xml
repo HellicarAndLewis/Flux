@@ -18,14 +18,6 @@
             </Widget>
             <Track></Track>
         </Mapping>
-        <Mapping>
-            <Widget>
-                <WidgetName>x</WidgetName>
-                <WidgetID>6</WidgetID>
-                <WidgetCanvasParent>shoesTrans</WidgetCanvasParent>
-            </Widget>
-            <Track></Track>
-        </Mapping>
     </SliderCurves>
     <NumberDialerCurves></NumberDialerCurves>
 </Map>

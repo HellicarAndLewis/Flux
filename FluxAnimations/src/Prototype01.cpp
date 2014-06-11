@@ -12,6 +12,7 @@ void Prototype01::selfSetup(){
     ofEnableSmoothing();
 
     terrainTransition.load(getDataPath()+"shaders/terrainTrans");
+    shoesTransition.load(getDataPath()+"shaders/shoesTrans");
 }
 
 void Prototype01::selfSetupGuis(){
@@ -19,6 +20,7 @@ void Prototype01::selfSetupGuis(){
     lightAdd("SPOT", OF_LIGHT_SPOT);
     
     guiAdd(terrainTransition);
+    guiAdd(shoesTransition);
 }
 
 //Some helper functions
@@ -121,9 +123,11 @@ void Prototype01::selfDraw(){
     ofScale(.1, -.1, .1);
     ofTranslate(0, 0, 500);
     ofRotate(-90, 1, 0, 0);
+    shoesTransition.begin();
     shoesModel.drawFaces();
-    ofPopMatrix();
+    shoesTransition.end();
     
+    ofPopMatrix();
     
     materials["MATERIAL 1"]->end();
 }

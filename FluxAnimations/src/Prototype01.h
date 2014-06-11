@@ -62,4 +62,5 @@ protected:
     //
     ofxAssimpModelLoader shoesModel;
     ofVboMesh            shoesMesh;
+    UIShader             shoesTransition;
 };
