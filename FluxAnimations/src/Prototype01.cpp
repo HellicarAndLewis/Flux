@@ -94,13 +94,13 @@ void Prototype01::selfBegin(){
     //  SHOES
     //
     shoesModel.loadModel(getDataPath()+"shoe.dae");
+    shoesMesh = shoesModel.getMesh(0);
+    
     
     //  FONTS
     //
     font.loadFont(getDataPath()+"Exo2-Light.ttf", 44);
     font.setSpaceSize(0.65);
-    
-
 }
 
 void Prototype01::selfUpdate(){
@@ -120,13 +120,15 @@ void Prototype01::selfDraw(){
     ofPopMatrix();
     
     ofPushMatrix();
-    ofScale(.1, -.1, .1);
-    ofTranslate(0, 0, 500);
-    ofRotate(-90, 1, 0, 0);
     shoesTransition.begin();
-    shoesModel.drawFaces();
-    shoesTransition.end();
+    ofTranslate(0, 0, 100);
+    ofScale(.3, .3, .3);
+    ofRotate(90, 1, 0, 0);
+    ofTranslate(-shoesMesh.getCentroid());
     
+    shoesMesh.draw();
+    
+    shoesTransition.end();
     ofPopMatrix();
     
     materials["MATERIAL 1"]->end();

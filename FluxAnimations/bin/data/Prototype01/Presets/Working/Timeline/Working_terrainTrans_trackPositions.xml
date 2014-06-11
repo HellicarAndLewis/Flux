@@ -1,14 +1,20 @@
 <positions>
     <element name="x">
-        <x>4.000000000</x>
-        <y>940.000000000</y>
-        <width>1672.000000000</width>
+        <x>0.000000000</x>
+        <y>45.000000000</y>
+        <width>1680.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="x_0">
+        <x>0.000000000</x>
+        <y>91.000000000</y>
+        <width>1680.000000000</width>
         <height>40.000000000</height>
     </element>
     <element name="y">
-        <x>4.000000000</x>
-        <y>986.000000000</y>
-        <width>1672.000000000</width>
+        <x>0.000000000</x>
+        <y>91.000000000</y>
+        <width>1680.000000000</width>
         <height>40.000000000</height>
     </element>
 </positions>
