@@ -7,12 +7,12 @@
 
 #pragma once
 
-#include "UI3DProject.h"
+#include "UITime3DProject.h"
 #include "UIShader.h"
 
 #include "ofxAssimpModelLoader.h"
 
-class Prototype01 : public UI3DProject {
+class Prototype01 : public UITime3DProject {
 public:
     
     string getSystemName(){ return "Prototype01";}

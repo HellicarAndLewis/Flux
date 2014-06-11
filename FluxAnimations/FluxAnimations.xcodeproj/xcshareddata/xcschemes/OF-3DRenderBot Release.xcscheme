@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
                BuildableName = "OF-3DRenderBot.app"
-               BlueprintName = "OF-3DRenderBot"
-               ReferencedContainer = "container:OF-3DRenderBot.xcodeproj">
+               BlueprintName = "FluxAnimations"
+               ReferencedContainer = "container:FluxAnimations.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,8 +34,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
             BuildableName = "OF-3DRenderBot.app"
-            BlueprintName = "OF-3DRenderBot"
-            ReferencedContainer = "container:OF-3DRenderBot.xcodeproj">
+            BlueprintName = "FluxAnimations"
+            ReferencedContainer = "container:FluxAnimations.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -53,8 +53,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
             BuildableName = "OF-3DRenderBot.app"
-            BlueprintName = "OF-3DRenderBot"
-            ReferencedContainer = "container:OF-3DRenderBot.xcodeproj">
+            BlueprintName = "FluxAnimations"
+            ReferencedContainer = "container:FluxAnimations.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -71,8 +71,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
             BuildableName = "OF-3DRenderBot.app"
-            BlueprintName = "OF-3DRenderBot"
-            ReferencedContainer = "container:OF-3DRenderBot.xcodeproj">
+            BlueprintName = "FluxAnimations"
+            ReferencedContainer = "container:FluxAnimations.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
