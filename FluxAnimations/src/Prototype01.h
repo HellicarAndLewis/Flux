@@ -60,7 +60,12 @@ protected:
     
     //  SHOES
     //
-    ofxAssimpModelLoader shoesModel;
-    ofVboMesh            shoesMesh;
-    UIShader             shoesTransition;
+    ofxAssimpModelLoader shoeModel;
+    ofVboMesh            shoeMesh;
+    UIShader             shoeTransition;
+    
+    ofPoint              shoeTranslation;
+    float                shoeAltitud;
+    ofPoint              shoeRotation;
+    float                shoeScale;
 };

@@ -12,7 +12,7 @@ void Prototype01::selfSetup(){
     ofEnableSmoothing();
 
     terrainTransition.load(getDataPath()+"shaders/terrainTrans");
-    shoesTransition.load(getDataPath()+"shaders/shoesTrans");
+    shoeTransition.load(getDataPath()+"shaders/shoesTrans");
 }
 
 void Prototype01::selfSetupGuis(){
@@ -20,7 +20,7 @@ void Prototype01::selfSetupGuis(){
     lightAdd("SPOT", OF_LIGHT_SPOT);
     
     guiAdd(terrainTransition);
-    guiAdd(shoesTransition);
+    guiAdd(shoeTransition);
 }
 
 //Some helper functions
@@ -51,7 +51,17 @@ void Prototype01::selfGuiEvent(ofxUIEventArgs &e){
 }
 
 void Prototype01::selfSetupSystemGui(){
-
+    sysGui->addLabel("Shoe_Position");
+    sysGui->add2DPad("Shoe_Translation", ofPoint(-100,100), ofPoint(-100,100), &shoeTranslation);
+    sysGui->addSlider("Shoe_Altitude", 0, 200, &shoeAltitud);
+    
+    sysGui->addLabel("Shoe_Rotation");
+    sysGui->addSlider("Shoe_X_Rot", -1., 1., &shoeRotation.x );
+    sysGui->addSlider("Shoe_Y_Rot", -1., 1., &shoeRotation.y );
+    sysGui->addSlider("Shoe_Z_Rot", -1., 1., &shoeRotation.z );
+    
+    sysGui->addSpacer();
+    sysGui->addSlider("Shoe_Scale", 0, 0.5, &shoeScale);
 }
 
 void Prototype01::guiSystemEvent(ofxUIEventArgs &e){
@@ -93,8 +103,8 @@ void Prototype01::selfBegin(){
 
     //  SHOES
     //
-    shoesModel.loadModel(getDataPath()+"shoe.dae");
-    shoesMesh = shoesModel.getMesh(0);
+    shoeModel.loadModel(getDataPath()+"shoe.dae");
+    shoeMesh = shoeModel.getMesh(0);
     
     
     //  FONTS
@@ -120,15 +130,19 @@ void Prototype01::selfDraw(){
     ofPopMatrix();
     
     ofPushMatrix();
-    shoesTransition.begin();
-    ofTranslate(0, 0, 100);
-    ofScale(.3, .3, .3);
-    ofRotate(90, 1, 0, 0);
-    ofTranslate(-shoesMesh.getCentroid());
+    shoeTransition.begin();
+    ofTranslate(shoeTranslation.x,shoeTranslation.y, shoeAltitud);
+    ofScale(shoeScale,shoeScale,shoeScale);
     
-    shoesMesh.draw();
+    //  This could be better... way! better
+    //
+    ofRotate(90, shoeRotation.x, shoeRotation.y, shoeRotation.z);
     
-    shoesTransition.end();
+    ofTranslate(-shoeMesh.getCentroid());
+    
+    shoeMesh.draw();
+    
+    shoeTransition.end();
     ofPopMatrix();
     
     materials["MATERIAL 1"]->end();

@@ -89,7 +89,8 @@ void main(void){
 		vec3 green = vec3(0.0,perlin3(vPos.xyz*(time*0.05)),0.0);
 
 		float posPct = 1.0-((pos.x+lineWidth*0.5) - transPos.x)/lineWidth;
-		color.xyz += green*sin(posPct*PI);
+		// color.xyz += green*sin(posPct*PI);
+		color.xyz += green*(pow(max(0.0, abs(sin(posPct*PI))*2.0-1.0),2.5));
 	}
 
 	gl_FragColor = color;
