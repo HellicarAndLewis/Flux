@@ -12,6 +12,8 @@
 	<dict>
 		<key>4FE3E04C-4AD4-4D4D-9499-287D69611B1E</key>
 		<string>https://github.com/HellicarAndLewis/Flux.git</string>
+		<key>FA3B5DB0-6D30-483C-882D-03EDC99827D8</key>
+		<string>https://github.com/kylemcdonald/ofxCv.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>FluxOF/FLUX.xcodeproj/project.xcworkspace</string>
@@ -19,6 +21,8 @@
 	<dict>
 		<key>4FE3E04C-4AD4-4D4D-9499-287D69611B1E</key>
 		<string>../../..</string>
+		<key>FA3B5DB0-6D30-483C-882D-03EDC99827D8</key>
+		<string>../../../../../addons/ofxCv</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/HellicarAndLewis/Flux.git</string>
@@ -35,6 +39,14 @@
 			<string>4FE3E04C-4AD4-4D4D-9499-287D69611B1E</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Flux</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>FA3B5DB0-6D30-483C-882D-03EDC99827D8</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxCv</string>
 		</dict>
 	</array>
 </dict>

@@ -1,7 +1,8 @@
 #include "RenderEngine.h"
 
-void RenderEngine::setup(ModelLoader * _modelLoader){
+void RenderEngine::setup(ModelLoader * _modelLoader, CalibrationLoader * _calibration){
     modelLoader = _modelLoader;
+    calibration = _calibration;
     
     cam.setDistance(800);
     
@@ -13,14 +14,26 @@ void RenderEngine::setup(ModelLoader * _modelLoader){
 void RenderEngine::draw(){
     ofEnableDepthTest();
     
+    
+    
     ofEnableLighting();
     pointLight.enable();
     
-    cam.begin();
-    modelLoader->shoe.draw(OF_MESH_FILL);
+    //cam.begin();
+    calibration->shoe[0].begin();
     
-    cam.end();
+    render();
+    
+    calibration->shoe[0].end();
+    
+    //cam.end();
     
     pointLight.disable();
 
+}
+
+
+void RenderEngine::render(){
+    modelLoader->shoe.getMesh(0).drawWireframe();
+    
 }

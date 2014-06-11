@@ -2,8 +2,9 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    calibrationLoader.setup();
     modelLoader.setup();
-    renderEngine.setup(&modelLoader);
+    renderEngine.setup(&modelLoader, &calibrationLoader);
     
 }
 
