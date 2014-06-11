@@ -11,11 +11,14 @@ void Prototype01::selfSetup(){
     ofEnableAlphaBlending();
     ofEnableSmoothing();
 
+    terrainTransition.load(getDataPath()+"shaders/terrainTrans");
 }
 
 void Prototype01::selfSetupGuis(){
     backgroundSet(new UIMapBackground());
     lightAdd("SPOT", OF_LIGHT_SPOT);
+    
+    guiAdd(terrainTransition);
 }
 
 //Some helper functions
@@ -94,6 +97,7 @@ void Prototype01::selfBegin(){
     //
     font.loadFont(getDataPath()+"Exo2-Light.ttf", 44);
     font.setSpaceSize(0.65);
+    
 
 }
 
@@ -108,7 +112,9 @@ void Prototype01::selfDraw(){
     ofScale(1, -1, 1);
     ofTranslate(-terrainImg.getWidth() / 2, -terrainImg.getHeight() / 2, 0);
     ofSetColor(255);
+    terrainTransition.begin();
     terrainMesh.draw();
+    terrainTransition.end();
     ofPopMatrix();
     
     ofPushMatrix();

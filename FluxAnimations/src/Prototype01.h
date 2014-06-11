@@ -56,6 +56,7 @@ protected:
     ofVec3f         getVertexFromImg(ofFloatImage& img, int x, int y);
     ofFloatImage    terrainImg;
     ofVboMesh       terrainMesh;
+    UIShader        terrainTransition;
     
     //  SHOES
     //
