@@ -52,7 +52,8 @@ protected:
 	
     UIBufferIn      audio;
     
-    
+    bool            simulatorMode;
+
     // TEXT
     //
     ofTrueTypeFont  font;
@@ -71,7 +72,7 @@ protected:
     UIShader        shoeTransition;
     PingPong        shoeTex;
     ofTexture       shoeDestTex;
-    
+
     ofPoint         shoeTranslation;
     float           shoeScale;
 };

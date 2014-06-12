@@ -1,19 +1,11 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ModelLoader.h"
-#include "CalibrationLoader.h"
-#include "RenderEngine.h"
+
+#include "Prototype01.h"
 
 class ofApp : public ofBaseApp{
-    
 public:
-    
-    CalibrationLoader calibrationLoader;
-    ModelLoader modelLoader;
-    RenderEngine renderEngine;
-    
-    
     void setup();
     void update();
     void draw();
@@ -28,4 +20,5 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     
+    UI2DProject  *project;
 };

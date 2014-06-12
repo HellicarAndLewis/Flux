@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:FluxAnimations.xcodeproj">
+      location = "self:FluxOF.xcodeproj">
    </FileRef>
 </Workspace>

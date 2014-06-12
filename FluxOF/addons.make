@@ -1,2 +1,4 @@
-ofx3DModelLoader
-ofxOsc
+ofxAssimpModelLoader
+ofxUI
+ofxUIProject
+ofxXmlSettings

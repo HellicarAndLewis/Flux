@@ -2,10 +2,11 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    calibrationLoader.setup();
-    modelLoader.setup();
-    renderEngine.setup(&modelLoader, &calibrationLoader);
-    
+    ofSetVerticalSync(true);
+	
+    project = new Prototype01();
+	project->setup();
+	project->play();
 }
 
 //--------------------------------------------------------------
@@ -15,7 +16,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    renderEngine.draw();
+
 }
 
 //--------------------------------------------------------------
