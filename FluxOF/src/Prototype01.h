@@ -11,6 +11,7 @@
 #include "UIShader.h"
 #include "UIBufferIn.h"
 
+#include "ofxCv.h"
 #include "ofxAssimpModelLoader.h"
 
 class Prototype01 : public UITime3DProject {
@@ -46,14 +47,12 @@ public:
     void selfMousePressed(ofMouseEventArgs& data);
     void selfMouseReleased(ofMouseEventArgs& data);
     
-    void startTransitionTo(string _twitterUser, ofTexture &_shoeTex, ofTexture &_terrainTex);
+    void startTransitionTo(string _twitterUser, string _twitterImgPath);
     
 protected:
 	
     UIBufferIn      audio;
     
-    bool            simulatorMode;
-
     // TEXT
     //
     ofTrueTypeFont  font;
@@ -64,7 +63,7 @@ protected:
     ofVboMesh       terrainMesh;
     UIShader        terrainTransition;
     PingPong        terrainTex;
-    ofTexture       terrainDestTex;
+    vector<ofColor> terrainPalette;
     
     //  SHOES
     //
@@ -72,4 +71,6 @@ protected:
     UIShader        shoeTransition;
     PingPong        shoeTex;
     ofTexture       shoeDestTex;
+    
+    bool            simulatorMode;
 };
