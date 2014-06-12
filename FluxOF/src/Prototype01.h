@@ -61,6 +61,7 @@ protected:
     // TERRAIN
     //
     ofVboMesh       terrainMesh;
+    ofTexture       terrainDepthMap;
     UIShader        terrainTransition;
     PingPong        terrainTex;
     vector<ofColor> terrainPalette;
