@@ -39,15 +39,17 @@ float perlin3(vec3 p) {
 	return val;
 }
 
+vec2 XRay(float _specularExpo){
+	float sExpo = _specularExpo * 64.0;
+	float fr = abs(dot( -normalize(ePos), normalize( norm ) ) );
+	float xray = pow(1. - fr, max( .51, sExpo * .1));
+	return vec2(xray, fr);
+}
+
 void main(void){
-	
 
 	vec2 uv = gl_TexCoord[0].st;
 
-	float sExpo = specularExpo * 64.0;
-	float fr = abs(dot( -normalize(ePos), normalize( norm ) ) );
-	float xray = pow(1. - fr, max( .51, sExpo * .1));
-	
 	vec3 pos = vPos.xyz*pow(10.0,scale*-4.0);
 	pos = pos.xzy;
 
@@ -57,8 +59,7 @@ void main(void){
 	vec3 transPos = pct;
 	transPos -= vec3(0.5);
 	transPos *= 2.0;
-
-
+	
 	//	Transition
 	//
 	vec4 color = vec4(A,1.0);
@@ -75,8 +76,9 @@ void main(void){
 		color.xyz = B;
 	} else if( pos.x - xRayWidth*0.5 < transPos.x ){
 		float posPct = 1.0-((pos.x+xRayWidth*0.5) - transPos.x)/xRayWidth;
+		vec2 xray = XRay(specularExpo);
 
-		vec4 xRayColor = vec4(mix(color.xyz,vec3(0.0,1.0,0.0),0.9) * xray,fr);
+		vec4 xRayColor = vec4(mix(color.xyz,vec3(0.0,1.0,0.0),0.9) * xray.x,xray.y);
 
 		color = mix(color,xRayColor,sin(posPct*PI));
 	}

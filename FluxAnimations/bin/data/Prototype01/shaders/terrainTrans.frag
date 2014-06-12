@@ -9,15 +9,19 @@ void main(void){
 	vec3 normalPos = vertex.xyz*pow(10.0,scale*-4.0);
 	vec4 color = vec4(normalPos,1.0);
 
-	if (normalPos.x < pct.x){
+	vec3 transPos = pct;
+	transPos -= vec3(0.5);
+	transPos *= 2.0;
+
+	if (normalPos.x < transPos.x){
 		color.x = 0.0;	
 	} 
 
-	if (normalPos.y < pct.y){
+	if (normalPos.y < transPos.y){
 		color.y = 0.0;	
 	} 
 
-	if (normalPos.z < pct.z){
+	if (normalPos.z < transPos.z){
 		color.z = 0.0;	
 	} 
 
