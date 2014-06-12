@@ -13,14 +13,20 @@ void Prototype01::selfSetup(){
 
     terrainTransition.load(getDataPath()+"shaders/terrainTrans");
     shoeTransition.load(getDataPath()+"shaders/shoesTrans");
+    
+    audio.setup(44100, 256);
+    audio.start();
 }
 
 void Prototype01::selfSetupGuis(){
     backgroundSet(new UIMapBackground());
     lightAdd("SPOT", OF_LIGHT_SPOT);
     
+    guiAdd(audio);
+    
     guiAdd(terrainTransition);
     guiAdd(shoeTransition);
+    
 }
 
 void Prototype01::selfGuiEvent(ofxUIEventArgs &e){
@@ -76,6 +82,9 @@ void Prototype01::selfBegin(){
 void Prototype01::startTransitionTo(string _twitterUser, ofTexture &_shoeTex, ofTexture &_terrainTex){
     shoeDestTex = _shoeTex;
     terrainDestTex = _terrainTex;
+    
+    timeline->setPercentComplete(0.0);
+    timeline->play();
 }
 
 void Prototype01::selfUpdate(){

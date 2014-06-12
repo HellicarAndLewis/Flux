@@ -9,6 +9,7 @@
 
 #include "UITime3DProject.h"
 #include "UIShader.h"
+#include "UIBufferIn.h"
 
 #include "ofxAssimpModelLoader.h"
 
@@ -49,6 +50,9 @@ public:
     
 protected:
 	
+    UIBufferIn      audio;
+    
+    
     // TEXT
     //
     ofTrueTypeFont  font;
