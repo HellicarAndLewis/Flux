@@ -7,6 +7,8 @@ void ofApp::setup(){
     project = new Prototype01();
 	project->setup();
 	project->play();
+    
+    ((Prototype01*)project)->startTransitionTo("@addidas", "images/00.jpg");
 }
 
 //--------------------------------------------------------------
