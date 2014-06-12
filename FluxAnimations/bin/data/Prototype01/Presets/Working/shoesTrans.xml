@@ -3,7 +3,7 @@
     <Name>shoesTrans</Name>
     <IsMinified>1</IsMinified>
     <XPosition>1.000000000</XPosition>
-    <YPosition>426.000000000</YPosition>
+    <YPosition>451.000000000</YPosition>
 </Canvas>
 <Widget>
     <Kind>2</Kind>
@@ -13,7 +13,7 @@
 <Widget>
     <Kind>25</Kind>
     <Name>x</Name>
-    <Value>0.596858621</Value>
+    <Value>0.863874316</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>

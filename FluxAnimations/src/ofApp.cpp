@@ -10,7 +10,9 @@ void ofApp::setup(){
 }
 
 //--------------------------------------------------------------
-void ofApp::update(){}
+void ofApp::update(){
+
+}
 
 //--------------------------------------------------------------
 void ofApp::draw(){
@@ -19,13 +21,7 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    if(key == OF_KEY_F1){
-        project->stop();
-        delete project;
-        project = new Prototype01();
-        project->setup();
-        project->play();
-    }
+
 }
 
 //--------------------------------------------------------------

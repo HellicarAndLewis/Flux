@@ -19,6 +19,9 @@
 		26874b150c8535aea0f24c8cd56cf117 /* ofxUIImageSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2689c5c8a97002c218125f2fe1675282 /* ofxUIImageSlider.cpp */; };
 		2d1b256a63780bb017becd1a57da62a3 /* Recorder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 644e48902b62fe6144a2bf9fb149e169 /* Recorder.cpp */; };
 		341db29ff1d926957e046f48a7a4cf25 /* SystemTextbox.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5cf537034ea91bb69884bf12f5c3159b /* SystemTextbox.mm */; };
+		3D752743194A0140008D4DF8 /* fft.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D75273D194A0140008D4DF8 /* fft.cpp */; };
+		3D752744194A0140008D4DF8 /* fftOctaveAnalyzer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D75273F194A0140008D4DF8 /* fftOctaveAnalyzer.cpp */; };
+		3D752745194A0140008D4DF8 /* UIBufferIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D752741194A0140008D4DF8 /* UIBufferIn.cpp */; };
 		3DD7526519489A1D00D5E9F5 /* CalibrationLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD7525F19489A1D00D5E9F5 /* CalibrationLoader.cpp */; };
 		3DD7526619489A1D00D5E9F5 /* ModelLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD7526119489A1D00D5E9F5 /* ModelLoader.cpp */; };
 		3DD7526719489A1D00D5E9F5 /* RenderEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD7526319489A1D00D5E9F5 /* RenderEngine.cpp */; };
@@ -254,6 +257,12 @@
 		3687eebddd09f92c8ea74c3019caeb0f /* Recorder.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Recorder.h; path = ../../../addons/ofxUIProject/src/log/Recorder.h; sourceTree = SOURCE_ROOT; };
 		37420e1e4019bbc4b25492ee29ca6960 /* UILog.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = UILog.cpp; path = ../../../addons/ofxUIProject/src/log/UILog.cpp; sourceTree = SOURCE_ROOT; };
 		38ebd5650a3bf5a499b07525be5fdbc6 /* ofxUISuperCanvas.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxUISuperCanvas.cpp; path = ../../../addons/ofxUI/src/ofxUISuperCanvas.cpp; sourceTree = SOURCE_ROOT; };
+		3D75273D194A0140008D4DF8 /* fft.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fft.cpp; sourceTree = "<group>"; };
+		3D75273E194A0140008D4DF8 /* fft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fft.h; sourceTree = "<group>"; };
+		3D75273F194A0140008D4DF8 /* fftOctaveAnalyzer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fftOctaveAnalyzer.cpp; sourceTree = "<group>"; };
+		3D752740194A0140008D4DF8 /* fftOctaveAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fftOctaveAnalyzer.h; sourceTree = "<group>"; };
+		3D752741194A0140008D4DF8 /* UIBufferIn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIBufferIn.cpp; sourceTree = "<group>"; };
+		3D752742194A0140008D4DF8 /* UIBufferIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBufferIn.h; sourceTree = "<group>"; };
 		3DD7525F19489A1D00D5E9F5 /* CalibrationLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CalibrationLoader.cpp; sourceTree = "<group>"; };
 		3DD7526019489A1D00D5E9F5 /* CalibrationLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalibrationLoader.h; sourceTree = "<group>"; };
 		3DD7526119489A1D00D5E9F5 /* ModelLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelLoader.cpp; sourceTree = "<group>"; };
@@ -665,6 +674,27 @@
 				c721a9af1157766afe54645eb70f1a7b /* libs */,
 			);
 			name = ofxAssimpModelLoader;
+			sourceTree = "<group>";
+		};
+		3D75273B194A0140008D4DF8 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				3D75273C194A0140008D4DF8 /* fft */,
+				3D752741194A0140008D4DF8 /* UIBufferIn.cpp */,
+				3D752742194A0140008D4DF8 /* UIBufferIn.h */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		3D75273C194A0140008D4DF8 /* fft */ = {
+			isa = PBXGroup;
+			children = (
+				3D75273D194A0140008D4DF8 /* fft.cpp */,
+				3D75273E194A0140008D4DF8 /* fft.h */,
+				3D75273F194A0140008D4DF8 /* fftOctaveAnalyzer.cpp */,
+				3D752740194A0140008D4DF8 /* fftOctaveAnalyzer.h */,
+			);
+			path = fft;
 			sourceTree = "<group>";
 		};
 		3DD7525E19489A1D00D5E9F5 /* Loaders */ = {
@@ -1379,6 +1409,7 @@
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
 				87d382f79966184cf62383a1c2f1ce06 /* Prototype01.h */,
 				31b4509dc7322cd2c19880fb2df8285b /* Prototype01.cpp */,
+				3D75273B194A0140008D4DF8 /* Audio */,
 				3DD7525E19489A1D00D5E9F5 /* Loaders */,
 			);
 			path = src;
@@ -1757,6 +1788,7 @@
 				60012c723b05938a3d38833536981664 /* ofxUIValuePlotter.cpp in Sources */,
 				ae281bebf3a00f1fc37f3da0ac10fa4d /* ofxUIWaveform.cpp in Sources */,
 				82845e1f8c90e1f5a99d98683a1ff0c2 /* ofxUIWidget.cpp in Sources */,
+				3D752743194A0140008D4DF8 /* fft.cpp in Sources */,
 				ce5d89b9893eaa12f511dcac13d6f351 /* ofxUIWidgetWithLabel.cpp in Sources */,
 				3DD7530A1948AB3F00D5E9F5 /* ofxRemoveCocoaMenu.mm in Sources */,
 				3DD753501948AB3F00D5E9F5 /* ofxEasingLinear.cpp in Sources */,
@@ -1776,6 +1808,7 @@
 				3DD7531B1948AB3F00D5E9F5 /* ofxTLPage.cpp in Sources */,
 				3DD753081948AB3F00D5E9F5 /* ofxHotKeys_impl_mac.mm in Sources */,
 				9b2fe03b655fcb996b50527d33bc1825 /* UIClass.cpp in Sources */,
+				3D752745194A0140008D4DF8 /* UIBufferIn.cpp in Sources */,
 				3DD7530D1948AB3F00D5E9F5 /* ofxTLBangs.cpp in Sources */,
 				3DD7529119489ADB00D5E9F5 /* fdog.cpp in Sources */,
 				9316dd9c0e2c814e402b0d2b68c24927 /* UIFog.cpp in Sources */,
@@ -1801,6 +1834,7 @@
 				3DD753531948AB3F00D5E9F5 /* ofxEasingQuint.cpp in Sources */,
 				edaac915856fa53c6e992677ede51729 /* HotKeys_impl_mac.mm in Sources */,
 				3DD7534E1948AB3F00D5E9F5 /* ofxEasingElastic.cpp in Sources */,
+				3D752744194A0140008D4DF8 /* fftOctaveAnalyzer.cpp in Sources */,
 				ee2a94f476344c37c2e03fb87ac9b561 /* HotKeys_impl_win.cpp in Sources */,
 				341db29ff1d926957e046f48a7a4cf25 /* SystemTextbox.mm in Sources */,
 				3DD753141948AB3F00D5E9F5 /* ofxTLFlags.cpp in Sources */,
