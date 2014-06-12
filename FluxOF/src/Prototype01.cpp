@@ -226,13 +226,12 @@ void Prototype01::selfBegin(){
     ofxAssimpModelLoader loader;
     loader.loadModel(getDataPath()+"terrain_and_shoe.dae");
     
-    shoeTex.allocate(1500, 1500);
     shoeMesh = loader.getMesh(1);
     
     //  TERRAIN
     //
     ofLoadImage(terrainDepthMap, getDataPath()+"terrainDepthMap.png");
-    terrainTex.allocate(1500, 1500);
+    terrainTex.allocate(500, 500);
     terrainMesh = loader.getMesh(0);
     
     //  FONTS
@@ -286,7 +285,7 @@ void Prototype01::startTransitionTo(string _twitterUser, string _twitterImgPath)
     
     //  Keep Texture
     //
-    shoeDestTex = img.getTextureReference();
+    shoeTexB = img.getTextureReference();
     
     //  Start Animation
     //
@@ -312,7 +311,7 @@ void Prototype01::selfUpdate(){
     
     terrainTransition.begin();
     terrainTransition.getShader().setUniformTexture("backbuffer", *terrainTex.src, 0);
-    terrainTransition.getShader().setUniformTexture("depthMap", terrainDepthMap, 1);
+//    terrainTransition.getShader().setUniformTexture("depthMap", terrainDepthMap, 1);
     terrainTransition.getShader().setUniform3f("dstColor1",
                                                ((float)terrainPalette[0].r)/255.0,
                                                ((float)terrainPalette[0].g)/255.0,
@@ -388,6 +387,13 @@ void Prototype01::selfDraw(){
 
 void Prototype01::selfDrawOverlay(){
     if(bDebug){
+        
+        ofPushMatrix();
+        ofTranslate(ofGetWidth()*0.5-terrainTex.dst->getWidth()*0.5,
+                    ofGetHeight()*0.5-terrainTex.dst->getHeight()*0.5);
+        terrainTex.dst->draw(0,0);
+        ofPopMatrix();
+        
         float paletteSize = 10;
         float margin = 15;
         

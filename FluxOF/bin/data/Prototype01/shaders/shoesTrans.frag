@@ -1,11 +1,11 @@
 uniform vec3 pct;
 uniform float lineWidth;
 
+uniform vec3 tranColor;
+uniform float tranNoiseZoom;
 uniform float tranWidth;
-uniform float xRayWidth;
 
 uniform float scale;
-uniform float specularExpo;
 
 uniform float time;
 
@@ -51,48 +51,33 @@ void main(void){
 	vec2 uv = gl_TexCoord[0].st;
 
 	vec3 pos = vPos.xyz*pow(10.0,scale*-4.0);
-	pos = pos.xzy;
 
-	vec3 A = vec3(1.0,pos.z*2.0,0.0);
-	vec3 B = vec3(0.0,pos.z*2.0,1.0);
+	vec3 A = vec3(1.0,pos.y*2.0,0.0);
+	vec3 B = vec3(0.0,pos.y*2.0,1.0);
 
 	vec3 transPos = pct;
 	transPos -= vec3(0.5);
 	transPos *= 2.0;
 	
-	//	Transition
+	float threshold = transPos.z;
+	vec3 green = tranColor * vec3(perlin3(vPos.xyz*vec3(sin(time*0.01),abs(cos(time*0.015)),cos(time*0.017))*(tranNoiseZoom*100.0)) );
+
+	//	RADAR TRAIL
 	//
 	vec4 color = vec4(A,1.0);
-	if (pos.x + tranWidth*0.5 < transPos.x){
+	if (pos.y + tranWidth*0.5 < threshold){
 		color.xyz = B;
-	} else if( pos.x - tranWidth*0.5 < transPos.x ){
-		float posPct = 1.0-((pos.x+tranWidth*0.5) - transPos.x)/tranWidth;
-		color.xyz = mix(A,B,posPct);
-	}
-
-	//	XRAY
-	//
-	if (pos.x + xRayWidth*0.5 < transPos.x){
-		color.xyz = B;
-	} else if( pos.x - xRayWidth*0.5 < transPos.x ){
-		float posPct = 1.0-((pos.x+xRayWidth*0.5) - transPos.x)/xRayWidth;
-		vec2 xray = XRay(specularExpo);
-
-		vec4 xRayColor = vec4(mix(color.xyz,vec3(0.0,1.0,0.0),0.9) * xray.x,xray.y);
-
-		color = mix(color,xRayColor,sin(posPct*PI));
+	} else if( pos.y < threshold ){
+		float posPct = ((pos.y+tranWidth*0.5) - threshold)/tranWidth;
+		color.xyz = mix(B,green,posPct);
 	}
 
 	//	RADAR LINE
 	//
-	if (pos.x + lineWidth*0.5 < transPos.x){
-		// color.xyz = B;
-	} else if( pos.x - lineWidth*0.5 < transPos.x ){
-		vec3 green = vec3(0.0,perlin3(vPos.xyz*(time*0.05)),0.0);
-
-		float posPct = 1.0-((pos.x+lineWidth*0.5) - transPos.x)/lineWidth;
+	if( pos.y - lineWidth*0.5 < threshold && !(pos.y + lineWidth*0.5 < threshold) ){
+		float posPct = 1.0-((pos.y+lineWidth*0.5) - threshold)/lineWidth;
 		// color.xyz += green*sin(posPct*PI);
-		color.xyz += green*(pow(max(0.0, abs(sin(posPct*PI))*2.0-1.0),2.5));
+		color.xyz = mix(color.xyz,green*2.0,pow(max(0.0, abs(sin(posPct*PI))*2.0-1.0),2.5));
 	}
 
 	gl_FragColor = color;
