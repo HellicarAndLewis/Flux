@@ -23,8 +23,6 @@
 		3D752744194A0140008D4DF8 /* fftOctaveAnalyzer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D75273F194A0140008D4DF8 /* fftOctaveAnalyzer.cpp */; };
 		3D752745194A0140008D4DF8 /* UIBufferIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D752741194A0140008D4DF8 /* UIBufferIn.cpp */; };
 		3DD7526519489A1D00D5E9F5 /* CalibrationLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD7525F19489A1D00D5E9F5 /* CalibrationLoader.cpp */; };
-		3DD7526619489A1D00D5E9F5 /* ModelLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD7526119489A1D00D5E9F5 /* ModelLoader.cpp */; };
-		3DD7526719489A1D00D5E9F5 /* RenderEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD7526319489A1D00D5E9F5 /* RenderEngine.cpp */; };
 		3DD7529019489ADB00D5E9F5 /* ETF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD7527519489ADB00D5E9F5 /* ETF.cpp */; };
 		3DD7529119489ADB00D5E9F5 /* fdog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD7527619489ADB00D5E9F5 /* fdog.cpp */; };
 		3DD7529219489ADB00D5E9F5 /* Calibration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD7528519489ADB00D5E9F5 /* Calibration.cpp */; };
@@ -266,10 +264,6 @@
 		3D752742194A0140008D4DF8 /* UIBufferIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBufferIn.h; sourceTree = "<group>"; };
 		3DD7525F19489A1D00D5E9F5 /* CalibrationLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CalibrationLoader.cpp; sourceTree = "<group>"; };
 		3DD7526019489A1D00D5E9F5 /* CalibrationLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalibrationLoader.h; sourceTree = "<group>"; };
-		3DD7526119489A1D00D5E9F5 /* ModelLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelLoader.cpp; sourceTree = "<group>"; };
-		3DD7526219489A1D00D5E9F5 /* ModelLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelLoader.h; sourceTree = "<group>"; };
-		3DD7526319489A1D00D5E9F5 /* RenderEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RenderEngine.cpp; sourceTree = "<group>"; };
-		3DD7526419489A1D00D5E9F5 /* RenderEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderEngine.h; sourceTree = "<group>"; };
 		3DD7526A19489ADB00D5E9F5 /* ofxCv.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxCv.h; sourceTree = "<group>"; };
 		3DD7526C19489ADB00D5E9F5 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		3DD7527019489ADB00D5E9F5 /* ETF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETF.h; sourceTree = "<group>"; };
@@ -703,10 +697,6 @@
 			children = (
 				3DD7525F19489A1D00D5E9F5 /* CalibrationLoader.cpp */,
 				3DD7526019489A1D00D5E9F5 /* CalibrationLoader.h */,
-				3DD7526119489A1D00D5E9F5 /* ModelLoader.cpp */,
-				3DD7526219489A1D00D5E9F5 /* ModelLoader.h */,
-				3DD7526319489A1D00D5E9F5 /* RenderEngine.cpp */,
-				3DD7526419489A1D00D5E9F5 /* RenderEngine.h */,
 			);
 			path = Loaders;
 			sourceTree = "<group>";
@@ -1715,9 +1705,7 @@
 				3DD7535D1948AB3F00D5E9F5 /* ofxMSATimer.cpp in Sources */,
 				3DD7529519489ADB00D5E9F5 /* Flow.cpp in Sources */,
 				3DD7529419489ADB00D5E9F5 /* Distance.cpp in Sources */,
-				3DD7526619489A1D00D5E9F5 /* ModelLoader.cpp in Sources */,
 				4b3ed367ca852d522e2ee996fd98484a /* ofxUI2DPad.cpp in Sources */,
-				3DD7526719489A1D00D5E9F5 /* RenderEngine.cpp in Sources */,
 				f1e8de8734ba6f69a5112fa8842e54b0 /* ofxUIBaseDraws.cpp in Sources */,
 				c381f2b7cfd84c0e540eb4bc733a62e4 /* ofxUIBiLabelSlider.cpp in Sources */,
 				3DD7531D1948AB3F00D5E9F5 /* ofxTLSwitches.cpp in Sources */,
