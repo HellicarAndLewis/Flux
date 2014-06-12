@@ -72,7 +72,4 @@ protected:
     UIShader        shoeTransition;
     PingPong        shoeTex;
     ofTexture       shoeDestTex;
-
-    ofPoint         shoeTranslation;
-    float           shoeScale;
 };

@@ -34,16 +34,7 @@ void Prototype01::selfGuiEvent(ofxUIEventArgs &e){
 }
 
 void Prototype01::selfSetupSystemGui(){
-    sysGui->addSpacer();
-    sysGui->addLabel("Render mode");
-    sysGui->addToggle("Simulator", &simulatorMode);
-    
-    sysGui->addLabel("Shoe_Position");
-    sysGui->add2DPad("Shoe_Translation", ofPoint(-10,10), ofPoint(-10,10), &shoeTranslation);
-    sysGui->addSlider("Shoe_Altitude", -10, 10, &shoeTranslation.z);
-    
-    sysGui->addSpacer();
-    sysGui->addSlider("Shoe_Scale", 0, 1.0, &shoeScale);
+
 }
 
 void Prototype01::guiSystemEvent(ofxUIEventArgs &e){
@@ -52,7 +43,8 @@ void Prototype01::guiSystemEvent(ofxUIEventArgs &e){
 }
 
 void Prototype01::selfSetupRenderGui(){
-    
+    rdrGui->addLabel("Render mode");
+    rdrGui->addToggle("Simulator", &simulatorMode);
 }
 
 void Prototype01::guiRenderEvent(ofxUIEventArgs &e){
@@ -130,23 +122,24 @@ void Prototype01::selfDraw(){
     //
 
     //  Load Terrain Calib
-    
+    ofPushMatrix();
+    ofSetSmoothLighting(false);
     terrainTransition.begin();
     terrainMesh.draw();
     terrainTransition.end();
+    ofPopMatrix();
 
     //  SHOE
     //
-    
-    ofScale(shoeScale, shoeScale,shoeScale);
-    ofTranslate(shoeTranslation);
-    
+
+    ofPushMatrix();
+    ofSetSmoothLighting(true);
     //  Load Shoe Calib
     
     shoeTransition.begin();
     shoeMesh.draw();
     shoeTransition.end();
-    
+    ofPopMatrix();
     
     ofPopMatrix();
     
