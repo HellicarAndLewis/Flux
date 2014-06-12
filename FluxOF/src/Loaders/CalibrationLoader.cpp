@@ -3,7 +3,9 @@
 //--------------------------
 
 void CalibrationLoader::setup(){
-    shoe[0].load("shoe_calib_1");
+    shoe[0].load("calibration/shoe_calib_1");
+    shoe[1].load("calibration/shoe_calib_2");
+
 }
 
 

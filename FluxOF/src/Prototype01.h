@@ -10,6 +10,7 @@
 #include "UITime3DProject.h"
 #include "UIShader.h"
 #include "UIBufferIn.h"
+#include "CalibrationLoader.h"
 
 #include "ofxCv.h"
 #include "ofxAssimpModelLoader.h"
@@ -57,6 +58,10 @@ protected:
     //
     ofTrueTypeFont  font;
     string          text;
+    
+    //Calibration
+    //
+    CalibrationLoader calibration;
 
     // TERRAIN
     //

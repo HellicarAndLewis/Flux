@@ -16,6 +16,8 @@ void Prototype01::selfSetup(){
     
     audio.setup(44100, 256);
     audio.start();
+    
+    calibration.setup();
 }
 
 void Prototype01::selfSetupGuis(){
@@ -319,11 +321,15 @@ void Prototype01::selfUpdate(){
 
 void Prototype01::selfDraw(){
     materials["MATERIAL 1"]->begin();
-    
+
     ofPushMatrix();
-    if(currentViewPort == 1){
-        ofTranslate(-100, 0,0);
+    
+    if(!simulatorMode){
+        calibration.shoe[currentViewPort].begin();
     }
+//    if(currentViewPort == 1){
+//        ofTranslate(-100, 0,0);
+//    }
 
     ofSetColor(255);
     
@@ -351,6 +357,10 @@ void Prototype01::selfDraw(){
     ofPopMatrix();
     
     ofPopMatrix();
+  
+    if(!simulatorMode){
+        calibration.shoe[currentViewPort].end();
+    }
     
     materials["MATERIAL 1"]->end();
 }
