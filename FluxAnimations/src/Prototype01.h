@@ -45,27 +45,29 @@ public:
     void selfMousePressed(ofMouseEventArgs& data);
     void selfMouseReleased(ofMouseEventArgs& data);
     
+    void startTransitionTo(string _twitterUser, ofTexture &_shoeTex, ofTexture &_terrainTex);
+    
 protected:
 	
+    // TEXT
+    //
     ofTrueTypeFont  font;
+    string          text;
 
     // TERRAIN
     //
-    void addFace(ofMesh& mesh, ofVec3f a, ofVec3f b, ofVec3f c);
-    void addFace(ofMesh& mesh, ofVec3f a, ofVec3f b, ofVec3f c, ofVec3f d);
-    ofVec3f         getVertexFromImg(ofFloatImage& img, int x, int y);
-    ofFloatImage    terrainImg;
     ofVboMesh       terrainMesh;
     UIShader        terrainTransition;
+    PingPong        terrainTex;
+    ofTexture       terrainDestTex;
     
     //  SHOES
     //
-    ofxAssimpModelLoader shoeModel;
-    ofVboMesh            shoeMesh;
-    UIShader             shoeTransition;
+    ofVboMesh       shoeMesh;
+    UIShader        shoeTransition;
+    PingPong        shoeTex;
+    ofTexture       shoeDestTex;
     
-    ofPoint              shoeTranslation;
-    float                shoeAltitud;
-    ofPoint              shoeRotation;
-    float                shoeScale;
+    ofPoint         shoeTranslation;
+    float           shoeScale;
 };

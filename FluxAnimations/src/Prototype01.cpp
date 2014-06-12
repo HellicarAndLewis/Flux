@@ -23,45 +23,17 @@ void Prototype01::selfSetupGuis(){
     guiAdd(shoeTransition);
 }
 
-//Some helper functions
-//--------------------------------------------------------------
-void Prototype01::addFace(ofMesh& mesh, ofVec3f a, ofVec3f b, ofVec3f c) {
-	ofVec3f normal = ((b - a).cross(c - a)).normalize();
-	mesh.addNormal(normal);
-	mesh.addVertex(a);
-	mesh.addNormal(normal);
-	mesh.addVertex(b);
-	mesh.addNormal(normal);
-	mesh.addVertex(c);
-}
-
-//--------------------------------------------------------------
-void Prototype01::addFace(ofMesh& mesh, ofVec3f a, ofVec3f b, ofVec3f c, ofVec3f d) {
-	addFace(mesh, a, b, c);
-	addFace(mesh, a, c, d);
-}
-
-//--------------------------------------------------------------
-ofVec3f Prototype01::getVertexFromImg(ofFloatImage& img, int x, int y) {
-	return ofVec3f(x, y, 100 * img.getColor(x, y).getBrightness());
-}
-
 void Prototype01::selfGuiEvent(ofxUIEventArgs &e){
     
 }
 
 void Prototype01::selfSetupSystemGui(){
     sysGui->addLabel("Shoe_Position");
-    sysGui->add2DPad("Shoe_Translation", ofPoint(-100,100), ofPoint(-100,100), &shoeTranslation);
-    sysGui->addSlider("Shoe_Altitude", 0, 200, &shoeAltitud);
-    
-    sysGui->addLabel("Shoe_Rotation");
-    sysGui->addSlider("Shoe_X_Rot", -1., 1., &shoeRotation.x );
-    sysGui->addSlider("Shoe_Y_Rot", -1., 1., &shoeRotation.y );
-    sysGui->addSlider("Shoe_Z_Rot", -1., 1., &shoeRotation.z );
+    sysGui->add2DPad("Shoe_Translation", ofPoint(-10,10), ofPoint(-10,10), &shoeTranslation);
+    sysGui->addSlider("Shoe_Altitude", -10, 10, &shoeTranslation.z);
     
     sysGui->addSpacer();
-    sysGui->addSlider("Shoe_Scale", 0, 0.5, &shoeScale);
+    sysGui->addSlider("Shoe_Scale", 0, 1.0, &shoeScale);
 }
 
 void Prototype01::guiSystemEvent(ofxUIEventArgs &e){
@@ -82,30 +54,18 @@ void Prototype01::guiRenderEvent(ofxUIEventArgs &e){
 
 void Prototype01::selfBegin(){
     
-    //  TERRAIN
-    //
-    terrainImg.loadImage(getDataPath()+"nyc-small.exr");
-    
-    terrainMesh.setMode(OF_PRIMITIVE_TRIANGLES);
-	int skip = 1;
-	int width = terrainImg.getWidth();
-	int height = terrainImg.getHeight();
-	for(int y = 0; y < height - skip; y += skip) {
-		for(int x = 0; x < width - skip; x += skip) {
-			ofVec3f nw = getVertexFromImg(terrainImg, x, y);
-			ofVec3f ne = getVertexFromImg(terrainImg, x + skip, y);
-			ofVec3f sw = getVertexFromImg(terrainImg, x, y + skip);
-			ofVec3f se = getVertexFromImg(terrainImg, x + skip, y + skip);
-			
-			addFace(terrainMesh, nw, ne, se, sw);
-		}
-	}
-
     //  SHOES
     //
-    shoeModel.loadModel(getDataPath()+"shoe.dae");
-    shoeMesh = shoeModel.getMesh(0);
+    ofxAssimpModelLoader loader;
+    loader.loadModel(getDataPath()+"terrain_and_shoe.dae");
     
+    shoeTex.allocate(1500, 1500);
+    shoeMesh = loader.getMesh(1);
+    
+    //  TERRAIN
+    //
+    terrainTex.allocate(1500, 1500);
+    terrainMesh = loader.getMesh(0);
     
     //  FONTS
     //
@@ -113,36 +73,56 @@ void Prototype01::selfBegin(){
     font.setSpaceSize(0.65);
 }
 
+void Prototype01::startTransitionTo(string _twitterUser, ofTexture &_shoeTex, ofTexture &_terrainTex){
+    shoeDestTex = _shoeTex;
+    terrainDestTex = _terrainTex;
+}
+
 void Prototype01::selfUpdate(){
 
+    //  TERRAIN TEXTURE
+    //
+    terrainTex.dst->begin();
+    
+    // - TWIITER TEXT
+    
+    terrainTex.dst->end();
+    
+    //  SHOE TEXTURE
+    //
+    shoeTex.dst->begin();
+    
+    shoeTex.dst->end();
 }
 
 void Prototype01::selfDraw(){
     materials["MATERIAL 1"]->begin();
     
     ofPushMatrix();
-    ofScale(1, -1, 1);
-    ofTranslate(-terrainImg.getWidth() / 2, -terrainImg.getHeight() / 2, 0);
     ofSetColor(255);
+    
+    //  TERRAIN
+    //
+
+    //  Load Terrain Calib
+    
     terrainTransition.begin();
     terrainMesh.draw();
     terrainTransition.end();
-    ofPopMatrix();
-    
-    ofPushMatrix();
-    shoeTransition.begin();
-    ofTranslate(shoeTranslation.x,shoeTranslation.y, shoeAltitud);
-    ofScale(shoeScale,shoeScale,shoeScale);
-    
-    //  This could be better... way! better
+
+    //  SHOE
     //
-    ofRotate(90, shoeRotation.x, shoeRotation.y, shoeRotation.z);
     
-    ofTranslate(-shoeMesh.getCentroid());
+    ofScale(shoeScale, shoeScale,shoeScale);
+    ofTranslate(shoeTranslation);
     
+    //  Load Shoe Calib
+    
+    shoeTransition.begin();
     shoeMesh.draw();
-    
     shoeTransition.end();
+    
+    
     ofPopMatrix();
     
     materials["MATERIAL 1"]->end();

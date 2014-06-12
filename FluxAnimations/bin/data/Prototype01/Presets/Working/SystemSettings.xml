@@ -13,31 +13,16 @@
 <Widget>
     <Kind>11</Kind>
     <Name>Shoe_Translation</Name>
-    <XValue>-14.285713196</XValue>
-    <YValue>20.197046280</YValue>
+    <XValue>0.049260855</XValue>
+    <YValue>0.049260855</YValue>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>Shoe_Altitude</Name>
-    <Value>158.620697021</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>Shoe_X_Rot</Name>
-    <Value>0.004926085</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>Shoe_Y_Rot</Name>
-    <Value>-1.000000000</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>Shoe_Z_Rot</Name>
-    <Value>-1.000000000</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>Shoe_Scale</Name>
-    <Value>0.401477844</Value>
+    <Value>1.000000000</Value>
 </Widget>
