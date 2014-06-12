@@ -68,4 +68,6 @@ protected:
     float                shoeAltitud;
     ofPoint              shoeRotation;
     float                shoeScale;
+    
+    bool                 simulatorMode;
 };

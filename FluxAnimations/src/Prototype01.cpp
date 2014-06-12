@@ -51,6 +51,10 @@ void Prototype01::selfGuiEvent(ofxUIEventArgs &e){
 }
 
 void Prototype01::selfSetupSystemGui(){
+    sysGui->addSpacer();
+    sysGui->addLabel("Render mode");
+    sysGui->addToggle("Simulator", &simulatorMode);
+    
     sysGui->addLabel("Shoe_Position");
     sysGui->add2DPad("Shoe_Translation", ofPoint(-100,100), ofPoint(-100,100), &shoeTranslation);
     sysGui->addSlider("Shoe_Altitude", 0, 200, &shoeAltitud);
@@ -114,13 +118,24 @@ void Prototype01::selfBegin(){
 }
 
 void Prototype01::selfUpdate(){
-
+    if(simulatorMode){
+        setupNumViewports(1);
+        cameraEnable(true);
+    } else {
+        setupNumViewports(2);
+        cameraEnable(false);
+    }
 }
 
 void Prototype01::selfDraw(){
     materials["MATERIAL 1"]->begin();
     
+    
     ofPushMatrix();
+    if(currentViewPort == 1){
+        ofTranslate(-100, 0,0);
+    }
+
     ofScale(1, -1, 1);
     ofTranslate(-terrainImg.getWidth() / 2, -terrainImg.getHeight() / 2, 0);
     ofSetColor(255);
