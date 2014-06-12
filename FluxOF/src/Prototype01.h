@@ -66,6 +66,7 @@ protected:
     // TERRAIN
     //
     ofVboMesh       terrainMesh;
+    ofTexture       terrainDepthMap;
     UIShader        terrainTransition;
     PingPong        terrainTex;
     vector<ofColor> terrainPalette;
@@ -74,8 +75,8 @@ protected:
     //
     ofVboMesh       shoeMesh;
     UIShader        shoeTransition;
-    PingPong        shoeTex;
-    ofTexture       shoeDestTex;
+    ofTexture       shoeTexA;
+    ofTexture       shoeTexB;
     
     bool            simulatorMode;
 };

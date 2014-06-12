@@ -11,7 +11,7 @@ void Prototype01::selfSetup(){
     ofEnableAlphaBlending();
     ofEnableSmoothing();
 
-    terrainTransition.load(getDataPath()+"shaders/terrainTrans");
+    terrainTransition.loadFrag(getDataPath()+"shaders/terrainTrans.frag");
     shoeTransition.load(getDataPath()+"shaders/shoesTrans");
     
     audio.setup(44100, 256);
@@ -228,12 +228,12 @@ void Prototype01::selfBegin(){
     ofxAssimpModelLoader loader;
     loader.loadModel(getDataPath()+"terrain_and_shoe.dae");
     
-    shoeTex.allocate(1500, 1500);
     shoeMesh = loader.getMesh(1);
     
     //  TERRAIN
     //
-    terrainTex.allocate(1500, 1500);
+    ofLoadImage(terrainDepthMap, getDataPath()+"terrainDepthMap.png");
+    terrainTex.allocate(500, 500);
     terrainMesh = loader.getMesh(0);
     
     //  FONTS
@@ -287,7 +287,7 @@ void Prototype01::startTransitionTo(string _twitterUser, string _twitterImgPath)
     
     //  Keep Texture
     //
-    shoeDestTex = img.getTextureReference();
+    shoeTexB = img.getTextureReference();
     
     //  Start Animation
     //
@@ -306,17 +306,45 @@ void Prototype01::selfUpdate(){
 
     //  TERRAIN TEXTURE
     //
+    terrainTex.swap();
+    int width = terrainTex.getWidth();
+    int height = terrainTex.getHeight();
     terrainTex.dst->begin();
+    
+    terrainTransition.begin();
+    terrainTransition.getShader().setUniformTexture("backbuffer", *terrainTex.src, 0);
+//    terrainTransition.getShader().setUniformTexture("depthMap", terrainDepthMap, 1);
+    terrainTransition.getShader().setUniform3f("dstColor1",
+                                               ((float)terrainPalette[0].r)/255.0,
+                                               ((float)terrainPalette[0].g)/255.0,
+                                               ((float)terrainPalette[0].b)/255.0);
+    terrainTransition.getShader().setUniform3f("dstColor2",
+                                               ((float)terrainPalette[1].r)/255.0,
+                                               ((float)terrainPalette[1].g)/255.0,
+                                               ((float)terrainPalette[1].b)/255.0);
+    terrainTransition.getShader().setUniform3f("dstColor3",
+                                               ((float)terrainPalette[2].r)/255.0,
+                                               ((float)terrainPalette[2].g)/255.0,
+                                               ((float)terrainPalette[2].b)/255.0);
+    terrainTransition.getShader().setUniform3f("dstColor4",
+                                               ((float)terrainPalette[3].r)/255.0,
+                                               ((float)terrainPalette[3].g)/255.0,
+                                               ((float)terrainPalette[3].b)/255.0);
+    terrainTransition.getShader().setUniform3f("dstColor5",
+                                               ((float)terrainPalette[4].r)/255.0,
+                                               ((float)terrainPalette[4].g)/255.0,
+                                               ((float)terrainPalette[4].b)/255.0);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
+    glTexCoord2f(width, 0); glVertex3f(width, 0, 0);
+    glTexCoord2f(width, height); glVertex3f(width, height, 0);
+    glTexCoord2f(0,height);  glVertex3f(0,height, 0);
+    glEnd();
+    terrainTransition.end();
     
     // - TWIITER TEXT
     
     terrainTex.dst->end();
-    
-    //  SHOE TEXTURE
-    //
-    shoeTex.dst->begin();
-    
-    shoeTex.dst->end();
 }
 
 void Prototype01::selfDraw(){
@@ -339,9 +367,11 @@ void Prototype01::selfDraw(){
     //  Load Terrain Calib
     ofPushMatrix();
     ofSetSmoothLighting(false);
-    terrainTransition.begin();
+    
+    terrainTex.dst->bind();
     terrainMesh.draw();
-    terrainTransition.end();
+    terrainTex.dst->unbind();
+    
     ofPopMatrix();
 
     //  SHOE
@@ -367,6 +397,13 @@ void Prototype01::selfDraw(){
 
 void Prototype01::selfDrawOverlay(){
     if(bDebug){
+        
+        ofPushMatrix();
+        ofTranslate(ofGetWidth()*0.5-terrainTex.dst->getWidth()*0.5,
+                    ofGetHeight()*0.5-terrainTex.dst->getHeight()*0.5);
+        terrainTex.dst->draw(0,0);
+        ofPopMatrix();
+        
         float paletteSize = 10;
         float margin = 15;
         
