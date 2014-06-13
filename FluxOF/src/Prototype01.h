@@ -8,12 +8,22 @@
 #pragma once
 
 #include "UITime3DProject.h"
-#include "UIShader.h"
-#include "UIBufferIn.h"
-#include "CalibrationLoader.h"
 
+//  GEOM
+//
 #include "ofxCv.h"
+#include "CalibrationLoader.h"
 #include "ofxAssimpModelLoader.h"
+
+//  FX
+//
+#include "UIShader.h"
+//#include "ofxNoise.h"
+#include "ofxDisplacePixels.h"
+
+//  IN
+//
+#include "UIBufferIn.h"
 
 class Prototype01 : public UITime3DProject {
 public:
@@ -67,16 +77,20 @@ protected:
     //
     ofVboMesh       terrainMesh;
     ofTexture       terrainDepthMap;
+    
     UIShader        terrainTransition;
     PingPong        terrainTex;
-    vector<ofColor> terrainPalette;
+    
+    UIShader        radarShader;
+    ofFbo           radarTexture;
+    
+    vector<ofColor> colorPalette;
     
     //  SHOES
     //
     ofVboMesh       shoeMesh;
     UIShader        shoeTransition;
-    ofTexture       shoeTexA;
-    ofTexture       shoeTexB;
+    ofTexture       shoeTexA,shoeTexB;
     
     bool            simulatorMode;
 };

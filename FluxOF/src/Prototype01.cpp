@@ -11,6 +11,7 @@ void Prototype01::selfSetup(){
     ofEnableAlphaBlending();
     ofEnableSmoothing();
 
+    radarShader.loadFrag(getDataPath()+"shaders/radar.frag");
     terrainTransition.loadFrag(getDataPath()+"shaders/terrainTrans.frag");
     shoeTransition.load(getDataPath()+"shaders/shoesTrans");
     
@@ -26,7 +27,9 @@ void Prototype01::selfSetupGuis(){
     
     guiAdd(audio);
     
+    guiAdd(radarShader);
     guiAdd(terrainTransition);
+    
     guiAdd(shoeTransition);
     
 }
@@ -233,7 +236,8 @@ void Prototype01::selfBegin(){
     //  TERRAIN
     //
     ofLoadImage(terrainDepthMap, getDataPath()+"terrainDepthMap.png");
-    terrainTex.allocate(500, 500);
+    terrainTex.allocate(800, 800);
+    radarTexture.allocate(terrainTex.getWidth(), terrainTex.getHeight());
     terrainMesh = loader.getMesh(0);
     
     //  FONTS
@@ -264,7 +268,7 @@ void Prototype01::startTransitionTo(string _twitterUser, string _twitterImgPath)
     unsigned char * pixels = smallImg.getPixels();
     
     // clear our list of colors
-    terrainPalette.clear();
+    colorPalette.clear();
     
     // build our matrix of samples
     cv::MatIterator_<cv::Vec3f> sampleIt = colorSamples.begin<cv::Vec3f>();
@@ -280,10 +284,10 @@ void Prototype01::startTransitionTo(string _twitterUser, string _twitterImgPath)
     
     for( int i = 0; i < colorCount; ++i ){
         ofColor clusterColor = ofColor( clusters.at<cv::Vec3f>(i,0)[0], clusters.at<cv::Vec3f>(i,0)[1], clusters.at<cv::Vec3f>(i,0)[2] );
-        terrainPalette.push_back(clusterColor);
+        colorPalette.push_back(clusterColor);
     }
     
-    sortByDistance(terrainPalette);
+    sortByDistance(colorPalette);
     
     //  Keep Texture
     //
@@ -306,35 +310,49 @@ void Prototype01::selfUpdate(){
 
     //  TERRAIN TEXTURE
     //
-    terrainTex.swap();
     int width = terrainTex.getWidth();
     int height = terrainTex.getHeight();
     
+    radarTexture.begin();
+    ofClear(0,0);
+    radarShader.begin();
+    
+    glBegin(GL_QUADS);
+    glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
+    glTexCoord2f(width, 0); glVertex3f(width, 0, 0);
+    glTexCoord2f(width, height); glVertex3f(width, height, 0);
+    glTexCoord2f(0,height);  glVertex3f(0,height, 0);
+    glEnd();
+    radarShader.end();
+    radarTexture.end();
+    
+    terrainTex.swap();
     terrainTex.dst->begin();
     terrainTransition.begin();
     ofClear(0,0);
     terrainTransition.getShader().setUniformTexture("backbuffer", *terrainTex.src, 0);
+    terrainTransition.getShader().setUniformTexture("radarTex", radarTexture, 1);
 //    terrainTransition.getShader().setUniformTexture("depthMap", terrainDepthMap, 1);
     terrainTransition.getShader().setUniform3f("dstColor1",
-                                               ((float)terrainPalette[0].r)/255.0,
-                                               ((float)terrainPalette[0].g)/255.0,
-                                               ((float)terrainPalette[0].b)/255.0);
+                                               ((float)colorPalette[0].r)/255.0,
+                                               ((float)colorPalette[0].g)/255.0,
+                                               ((float)colorPalette[0].b)/255.0);
     terrainTransition.getShader().setUniform3f("dstColor2",
-                                               ((float)terrainPalette[1].r)/255.0,
-                                               ((float)terrainPalette[1].g)/255.0,
-                                               ((float)terrainPalette[1].b)/255.0);
+                                               ((float)colorPalette[1].r)/255.0,
+                                               ((float)colorPalette[1].g)/255.0,
+                                               ((float)colorPalette[1].b)/255.0);
     terrainTransition.getShader().setUniform3f("dstColor3",
-                                               ((float)terrainPalette[2].r)/255.0,
-                                               ((float)terrainPalette[2].g)/255.0,
-                                               ((float)terrainPalette[2].b)/255.0);
+                                               ((float)colorPalette[2].r)/255.0,
+                                               ((float)colorPalette[2].g)/255.0,
+                                               ((float)colorPalette[2].b)/255.0);
     terrainTransition.getShader().setUniform3f("dstColor4",
-                                               ((float)terrainPalette[3].r)/255.0,
-                                               ((float)terrainPalette[3].g)/255.0,
-                                               ((float)terrainPalette[3].b)/255.0);
+                                               ((float)colorPalette[3].r)/255.0,
+                                               ((float)colorPalette[3].g)/255.0,
+                                               ((float)colorPalette[3].b)/255.0);
     terrainTransition.getShader().setUniform3f("dstColor5",
-                                               ((float)terrainPalette[4].r)/255.0,
-                                               ((float)terrainPalette[4].g)/255.0,
-                                               ((float)terrainPalette[4].b)/255.0);
+                                               ((float)colorPalette[4].r)/255.0,
+                                               ((float)colorPalette[4].g)/255.0,
+                                               ((float)colorPalette[4].b)/255.0);
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
     glTexCoord2f(width, 0); glVertex3f(width, 0, 0);
@@ -399,6 +417,8 @@ void Prototype01::selfDraw(){
 void Prototype01::selfDrawOverlay(){
     if(bDebug){
         
+//        shoeTexB.draw(0,0);
+        
         ofPushMatrix();
         ofTranslate(ofGetWidth()*0.5-terrainTex.dst->getWidth()*0.5,
                     ofGetHeight()*0.5-terrainTex.dst->getHeight()*0.5);
@@ -411,8 +431,8 @@ void Prototype01::selfDrawOverlay(){
         ofPushMatrix();
         ofPushStyle();
         ofTranslate(ofGetWidth()-margin*1.5-paletteSize,ofGetHeight()-paletteSize);
-        for(int i = 0; i < terrainPalette.size(); i++){
-            ofSetColor(terrainPalette[i]);
+        for(int i = 0; i < colorPalette.size(); i++){
+            ofSetColor(colorPalette[i]);
             ofCircle(margin, i*(-paletteSize*2.0-5)-paletteSize*0.5-5, paletteSize);
         }
         ofPopStyle();
