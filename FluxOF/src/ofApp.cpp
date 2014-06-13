@@ -9,6 +9,7 @@ void ofApp::setup(){
 	project->play();
     
     ((Prototype01*)project)->startTransitionTo("@addidas", "images/00.jpg");
+    ((Prototype01*)project)->getTimeline()->setDurationInSeconds(10);
 }
 
 //--------------------------------------------------------------

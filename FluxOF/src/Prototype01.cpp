@@ -31,11 +31,23 @@ void Prototype01::selfSetup(){
     //  TERRAIN
     //
     ofLoadImage(terrainDepthMap, getDataPath()+"terrainDepthMap.png");
-    terrainTex.allocate(800, 800);
-    radarTexture.allocate(terrainTex.getWidth(), terrainTex.getHeight());
-    terrainMesh = loader.getMesh(0);
-    radarShader.loadFrag(getDataPath()+"shaders/radar.frag");
+    terrainResolution = terrainDepthMap.getWidth();
+    terrainTex.allocate(terrainResolution,terrainResolution);
+    terrainTex.clear();
     terrainTransition.loadFrag(getDataPath()+"shaders/terrainTrans.frag");
+    terrainMesh = loader.getMesh(0);
+    
+    blur.allocate(terrainResolution,terrainResolution);
+    blur.fade = 1.0;
+    normalMap.allocate(terrainResolution,terrainResolution);
+    
+    noiseShader.loadFrag(getDataPath()+"shaders/noise.frag");
+    noiseTexture.allocate(terrainResolution,terrainResolution);
+    
+    radarShader.loadFrag(getDataPath()+"shaders/radar.frag");
+    radarTexture.allocate(terrainResolution,terrainResolution);
+    
+    displace.allocate(terrainResolution,terrainResolution);
     
     //  CALIBRATION
     //
@@ -49,6 +61,7 @@ void Prototype01::selfSetupGuis(){
     guiAdd(audio);
     
     guiAdd(radarShader);
+    guiAdd(noiseShader);
     guiAdd(terrainTransition);
     
     guiAdd(shoeTransition);
@@ -90,7 +103,7 @@ void Prototype01::startTransitionTo(string _twitterUser, string _twitterImgPath)
     img.loadImage(_twitterImgPath);
     colorPalette = ColorTheory::getColorPalette(img, 5);
     
-    //  Keep Texture
+    //  Keep the image as a destinationTexture
     //
     shoeTexB = img.getTextureReference();
     
@@ -111,29 +124,43 @@ void Prototype01::selfUpdate(){
 
     //  TERRAIN TEXTURE
     //
-    int width = terrainTex.getWidth();
-    int height = terrainTex.getHeight();
     
     radarTexture.begin();
     ofClear(0,0);
     radarShader.begin();
-    
+    radarShader.getShader().setUniform1f("resolution", terrainResolution);
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
-    glTexCoord2f(width, 0); glVertex3f(width, 0, 0);
-    glTexCoord2f(width, height); glVertex3f(width, height, 0);
-    glTexCoord2f(0,height);  glVertex3f(0,height, 0);
+    glTexCoord2f(terrainResolution, 0); glVertex3f(terrainResolution, 0, 0);
+    glTexCoord2f(terrainResolution, terrainResolution); glVertex3f(terrainResolution, terrainResolution, 0);
+    glTexCoord2f(0,terrainResolution);  glVertex3f(0,terrainResolution, 0);
     glEnd();
     radarShader.end();
     radarTexture.end();
     
+    blur << terrainDepthMap;
+    normalMap << blur;
+    
+    noiseTexture.begin();
+    noiseShader.begin();
+    noiseShader.getShader().setUniformTexture("terrainNormalMap", normalMap, 2);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
+    glTexCoord2f(terrainResolution, 0); glVertex3f(terrainResolution, 0, 0);
+    glTexCoord2f(terrainResolution, terrainResolution); glVertex3f(terrainResolution, terrainResolution, 0);
+    glTexCoord2f(0,terrainResolution);  glVertex3f(0,terrainResolution, 0);
+    glEnd();
+    noiseShader.end();
+    noiseTexture.end();
+    
     terrainTex.swap();
     terrainTex.dst->begin();
     terrainTransition.begin();
-    ofClear(0,0);
     terrainTransition.getShader().setUniformTexture("backbuffer", *terrainTex.src, 0);
-    terrainTransition.getShader().setUniformTexture("radarTex", radarTexture, 1);
-//    terrainTransition.getShader().setUniformTexture("depthMap", terrainDepthMap, 1);
+    terrainTransition.getShader().setUniformTexture("depthMap", terrainDepthMap, 1);
+    terrainTransition.getShader().setUniformTexture("normalMap", normalMap, 2);
+    terrainTransition.getShader().setUniformTexture("radarTex", radarTexture, 3);
+    
     terrainTransition.getShader().setUniform3f("dstColor1",
                                                ((float)colorPalette[0].r)/255.0,
                                                ((float)colorPalette[0].g)/255.0,
@@ -154,11 +181,14 @@ void Prototype01::selfUpdate(){
                                                ((float)colorPalette[4].r)/255.0,
                                                ((float)colorPalette[4].g)/255.0,
                                                ((float)colorPalette[4].b)/255.0);
+    
+    terrainTransition.getShader().setUniform1f("resolution", terrainResolution);
+    
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
-    glTexCoord2f(width, 0); glVertex3f(width, 0, 0);
-    glTexCoord2f(width, height); glVertex3f(width, height, 0);
-    glTexCoord2f(0,height);  glVertex3f(0,height, 0);
+    glTexCoord2f(terrainResolution, 0); glVertex3f(terrainResolution, 0, 0);
+    glTexCoord2f(terrainResolution, terrainResolution); glVertex3f(terrainResolution, terrainResolution, 0);
+    glTexCoord2f(0,terrainResolution);  glVertex3f(0,terrainResolution, 0);
     glEnd();
     terrainTransition.end();
     
@@ -218,12 +248,14 @@ void Prototype01::selfDraw(){
 void Prototype01::selfDrawOverlay(){
     if(bDebug){
         
-//        shoeTexB.draw(0,0);
-        
         ofPushMatrix();
-        ofTranslate(ofGetWidth()*0.5-terrainTex.dst->getWidth()*0.5,
-                    ofGetHeight()*0.5-terrainTex.dst->getHeight()*0.5);
-        terrainTex.dst->draw(0,0);
+        terrainTex.dst->draw(terrainResolution*0.25,0);
+        ofScale(0.25, 0.25);
+        terrainDepthMap.draw(0,0);
+        normalMap.draw(0,terrainResolution);
+        noiseTexture.draw(0,terrainResolution*2.0);
+        radarTexture.draw(0,terrainResolution*3.0);
+        
         ofPopMatrix();
         
         float paletteSize = 10;

@@ -1,6 +1,15 @@
 <Map>
     <Bangs></Bangs>
     <Switches></Switches>
-    <SliderCurves></SliderCurves>
+    <SliderCurves>
+        <Mapping>
+            <Widget>
+                <WidgetName>pct</WidgetName>
+                <WidgetID>5</WidgetID>
+                <WidgetCanvasParent>radar</WidgetCanvasParent>
+            </Widget>
+            <Track></Track>
+        </Mapping>
+    </SliderCurves>
     <NumberDialerCurves></NumberDialerCurves>
 </Map>

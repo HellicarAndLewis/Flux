@@ -17,8 +17,9 @@
 //  FX
 //
 #include "UIShader.h"
-//#include "ofxNoise.h"
-//#include "ofxDisplacePixels.h"
+#include "ofxBlur.h"
+#include "ofxNormals.h"
+#include "ofxDisplacePixels.h"
 
 //  IN
 //
@@ -72,16 +73,21 @@ protected:
     //
     ofVboMesh       terrainMesh;
     ofTexture       terrainDepthMap;
-    
-    UIShader        terrainTransition;
-    PingPong        terrainTex;
+    float           terrainResolution;
     
     UIShader        radarShader;
     ofFbo           radarTexture;
     
-//    ofxNoise        noise;
-//    ofxDisplacePixels   displace;
-//    
+    UIShader        noiseShader;
+    ofFbo           noiseTexture;
+    
+    ofxBlur         blur;
+    ofxNormals      normalMap;
+    ofxDisplacePixels   displace;
+    
+    UIShader        terrainTransition;
+    PingPong        terrainTex;
+ 
     vector<ofColor> colorPalette;
     
     //  SHOES
