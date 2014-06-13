@@ -309,9 +309,10 @@ void Prototype01::selfUpdate(){
     terrainTex.swap();
     int width = terrainTex.getWidth();
     int height = terrainTex.getHeight();
-    terrainTex.dst->begin();
     
+    terrainTex.dst->begin();
     terrainTransition.begin();
+    ofClear(0,0);
     terrainTransition.getShader().setUniformTexture("backbuffer", *terrainTex.src, 0);
 //    terrainTransition.getShader().setUniformTexture("depthMap", terrainDepthMap, 1);
     terrainTransition.getShader().setUniform3f("dstColor1",
@@ -368,9 +369,9 @@ void Prototype01::selfDraw(){
     ofPushMatrix();
     ofSetSmoothLighting(false);
     
-    terrainTex.dst->bind();
+//    terrainTex.dst->bind();
     terrainMesh.draw();
-    terrainTex.dst->unbind();
+//    terrainTex.dst->unbind();
     
     ofPopMatrix();
 
