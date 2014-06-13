@@ -11,7 +11,6 @@
 
 //  GEOM
 //
-#include "ofxCv.h"
 #include "CalibrationLoader.h"
 #include "ofxAssimpModelLoader.h"
 
@@ -19,11 +18,12 @@
 //
 #include "UIShader.h"
 //#include "ofxNoise.h"
-#include "ofxDisplacePixels.h"
+//#include "ofxDisplacePixels.h"
 
 //  IN
 //
 #include "UIBufferIn.h"
+#include "ColorPalette.h"
 
 class Prototype01 : public UITime3DProject {
 public:
@@ -39,16 +39,11 @@ public:
     void selfSetupRenderGui();
     void guiRenderEvent(ofxUIEventArgs &e);
     
-    void selfBegin();
-
     void selfSetup();
     void selfUpdate();
     
     void selfDraw();
     void selfDrawOverlay();
-    
-	void selfEnd();
-    void selfExit();
     
     void selfKeyPressed(ofKeyEventArgs & args);
     void selfKeyReleased(ofKeyEventArgs & args);
@@ -84,6 +79,9 @@ protected:
     UIShader        radarShader;
     ofFbo           radarTexture;
     
+//    ofxNoise        noise;
+//    ofxDisplacePixels   displace;
+//    
     vector<ofColor> colorPalette;
     
     //  SHOES
