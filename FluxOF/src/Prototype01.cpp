@@ -250,11 +250,21 @@ void Prototype01::selfDrawOverlay(){
         
         ofPushMatrix();
         terrainTex.dst->draw(terrainResolution*0.25,0);
+        
+        ofPushMatrix();
+        ofTranslate(terrainResolution*1.25,0);
+        ofScale(0.5, 0.5);
+        shoeTexB.draw(0, 0);
+        
+        ofPopMatrix();
+        
+        ofPushMatrix();
         ofScale(0.25, 0.25);
         terrainDepthMap.draw(0,0);
         normalMap.draw(0,terrainResolution);
         noiseTexture.draw(0,terrainResolution*2.0);
         radarTexture.draw(0,terrainResolution*3.0);
+        ofPopMatrix();
         
         ofPopMatrix();
         
@@ -263,10 +273,10 @@ void Prototype01::selfDrawOverlay(){
         
         ofPushMatrix();
         ofPushStyle();
-        ofTranslate(ofGetWidth()-margin*1.5-paletteSize,ofGetHeight()-paletteSize);
+        ofTranslate(ofGetWidth()-margin*1.5-paletteSize,0);
         for(int i = 0; i < colorPalette.size(); i++){
             ofSetColor(colorPalette[i]);
-            ofCircle(margin, i*(-paletteSize*2.0-5)-paletteSize*0.5-5, paletteSize);
+            ofCircle(margin, i*(paletteSize*2.0+5)+paletteSize*0.5+5, paletteSize);
         }
         ofPopStyle();
         ofPopMatrix();

@@ -21,4 +21,6 @@ public:
     void gotMessage(ofMessage msg);
     
     UI2DProject  *project;
+    
+    vector<string> images;
 };

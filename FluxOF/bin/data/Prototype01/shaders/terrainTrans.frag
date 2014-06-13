@@ -25,8 +25,23 @@ void main(void){
     vec4 bg = texture2DRect(backbuffer, st);
     
     if(radar>(1.0-radarThreshold) ){
-    	vec4 tint = vec4(sin(time*0.2)*0.5+0.5,0.0,abs(cos(time*0.1)),depth);
-    	gl_FragColor = mix(bg,tint,depth);
+
+        //  TINT
+        //
+        vec3 colors[5];
+        colors[0] = dstColor1;
+        colors[1] = dstColor2;
+        colors[2] = dstColor3;
+        colors[3] = dstColor4;
+        colors[4] = dstColor5;
+
+        float index = depth*4.0;
+
+        float fIndex = floor(index);
+        float mIndex = mod(index,fIndex);
+
+    	vec3 tint = mix(colors[int(index)],colors[int(index)+1],mIndex); //vec4(sin(time*0.2)*0.5+0.5,0.0,abs(cos(time*0.1)),depth);
+    	gl_FragColor = vec4(tint,1.0);
 	} else {
 
 		//	DISPERSE PIGMENTS
