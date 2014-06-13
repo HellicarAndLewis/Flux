@@ -26,6 +26,6 @@ git clone https://github.com/arturoc/ofxTween.git
 git clone https://github.com/YCAMInterlab/ofxTimeline.git
 git clone https://github.com/kylemcdonald/ofxCv.git
 git clone https://github.com/rezaali/ofxUI.git
-git clone https://github.com/patriciogonzalezvivo/ofxUIProject.git; cd ofxUIProject; git checkout develop_viewports; 
-git clone https://github.com/patriciogonzalezvivo/ofxFX
-cd ..
+git clone https://github.com/patriciogonzalezvivo/ofxUIProject.git; cd ofxUIProject; git checkout develop_viewports; cd -
+git clone https://github.com/patriciogonzalezvivo/ofxFX.git
+
