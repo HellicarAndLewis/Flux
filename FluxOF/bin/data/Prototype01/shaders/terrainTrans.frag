@@ -14,5 +14,7 @@ void main(void){
 	vec4 bg = texture2DRect(backbuffer,gl_FragCoord.xy);
 	float radar = texture2DRect(radarTex,gl_FragCoord.xy).r;
 
-	gl_FragColor = vec4(dstColor1,radar);
+	vec3 color = vec3(sin(time*0.2)*0.5+0.5,0.0,abs(cos(time*0.1)));
+
+	gl_FragColor = vec4(mix(bg.xyz,color,radar),1.0);
 }
