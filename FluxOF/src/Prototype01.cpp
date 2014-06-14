@@ -24,13 +24,13 @@ void Prototype01::selfSetup(){
     //  SHOES
     //
     ofxAssimpModelLoader loader;
-    loader.loadModel(getDataPath()+"terrain_and_shoe.dae");
+    loader.loadModel(getDataPath()+"final_terraform_cusped_and_faceted_checked.obj");//terrain_and_shoe.dae");
     shoeMesh = loader.getMesh(1);
     shoeTransition.load(getDataPath()+"shaders/shoesTrans");
     
     //  TERRAIN
     //
-    ofLoadImage(terrainDepthMap, getDataPath()+"terrainDepthMap.png");
+    ofLoadImage(terrainDepthMap, getDataPath()+"heightmapLuminance.png");//terrainDepthMap.png");
     terrainResolution = terrainDepthMap.getWidth();
     terrainTex.allocate(terrainResolution,terrainResolution);
     terrainTex.clear();
@@ -218,9 +218,9 @@ void Prototype01::selfDraw(){
     ofPushMatrix();
     ofSetSmoothLighting(false);
     
-//    terrainTex.dst->bind();
+    terrainTex.dst->bind();
     terrainMesh.draw();
-//    terrainTex.dst->unbind();
+    terrainTex.dst->unbind();
     
     ofPopMatrix();
 
@@ -249,6 +249,7 @@ void Prototype01::selfDrawOverlay(){
     if(bDebug){
         
         ofPushMatrix();
+        ofScale(0.5, 0.5);
         terrainTex.dst->draw(terrainResolution*0.25,0);
         
         ofPushMatrix();
