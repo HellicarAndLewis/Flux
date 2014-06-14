@@ -22,8 +22,11 @@ void RenderRadar::selfSetup(){
     
     //  TERRAIN
     //
+    ofDisableArbTex();
     terrainTex.allocate(terrainResolution,terrainResolution);
     terrainTex.clear();
+    ofEnableArbTex();
+    
     terrainTransition.loadFrag(getDataPath()+"shaders/terrainTrans.frag");
     
     blur.allocate(terrainResolution,terrainResolution);
@@ -182,9 +185,11 @@ void RenderRadar::selfDraw(){
     ofPushMatrix();
     ofSetSmoothLighting(false);
     
-//    terrainTex.dst->bind();
+    ofDisableArbTex();
+    terrainTex.dst->getTextureReference().bind();
     terrainMesh.draw();
-//    terrainTex.dst->unbind();
+    terrainTex.dst->getTextureReference().unbind();
+    ofEnableArbTex();
     
     ofPopMatrix();
 

@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofSetVerticalSync(true);
-	
+    
     //  Load STUFF
     //
     calibration.setup();
