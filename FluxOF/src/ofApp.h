@@ -4,6 +4,8 @@
 
 #include "Prototype01.h"
 
+#include "ImageQueue.h"
+
 class ofApp : public ofBaseApp{
 public:
     void setup();
@@ -22,5 +24,5 @@ public:
     
     UI2DProject  *project;
     
-    vector<string> images;
+    ImageQueue imageQueue;
 };

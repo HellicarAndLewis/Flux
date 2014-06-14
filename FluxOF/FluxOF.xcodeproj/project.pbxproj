@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04C71F4C194C5306009C4AEE /* ImageQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04C71F4A194C5306009C4AEE /* ImageQueue.cpp */; };
 		04c82720b149ce576b8cbb06ac6d40d2 /* ofxUIToggle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48cccea0c681de8b4945111ba096c2ee /* ofxUIToggle.cpp */; };
 		084025da517d8329301fe1b62b99dfa0 /* ofxUIEventArgs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = a8896ac3becaaa504e3828f42f9f8d48 /* ofxUIEventArgs.cpp */; };
 		09cc502af0f68e46a5eb35c2beafcc45 /* UIMapBackground.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29425abde96bf75b093a619a196b7845 /* UIMapBackground.cpp */; };
@@ -215,6 +216,9 @@
 		02677fa320d6c63b228a7562514b9d55 /* ofxUIWidgetWithLabel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUIWidgetWithLabel.h; path = ../../../addons/ofxUI/src/ofxUIWidgetWithLabel.h; sourceTree = SOURCE_ROOT; };
 		02ff3b8d243cfb85ae0909eb3b41abb8 /* ofxUI2DGraph.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxUI2DGraph.cpp; path = ../../../addons/ofxUI/src/ofxUI2DGraph.cpp; sourceTree = SOURCE_ROOT; };
 		03dde55c47701116edeb18007fc4bf75 /* ofxMSATimer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxMSATimer.h; path = ../../../addons/ofxMSATimer/src/ofxMSATimer.h; sourceTree = SOURCE_ROOT; };
+		04461996194C59B500BCDAE0 /* QueueItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueueItem.h; sourceTree = "<group>"; };
+		04C71F4A194C5306009C4AEE /* ImageQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageQueue.cpp; sourceTree = "<group>"; };
+		04C71F4B194C5306009C4AEE /* ImageQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageQueue.h; sourceTree = "<group>"; };
 		0540fbcc19d09a4cddf6de59a5918074 /* fft.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = fft.h; path = src/Audio/fft/fft.h; sourceTree = SOURCE_ROOT; };
 		06097a998f7fee43acdd0c8ef9f89a53 /* UISEM.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = UISEM.h; path = ../../../addons/ofxUIProject/src/fx/UISEM.h; sourceTree = SOURCE_ROOT; };
 		06c7032f68d99a145a53cb6f952b704c /* ofxUITextInput.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxUITextInput.cpp; path = ../../../addons/ofxUI/src/ofxUITextInput.cpp; sourceTree = SOURCE_ROOT; };
@@ -1336,6 +1340,9 @@
 				70985b38aec9acbbbc012cfe8769f873 /* Loaders */,
 				87d382f79966184cf62383a1c2f1ce06 /* Prototype01.h */,
 				31b4509dc7322cd2c19880fb2df8285b /* Prototype01.cpp */,
+				04C71F4A194C5306009C4AEE /* ImageQueue.cpp */,
+				04C71F4B194C5306009C4AEE /* ImageQueue.h */,
+				04461996194C59B500BCDAE0 /* QueueItem.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -1859,6 +1866,7 @@
 				c961be22ab9a8ccf037fc18f5bdc5491 /* ofxUITextArea.cpp in Sources */,
 				f8d05f7c7f785ce323983b47e137110b /* ofxUITextInput.cpp in Sources */,
 				04c82720b149ce576b8cbb06ac6d40d2 /* ofxUIToggle.cpp in Sources */,
+				04C71F4C194C5306009C4AEE /* ImageQueue.cpp in Sources */,
 				e3a1109f67d711d6c256031e9b907021 /* ofxUIToggleMatrix.cpp in Sources */,
 				3D75283B194B525A008D4DF8 /* ETF.cpp in Sources */,
 				60012c723b05938a3d38833536981664 /* ofxUIValuePlotter.cpp in Sources */,

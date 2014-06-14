@@ -26,6 +26,8 @@
 #include "UIBufferIn.h"
 #include "ColorPalette.h"
 
+#include "QueueItem.h"
+
 class Prototype01 : public UITime3DProject {
 public:
     
@@ -55,7 +57,10 @@ public:
     void selfMousePressed(ofMouseEventArgs& data);
     void selfMouseReleased(ofMouseEventArgs& data);
     
-    void startTransitionTo(string _twitterUser, string _twitterImgPath);
+    void startTransitionTo(QueueItem queueItem);
+    bool transitionDone();
+    
+    void setImageQueue(UIClass * imageQueue);
     
 protected:
 	

@@ -68,6 +68,10 @@ void Prototype01::selfSetupGuis(){
     
 }
 
+void Prototype01::setImageQueue(UIClass *imageQueue){
+    guiAdd(*imageQueue);
+}
+
 void Prototype01::selfGuiEvent(ofxUIEventArgs &e){
     
 }
@@ -93,24 +97,26 @@ void Prototype01::guiRenderEvent(ofxUIEventArgs &e){
 
 //---------------------------------------------------
 
-void Prototype01::startTransitionTo(string _twitterUser, string _twitterImgPath){
+void Prototype01::startTransitionTo(QueueItem queueItem){
 
-    text = _twitterUser;
+    text = queueItem.username;
     
     //  Load Image
     //
-    ofImage img;
-    img.loadImage(_twitterImgPath);
-    colorPalette = ColorTheory::getColorPalette(img, 5);
+    colorPalette = ColorTheory::getColorPalette(queueItem.image, 5);
     
     //  Keep the image as a destinationTexture
     //
-    shoeTexB = img.getTextureReference();
+    shoeTexB = queueItem.image.getTextureReference();
     
     //  Start Animation
     //
     timeline->setPercentComplete(0.0);
     timeline->play();
+}
+
+bool Prototype01::transitionDone(){
+    return !timeline->getIsPlaying();
 }
 
 void Prototype01::selfUpdate(){
