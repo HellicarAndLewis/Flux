@@ -74,8 +74,8 @@ void main(void){
 
 	//	RADAR LINE
 	//
-	if( pos.y - lineWidth*0.5 < threshold && !(pos.y + lineWidth*0.5 < threshold) ){
-		float posPct = 1.0-((pos.y+lineWidth*0.5) - threshold)/lineWidth;
+	if( pos.y - lineWidth*0.05 < threshold && !(pos.y + lineWidth*0.05 < threshold) ){
+		float posPct = 1.0-((pos.y+lineWidth*0.05) - threshold)/(lineWidth*0.1);
 		// color.xyz += green*sin(posPct*PI);
 		color.xyz = mix(color.xyz,green*2.0,pow(max(0.0, abs(sin(posPct*PI))*2.0-1.0),2.5));
 	}

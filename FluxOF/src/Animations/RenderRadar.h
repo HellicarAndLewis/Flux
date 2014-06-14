@@ -50,14 +50,12 @@ protected:
     
     UIShader        noiseShader;
     ofFbo           noiseTexture;
-    
-    ofxBlur         blur;
-    ofxNormals      normalMap;
-    ofxDisplacePixels   displace;
-    
+
     UIShader        terrainTransition;
-    PingPong        terrainTex;
- 
+    PingPong        terrainTransitionTex;
+    
+    ofFbo           terrainTex;
+    
     //  SHOES   TRANSITION
     //
     UIShader        shoeTransition;

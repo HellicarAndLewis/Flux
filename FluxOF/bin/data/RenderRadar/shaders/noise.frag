@@ -245,7 +245,9 @@ uniform float zoom;
 uniform float speed;
 uniform float pct;
 
-uniform sampler2DRect terrainNormalMap; 
+uniform sampler2DRect normalMap; 
+uniform sampler2DRect depthMap;
+uniform sampler2DRect maskTex;
 
 vec2 noiseXY(float _zoom, float _speed){
     vec2 st = gl_TexCoord[0].st;
@@ -266,10 +268,16 @@ vec2 noiseXY(float _zoom, float _speed){
 void main (void){
     vec2 st = gl_TexCoord[0].st;//gl_FragCoord.xy
 
-    vec2 terrainVel = texture2DRect(terrainNormalMap,st).rg;
-    vec2 noiseVel = noiseXY(zoom,speed);
+    vec2 terrainVel = texture2DRect(normalMap,st).rg;
+    vec2 vel = terrainVel;
 
-    vec2 vel = mix(terrainVel,noiseVel,pct);
+    float mask = texture2DRect(maskTex,st).r;
+
+    if(mask>0.0){
+        float height = texture2DRect(depthMap,st).r;
+        vec2 noiseVel = noiseXY( zoom*(1.0-height) ,speed);
+        vel = mix(terrainVel,noiseVel,mask);
+    }
 
     gl_FragColor = vec4(vel.x, vel.y, 0.5, 1.0);
 }

@@ -22,6 +22,7 @@ void ofApp::setup(){
     renderEngine->terrainMesh = terrainModel.getMesh(0);
     
     ofLoadImage(renderEngine->terrainDepthMap, "models/terrainDepthMap.png");
+    ofLoadImage(renderEngine->terrainNormalMap, "models/terrainNormalMap.png");
     renderEngine->terrainResolution = renderEngine->terrainDepthMap.getWidth();
     
 	renderEngine->setup();
@@ -32,6 +33,8 @@ void ofApp::setup(){
     //
 	renderEngine->play();
     imageQueue.transitionToNextItem();
+    
+    normalMap.allocate(renderEngine->terrainResolution,renderEngine->terrainResolution);
 }
 
 //--------------------------------------------------------------
@@ -41,6 +44,8 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    
+    
 
 }
 

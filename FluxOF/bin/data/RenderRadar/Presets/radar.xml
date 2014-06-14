@@ -3,7 +3,7 @@
     <Name>radar</Name>
     <IsMinified>1</IsMinified>
     <XPosition>1.000000000</XPosition>
-    <YPosition>426.000000000</YPosition>
+    <YPosition>451.000000000</YPosition>
 </Canvas>
 <Widget>
     <Kind>2</Kind>
@@ -13,15 +13,25 @@
 <Widget>
     <Kind>4</Kind>
     <Name>pct</Name>
-    <Value>0.368757486</Value>
+    <Value>0.742406070</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>tailWidth</Name>
-    <Value>0.014778325</Value>
+    <Value>0.605911314</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>resolution</Name>
     <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>25</Kind>
+    <Name>x</Name>
+    <Value>0.502617776</Value>
+</Widget>
+<Widget>
+    <Kind>25</Kind>
+    <Name>y</Name>
+    <Value>0.497382194</Value>
 </Widget>

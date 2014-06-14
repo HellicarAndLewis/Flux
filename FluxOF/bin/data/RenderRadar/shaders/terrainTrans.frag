@@ -20,11 +20,11 @@ void main(void){
 
 	float radar = texture2DRect(radarTex,st).r;
 	float depth = texture2DRect(depthMap,st).r;
-
     vec4 bg = texture2DRect(backbuffer, st);
     
-    if(radar>(1.0-radarThreshold) ){
+    gl_FragColor = bg;
 
+    if(radar>(1.0-radarThreshold) ){
         //  TINT
         //
         vec3 colors[5];
@@ -40,9 +40,8 @@ void main(void){
         float mIndex = mod(index,fIndex);
 
     	vec3 tint = mix(colors[int(index)],colors[int(index)+1],mIndex);
-    	gl_FragColor = vec4(tint,1.0);
+    	gl_FragColor = vec4(mix(bg.rgb,tint,radar),1.0);
 	} else {
-
 		//	DISPERSE PIGMENTS
 		//
 		vec2 norm = ( texture2DRect(normalMap, st).rg - 0.5 ) * 2.0;

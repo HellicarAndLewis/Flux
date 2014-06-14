@@ -2,8 +2,8 @@
     <Kind>40</Kind>
     <Name>TimelineSettings</Name>
     <IsMinified>0</IsMinified>
-    <XPosition>1233.000000000</XPosition>
-    <YPosition>331.000000000</YPosition>
+    <XPosition>670.000000000</XPosition>
+    <YPosition>408.000000000</YPosition>
 </Canvas>
 <Widget>
     <Kind>2</Kind>
@@ -13,7 +13,7 @@
 <Widget>
     <Kind>8</Kind>
     <Name>DURATION</Name>
-    <Value>10.010999680</Value>
+    <Value>5.004000187</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>

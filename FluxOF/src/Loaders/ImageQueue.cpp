@@ -52,7 +52,7 @@ void ImageQueue::transitionTo(QueueItem item){
     // Tell the render engine to start the transition
     //
     renderEngine->startTransitionTo(currentItem);
-    renderEngine->getTimeline()->setDurationInSeconds(10);
+    renderEngine->getTimeline()->setDurationInSeconds(5);
     
     // Update the UI to show the images we transition between
     //

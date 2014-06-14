@@ -33,6 +33,7 @@ public:
     ofVboMesh       shoeMesh;
     ofVboMesh       terrainMesh;
     ofTexture       terrainDepthMap;
+    ofTexture       terrainNormalMap;
     float           terrainResolution;
     
     ofTexture       shoeTexA,shoeTexB;

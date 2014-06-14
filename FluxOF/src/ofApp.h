@@ -16,6 +16,9 @@
 //
 #include "RenderRadar.h"
 
+#include "ofxBlur.h"
+#include "ofxNormals.h"
+
 class ofApp : public ofBaseApp{
 public:
     void setup();
@@ -39,4 +42,6 @@ public:
     
     ofxAssimpModelLoader shoeModel;
     ofxAssimpModelLoader terrainModel;
+    
+    ofxNormals normalMap;
 };
