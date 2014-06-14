@@ -6,26 +6,18 @@ void ofApp::setup(){
 	
     project = new Prototype01();
 	project->setup();
+
+    ((Prototype01*)project)->setImageQueue(&imageQueue);
+    imageQueue.setup((Prototype01*)project);
+    
 	project->play();
  
-    string path = "images";
-    ofDirectory backgroundsDir(path);
-    if(backgroundsDir.exists()){
-		backgroundsDir.listDir();
-        int total = backgroundsDir.getFiles().size();
-        for (int i = 0; i < total; i++) {
-            images.push_back( backgroundsDir.getName(i) );
-        }
-    }
-    
-    cout << images[0] << endl;
-    ((Prototype01*)project)->startTransitionTo("@addidas", "images/"+images[0]);
-    ((Prototype01*)project)->getTimeline()->setDurationInSeconds(10);
+       
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+    imageQueue.update();
 }
 
 //--------------------------------------------------------------
@@ -36,7 +28,7 @@ void ofApp::draw(){
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     if(key == 't'){
-        ((Prototype01*)project)->startTransitionTo("@addidas", "images/"+images[ofRandom(images.size()-1.0)]);
+        //((Prototype01*)project)->startTransitionTo("@addidas", "images/"+images[ofRandom(images.size()-1.0)]);
     }
 
 }
