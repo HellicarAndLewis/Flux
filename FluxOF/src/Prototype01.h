@@ -42,7 +42,8 @@ public:
     
     void selfSetup();
     void selfUpdate();
-    
+
+    void selfSceneTransformation();
     void selfDraw();
     void selfDrawOverlay();
     

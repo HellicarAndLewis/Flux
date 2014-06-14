@@ -117,9 +117,11 @@ void Prototype01::selfUpdate(){
     if(simulatorMode){
         setupNumViewports(1);
         cameraEnable(true);
+        setupRenderIsFlipped(false);
     } else {
         setupNumViewports(2);
         cameraEnable(false);
+        setupRenderIsFlipped(true);
     }
 
     //  TERRAIN TEXTURE
@@ -197,14 +199,18 @@ void Prototype01::selfUpdate(){
     terrainTex.dst->end();
 }
 
+void Prototype01::selfSceneTransformation(){
+    if(!simulatorMode){
+        calibration.shoe[currentViewPort].begin();
+    }
+}
+
 void Prototype01::selfDraw(){
     materials["MATERIAL 1"]->begin();
 
     ofPushMatrix();
     
-    if(!simulatorMode){
-        calibration.shoe[currentViewPort].begin();
-    }
+   
 //    if(currentViewPort == 1){
 //        ofTranslate(-100, 0,0);
 //    }
