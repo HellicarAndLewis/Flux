@@ -2,9 +2,19 @@
 
 #include "ofMain.h"
 
-#include "Prototype01.h"
+//  Addons
+//
+#include "ofxAssimpModelLoader.h"
 
+//  Loaders
+//
+#include "RenderEngine.h"
 #include "ImageQueue.h"
+#include "CalibrationLoader.h"
+
+//  Animation Prototypes
+//
+#include "RenderRadar.h"
 
 class ofApp : public ofBaseApp{
 public:
@@ -22,7 +32,11 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     
-    UI2DProject  *project;
+    RenderEngine *renderEngine;
     
     ImageQueue imageQueue;
+    CalibrationLoader calibration;
+    
+    ofxAssimpModelLoader shoeModel;
+    ofxAssimpModelLoader terrainModel;
 };

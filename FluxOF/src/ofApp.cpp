@@ -4,15 +4,34 @@
 void ofApp::setup(){
     ofSetVerticalSync(true);
 	
-    project = new Prototype01();
-	project->setup();
-
-    ((Prototype01*)project)->setImageQueue(&imageQueue);
-    imageQueue.setup((Prototype01*)project);
+    //  Load STUFF
+    //
+    calibration.setup();
+    imageQueue.setup();
     
-	project->play();
- 
-       
+    shoeModel.loadModel("models/LOCKED_SHOE_ROTATION.obj");
+    terrainModel.loadModel("models/LOCKED_TERRAFORM.obj");
+    
+    //  Initialize the Render
+    //
+    renderEngine = new RenderRadar();
+    
+    imageQueue.renderEngine = renderEngine;
+    
+    renderEngine->shoeMesh = shoeModel.getMesh(0);
+    renderEngine->terrainMesh = terrainModel.getMesh(0);
+    
+    ofLoadImage(renderEngine->terrainDepthMap, "models/terrainDepthMap.png");
+    renderEngine->terrainResolution = renderEngine->terrainDepthMap.getWidth();
+    
+	renderEngine->setup();
+    renderEngine->setImageQueue(&imageQueue);
+    renderEngine->setCalibration(&calibration);
+    
+    //  Ready to go
+    //
+	renderEngine->play();
+    imageQueue.transitionToNextItem();
 }
 
 //--------------------------------------------------------------
@@ -27,9 +46,6 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    if(key == 't'){
-        //((Prototype01*)project)->startTransitionTo("@addidas", "images/"+images[ofRandom(images.size()-1.0)]);
-    }
 
 }
 
