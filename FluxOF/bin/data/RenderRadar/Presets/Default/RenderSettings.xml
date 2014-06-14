@@ -10,3 +10,8 @@
     <Name>ENABLE</Name>
     <Value>1</Value>
 </Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>Simulator</Name>
+    <Value>1</Value>
+</Widget>

@@ -3,7 +3,7 @@
     <Name>SPOT</Name>
     <IsMinified>1</IsMinified>
     <XPosition>1.000000000</XPosition>
-    <YPosition>351.000000000</YPosition>
+    <YPosition>376.000000000</YPosition>
 </Canvas>
 <Widget>
     <Kind>2</Kind>
@@ -13,7 +13,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CUT OFF</Name>
-    <Value>22.610836029</Value>
+    <Value>11.083744049</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -23,12 +23,12 @@
 <Widget>
     <Kind>25</Kind>
     <Name>POSX</Name>
-    <Value>22.541254044</Value>
+    <Value>22.541284561</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
     <Name>POSY</Name>
-    <Value>379.847351074</Value>
+    <Value>379.847412109</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
