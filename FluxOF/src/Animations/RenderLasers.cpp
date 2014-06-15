@@ -123,49 +123,51 @@ void RenderLasers::selfUpdate(){
     lasersMaskShader.end();
     lasersMask.end();
     
-    terrainTransitionTex.swap();
-    terrainTransitionTex.dst->begin();
-    terrainTransition.begin();
-//    terrainTransition.getShader().setUniformTexture("backbuffer", *terrainTransitionTex.src, 0);
-//    terrainTransition.getShader().setUniformTexture("normalMap", terrainNormalMap, 2);
-    
-    terrainTransition.getShader().setUniformTexture("depthMap", terrainDepthMap, 0);
-    terrainTransition.getShader().setUniformTexture("lasersMask", lasersMask, 1);
-    terrainTransition.getShader().setUniformTexture("previusMap", terrainMapPrev, 2);
-    
-    terrainTransition.getShader().setUniform3f("dstColor1",
-                                               ((float)colorPalette[0].r)/255.0,
-                                               ((float)colorPalette[0].g)/255.0,
-                                               ((float)colorPalette[0].b)/255.0);
-    terrainTransition.getShader().setUniform3f("dstColor2",
-                                               ((float)colorPalette[1].r)/255.0,
-                                               ((float)colorPalette[1].g)/255.0,
-                                               ((float)colorPalette[1].b)/255.0);
-    terrainTransition.getShader().setUniform3f("dstColor3",
-                                               ((float)colorPalette[2].r)/255.0,
-                                               ((float)colorPalette[2].g)/255.0,
-                                               ((float)colorPalette[2].b)/255.0);
-    terrainTransition.getShader().setUniform3f("dstColor4",
-                                               ((float)colorPalette[3].r)/255.0,
-                                               ((float)colorPalette[3].g)/255.0,
-                                               ((float)colorPalette[3].b)/255.0);
-    terrainTransition.getShader().setUniform3f("dstColor5",
-                                               ((float)colorPalette[4].r)/255.0,
-                                               ((float)colorPalette[4].g)/255.0,
-                                               ((float)colorPalette[4].b)/255.0);
-    
-    terrainTransition.getShader().setUniform1f("resolution", terrainResolution);
-    
-    glBegin(GL_QUADS);
-    glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
-    glTexCoord2f(terrainResolution, 0); glVertex3f(terrainResolution, 0, 0);
-    glTexCoord2f(terrainResolution, terrainResolution); glVertex3f(terrainResolution, terrainResolution, 0);
-    glTexCoord2f(0,terrainResolution);  glVertex3f(0,terrainResolution, 0);
-    glEnd();
-    terrainTransition.end();
-    
-    terrainTransitionTex.dst->end();
-    
+    if(colorPalette.size() > 0){
+        terrainTransitionTex.swap();
+        terrainTransitionTex.dst->begin();
+        terrainTransition.begin();
+        //    terrainTransition.getShader().setUniformTexture("backbuffer", *terrainTransitionTex.src, 0);
+        //    terrainTransition.getShader().setUniformTexture("normalMap", terrainNormalMap, 2);
+        
+        terrainTransition.getShader().setUniformTexture("depthMap", terrainDepthMap, 0);
+        terrainTransition.getShader().setUniformTexture("lasersMask", lasersMask, 1);
+        terrainTransition.getShader().setUniformTexture("previusMap", terrainMapPrev, 2);
+        
+        terrainTransition.getShader().setUniform3f("dstColor1",
+                                                   ((float)colorPalette[0].r)/255.0,
+                                                   ((float)colorPalette[0].g)/255.0,
+                                                   ((float)colorPalette[0].b)/255.0);
+        terrainTransition.getShader().setUniform3f("dstColor2",
+                                                   ((float)colorPalette[1].r)/255.0,
+                                                   ((float)colorPalette[1].g)/255.0,
+                                                   ((float)colorPalette[1].b)/255.0);
+        terrainTransition.getShader().setUniform3f("dstColor3",
+                                                   ((float)colorPalette[2].r)/255.0,
+                                                   ((float)colorPalette[2].g)/255.0,
+                                                   ((float)colorPalette[2].b)/255.0);
+        terrainTransition.getShader().setUniform3f("dstColor4",
+                                                   ((float)colorPalette[3].r)/255.0,
+                                                   ((float)colorPalette[3].g)/255.0,
+                                                   ((float)colorPalette[3].b)/255.0);
+        terrainTransition.getShader().setUniform3f("dstColor5",
+                                                   ((float)colorPalette[4].r)/255.0,
+                                                   ((float)colorPalette[4].g)/255.0,
+                                                   ((float)colorPalette[4].b)/255.0);
+        
+        terrainTransition.getShader().setUniform1f("resolution", terrainResolution);
+        
+        glBegin(GL_QUADS);
+        glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
+        glTexCoord2f(terrainResolution, 0); glVertex3f(terrainResolution, 0, 0);
+        glTexCoord2f(terrainResolution, terrainResolution); glVertex3f(terrainResolution, terrainResolution, 0);
+        glTexCoord2f(0,terrainResolution);  glVertex3f(0,terrainResolution, 0);
+        glEnd();
+        terrainTransition.end();
+        
+        terrainTransitionTex.dst->end();
+        
+    }
     terrainTex.begin();
     terrainTransitionTex.dst->draw(0, 0);
     ofPushStyle();
