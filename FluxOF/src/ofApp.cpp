@@ -10,7 +10,7 @@ void ofApp::setup(){
     imageQueue.setup();
     
     shoeModel.loadModel("models/LOCKED_SHOE_ROTATION.obj");
-    terrainModel.loadModel("models/LOCKED_TERRAFORM.obj");
+    terrainModel.loadModel("models/LOCKED_TERRAFORM_002.obj");
     
     //  Initialize the Render
     //
