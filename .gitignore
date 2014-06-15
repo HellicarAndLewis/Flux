@@ -34,3 +34,5 @@ LOW_POLY_SHOE_001.dae
 *.mov
 
 FluxOF/bin/data/RenderRadar/snapshots
+
+/FluxOF/bin/data/RenderLasers/snapshots/

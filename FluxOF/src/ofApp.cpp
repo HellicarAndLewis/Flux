@@ -16,7 +16,7 @@ void ofApp::setup(){
     ofLoadImage(terrainDepthMap, "models/terrainDepthMap.png");
     ofLoadImage(terrainNormalMap, "models/terrainNormalMap.png");
 
-    loadAnimation(RADAR);
+    loadAnimation(LASERS);
 }
 
 void ofApp::loadAnimation(ANIMATION_STYLE _animation){

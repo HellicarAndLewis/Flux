@@ -22,12 +22,8 @@ void RenderLasers::selfSetup(){
     
     //  TERRAIN
     //
-    noiseShader.loadFrag(getDataPath()+"shaders/noise.frag");
-    noiseTexture.allocate(terrainResolution,terrainResolution);
-    
-    radarShader.loadFrag(getDataPath()+"shaders/radar.frag");
-    radarTexture.allocate(terrainResolution,terrainResolution);
-    
+    lasersMask.allocate(terrainResolution,terrainResolution);
+    lasersMaskShader.loadFrag(getDataPath()+"shaders/lasersMask.frag");
     terrainTransition.loadFrag(getDataPath()+"shaders/terrainTrans.frag");
     terrainTransitionTex.allocate(terrainResolution,terrainResolution);
     terrainTransitionTex.clear();
@@ -46,8 +42,7 @@ void RenderLasers::selfSetupGuis(){
     
     guiAdd(audioIn);
     
-    guiAdd(noiseShader);
-    guiAdd(radarShader);
+    guiAdd(lasersMaskShader);
     guiAdd(terrainTransition);
     
     guiAdd(shoeTransition);
@@ -91,42 +86,26 @@ void RenderLasers::selfUpdate(){
 
     //  TERRAIN TEXTURE
     //
-    
-    radarTexture.begin();
+    lasersMask.begin();
     ofClear(0,0);
-    radarShader.begin();
-    radarShader.getShader().setUniform1f("resolution", terrainResolution);
+    lasersMaskShader.begin();
+    lasersMaskShader.getShader().setUniform1f("resolution", terrainResolution);
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
     glTexCoord2f(terrainResolution, 0); glVertex3f(terrainResolution, 0, 0);
     glTexCoord2f(terrainResolution, terrainResolution); glVertex3f(terrainResolution, terrainResolution, 0);
     glTexCoord2f(0,terrainResolution);  glVertex3f(0,terrainResolution, 0);
     glEnd();
-    radarShader.end();
-    radarTexture.end();
-    
-    noiseTexture.begin();
-    noiseShader.begin();
-    noiseShader.getShader().setUniformTexture("depthMap", terrainDepthMap, 0);
-    noiseShader.getShader().setUniformTexture("normalMap", terrainNormalMap, 1);
-    noiseShader.getShader().setUniformTexture("maskTex", radarTexture, 2);
-    
-    glBegin(GL_QUADS);
-    glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
-    glTexCoord2f(terrainResolution, 0); glVertex3f(terrainResolution, 0, 0);
-    glTexCoord2f(terrainResolution, terrainResolution); glVertex3f(terrainResolution, terrainResolution, 0);
-    glTexCoord2f(0,terrainResolution);  glVertex3f(0,terrainResolution, 0);
-    glEnd();
-    noiseShader.end();
-    noiseTexture.end();
+    lasersMaskShader.end();
+    lasersMask.end();
     
     terrainTransitionTex.swap();
     terrainTransitionTex.dst->begin();
     terrainTransition.begin();
     terrainTransition.getShader().setUniformTexture("backbuffer", *terrainTransitionTex.src, 0);
     terrainTransition.getShader().setUniformTexture("depthMap", terrainDepthMap, 1);
-    terrainTransition.getShader().setUniformTexture("normalMap", noiseTexture, 2);
-    terrainTransition.getShader().setUniformTexture("radarTex", radarTexture, 3);
+    terrainTransition.getShader().setUniformTexture("normalMap", terrainNormalMap, 2);
+    terrainTransition.getShader().setUniformTexture("lasersMask", lasersMask, 3);
     
     terrainTransition.getShader().setUniform3f("dstColor1",
                                                ((float)colorPalette[0].r)/255.0,
@@ -222,8 +201,7 @@ void RenderLasers::selfDrawOverlay(){
         ofScale(0.25, 0.25);
         terrainDepthMap.draw(0,0);
         terrainNormalMap.draw(0,terrainResolution);
-        noiseTexture.draw(0,terrainResolution*2.0);
-        radarTexture.draw(0,terrainResolution*3.0);
+        lasersMask.draw(0,terrainResolution*3.0);
         ofPopMatrix();
         
         ofPopMatrix();

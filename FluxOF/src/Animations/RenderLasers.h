@@ -45,12 +45,9 @@ protected:
 	
     // TERRAIN TRANSITION
     //
-    UIShader        radarShader;
-    ofFbo           radarTexture;
+    UIShader        lasersMaskShader;
+    ofFbo           lasersMask;
     
-    UIShader        noiseShader;
-    ofFbo           noiseTexture;
-
     UIShader        terrainTransition;
     PingPong        terrainTransitionTex;
     
