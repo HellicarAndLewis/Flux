@@ -20,15 +20,15 @@
 class RenderEngine : public UITime3DProject {
 public:
     
-    void setImageQueue(UIClass *_imageQueue);
-    void setCalibration(CalibrationLoader *_calibration);
+    virtual void setImageQueue(UIClass *_imageQueue);
+    virtual void setCalibration(CalibrationLoader *_calibration);
     
-    string getSystemName(){ return "RenderEngine-SuperClass";}
+    virtual string getSystemName(){ return "RenderEngine-SuperClass";}
     
-    void startTransitionTo(QueueItem queueItem);
-    bool transitionDone();
+    virtual void startTransitionTo(QueueItem queueItem);
+    virtual bool transitionDone();
     
-    void selfSceneTransformation();
+    virtual void selfSceneTransformation();
     
     ofVboMesh       shoeMesh;
     ofVboMesh       terrainMesh;

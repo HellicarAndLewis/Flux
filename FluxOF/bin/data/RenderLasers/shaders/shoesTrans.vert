@@ -3,7 +3,6 @@ varying vec3 ePos;
 
 varying vec3 norm;
 
-
 void main(){
 	gl_TexCoord[0] = gl_MultiTexCoord0;
 	vPos = gl_Vertex;

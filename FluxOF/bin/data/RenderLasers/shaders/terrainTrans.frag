@@ -1,7 +1,8 @@
-uniform sampler2DRect backbuffer;
+// uniform sampler2DRect backbuffer;
+// uniform sampler2DRect normalMap;
 uniform sampler2DRect depthMap;
-uniform sampler2DRect normalMap;
 uniform sampler2DRect lasersMask;
+uniform sampler2DRect previusMap;
 
 uniform vec3 dstColor1;
 uniform vec3 dstColor2;
@@ -19,7 +20,8 @@ void main(void){
 
 	vec3 zones = texture2DRect(lasersMask,st).rgb;
 	float depth = texture2DRect(depthMap,st).r;
-    vec4 bg = texture2DRect(backbuffer, st);
+    
+    vec4 bg = texture2DRect(previusMap, st);
     
     vec3 tint = vec3(0.0);
 
@@ -29,6 +31,8 @@ void main(void){
     colors[2] = dstColor3;
     colors[3] = dstColor4;
     colors[4] = dstColor5;
+
+    gl_FragColor = bg;
 
     if (zones.x>0.0 && zones.y>0.0){
         float index = depth*3.0;
@@ -54,10 +58,7 @@ void main(void){
 
         vec3 tint = mix(colors[int(index)],colors[int(index)+1],mIndex);
         gl_FragColor.rgb = tint;
-    } else {
-        gl_FragColor.rgb = bg.rgb;
     }
     
-	
     gl_FragColor.a = 1.0;
 }

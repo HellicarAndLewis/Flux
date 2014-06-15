@@ -1,11 +1,7 @@
-uniform vec3 pct;
+uniform vec2 laserPosition;
+uniform vec3 laserColor;
+
 uniform float lineWidth;
-
-uniform vec3 tranColor;
-uniform float tranNoiseZoom;
-uniform float tranWidth;
-
-uniform float scale;
 
 uniform float time;
 
@@ -50,35 +46,21 @@ void main(void){
 
 	vec2 uv = gl_TexCoord[0].st;
 
-	vec3 pos = vPos.xyz*pow(10.0,scale*-4.0);
+	vec2 pos = vPos.xz;
+	pos.x *= -1.0;
 
-	vec3 A = vec3(1.0,pos.y*2.0,0.0);
-	vec3 B = vec3(0.0,pos.y*2.0,1.0);
-
-	vec3 transPos = pct;
-	transPos -= vec3(0.5);
-	transPos *= 2.0;
+	vec3 A = vec3(1.0,1.0,0.0);
+	vec3 B = vec3(0.0,0.0,1.0);
 	
-	float threshold = transPos.z;
-	vec3 green = tranColor * vec3(perlin3(vPos.xyz*vec3(sin(time*0.01),abs(cos(time*0.015)),cos(time*0.017))*(tranNoiseZoom*100.0)) );
-
-	//	RADAR TRAIL
-	//
-	vec4 color = vec4(A,1.0);
-	if (pos.y + tranWidth*0.5 < threshold){
-		color.xyz = B;
-	} else if( pos.y < threshold ){
-		float posPct = ((pos.y+tranWidth*0.5) - threshold)/tranWidth;
-		color.xyz = mix(B,green,posPct);
+	vec3 color = B;
+	if( laserPosition.y > pos.x && laserPosition.x > pos.y){
+		color = A;
+	} else if( laserPosition.y > pos.x){
+		color = vec3(0.0,1.0,0.0);
+	} else if ( laserPosition.x > pos.y){
+		color = vec3(1.0,0.0,0.0);
 	}
 
-	//	RADAR LINE
-	//
-	if( pos.y - lineWidth*0.05 < threshold && !(pos.y + lineWidth*0.05 < threshold) ){
-		float posPct = 1.0-((pos.y+lineWidth*0.05) - threshold)/(lineWidth*0.1);
-		// color.xyz += green*sin(posPct*PI);
-		color.xyz = mix(color.xyz,green*2.0,pow(max(0.0, abs(sin(posPct*PI))*2.0-1.0),2.5));
-	}
-
-	gl_FragColor = color;
+	gl_FragColor.rgb = color;
+	gl_FragColor.a = 1.0;
 }

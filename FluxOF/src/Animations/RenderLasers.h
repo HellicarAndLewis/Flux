@@ -38,6 +38,7 @@ public:
     void selfDraw();
     void selfDrawOverlay();
     
+    bool transitionDone();
 protected:
 	
     // TERRAIN TRANSITION
@@ -49,10 +50,14 @@ protected:
     PingPong        terrainTransitionTex;
     
     ofFbo           terrainTex;
+    ofFbo           terrainMapPrev;
     
     //  SHOES   TRANSITION
     //
     UIShader        shoeTransition;
 
+    //  LASER
+    //
+    ofFloatColor    laserColor;
     ofPoint         laserPosition;
 };
