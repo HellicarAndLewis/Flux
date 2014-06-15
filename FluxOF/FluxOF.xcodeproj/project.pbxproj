@@ -2558,9 +2558,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
-					/Users/Patricio/Desktop/openFrameworks/addons/ofxOpenCv/libs/opencv/lib/osx,
-					/Users/drexjojo/Development/of_v0.8.1_osx_release/addons/ofxLibwebsockets/libs/libwebsockets/lib/osx,
-					/Users/drexjojo/Development/of_v0.8.1_osx_release/addons/ofxLibwebsockets/libs/openssl/lib/osx,
+					../../../addons/ofxOpenCv/libs/opencv/lib/osx,
+					../../../addons/ofxLibwebsockets/libs/libwebsockets/lib/osx,
+					../../../addons/ofxLibwebsockets/libs/openssl/lib/osx,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
 				USER_HEADER_SEARCH_PATHS = "libs/jsoncpp ../../../addons/ofxCv/libs/CLD/include/ ../../../addons/ofxLibwebsockets/libs/libwebsockets/include/ libs/openssl/openssl src ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/include/ libs/ofxLibwebsockets/src ../../../addons/ofxCv/libs/ofxCv/include/ libs/jsoncpp/json libs/libwebsockets/include/ libs/ofxLibwebsockets/include/ofxLibwebsockets libs/ofxLibwebsockets/include ../../../addons/ofxOpenCv/libs/opencv/include/";
@@ -2647,9 +2647,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_49)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
-					/Users/Patricio/Desktop/openFrameworks/addons/ofxOpenCv/libs/opencv/lib/osx,
-					/Users/drexjojo/Development/of_v0.8.1_osx_release/addons/ofxLibwebsockets/libs/libwebsockets/lib/osx,
-					/Users/drexjojo/Development/of_v0.8.1_osx_release/addons/ofxLibwebsockets/libs/openssl/lib/osx,
+					../../../addons/ofxOpenCv/libs/opencv/lib/osx,
+					../../../addons/ofxLibwebsockets/libs/libwebsockets/lib/osx,
+					../../../addons/ofxLibwebsockets/libs/openssl/lib/osx,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "libs/jsoncpp ../../../addons/ofxCv/libs/CLD/include/ ../../../addons/ofxLibwebsockets/libs/libwebsockets/include/ libs/openssl/openssl src ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/include/ libs/ofxLibwebsockets/src ../../../addons/ofxCv/libs/ofxCv/include/ libs/jsoncpp/json libs/libwebsockets/include/ libs/ofxLibwebsockets/include/ofxLibwebsockets libs/ofxLibwebsockets/include ../../../addons/ofxOpenCv/libs/opencv/include/";

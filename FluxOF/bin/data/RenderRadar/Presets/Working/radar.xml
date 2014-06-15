@@ -2,7 +2,7 @@
     <Kind>40</Kind>
     <Name>radar</Name>
     <IsMinified>1</IsMinified>
-    <XPosition>3.000000000</XPosition>
+    <XPosition>1.000000000</XPosition>
     <YPosition>451.000000000</YPosition>
 </Canvas>
 <Widget>
@@ -13,7 +13,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>pct</Name>
-    <Value>0.135491610</Value>
+    <Value>0.838729024</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
