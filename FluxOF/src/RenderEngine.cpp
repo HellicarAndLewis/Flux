@@ -12,8 +12,8 @@ void RenderEngine::setCalibration(CalibrationLoader *_calibration){
     calibration = _calibration;
 }
 
-void RenderEngine::setImageQueue(UIClass *_imageQueue){
-    guiAdd( *_imageQueue );
+void RenderEngine::addUiClass(UIClass *_ui){
+    guiAdd( *_ui );
 }
 
 void RenderEngine::selfSceneTransformation(){

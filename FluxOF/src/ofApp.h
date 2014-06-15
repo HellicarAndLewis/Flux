@@ -9,8 +9,12 @@
 //  Loaders
 //
 #include "RenderEngine.h"
-#include "ImageQueue.h"
 #include "CalibrationLoader.h"
+
+// Controllers
+//
+#include "ImageQueue.h"
+#include "NodeCommunication.h"
 
 //  Animation Prototypes
 //
@@ -38,6 +42,8 @@ public:
     RenderEngine *renderEngine;
     
     ImageQueue imageQueue;
+    NodeCommunication nodeCommunication;
+    
     CalibrationLoader calibration;
     
     ofxAssimpModelLoader shoeModel;

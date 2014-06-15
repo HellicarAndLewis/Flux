@@ -20,7 +20,7 @@
 class RenderEngine : public UITime3DProject {
 public:
     
-    void setImageQueue(UIClass *_imageQueue);
+    void addUiClass(UIClass *uiClass);
     void setCalibration(CalibrationLoader *_calibration);
     
     string getSystemName(){ return "RenderEngine-SuperClass";}

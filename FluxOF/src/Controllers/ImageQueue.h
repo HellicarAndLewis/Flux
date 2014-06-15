@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ofxXmlSettings.h"
 #include "RenderEngine.h"
 
 #include "UIClass.h"
@@ -12,6 +13,10 @@ public:
     
     void transitionToNextItem();
     void transitionTo(QueueItem item);
+    
+    void cleanupQueue();
+    void storeQueueToFile();
+    void loadQueueFromFile();
 
     string  getClassName(){return "IMAGE-QUEUE";};
     
@@ -24,11 +29,14 @@ public:
     RenderEngine * renderEngine;
     
     ofxUILabel * incommingSizeLabel;
+    ofxUILabel * oldSizeLabel;
     ofxUIImage * lastImageUI;
     ofxUIImage * currentImageUI;
     
     QueueItem lastItem;
     QueueItem currentItem;
+    
+    ofxXmlSettings storedQueue;
         
 protected:
     void    setupUI();

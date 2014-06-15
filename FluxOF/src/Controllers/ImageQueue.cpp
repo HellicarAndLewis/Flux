@@ -10,7 +10,7 @@
 
 void ImageQueue::setup(){
     //Mockup data
-    string path = "images";
+    /*string path = "images";
     ofDirectory backgroundsDir(path);
     if(backgroundsDir.exists()){
 		backgroundsDir.listDir();
@@ -24,9 +24,53 @@ void ImageQueue::setup(){
             
             incommingItemsQueue.push_back(newItem);
         }
+    }*/
+    
+    loadQueueFromFile();
+}
+
+void ImageQueue::setupUI(){
+    incommingSizeLabel = gui->addLabel("");;
+    oldSizeLabel = gui->addLabel("");;
+    
+    lastImageUI = gui->addImage("Last image", nil, 100, 100, true);
+    currentImageUI = gui->addImage("Next image", nil, 100, 100, true);
+    
+    gui->autoSizeToFitWidgets();
+    
+}
+
+
+void ImageQueue::update(){
+    incommingSizeLabel->setLabel(ofToString(incommingItemsQueue.size())+" incomming items");
+    oldSizeLabel->setLabel(ofToString(oldItemsQueue.size())+" old items");
+    
+    // Check if there are items that need to get loaded
+    //
+    for(int i=0;i<incommingItemsQueue.size();i++){
+        if(!incommingItemsQueue[i].image.isAllocated()){
+            incommingItemsQueue[i].image.loadImage(incommingItemsQueue[i].path);
+        }
+    }
+    for(int i=0;i<oldItemsQueue.size();i++){
+        if(!oldItemsQueue[i].image.isAllocated()){
+            oldItemsQueue[i].image.loadImage(oldItemsQueue[i].path);
+        }
+    }
+    
+    
+    
+    // Determine if we should start a new transition
+    //
+    if(renderEngine->transitionDone()){
+        transitionToNextItem();
     }
 }
 
+
+//
+// Determines what next image to show, and starts the transition and does some cleanup
+//
 void ImageQueue::transitionToNextItem(){
     
     //Determine if there are new images to show, or we should pick an old one
@@ -36,15 +80,22 @@ void ImageQueue::transitionToNextItem(){
         transitionTo(incommingItemsQueue[0]);
         oldItemsQueue.push_back(incommingItemsQueue[0]);
         incommingItemsQueue.pop_front();
-    } else {
+    } else if(oldItemsQueue.size() > 0){
         //Transition to the first item in the old items, and move it to the back
         transitionTo(oldItemsQueue[0]);
         oldItemsQueue.push_back(oldItemsQueue[0]);
         oldItemsQueue.pop_front();
     }
     
+    
+    cleanupQueue();
+    storeQueueToFile();
 }
 
+
+//
+// Starts a transition to a given queue item
+//
 void ImageQueue::transitionTo(QueueItem item){
     lastItem = currentItem;
     currentItem = item;
@@ -61,26 +112,63 @@ void ImageQueue::transitionTo(QueueItem item){
     currentImageUI->setImage(&currentItem.image);
 }
 
-void ImageQueue::update(){
-    incommingSizeLabel->setLabel(ofToString(incommingItemsQueue.size())+" incomming items");
-    
-    // Determine if we should start a new transition
-    //
-    if(renderEngine->transitionDone()){
-        transitionToNextItem();
+
+
+
+//
+// This function will go through the old items queue and remove duplicates
+// TODO: remove images that are old
+//
+void ImageQueue::cleanupQueue(){
+    for(int i=0;i<oldItemsQueue.size();i++){
+        for(int u=i+1;u<oldItemsQueue.size();u++){
+            if(oldItemsQueue[i].itemId == oldItemsQueue[u].itemId){
+                oldItemsQueue.erase(oldItemsQueue.begin()+i);
+            }
+        }
     }
 }
 
-void ImageQueue::setupUI(){
-    incommingSizeLabel = gui->addLabel("test");;
-
-    lastImageUI = gui->addImage("Last image", nil, 100, 100, true);
-    currentImageUI = gui->addImage("Next image", nil, 100, 100, true);
+//
+// Stores the old items queue to a file in case the application needs to restart
+//
+void ImageQueue::storeQueueToFile(){
+    storedQueue.clear();
     
-    gui->autoSizeToFitWidgets();
-
+    for(int i=0;i<oldItemsQueue.size();i++){
+        storedQueue.addTag("item");
+        storedQueue.setValue("item:username", oldItemsQueue[i].username, i);
+        storedQueue.setValue("item:itemId", oldItemsQueue[i].itemId, i);
+        storedQueue.setValue("item:path", oldItemsQueue[i].path, i);
+    }
+    
+    storedQueue.save("imageQueue.xml");
 }
 
+//
+// Loads the file from the previous function
+//
+void ImageQueue::loadQueueFromFile(){
+    ofxXmlSettings load;
+    load.load("imageQueue.xml");
+    
+    for(int i=0;i<load.getNumTags("item");i++){
+        load.pushTag("item",i);
+        QueueItem newItem;
+        newItem.path = load.getValue("path", "");
+        newItem.username = load.getValue("username", "");
+        newItem.itemId = load.getValue("itemId", 0);
+        
+        oldItemsQueue.push_back(newItem);
+        
+        load.popTag();
+    }
+}
+
+
+//
+//
+//
 void ImageQueue::guiEvent(ofxUIEventArgs &e){
     
 }

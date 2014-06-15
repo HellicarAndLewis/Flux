@@ -1,12 +1,28 @@
 #pragma once
 #include "UIClass.h"
 #include "ofxLibwebsockets.h"
+#include "ImageQueue.h"
+#include "RenderEngine.h"
 
 class NodeCommunication : public UIClass {
 public:
     void setup();
+    void update();
     
+    string  getClassName(){return "NODE-COM";};
+
     ofxLibwebsockets::Client client;
+    RenderEngine * renderEngine;
+    ImageQueue * imageQueue;
+    
+    
+    bool enabled;
+    bool connected;
+    float reconnectCounter;
+    bool triggerPicture;
+    
+    ofxUILabel * statusLabel;
+    
     
     // websocket methods
     void onConnect( ofxLibwebsockets::Event& args );
@@ -15,5 +31,9 @@ public:
     void onIdle( ofxLibwebsockets::Event& args );
     void onMessage( ofxLibwebsockets::Event& args );
     void onBroadcast( ofxLibwebsockets::Event& args );
+    
+protected:
+    void    setupUI();
+    void    guiEvent(ofxUIEventArgs &e);
 
 };

@@ -4,19 +4,30 @@
 void ofApp::setup(){
     ofSetVerticalSync(true);
     
-    //  Load STUFF
-    //
-    calibration.setup();
-    imageQueue.setup();
-    
-    shoeModel.loadModel("models/LOCKED_SHOE_ROTATION.obj");
-    terrainModel.loadModel("models/LOCKED_TERRAFORM_002.obj");
     
     //  Initialize the Render
     //
     renderEngine = new RenderRadar();
     
+    // Setup the controllers
+    //
     imageQueue.renderEngine = renderEngine;
+    imageQueue.setup();
+
+    nodeCommunication.renderEngine = renderEngine;
+    nodeCommunication.imageQueue = &imageQueue;
+    nodeCommunication.setup();
+    
+    
+    //  Load STUFF
+    //
+    calibration.setup();
+    
+    shoeModel.loadModel("models/LOCKED_SHOE_ROTATION.obj");
+    terrainModel.loadModel("models/LOCKED_TERRAFORM_002.obj");
+    
+    
+    
     
     renderEngine->shoeMesh = shoeModel.getMesh(0);
     renderEngine->terrainMesh = terrainModel.getMesh(0);
@@ -26,19 +37,21 @@ void ofApp::setup(){
     renderEngine->terrainResolution = renderEngine->terrainDepthMap.getWidth();
     
 	renderEngine->setup();
-    renderEngine->setImageQueue(&imageQueue);
+
+    renderEngine->addUiClass(&imageQueue);
+    renderEngine->addUiClass(&nodeCommunication);
     renderEngine->setCalibration(&calibration);
     
     //  Ready to go
     //
 	renderEngine->play();
-    imageQueue.transitionToNextItem();
     
     normalMap.allocate(renderEngine->terrainResolution,renderEngine->terrainResolution);
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    nodeCommunication.update();
     imageQueue.update();
 }
 
