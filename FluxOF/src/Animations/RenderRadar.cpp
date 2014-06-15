@@ -1,7 +1,7 @@
 //
 //  RenderRadar.cpp
 //
-//  Created by Patricio Gonzalez Vivo on 9/23/13.
+//  Created by Patricio Gonzalez Vivo on 6/11/14.
 //
 //
 #include "RenderRadar.h"
@@ -172,17 +172,12 @@ void RenderRadar::selfDraw(){
     materials["MATERIAL 1"]->begin();
 
     ofPushMatrix();
-    
-//    if(currentViewPort == 1){
-//        ofTranslate(-100, 0,0);
-//    }
 
     ofSetColor(255);
     
     //  TERRAIN
     //
 
-    //  Load Terrain Calib
     ofPushMatrix();
     ofSetSmoothLighting(false);
     
@@ -196,11 +191,8 @@ void RenderRadar::selfDraw(){
 
     //  SHOE
     //
-
     ofPushMatrix();
     ofSetSmoothLighting(true);
-    //  Load Shoe Calib
-    
     shoeTransition.begin();
     shoeMesh.draw();
     shoeTransition.end();

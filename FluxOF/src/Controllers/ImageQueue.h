@@ -8,7 +8,7 @@
 
 class ImageQueue : public UIClass {
 public:
-    void setup();
+    void load();
     void update();
     
     void transitionToNextItem();

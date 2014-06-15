@@ -1,7 +1,7 @@
 //
 //  RenderRadar.h
 //
-//  Created by Patricio Gonzalez Vivo on 9/23/13.
+//  Created by Patricio Gonzalez Vivo on 6/11/14.
 //
 //
 
@@ -17,9 +17,6 @@
 //  FX
 //
 #include "UIShader.h"
-#include "ofxBlur.h"
-#include "ofxNormals.h"
-#include "ofxDisplacePixels.h"
 
 class RenderRadar : public RenderEngine {
 public:

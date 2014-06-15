@@ -12,7 +12,6 @@ public:
     string  getClassName(){return "NODE-COM";};
 
     ofxLibwebsockets::Client client;
-    RenderEngine * renderEngine;
     ImageQueue * imageQueue;
     
     

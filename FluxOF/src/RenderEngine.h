@@ -20,21 +20,22 @@
 class RenderEngine : public UITime3DProject {
 public:
     
-    void addUiClass(UIClass *uiClass);
-    void setCalibration(CalibrationLoader *_calibration);
+    virtual void addUiClass(UIClass *uiClass);
+    virtual void setCalibration(CalibrationLoader *_calibration);
     
-    string getSystemName(){ return "RenderEngine-SuperClass";}
+    virtual string getSystemName(){ return "RenderEngine-SuperClass";}
     
-    void startTransitionTo(QueueItem queueItem);
-    bool transitionDone();
+    virtual void startTransitionTo(QueueItem queueItem);
+    virtual bool transitionDone();
     
-    void selfSceneTransformation();
+    virtual void selfSceneTransformation();
     
     ofVboMesh       shoeMesh;
     ofVboMesh       terrainMesh;
     ofTexture       terrainDepthMap;
     ofTexture       terrainNormalMap;
     float           terrainResolution;
+    ofPoint         sceneMin,sceneMax;
     
     ofTexture       shoeTexA,shoeTexB;
     
