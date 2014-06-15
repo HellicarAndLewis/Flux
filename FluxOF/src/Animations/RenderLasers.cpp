@@ -1,12 +1,12 @@
 //
-//  RenderRadar.cpp
+//  RenderLasers.cpp
 //
-//  Created by Patricio Gonzalez Vivo on 6/11/14.
+//  Created by Patricio Gonzalez Vivo on 6/15/14.
 //
 //
-#include "RenderRadar.h"
+#include "RenderLasers.h"
 
-void RenderRadar::selfSetup(){
+void RenderLasers::selfSetup(){
     ofSetVerticalSync(true);
     ofEnableAlphaBlending();
     ofEnableSmoothing();
@@ -40,7 +40,7 @@ void RenderRadar::selfSetup(){
     ofEnableArbTex();
 }
 
-void RenderRadar::selfSetupGuis(){
+void RenderLasers::selfSetupGuis(){
     backgroundSet(new UIMapBackground());
     lightAdd("SPOT", OF_LIGHT_SPOT);
     
@@ -53,32 +53,32 @@ void RenderRadar::selfSetupGuis(){
     guiAdd(shoeTransition);
 }
 
-void RenderRadar::selfGuiEvent(ofxUIEventArgs &e){
+void RenderLasers::selfGuiEvent(ofxUIEventArgs &e){
     
 }
 
-void RenderRadar::selfSetupSystemGui(){
+void RenderLasers::selfSetupSystemGui(){
 
 }
 
-void RenderRadar::guiSystemEvent(ofxUIEventArgs &e){
+void RenderLasers::guiSystemEvent(ofxUIEventArgs &e){
     string name = e.widget->getName();
     
 }
 
-void RenderRadar::selfSetupRenderGui(){
+void RenderLasers::selfSetupRenderGui(){
     rdrGui->addLabel("Render mode");
     rdrGui->addToggle("Simulator", &simulatorMode);
 }
 
-void RenderRadar::guiRenderEvent(ofxUIEventArgs &e){
+void RenderLasers::guiRenderEvent(ofxUIEventArgs &e){
     string name = e.widget->getName();
     
 }
 
 //---------------------------------------------------
 
-void RenderRadar::selfUpdate(){
+void RenderLasers::selfUpdate(){
     if(simulatorMode){
         setupNumViewports(1);
         cameraEnable(true);
@@ -166,7 +166,7 @@ void RenderRadar::selfUpdate(){
     terrainTex.end();
 }
 
-void RenderRadar::selfDraw(){
+void RenderLasers::selfDraw(){
     materials["MATERIAL 1"]->begin();
 
     ofPushMatrix();
@@ -205,7 +205,7 @@ void RenderRadar::selfDraw(){
     materials["MATERIAL 1"]->end();
 }
 
-void RenderRadar::selfDrawOverlay(){
+void RenderLasers::selfDrawOverlay(){
     if(bDebug){
         
         ofPushMatrix();

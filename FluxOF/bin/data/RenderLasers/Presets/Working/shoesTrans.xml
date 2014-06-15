@@ -3,12 +3,12 @@
     <Name>shoesTrans</Name>
     <IsMinified>1</IsMinified>
     <XPosition>1.000000000</XPosition>
-    <YPosition>501.000000000</YPosition>
+    <YPosition>457.000000000</YPosition>
 </Canvas>
 <Widget>
     <Kind>2</Kind>
     <Name>ENABLE</Name>
-    <Value>1</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
@@ -23,12 +23,12 @@
 <Widget>
     <Kind>25</Kind>
     <Name>z</Name>
-    <Value>0.507142842</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>lineWidth</Name>
-    <Value>0.014778325</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
@@ -48,15 +48,15 @@
 <Widget>
     <Kind>4</Kind>
     <Name>tranNoiseZoom</Name>
-    <Value>0.453201979</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>tranWidth</Name>
-    <Value>0.078817733</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>scale</Name>
-    <Value>0.620689631</Value>
+    <Value>0.000000000</Value>
 </Widget>

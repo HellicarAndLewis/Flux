@@ -42,6 +42,7 @@
 		3D12CCF1194CAD45009A4040 /* RenderEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D12CCEF194CAD45009A4040 /* RenderEngine.cpp */; };
 		3D12CD03194CBF01009A4040 /* RenderRadar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D12CCF3194CBF01009A4040 /* RenderRadar.cpp */; };
 		3D12CD07194CBF01009A4040 /* CalibrationLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D12CCFE194CBF01009A4040 /* CalibrationLoader.cpp */; };
+		3D12CD0E194DE00B009A4040 /* RenderLasers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D12CD0C194DE00B009A4040 /* RenderLasers.cpp */; };
 		3D752810194B521D008D4DF8 /* UITime2DProject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D75280C194B521D008D4DF8 /* UITime2DProject.cpp */; };
 		3D752811194B521D008D4DF8 /* UITime3DProject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D75280E194B521D008D4DF8 /* UITime3DProject.cpp */; };
 		3D75283B194B525A008D4DF8 /* ETF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D752820194B525A008D4DF8 /* ETF.cpp */; };
@@ -395,6 +396,8 @@
 		3D12CCFE194CBF01009A4040 /* CalibrationLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CalibrationLoader.cpp; sourceTree = "<group>"; };
 		3D12CCFF194CBF01009A4040 /* CalibrationLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalibrationLoader.h; sourceTree = "<group>"; };
 		3D12CD02194CBF01009A4040 /* QueueItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueueItem.h; sourceTree = "<group>"; };
+		3D12CD0C194DE00B009A4040 /* RenderLasers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RenderLasers.cpp; sourceTree = "<group>"; };
+		3D12CD0D194DE00B009A4040 /* RenderLasers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderLasers.h; sourceTree = "<group>"; };
 		3D75280C194B521D008D4DF8 /* UITime2DProject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UITime2DProject.cpp; sourceTree = "<group>"; };
 		3D75280D194B521D008D4DF8 /* UITime2DProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITime2DProject.h; sourceTree = "<group>"; };
 		3D75280E194B521D008D4DF8 /* UITime3DProject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UITime3DProject.cpp; sourceTree = "<group>"; };
@@ -1090,6 +1093,8 @@
 		3D12CCF2194CBF01009A4040 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
+				3D12CD0C194DE00B009A4040 /* RenderLasers.cpp */,
+				3D12CD0D194DE00B009A4040 /* RenderLasers.h */,
 				3D12CCF3194CBF01009A4040 /* RenderRadar.cpp */,
 				3D12CCF4194CBF01009A4040 /* RenderRadar.h */,
 			);
@@ -2209,6 +2214,7 @@
 				43badbb2fe0f17d34b57a705622bd4a2 /* ofxUIScrollableCanvas.cpp in Sources */,
 				3D75283E194B525A008D4DF8 /* ContourFinder.cpp in Sources */,
 				740a58cbfdfe578c83a349afda24a0fe /* ofxUISlider.cpp in Sources */,
+				3D12CD0E194DE00B009A4040 /* RenderLasers.cpp in Sources */,
 				ade7c2afc51e3f7e5e3890264322a001 /* ofxUISortableList.cpp in Sources */,
 				bfefce32dafe10a8eb519f6c334204d2 /* ofxUISpacer.cpp in Sources */,
 				52aff80a869790144accc9baec2cfca4 /* ofxUISpectrum.cpp in Sources */,

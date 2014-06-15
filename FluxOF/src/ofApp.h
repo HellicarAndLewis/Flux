@@ -15,9 +15,12 @@
 //  Animation Prototypes
 //
 #include "RenderRadar.h"
+#include "RenderLasers.h"
 
-#include "ofxBlur.h"
-#include "ofxNormals.h"
+enum ANIMATION_STYLE {
+    RADAR = 0,
+    LASERS
+};
 
 class ofApp : public ofBaseApp{
 public:
@@ -35,13 +38,14 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     
+    void loadAnimation(ANIMATION_STYLE _animation);
+    
     RenderEngine *renderEngine;
     
     ImageQueue imageQueue;
     CalibrationLoader calibration;
     
-    ofxAssimpModelLoader shoeModel;
-    ofxAssimpModelLoader terrainModel;
-    
-    ofxNormals normalMap;
+    ofxAssimpModelLoader    shoeModel;
+    ofxAssimpModelLoader    terrainModel;
+    ofTexture               terrainDepthMap, terrainNormalMap;
 };

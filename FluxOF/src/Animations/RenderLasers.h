@@ -1,7 +1,7 @@
 //
-//  RenderRadar.h
+//  RenderLasers.h
 //
-//  Created by Patricio Gonzalez Vivo on 6/11/14.
+//  Created by Patricio Gonzalez Vivo on 6/15/14.
 //
 //
 
@@ -21,10 +21,10 @@
 #include "ofxNormals.h"
 #include "ofxDisplacePixels.h"
 
-class RenderRadar : public RenderEngine {
+class RenderLasers : public RenderEngine {
 public:
     
-    string getSystemName(){ return "RenderRadar";}
+    string getSystemName(){ return "RenderLasers";}
     
     void selfSetupGuis();
     void selfGuiEvent(ofxUIEventArgs &e);
