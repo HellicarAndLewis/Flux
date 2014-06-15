@@ -2,8 +2,8 @@
     <Kind>40</Kind>
     <Name>lasersMask</Name>
     <IsMinified>0</IsMinified>
-    <XPosition>1119.000000000</XPosition>
-    <YPosition>398.000000000</YPosition>
+    <XPosition>188.000000000</XPosition>
+    <YPosition>586.000000000</YPosition>
 </Canvas>
 <Widget>
     <Kind>2</Kind>
@@ -13,12 +13,12 @@
 <Widget>
     <Kind>25</Kind>
     <Name>x</Name>
-    <Value>0.460732996</Value>
+    <Value>0.033599999</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
     <Name>y</Name>
-    <Value>0.497382194</Value>
+    <Value>0.033599999</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>

@@ -1,6 +1,23 @@
 <Map>
     <Bangs></Bangs>
     <Switches></Switches>
-    <SliderCurves></SliderCurves>
+    <SliderCurves>
+        <Mapping>
+            <Widget>
+                <WidgetName>x</WidgetName>
+                <WidgetID>6</WidgetID>
+                <WidgetCanvasParent>lasersMask</WidgetCanvasParent>
+            </Widget>
+            <Track></Track>
+        </Mapping>
+        <Mapping>
+            <Widget>
+                <WidgetName>y</WidgetName>
+                <WidgetID>8</WidgetID>
+                <WidgetCanvasParent>lasersMask</WidgetCanvasParent>
+            </Widget>
+            <Track></Track>
+        </Mapping>
+    </SliderCurves>
     <NumberDialerCurves></NumberDialerCurves>
 </Map>

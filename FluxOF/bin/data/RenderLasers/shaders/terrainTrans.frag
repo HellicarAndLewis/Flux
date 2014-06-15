@@ -55,7 +55,7 @@ void main(void){
         vec3 tint = mix(colors[int(index)],colors[int(index)+1],mIndex);
         gl_FragColor.rgb = tint;
     } else {
-        gl_FragColor.rgb = tint;
+        gl_FragColor.rgb = bg.rgb;
     }
     
 	
