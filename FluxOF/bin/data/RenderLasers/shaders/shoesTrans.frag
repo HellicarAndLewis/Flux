@@ -61,6 +61,22 @@ void main(void){
 		color = vec3(1.0,0.0,0.0);
 	}
 
+	float threshold = laserPosition.x;
+	if( pos.y - lineWidth*5.0 < threshold && !(pos.y + lineWidth*5.0 < threshold) ){
+		float posPct = 1.0-((pos.y+lineWidth*5.0) - threshold)/(lineWidth*10.0);
+		float noise = perlin3(vPos.xyz*vec3(time*0.1));
+		vec3 green = mix(color,laserColor,noise);
+		color = mix(color.xyz,green*2.0,pow(max(0.0, abs(sin(posPct*PI))*2.0-1.0),0.5));
+	}
+
+	threshold = laserPosition.y;
+	if( pos.x - lineWidth*5.0 < threshold && !(pos.x + lineWidth*5.0 < threshold) ){
+		float posPct = 1.0-((pos.x+lineWidth*5.0) - threshold)/(lineWidth*10.0);
+		float noise = perlin3(vPos.xyz*vec3(time*0.1));
+		vec3 green = mix(color,laserColor,noise);
+		color.xyz = mix(color.xyz,green*2.0,pow(max(0.0, abs(sin(posPct*PI))*2.0-1.0),0.5));
+	}
+
 	gl_FragColor.rgb = color;
 	gl_FragColor.a = 1.0;
 }

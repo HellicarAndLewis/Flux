@@ -154,9 +154,6 @@ void RenderLasers::selfUpdate(){
                                                ((float)colorPalette[4].g)/255.0,
                                                ((float)colorPalette[4].b)/255.0);
     
-    terrainTransition.getShader().setUniform3f("laserColor",laserColor.r,laserColor.g,laserColor.b);
-    
-    
     terrainTransition.getShader().setUniform1f("resolution", terrainResolution);
     
     glBegin(GL_QUADS);
@@ -168,8 +165,6 @@ void RenderLasers::selfUpdate(){
     terrainTransition.end();
     
     terrainTransitionTex.dst->end();
-    
-    cout<< laserPositionPct << endl;
     
     terrainTex.begin();
     terrainTransitionTex.dst->draw(0, 0);
@@ -205,6 +200,7 @@ void RenderLasers::selfDraw(){
     
     ofSetSmoothLighting(true);
     shoeTransition.begin();
+    shoeTransition.getShader().setUniform3f("laserColor",laserColor.r,laserColor.g,laserColor.b);
     shoeTransition.getShader().setUniform2f("laserPosition", laserPosition.x, laserPosition.y);
     shoeMesh.draw();
     shoeTransition.end();

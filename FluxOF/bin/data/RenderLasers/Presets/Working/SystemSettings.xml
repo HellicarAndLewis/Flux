@@ -2,8 +2,8 @@
     <Kind>40</Kind>
     <Name>SystemSettings</Name>
     <IsMinified>0</IsMinified>
-    <XPosition>1325.000000000</XPosition>
-    <YPosition>288.000000000</YPosition>
+    <XPosition>229.000000000</XPosition>
+    <YPosition>16.000000000</YPosition>
 </Canvas>
 <Widget>
     <Kind>2</Kind>
@@ -13,22 +13,22 @@
 <Widget>
     <Kind>4</Kind>
     <Name>Laser_Facus_X</Name>
-    <Value>69.598655701</Value>
+    <Value>12.991192818</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>Laser_Facus_Y</Name>
-    <Value>71.572120667</Value>
+    <Value>-0.358136922</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>Laser_Color_R</Name>
-    <Value>1.000000000</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>Laser_Color_G</Name>
-    <Value>1.000000000</Value>
+    <Value>0.679802954</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
