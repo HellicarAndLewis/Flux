@@ -17,9 +17,6 @@
 //  FX
 //
 #include "UIShader.h"
-#include "ofxBlur.h"
-#include "ofxNormals.h"
-#include "ofxDisplacePixels.h"
 
 class RenderRadar : public RenderEngine {
 public:
