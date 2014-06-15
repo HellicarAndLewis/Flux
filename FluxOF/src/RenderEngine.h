@@ -35,6 +35,7 @@ public:
     ofTexture       terrainDepthMap;
     ofTexture       terrainNormalMap;
     float           terrainResolution;
+    ofPoint         sceneMin,sceneMax;
     
     ofTexture       shoeTexA,shoeTexB;
     

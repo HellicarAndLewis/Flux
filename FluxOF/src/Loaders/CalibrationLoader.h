@@ -19,7 +19,7 @@ public:
 
 class CalibrationLoader {
 public:
-    void setup();
+    void load();
     
     CalibrationLoaderInstance shoe[2];
     CalibrationLoaderInstance ground[2];

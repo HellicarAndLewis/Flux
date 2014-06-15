@@ -38,6 +38,7 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     
+    void loadScene();
     void loadAnimation(ANIMATION_STYLE _animation);
     
     RenderEngine *renderEngine;
@@ -45,7 +46,7 @@ public:
     ImageQueue imageQueue;
     CalibrationLoader calibration;
     
-    ofxAssimpModelLoader    shoeModel;
-    ofxAssimpModelLoader    terrainModel;
-    ofTexture               terrainDepthMap, terrainNormalMap;
+    ofVboMesh       terrainMesh,shoeMesh;
+    ofTexture       terrainDepthMap, terrainNormalMap;
+    ofPoint         sceneMin,sceneMax;
 };

@@ -2,13 +2,11 @@
 
 //--------------------------
 
-void CalibrationLoader::setup(){
+void CalibrationLoader::load(){
     shoe[0].load("calibration/shoe_calib_1");
     shoe[1].load("calibration/shoe_calib_2");
 
 }
-
-
 
 //--------------------------
 

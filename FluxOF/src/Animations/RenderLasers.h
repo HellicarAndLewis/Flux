@@ -17,9 +17,6 @@
 //  FX
 //
 #include "UIShader.h"
-#include "ofxBlur.h"
-#include "ofxNormals.h"
-#include "ofxDisplacePixels.h"
 
 class RenderLasers : public RenderEngine {
 public:
@@ -56,4 +53,6 @@ protected:
     //  SHOES   TRANSITION
     //
     UIShader        shoeTransition;
+
+    ofPoint         laserPosition;
 };

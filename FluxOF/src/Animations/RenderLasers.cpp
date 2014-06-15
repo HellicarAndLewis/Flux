@@ -16,6 +16,11 @@ void RenderLasers::selfSetup(){
     audioIn.setup(44100, 256);
     audioIn.start();
     
+    
+    
+    cout << sceneMin << endl;
+    cout << sceneMax << endl;
+    
     //  SHOES
     //
     shoeTransition.load(getDataPath()+"shaders/shoesTrans");

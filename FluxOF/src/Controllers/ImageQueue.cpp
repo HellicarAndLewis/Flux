@@ -8,7 +8,7 @@
 
 #include "ImageQueue.h"
 
-void ImageQueue::setup(){
+void ImageQueue::load(){
     //Mockup data
     string path = "images";
     ofDirectory backgroundsDir(path);
@@ -20,7 +20,6 @@ void ImageQueue::setup(){
             newItem.path = "images/"+backgroundsDir.getName(i);
             newItem.image.loadImage(newItem.path);
             newItem.username = "@Username"+ofToString(i+1);
-
             
             incommingItemsQueue.push_back(newItem);
         }
