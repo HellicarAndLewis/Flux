@@ -3,5 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "ws": "latest",
+    "http": "latest",
+    "q":"latest",
+    "request": "latest"
   }
 }
