@@ -7,9 +7,9 @@ var WebSocketServer = require('ws').Server,
 var imageFolder = "../FluxOF/bin/data/images/";
 var incommingItems = [];
 
-
+//
+// Setup the WebSocket to the oF app
 var wss = new WebSocketServer({port: 8080});
-
 var ofConnection;
 
 wss.on('connection', function(ws) {
@@ -18,24 +18,29 @@ wss.on('connection', function(ws) {
   ws.on('message', function(message) {
     console.log('received: %s', message);
 
-    //try {
+    try {
+      //Parse the incomming message as JSON
+      //
       var object = JSON.parse(message);
       if (object.type && object.type == 'photoTrigger') {
+        //TODO: Trigger the photo
         console.log("Trigger photo " + object.id);
       }
-    //} catch(e){
-      //console.log(e);
-    //}
+    } catch(e){
+      console.log(e);
+    }
   });
   ws.on('close', function(){
-    console.log("CLOSE")
+    console.log("oF WebSocket closed")
     ofConnection = undefined;
   });
 
 });
 
 
-
+//
+//Send the incomminImages array to oF app over the websocket
+//
 var sendIncommingImage = function(){
   if(ofConnection) {
     ofConnection.send(JSON.stringify({queue:incommingItems}));
@@ -45,6 +50,9 @@ var sendIncommingImage = function(){
 };
 
 
+//
+// Pull new images from the UDOX twitter api
+//
 var pullImages = function(){
   console.log("Pulling for new images");
 
@@ -66,24 +74,38 @@ var pullImages = function(){
     res.setEncoding('utf8');
 
     var responseString = '';
-
     res.on('data', function(data) {
       responseString += data;
     });
 
     res.on('end', function() {
+      //The response is done, go parse it
       var responseObject = JSON.parse(responseString);
       handleIncommingImages(responseObject);
     });
-
   }).end();
 };
 
+//
+// Parse the response from UDOX
+//
 var handleIncommingImages = function(data){
-//  console.log(data);
+  //First delete items in the local queue that are not present at udox anymore
+  for(var u in incommingItems){
+    var itemFound = false;
+    for(var i in data) {
+      if(incommingItems[u].id == data[i].id) {
 
+      }
+    }
+    if(!itemFound){
+      console.log("Remove item "+incommingItems[u].username);
+      incommingItems.splice(u,1);
+    }
+  }
+
+  //Look for the items in the local version of the queue, and see if its new
   for(var i in data){
-    //console.log(i)
     var itemFound = false;
     for(var u in incommingItems){
       if(incommingItems[u].id == data[i].id){
@@ -93,19 +115,31 @@ var handleIncommingImages = function(data){
 
     if(!itemFound){
       console.log("New item "+data[i].username);
+
+      //If its new, then download it
       downloadImage(data[i]);
       incommingItems.push(data[i]);
     }
   }
+
+  //Send the queue to oF app
   sendIncommingImage();
 
-  setTimeout(pullImages, 2000);
+  //Do this again after 3 seconds
+  setTimeout(pullImages, 3000);
 };
 
+//Start the pulling of images
+pullImages();
+
+
+
+//
+// Download a item to the local folder
+//
 var downloadImage = function(item){
   console.log("Going to download "+item.image_url+" to "+imageFolder+item.id+".png")
   request(item.image_url).pipe(fs.createWriteStream(imageFolder+item.id+".png"))
 
 };
 
-pullImages();
