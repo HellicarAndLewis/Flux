@@ -3,7 +3,7 @@
     <Name>SPOT</Name>
     <IsMinified>1</IsMinified>
     <XPosition>1.000000000</XPosition>
-    <YPosition>354.000000000</YPosition>
+    <YPosition>376.000000000</YPosition>
 </Canvas>
 <Widget>
     <Kind>2</Kind>
@@ -23,17 +23,17 @@
 <Widget>
     <Kind>25</Kind>
     <Name>POSX</Name>
-    <Value>7.479786873</Value>
+    <Value>4.568815231</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
     <Name>POSY</Name>
-    <Value>176.580307007</Value>
+    <Value>204.932220459</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
     <Name>POSZ</Name>
-    <Value>237.274291992</Value>
+    <Value>277.637725830</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
@@ -78,7 +78,7 @@
 <Widget>
     <Kind>25</Kind>
     <Name>dBRI</Name>
-    <Value>0.382198960</Value>
+    <Value>0.445026189</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>

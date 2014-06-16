@@ -56,4 +56,11 @@ protected:
     //  SHOES   TRANSITION
     //
     UIShader        shoeTransition;
+    
+    //  RADAR
+    //
+    ofFloatColor    radarColor;
+    ofPoint         radarCenter;
+    float           radarPct;
+    float           radarHeight;
 };

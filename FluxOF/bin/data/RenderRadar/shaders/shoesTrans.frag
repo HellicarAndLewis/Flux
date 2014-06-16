@@ -1,19 +1,140 @@
-uniform vec3 pct;
+uniform float radarHeight;
+
 uniform float lineWidth;
 
-uniform vec3 tranColor;
+uniform vec3 radarColor;
+
 uniform float tranNoiseZoom;
 uniform float tranWidth;
 
-uniform float scale;
-
 uniform float time;
 
-varying vec3 norm;
-varying vec4 vPos;
-varying vec3 ePos;
+varying vec4 ambientGlobal, eyeSpaceVertexPos;
+varying vec4 vertexPos;
+varying vec3 vertexNormal;
 
 float PI = 3.14159265359;
+int lightsNumber = 2;
+
+vec4 directional_light(in int lightIndex, in vec3 normal) {
+  vec3 lightDir;
+  vec4 dirLightColor, diffuse, specular, ambient = vec4(0.0);;
+  float intensity;
+
+  lightDir = normalize(gl_LightSource[lightIndex].position.xyz); // that's already in eye space
+  ambient = gl_FrontMaterial.ambient * gl_LightSource[lightIndex].ambient;
+  /* The ambient term of a directional light will always be present */
+  dirLightColor = ambient;
+  /* compute light intensity
+   * (the dot product between normal and light dir)
+   */
+  intensity = max(dot(normal, lightDir), 0.0);
+  if (intensity > 0.0) {
+       vec3 reflection;
+       vec3 eyeSpaceVertexPos_n = normalize(vec3(eyeSpaceVertexPos));
+       vec3 eyeVector = normalize(-eyeSpaceVertexPos_n); // in eye space, eye is at (0,0,0)
+
+       diffuse = gl_FrontMaterial.diffuse * gl_LightSource[lightIndex].diffuse;
+       dirLightColor += diffuse * intensity;
+       // compute Phong specular component
+       reflection = normalize((2.0 * dot(lightDir, normal) * normal) - lightDir);
+       specular = pow(max(dot(reflection, eyeVector), 0.0), gl_FrontMaterial.shininess) *
+	 gl_FrontMaterial.specular * gl_LightSource[lightIndex].specular;
+       dirLightColor += specular;
+  }
+  return dirLightColor;
+}
+
+vec4 point_light(in int lightIndex, in vec3 normal) {
+  vec3 lightDir;
+  vec4 pointLightColor, diffuse, specular, ambient = vec4(0.0);
+  float intensity, dist;
+
+  pointLightColor = vec4(0.0);
+  // Compute the light direction
+  lightDir = vec3(gl_LightSource[lightIndex].position - eyeSpaceVertexPos);
+  /* compute the distance to the light source */
+  dist = length(lightDir);
+  intensity = max(dot(normal, normalize(lightDir)), 0.0);
+  if (intensity > 0.0) {
+    vec3 reflection;
+    vec3 eyeSpaceVertexPos_n = normalize(vec3(eyeSpaceVertexPos));
+    vec3 eyeVector = normalize(-eyeSpaceVertexPos_n);
+    float att, dist;
+
+    dist = length(lightDir);
+    att = 1.0 / (gl_LightSource[lightIndex].constantAttenuation +
+		 gl_LightSource[lightIndex].linearAttenuation * dist +
+		 gl_LightSource[lightIndex].quadraticAttenuation * dist * dist);
+    diffuse = gl_FrontMaterial.diffuse * gl_LightSource[lightIndex].diffuse;
+    ambient = gl_FrontMaterial.ambient * gl_LightSource[lightIndex].ambient;
+    pointLightColor += att * (diffuse * intensity + ambient);
+    // compute Phong specular component
+    reflection = normalize((2.0 * dot(lightDir, normal) * normal) - lightDir);
+    specular = pow(max(dot(reflection, eyeVector), 0.0), gl_FrontMaterial.shininess) *
+      gl_FrontMaterial.specular *
+      gl_LightSource[lightIndex].specular;
+    pointLightColor += att * specular;
+  }
+  return pointLightColor;
+}
+
+vec4 spot_light(in int lightIndex, in vec3 normal) {
+  vec3 lightDir;
+  vec4 spotLightColor, diffuse, specular, ambient = vec4(0.0);
+  float intensity, dist;
+
+  spotLightColor = vec4(0.0);
+  // Compute the light direction
+  lightDir = vec3(gl_LightSource[lightIndex].position - eyeSpaceVertexPos);
+  /* compute the distance to the light source */
+  dist = length(lightDir);
+  intensity = max(dot(normal, normalize(lightDir)), 0.0);
+  if (intensity > 0.0) {
+    float spotEffect;
+
+    spotEffect = dot(normalize(gl_LightSource[lightIndex].spotDirection), normalize(-lightDir));
+    if (spotEffect > gl_LightSource[lightIndex].spotCosCutoff) {
+      vec3 reflection;
+      vec3 eyeSpaceVertexPos_n = normalize(vec3(eyeSpaceVertexPos));
+      vec3 eyeVector = normalize(-eyeSpaceVertexPos_n);
+      float att, dist;
+
+      dist = length(lightDir);
+      att = spotEffect / (gl_LightSource[lightIndex].constantAttenuation +
+			  gl_LightSource[lightIndex].linearAttenuation * dist +
+			  gl_LightSource[lightIndex].quadraticAttenuation * dist * dist);
+      diffuse = gl_FrontMaterial.diffuse * gl_LightSource[lightIndex].diffuse;
+      ambient = gl_FrontMaterial.ambient * gl_LightSource[lightIndex].ambient;
+      spotLightColor += att * (diffuse * intensity + ambient);
+      // compute Phong specular component
+      reflection = normalize((2.0 * dot(lightDir, normal) * normal) - lightDir);
+      specular = pow(max(dot(reflection, eyeVector), 0.0), gl_FrontMaterial.shininess) *
+	gl_FrontMaterial.specular * gl_LightSource[lightIndex].specular;
+      spotLightColor += att * specular;
+    }
+  }
+  return spotLightColor;
+}
+
+vec4 calc_lighting_color(in vec3 normal) {
+  vec4 lightingColor = vec4(0.0);
+
+  for (int i = 0; i < lightsNumber; i++) {
+    if (gl_LightSource[i].position.w == 0.0) {
+      lightingColor += directional_light(i, normal);
+    }
+    else {
+      if (gl_LightSource[i].spotCutoff <= 90.0) {
+	lightingColor +=spot_light(i, normal);
+      }
+      else {
+	lightingColor += point_light(i, normal);
+      }
+    }
+  }
+  return lightingColor;
+}
 
 float noise3(vec3 co){
   return fract(sin(dot(co ,vec3(12.9898,78.233,125.198))) * 43758.5453);
@@ -39,46 +160,32 @@ float perlin3(vec3 p) {
 	return val;
 }
 
-vec2 XRay(float _specularExpo){
-	float sExpo = _specularExpo * 64.0;
-	float fr = abs(dot( -normalize(ePos), normalize( norm ) ) );
-	float xray = pow(1. - fr, max( .51, sExpo * .1));
-	return vec2(xray, fr);
-}
-
 void main(void){
 
 	vec2 uv = gl_TexCoord[0].st;
+  vec3 n = normalize(vertexNormal);
+	vec3 pos = vertexPos.xyz;
 
-	vec3 pos = vPos.xyz*pow(10.0,scale*-4.0);
-
-	vec3 A = vec3(1.0,pos.y*2.0,0.0);
-	vec3 B = vec3(0.0,pos.y*2.0,1.0);
-
-	vec3 transPos = pct;
-	transPos -= vec3(0.5);
-	transPos *= 2.0;
+	vec3 A = vec3(1.0,0.0,0.0);
+	vec3 B = vec3(0.0,0.0,1.0);
 	
-	float threshold = transPos.z;
-	vec3 green = tranColor * vec3(perlin3(vPos.xyz*vec3(sin(time*0.01),abs(cos(time*0.015)),cos(time*0.017))*(tranNoiseZoom*100.0)) );
-
-	//	RADAR TRAIL
-	//
-	vec4 color = vec4(A,1.0);
-	if (pos.y + tranWidth*0.5 < threshold){
-		color.xyz = B;
-	} else if( pos.y < threshold ){
-		float posPct = ((pos.y+tranWidth*0.5) - threshold)/tranWidth;
-		color.xyz = mix(B,green,posPct);
-	}
+	
+	vec3 color = A;
+	if (pos.y < radarHeight){
+		color = B;
+	} 
 
 	//	RADAR LINE
 	//
-	if( pos.y - lineWidth*0.05 < threshold && !(pos.y + lineWidth*0.05 < threshold) ){
-		float posPct = 1.0-((pos.y+lineWidth*0.05) - threshold)/(lineWidth*0.1);
-		// color.xyz += green*sin(posPct*PI);
-		color.xyz = mix(color.xyz,green*2.0,pow(max(0.0, abs(sin(posPct*PI))*2.0-1.0),2.5));
+	if( pos.y - lineWidth*5.0 < radarHeight && !(pos.y + lineWidth*5.0 < radarHeight) ){
+		float posPct = 1.0-((pos.y+lineWidth*5.0) - radarHeight)/(lineWidth*10.0);
+		float noise = perlin3(vertexPos.xyz*vec3(time*0.1)*tranNoiseZoom);
+		vec3 green = mix(color,radarColor,noise);
+		color = mix(color,green*2.0,pow(max(0.0, abs(sin(posPct*PI))*2.0-1.0),0.5));
 	}
 
-	gl_FragColor = color;
+  color *= calc_lighting_color(n).rgb;
+
+	gl_FragColor.rgb = color;
+	gl_FragColor.a = 1.0;
 }

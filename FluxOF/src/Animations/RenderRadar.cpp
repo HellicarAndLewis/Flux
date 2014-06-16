@@ -58,6 +58,13 @@ void RenderRadar::selfGuiEvent(ofxUIEventArgs &e){
 }
 
 void RenderRadar::selfSetupSystemGui(){
+    sysGui->addLabel("Radar");
+    sysGui->add2DPad("Radar_Center",ofVec2f(0,assets->terrainResolution()),ofVec2f(0,assets->terrainResolution()),&radarCenter);
+    sysGui->addSlider("Radar_Pct", 0.0, 1.0, &radarPct);
+    sysGui->addSlider("Radar_Color_R", 0 , 1.0, &radarColor.r);
+    sysGui->addSlider("Radar_Color_G", 0 , 1.0, &radarColor.g);
+    sysGui->addSlider("Radar_Color_B", 0 , 1.0, &radarColor.b);
+    sysGui->addSlider("Radar_Height",assets->sceneMin.y,assets->sceneMax.y, &radarHeight);
 
 }
 
@@ -91,11 +98,11 @@ void RenderRadar::selfUpdate(){
 
     //  TERRAIN TEXTURE
     //
-    
     radarTexture.begin();
     ofClear(0,0);
     radarShader.begin();
-    radarShader.getShader().setUniform1f("resolution", assets->terrainResolution());
+    radarShader.getShader().setUniform1f("pct", radarPct);
+    radarShader.getShader().setUniform2f("center", radarCenter.x, radarCenter.y);
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
     glTexCoord2f(assets->terrainResolution(), 0); glVertex3f(assets->terrainResolution(), 0, 0);
@@ -164,6 +171,18 @@ void RenderRadar::selfUpdate(){
         
         terrainTex.begin();
         terrainTransitionTex.dst->draw(0, 0);
+        
+        ofPushStyle();
+        ofPushMatrix();
+        ofSetColor(radarColor);
+        ofTranslate(radarCenter);
+        
+        float radius = assets->terrainResolution();
+        float angle = TWO_PI*radarPct;
+        ofLine(0,0,radius*cos(angle),radius*sin(angle));
+        ofPopMatrix();
+        ofPopStyle();
+        
         terrainTex.end();
     }
 }
@@ -194,6 +213,8 @@ void RenderRadar::selfDraw(){
     ofPushMatrix();
     ofSetSmoothLighting(true);
     shoeTransition.begin();
+    shoeTransition.getShader().setUniform1f("radarHeight", radarHeight);
+    shoeTransition.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
     assets->shoeMesh.draw();
     shoeTransition.end();
     ofPopMatrix();
