@@ -4,12 +4,11 @@
 
 //  Addons
 //
-#include "ofxAssimpModelLoader.h"
 
 //  Loaders
 //
-#include "RenderEngine.h"
 #include "CalibrationLoader.h"
+#include "RenderAssets.h"
 
 // Controllers
 //
@@ -47,12 +46,10 @@ public:
     
     RenderEngine *renderEngine;
     
+    RenderAssets renderAssets;
+    
     ImageQueue imageQueue;
     NodeCommunication nodeCommunication;
     
     CalibrationLoader calibration;
-    
-    ofVboMesh       terrainMesh,shoeMesh;
-    ofTexture       terrainDepthMap, terrainNormalMap;
-    ofPoint         sceneMin,sceneMax;
 };

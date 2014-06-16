@@ -16,6 +16,8 @@
 #include "UIBufferIn.h"
 #include "QueueItem.h"
 #include "CalibrationLoader.h"
+#include "RenderAssets.h"
+
 
 class RenderEngine : public UITime3DProject {
 public:
@@ -29,13 +31,8 @@ public:
     virtual bool transitionDone();
     
     virtual void selfSceneTransformation();
-    
-    ofVboMesh       shoeMesh;
-    ofVboMesh       terrainMesh;
-    ofTexture       terrainDepthMap;
-    ofTexture       terrainNormalMap;
-    float           terrainResolution;
-    ofPoint         sceneMin,sceneMax;
+        
+    RenderAssets *  assets;
     
     ofTexture       shoeTexA,shoeTexB;
     

@@ -22,15 +22,15 @@ void RenderLasers::selfSetup(){
     
     //  TERRAIN
     //
-    terrainMapPrev.allocate(terrainResolution,terrainResolution);
-    lasersMask.allocate(terrainResolution,terrainResolution);
+    terrainMapPrev.allocate(assets->terrainResolution(),assets->terrainResolution());
+    lasersMask.allocate(assets->terrainResolution(),assets->terrainResolution());
     lasersMaskShader.loadFrag(getDataPath()+"shaders/lasersMask.frag");
     terrainTransition.loadFrag(getDataPath()+"shaders/terrainTrans.frag");
-    terrainTransitionTex.allocate(terrainResolution,terrainResolution);
+    terrainTransitionTex.allocate(assets->terrainResolution(),assets->terrainResolution());
     terrainTransitionTex.clear();
     
     ofDisableArbTex();
-    terrainTex.allocate(terrainResolution,terrainResolution);
+    terrainTex.allocate(assets->terrainResolution(),assets->terrainResolution());
     terrainTex.begin();
     ofClear(0, 0);
     terrainTex.end();
@@ -55,8 +55,8 @@ void RenderLasers::selfGuiEvent(ofxUIEventArgs &e){
 
 void RenderLasers::selfSetupSystemGui(){
     sysGui->addLabel("Laser");
-    sysGui->addSlider("Laser_Facus_X", sceneMin.x, sceneMax.x, &laserPosition.x);
-    sysGui->addSlider("Laser_Facus_Y", sceneMin.z, sceneMax.z, &laserPosition.y);
+    sysGui->addSlider("Laser_Facus_X", assets->sceneMin.x, assets->sceneMax.x, &laserPosition.x);
+    sysGui->addSlider("Laser_Facus_Y", assets->sceneMin.z, assets->sceneMax.z, &laserPosition.y);
     sysGui->addSlider("Laser_Color_R", 0 , 1.0, &laserColor.r);
     sysGui->addSlider("Laser_Color_G", 0 , 1.0, &laserColor.g);
     sysGui->addSlider("Laser_Color_B", 0 , 1.0, &laserColor.b);
@@ -103,8 +103,8 @@ void RenderLasers::selfUpdate(){
     //  TERRAIN TEXTURE
     //
     ofPoint laserPositionPct;
-    laserPositionPct.x = ofMap(laserPosition.x,sceneMin.x,sceneMax.x,0,terrainResolution,true);
-    laserPositionPct.y = ofMap(laserPosition.y,sceneMin.z,sceneMax.z,0,terrainResolution,true);
+    laserPositionPct.x = ofMap(laserPosition.x,assets->sceneMin.x,assets->sceneMax.x,0,assets->terrainResolution(),true);
+    laserPositionPct.y = ofMap(laserPosition.y,assets->sceneMin.z,assets->sceneMax.z,0,assets->terrainResolution(),true);
     
     lasersMask.begin();
     ofClear(0,0);
@@ -114,9 +114,9 @@ void RenderLasers::selfUpdate(){
                                               laserPositionPct.y);
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
-    glTexCoord2f(terrainResolution, 0); glVertex3f(terrainResolution, 0, 0);
-    glTexCoord2f(terrainResolution, terrainResolution); glVertex3f(terrainResolution, terrainResolution, 0);
-    glTexCoord2f(0,terrainResolution);  glVertex3f(0,terrainResolution, 0);
+    glTexCoord2f(assets->terrainResolution(), 0); glVertex3f(assets->terrainResolution(), 0, 0);
+    glTexCoord2f(assets->terrainResolution(), assets->terrainResolution()); glVertex3f(assets->terrainResolution(), assets->terrainResolution(), 0);
+    glTexCoord2f(0,assets->terrainResolution());  glVertex3f(0,assets->terrainResolution(), 0);
     glEnd();
     lasersMaskShader.end();
     lasersMask.end();
@@ -128,7 +128,7 @@ void RenderLasers::selfUpdate(){
         //    terrainTransition.getShader().setUniformTexture("backbuffer", *terrainTransitionTex.src, 0);
         //    terrainTransition.getShader().setUniformTexture("normalMap", terrainNormalMap, 2);
         
-        terrainTransition.getShader().setUniformTexture("depthMap", terrainDepthMap, 0);
+        terrainTransition.getShader().setUniformTexture("depthMap", assets->terrainDepthMap, 0);
         terrainTransition.getShader().setUniformTexture("lasersMask", lasersMask, 1);
         terrainTransition.getShader().setUniformTexture("previusMap", terrainMapPrev, 2);
         
@@ -153,13 +153,13 @@ void RenderLasers::selfUpdate(){
                                                    ((float)colorPalette[4].g)/255.0,
                                                    ((float)colorPalette[4].b)/255.0);
         
-        terrainTransition.getShader().setUniform1f("resolution", terrainResolution);
+        terrainTransition.getShader().setUniform1f("resolution", assets->terrainResolution());
         
         glBegin(GL_QUADS);
         glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
-        glTexCoord2f(terrainResolution, 0); glVertex3f(terrainResolution, 0, 0);
-        glTexCoord2f(terrainResolution, terrainResolution); glVertex3f(terrainResolution, terrainResolution, 0);
-        glTexCoord2f(0,terrainResolution);  glVertex3f(0,terrainResolution, 0);
+        glTexCoord2f(assets->terrainResolution(), 0); glVertex3f(assets->terrainResolution(), 0, 0);
+        glTexCoord2f(assets->terrainResolution(), assets->terrainResolution()); glVertex3f(assets->terrainResolution(), assets->terrainResolution(), 0);
+        glTexCoord2f(0,assets->terrainResolution());  glVertex3f(0,assets->terrainResolution(), 0);
         glEnd();
         terrainTransition.end();
         
@@ -171,8 +171,8 @@ void RenderLasers::selfUpdate(){
     ofPushStyle();
     
     ofSetColor(laserColor);
-    ofLine(laserPositionPct.x,0, laserPositionPct.x, terrainResolution);
-    ofLine(0,laserPositionPct.y, terrainResolution, laserPositionPct.y);
+    ofLine(laserPositionPct.x,0, laserPositionPct.x, assets->terrainResolution());
+    ofLine(0,laserPositionPct.y, assets->terrainResolution(), laserPositionPct.y);
     
     ofPopStyle();
     terrainTex.end();
@@ -191,7 +191,7 @@ void RenderLasers::selfDraw(){
     
     ofDisableArbTex();
     terrainTex.getTextureReference().bind();
-    terrainMesh.draw();
+    assets->terrainMesh.draw();
     terrainTex.getTextureReference().unbind();
     ofEnableArbTex();
     
@@ -202,7 +202,7 @@ void RenderLasers::selfDraw(){
     shoeTransition.begin();
     shoeTransition.getShader().setUniform3f("laserColor",laserColor.r,laserColor.g,laserColor.b);
     shoeTransition.getShader().setUniform2f("laserPosition", laserPosition.x, laserPosition.y);
-    shoeMesh.draw();
+    assets->shoeMesh.draw();
     shoeTransition.end();
     
     ofPopMatrix();
@@ -219,19 +219,19 @@ void RenderLasers::selfDrawOverlay(){
         
         ofPushMatrix();
         ofScale(0.5, 0.5);
-        terrainTransitionTex.dst->draw(terrainResolution*0.25,0);
+        terrainTransitionTex.dst->draw(assets->terrainResolution()*0.25,0);
         
         ofPushMatrix();
-        ofTranslate(terrainResolution*1.25,0);
+        ofTranslate(assets->terrainResolution()*1.25,0);
         ofScale(0.5, 0.5);
         shoeTexB.draw(0, 0);
         ofPopMatrix();
         
         ofPushMatrix();
         ofScale(0.25, 0.25);
-        terrainDepthMap.draw(0,0);
-        terrainMapPrev.draw(0,terrainResolution);
-        lasersMask.draw(0,terrainResolution*2.0);
+        assets->terrainDepthMap.draw(0,0);
+        terrainMapPrev.draw(0,assets->terrainResolution());
+        lasersMask.draw(0,assets->terrainResolution()*2.0);
         ofPopMatrix();
         
         ofPopMatrix();
