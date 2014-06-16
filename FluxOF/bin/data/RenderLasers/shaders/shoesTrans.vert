@@ -1,18 +1,18 @@
-varying vec4 vPos;
-varying vec3 ePos;
 
-varying vec3 norm;
+varying vec4 ambientGlobal, eyeSpaceVertexPos;
+varying vec4 vertexPos;
+varying vec3 vertexNormal;
 
 void main(){
 	gl_TexCoord[0] = gl_MultiTexCoord0;
-	vPos = gl_Vertex;
+	
+	vertexPos = gl_Vertex;
+	vertexNormal = normalize(gl_NormalMatrix * gl_Normal);
 
-	norm = gl_NormalMatrix * gl_Normal;
-	norm = norm;// * .5 + .5;
+	eyeSpaceVertexPos = gl_ModelViewMatrix * gl_Vertex;
 
-	vec4 ecPosition = gl_ModelViewMatrix * vPos;
-	ePos = normalize(ecPosition.xyz/ecPosition.w);
+	ambientGlobal = gl_LightModel.ambient * gl_FrontMaterial.ambient + gl_FrontMaterial.emission;
 
-	gl_Position = gl_ProjectionMatrix * ecPosition;
+	gl_Position = ftransform();
 	gl_FrontColor = gl_Color;
 }
