@@ -8,15 +8,16 @@
 
 class ImageQueue : public UIClass {
 public:
-    void load();
-    void update();
+    void loadQueueFromDir();
+    void loadQueueFromFile();
+    
+    void storeQueueToFile();
+    void cleanupQueue();
     
     void transitionToNextItem();
     void transitionTo(QueueItem item);
     
-    void cleanupQueue();
-    void storeQueueToFile();
-    void loadQueueFromFile();
+    void update();
 
     string  getClassName(){return "IMAGE-QUEUE";};
     

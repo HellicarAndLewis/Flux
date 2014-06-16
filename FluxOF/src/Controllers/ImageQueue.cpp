@@ -8,9 +8,9 @@
 
 #include "ImageQueue.h"
 
-void ImageQueue::load(){
+void ImageQueue::loadQueueFromDir(){
     //Mockup data
-    /*string path = "images";
+    string path = "images";
     ofDirectory backgroundsDir(path);
     if(backgroundsDir.exists()){
 		backgroundsDir.listDir();
@@ -23,9 +23,7 @@ void ImageQueue::load(){
             
             incommingItemsQueue.push_back(newItem);
         }
-    }*/
-    
-    loadQueueFromFile();
+    }
 }
 
 void ImageQueue::setupUI(){

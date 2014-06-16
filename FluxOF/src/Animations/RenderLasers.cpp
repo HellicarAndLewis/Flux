@@ -83,8 +83,6 @@ bool RenderLasers::transitionDone(){
         terrainMapPrev.begin();
         terrainTransitionTex.dst->draw(0,0);
         terrainMapPrev.end();
-        
-        cout << "terrainCopy" << endl;
         return true;
     } else {
         return false;

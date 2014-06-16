@@ -13,7 +13,8 @@ void ofApp::setup(){
     // Setup the controllers
     //
     imageQueue.renderEngine = renderEngine;
-    imageQueue.load();
+    imageQueue.loadQueueFromDir();
+//    imageQueue.loadQueueFromFile();
 
     nodeCommunication.imageQueue = &imageQueue;
     nodeCommunication.setup();
