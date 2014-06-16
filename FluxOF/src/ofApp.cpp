@@ -13,7 +13,7 @@ void ofApp::setup(){
     // Setup the controllers
     //
     imageQueue.renderEngine = renderEngine;
-    imageQueue.load();
+    imageQueue.loadQueueFromFile();
 
     nodeCommunication.imageQueue = &imageQueue;
     nodeCommunication.setup();
@@ -143,6 +143,8 @@ void ofApp::loadAnimation(ANIMATION_STYLE _animation){
     //  Ready to GO
     //
 	renderEngine->play();
+    renderEngine->getTimeline()->setDurationInSeconds(5);
+//    imageQueue.transitionTo(imageQueue.currentItem);
 }
 
 //--------------------------------------------------------------
