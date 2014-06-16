@@ -89,7 +89,6 @@ void ImageQueue::transitionToNextItem(){
     storeQueueToFile();
 }
 
-
 //
 // Starts a transition to a given queue item
 //
