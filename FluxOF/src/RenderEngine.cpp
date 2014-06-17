@@ -76,10 +76,11 @@ void RenderEngine::startTransitionTo(QueueItem queueItem){
     timeline->play();
 }
 
+//
+// This will draw a mask image on the terrain that is multiplied to the background.
+//
 void RenderEngine::drawMask(int viewPort){
     if(!simulatorMode){
-        //calibration->shoe[currentViewPort].begin();
-
         ofSetColor(255);
         ofEnableBlendMode(OF_BLENDMODE_MULTIPLY);
         
