@@ -18,6 +18,7 @@
 #include "CalibrationLoader.h"
 #include "RenderAssets.h"
 
+#include "PingPong.h"
 
 class RenderEngine : public UITime3DProject {
 public:
@@ -32,9 +33,9 @@ public:
     
     virtual void selfSceneTransformation();
         
-    RenderAssets *  assets;
+    RenderAssets *assets;
     
-    ofTexture       shoeTexA,shoeTexB;
+    PingPong    shoeTex;
     
     vector<ofColor> colorPalette;
     

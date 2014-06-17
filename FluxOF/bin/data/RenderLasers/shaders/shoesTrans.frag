@@ -1,6 +1,6 @@
-uniform sampler2DRect colorMaskTexture;
-uniform sampler2DRect srcTexture;
-uniform sampler2DRect dstTexture;
+uniform sampler2D srcTexture;
+uniform sampler2D dstTexture;
+uniform sampler2D colorMaskTexture;
 
 uniform vec3 color1;
 uniform vec3 color2;
@@ -178,16 +178,16 @@ void main(void){
 	vec2 pos = vertexPos.xz;
 	pos.x *= -1.0;
 
-	vec3 A = vec3(1.0,1.0,0.0);
-	vec3 B = vec3(0.0,0.0,1.0);
+	vec3 A = texture2D(srcTexture,uv).rgb;
+	vec3 B = texture2D(dstTexture,uv).rgb;
 	
-	vec3 color = B;
+	vec3 color = A;
 	if( laserPosition.y > pos.x && laserPosition.x > pos.y){
-		color = A;
+		color = B;
 	} else if( laserPosition.y > pos.x){
-		color = vec3(0.0,1.0,0.0);
+		color = mix(A,B,0.5);
 	} else if ( laserPosition.x > pos.y){
-		color = vec3(1.0,0.0,0.0);
+		color = mix(B,A,0.5);
 	}
 
 	float threshold = laserPosition.x;

@@ -19,7 +19,7 @@ void ofApp::setup(){
     
     //  start the RENDER
     //
-    loadAnimation(RADAR);
+    loadAnimation(LASERS);
 }
 
 

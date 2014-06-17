@@ -34,6 +34,7 @@ void RenderLasers::selfSetup(){
     terrainTex.begin();
     ofClear(0, 0);
     terrainTex.end();
+    shoeTex.allocate(100, 100);
     ofEnableArbTex();
 }
 
@@ -202,6 +203,8 @@ void RenderLasers::selfDraw(){
     shoeTransition.begin();
     shoeTransition.getShader().setUniform3f("laserColor",laserColor.r,laserColor.g,laserColor.b);
     shoeTransition.getShader().setUniform2f("laserPosition", laserPosition.x, laserPosition.y);
+    shoeTransition.getShader().setUniformTexture("srcTexture",shoeTex.src->getTextureReference(), 0);
+    shoeTransition.getShader().setUniformTexture("dstTexture",shoeTex.dst->getTextureReference(), 1);
     assets->shoeMesh.draw();
     shoeTransition.end();
     
@@ -224,7 +227,7 @@ void RenderLasers::selfDrawOverlay(){
         ofPushMatrix();
         ofTranslate(assets->terrainResolution()*1.25,0);
         ofScale(0.5, 0.5);
-        shoeTexB.draw(0, 0);
+        shoeTex.dst->draw(0, 0);
         ofPopMatrix();
         
         ofPushMatrix();

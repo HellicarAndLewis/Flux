@@ -67,7 +67,16 @@ void RenderEngine::startTransitionTo(QueueItem queueItem){
     
     //  Keep the image as a destinationTexture
     //
-    shoeTexB = queueItem.image.getTextureReference();
+    float size = MIN(queueItem.image.getWidth(),queueItem.image.getHeight());
+    
+    ofDisableArbTex();
+    shoeTex.swap();
+    shoeTex.dst->allocate(size,size);
+    shoeTex.dst->begin();
+    ofSetColor(255);
+    queueItem.image.draw(0,0);
+    shoeTex.dst->end();
+    ofEnableArbTex();
     
     //  Start Animation
     //

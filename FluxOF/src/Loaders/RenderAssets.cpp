@@ -18,7 +18,7 @@ void RenderAssets::load(){
     //
     ofxAssimpModelLoader shoeModel;
     ofxAssimpModelLoader terrainModel;
-    shoeModel.loadModel("models/LOCKED_SHOE_ROTATION.obj");
+    shoeModel.loadModel("models/adidas_unwrap_001.obj");//LOCKED_SHOE_ROTATION.obj");
     terrainModel.loadModel("models/LOCKED_TERRAFORM.obj");
     
     //  Calculate Scene Min/Max values

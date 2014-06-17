@@ -37,6 +37,9 @@ void RenderRadar::selfSetup(){
     terrainTex.begin();
     ofClear(0, 0);
     terrainTex.end();
+    
+    shoeTex.allocate(100, 100);
+    
     ofEnableArbTex();
 }
 
@@ -212,11 +215,17 @@ void RenderRadar::selfDraw(){
     //
     ofPushMatrix();
     ofSetSmoothLighting(true);
+    
+    ofDisableArbTex();
     shoeTransition.begin();
     shoeTransition.getShader().setUniform1f("radarHeight", radarHeight);
     shoeTransition.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
+    shoeTransition.getShader().setUniformTexture("srcTexture",shoeTex.src->getTextureReference(), 0);
+    shoeTransition.getShader().setUniformTexture("dstTexture",shoeTex.dst->getTextureReference(), 1);
     assets->shoeMesh.draw();
     shoeTransition.end();
+    ofEnableArbTex();
+    
     ofPopMatrix();
     
     ofPopMatrix();
@@ -238,7 +247,7 @@ void RenderRadar::selfDrawOverlay(){
         ofPushMatrix();
         ofTranslate(assets->terrainResolution()*1.25,0);
         ofScale(0.5, 0.5);
-        shoeTexB.draw(0, 0);
+        shoeTex.dst->draw(0, 0);
         ofPopMatrix();
         
         ofPushMatrix();

@@ -42,6 +42,7 @@ void ImageQueue::update(){
     incommingSizeLabel->setLabel(ofToString(incommingItemsQueue.size())+" incomming items");
     oldSizeLabel->setLabel(ofToString(oldItemsQueue.size())+" old items");
     
+    
     // Check if there are items that need to get loaded
     //
     for(int i=0;i<incommingItemsQueue.size();i++){
@@ -56,12 +57,12 @@ void ImageQueue::update(){
     }
     
     
-    
     // Determine if we should start a new transition
     //
     if(renderEngine->transitionDone()){
         transitionToNextItem();
     }
+    
 }
 
 

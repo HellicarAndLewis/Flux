@@ -1,3 +1,6 @@
+uniform sampler2D srcTexture;
+uniform sampler2D dstTexture;
+
 uniform float radarHeight;
 
 uniform float lineWidth;
@@ -166,8 +169,8 @@ void main(void){
   vec3 n = normalize(vertexNormal);
 	vec3 pos = vertexPos.xyz;
 
-	vec3 A = vec3(1.0,0.0,0.0);
-	vec3 B = vec3(0.0,0.0,1.0);
+	vec3 A = texture2D(srcTexture,uv).rgb;// vec3(1.0,0.0,0.0);
+	vec3 B = texture2D(dstTexture,uv).rgb;//vec3(0.0,0.0,1.0);
 	
 	
 	vec3 color = A;
