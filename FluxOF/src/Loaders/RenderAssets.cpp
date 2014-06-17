@@ -85,5 +85,9 @@ void RenderAssets::load(){
     ofLoadImage(terrainNormalMap, "models/terrainNormalMap.png");
     ofLoadImage(terrainMask1, "models/terrainMask1.png");
     ofLoadImage(terrainMask2, "models/terrainMask2.png");
+    
+    ofDisableArbTex();
+    ofLoadImage(shoeMask, "models/SHOE_MASKS.png");
+    ofEnableArbTex();
 
 }
