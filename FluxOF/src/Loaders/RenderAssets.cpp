@@ -86,6 +86,8 @@ void RenderAssets::load(){
     ofLoadImage(terrainMask,"models/terrainMask.png");
     ofLoadImage(terrainMask1, "models/terrainMask1.png");
     ofLoadImage(terrainMask2, "models/terrainMask2.png");
+    ofLoadImage(shoeUVWireframe, "textures/shoe_uv_wireframe.png");
+    
     
     //  Load SQR Textures
     //
