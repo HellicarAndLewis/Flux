@@ -32,6 +32,8 @@ public:
     virtual bool transitionDone();
     
     virtual void selfSceneTransformation();
+    
+    void drawMask(int viewPort);
         
     RenderAssets *assets;
     
