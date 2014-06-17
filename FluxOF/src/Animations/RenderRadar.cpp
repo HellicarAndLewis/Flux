@@ -16,9 +16,8 @@ void RenderRadar::selfSetup(){
     audioBufferSize = 256;
     audioIn.setup(44100, audioBufferSize);
     audioIn.start();
-    audioPixels.allocate(audioBufferSize,1, GL_RGB16F);
-    
-    ofDisa
+    audioPixels.allocate(audioBufferSize,1,3);
+    audioTex.allocate(audioBufferSize,1, GL_RGB16F);
     
     //  USERNAME TEXT
     //
@@ -36,18 +35,23 @@ void RenderRadar::selfSetup(){
     radarShader.loadFrag(getDataPath()+"shaders/radar.frag");
     radarTexture.allocate(assets->terrainResolution(),assets->terrainResolution());
     
+    terrainMeshTransition.loadFrag(getDataPath()+"shaders/terrainMeshTrans.frag");
+    terrainMeshTransitionTex.allocate(assets->terrainResolution(),assets->terrainResolution());
+    
     terrainTransition.loadFrag(getDataPath()+"shaders/terrainTrans.frag");
     terrainTransitionTex.allocate(assets->terrainResolution(),assets->terrainResolution());
     terrainTransitionTex.clear();
     
     ofDisableArbTex();
+    
+    terrainMeshTex.allocate(assets->terrainResolution(),assets->terrainResolution());
+    
     terrainTex.allocate(assets->terrainResolution(),assets->terrainResolution());
     terrainTex.begin();
     ofClear(0, 0);
     terrainTex.end();
     
     shoeTex.allocate(100, 100);
-    
     ofEnableArbTex();
 }
 
@@ -59,7 +63,9 @@ void RenderRadar::selfSetupGuis(){
     
     guiAdd(noiseShader);
     guiAdd(radarShader);
+    
     guiAdd(terrainTransition);
+    guiAdd(terrainMeshTransition);
     
     guiAdd(shoeTransition);
 }
@@ -79,6 +85,8 @@ void RenderRadar::selfSetupSystemGui(){
     
     sysGui->addLabel("Text");
     sysGui->add2DPad("Text_offset", ofVec2f(0,assets->terrainResolution()),ofVec2f(0,assets->terrainResolution()), &textOffset);
+    sysGui->addSlider("Text_Alpha", 0.0, 1.0, &textAlpha);
+    
 
 }
 
@@ -109,18 +117,27 @@ void RenderRadar::selfUpdate(){
         cameraEnable(false);
         setupRenderIsFlipped(true);
     }
-
+    
+    //  Audio
+    //
+//    for (int x = 0; x < audioBufferSize; x++){
+//        audioPixels.setColor(x, 0, ofFloatColor(abs(sin(audioIn.left[x]*100.0)),0.0,0.0,1.0));
+//    }
+//    audioTex.loadData(audioPixels);
+    
     //  USERNAME TEXTURE
     //
     {
         textTex.begin();
+        ofPushStyle();
         ofClear(0,0);
-        ofSetColor(255);
+        ofSetColor(255, textAlpha*255.0);
         ofPushMatrix();
         ofTranslate(textOffset);
         ofPoint textCenter = assets->font.getStringBoundingBox(text,0,0).getCenter();
         assets->font.drawString(text, -textCenter.x, -textCenter.y );
         ofPopMatrix();
+        ofPopStyle();
         textTex.end();
     }
     
@@ -171,7 +188,9 @@ void RenderRadar::selfUpdate(){
         terrainTransition.getShader().setUniformTexture("depthMap", assets->terrainDepthMap, 1);
         terrainTransition.getShader().setUniformTexture("maskTex", assets->terrainMask, 2);
         terrainTransition.getShader().setUniformTexture("normalMap", noiseTexture, 3);
-        terrainTransition.getShader().setUniformTexture("radarTex", radarTexture, 4);
+        terrainTransition.getShader().setUniformTexture("audioIn", audioTex, 4);
+        
+        terrainTransition.getShader().setUniformTexture("radarTex", radarTexture, 5);
         
         for(int i = 0; i < srcPalette.size(); i++){
             terrainTransition.getShader().setUniform3f("srcColor"+ofToString(i+1),
@@ -222,12 +241,31 @@ void RenderRadar::selfUpdate(){
         
         terrainTex.end();
     }
+    
+    {
+        terrainMeshTransitionTex.begin();
+        terrainMeshTransition.begin();
+        terrainMeshTransition.getShader().setUniformTexture("radarMask", radarTexture, 0);
+        terrainMeshTransition.getShader().setUniformTexture("terrainMask", assets->terrainMask, 1);
+        terrainMeshTransition.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
+        terrainMeshTransition.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
+        glBegin(GL_QUADS);
+        glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
+        glTexCoord2f(assets->terrainResolution(), 0); glVertex3f(assets->terrainResolution(), 0, 0);
+        glTexCoord2f(assets->terrainResolution(), assets->terrainResolution()); glVertex3f(assets->terrainResolution(), assets->terrainResolution(), 0);
+        glTexCoord2f(0,assets->terrainResolution());  glVertex3f(0,assets->terrainResolution(), 0);
+        glEnd();
+        terrainMeshTransition.end();
+        terrainMeshTransitionTex.end();
+        
+        terrainMeshTex.begin();
+        terrainMeshTransitionTex.draw(0,0);
+        terrainMeshTex.end();
+    }
 }
 
 void RenderRadar::selfDraw(){
     materials["MATERIAL 1"]->begin();
-
-    ofPushMatrix();
 
     ofSetColor(255);
     
@@ -241,6 +279,11 @@ void RenderRadar::selfDraw(){
     terrainTex.getTextureReference().bind();
     assets->terrainMesh.draw();
     terrainTex.getTextureReference().unbind();
+    
+    terrainMeshTex.getTextureReference().bind();
+    assets->terrainMesh.drawWireframe();
+    terrainMeshTex.getTextureReference().unbind();
+    
     ofEnableArbTex();
     
     ofPopMatrix();
@@ -278,8 +321,6 @@ void RenderRadar::selfDraw(){
     
     ofPopMatrix();
     
-    ofPopMatrix();
-  
     if(!simulatorMode){
         calibration->shoe[currentViewPort].end();
     }
@@ -291,6 +332,7 @@ void RenderRadar::selfDrawOverlay(){
     if(bDebug){
         
         ofPushMatrix();
+        
         ofScale(0.5, 0.5);
         terrainTex.draw(assets->terrainResolution()*0.25,0);
         
@@ -306,9 +348,12 @@ void RenderRadar::selfDrawOverlay(){
         assets->terrainNormalMap.draw(0,assets->terrainResolution());
         noiseTexture.draw(0,assets->terrainResolution()*2.0);
         radarTexture.draw(0,assets->terrainResolution()*3.0);
+        terrainMeshTex.draw(0,assets->terrainResolution()*4.0);
         ofPopMatrix();
         
         ofPopMatrix();
+        
+//        audioTex.draw(0,assets->terrainResolution()*0.5,assets->terrainResolution()*0.5,10);
         
         float paletteSize = 10;
         float margin = 15;

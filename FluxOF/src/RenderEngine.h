@@ -19,6 +19,8 @@
 #include "RenderAssets.h"
 
 #include "PingPong.h"
+#include "UIShader.h"
+
 
 class RenderEngine : public UITime3DProject {
 public:
@@ -51,6 +53,7 @@ public:
     ofFbo               textTex;
     ofPoint             textOffset;
     string              text;
+    float               textAlpha;
     
     bool                simulatorMode;
     

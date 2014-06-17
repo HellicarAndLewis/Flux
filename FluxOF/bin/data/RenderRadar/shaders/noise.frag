@@ -276,7 +276,7 @@ void main (void){
     if(mask>0.0){
         float height = texture2DRect(depthMap,st).r;
         vec2 noiseVel = noiseXY( zoom*pct ,speed);
-        vel = mix(terrainVel,noiseVel,mask);
+        vel = mix(terrainVel,noiseVel,pct);
     }
 
     gl_FragColor = vec4(vel.x, vel.y, 0.5, 1.0);

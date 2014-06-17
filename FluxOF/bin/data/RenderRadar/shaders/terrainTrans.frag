@@ -3,6 +3,7 @@ uniform sampler2DRect backbuffer;
 uniform sampler2DRect maskTex;
 uniform sampler2DRect depthMap;
 uniform sampler2DRect normalMap;
+uniform sampler2DRect audioTex;
 
 uniform sampler2DRect radarTex;
 
@@ -26,20 +27,16 @@ void main(void){
 	float depth = texture2DRect(depthMap,st).r;
     float mask = texture2DRect(maskTex,st).r;
     vec4 bg = texture2DRect(backbuffer, st);
-    
-    gl_FragColor = bg;
 
+    gl_FragColor = bg;
+    
     if( mask>0.0 ){
         //  Geometry
         //
-        vec2 n = texture2DRect(normalMap,st).rg;
-        
         vec3 color;
-        color = mix(dstColor1,dstColor2,n.x);
-        color = mix(color,dstColor3,n.y);
-
-
+        color = mix(dstColor2,dstColor1,depth);
         gl_FragColor = vec4(mix(bg.rgb,color,radar),1.0);
+        
     } else if(radar>(1.0-radarThreshold) ){
         //  TINT
         //
@@ -77,8 +74,8 @@ void main(void){
                                        
     	float sources = 1.0;
     	vec4 color = bg;
-    	for (int i = 0; i < iTotal; i++){
-        	vec4 goingTo = ( texture2DRect( normalMap, st + offset[i] ) - 0.5 ) * 2.0;
+    	for (int i = 0; i < iTotal; i++){ 
+        	vec4 goingTo = ( texture2DRect( normalMap, st + offset[i] ) - 0.5 ) * -2.0;
         	if ( dot(goingTo.rg,offset[i]) < -1.0/fTotal){
         		sources += 1.0;
             	color += texture2DRect(backbuffer, st + offset[i]);

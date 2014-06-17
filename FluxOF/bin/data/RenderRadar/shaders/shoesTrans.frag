@@ -30,7 +30,7 @@ varying vec4 vertexPos;
 varying vec3 vertexNormal;
 
 float PI = 3.14159265359;
-int lightsNumber = 2;
+int lightsNumber = 3;
 
 vec4 directional_light(in int lightIndex, in vec3 normal) {
   vec3 lightDir;
@@ -192,25 +192,9 @@ void main(void){
   if(mask.a == 0.0){
     A = texture2D(srcTexture,uv).rgb;
     B = texture2D(dstTexture,uv).rgb;
-  } else if (mask.r > 0.0 && mask.g > 0.0 && mask.b == 0.0){ //  YELLOW
-    A = texture2D(srcTexture,uv).rgb;
-    B = texture2D(dstTexture,uv).rgb;
-  } else if (mask.r > 0.0 && mask.g == 0.0 && mask.b == 0.0){ //  RED
-    A = vec3(1.0);
-    B = vec3(1.0);
-  } else if (mask.r == 0.0 && mask.g > 0.0 && mask.b == 0.0){ //  GREEN
-    A = srcColor1;
-    B = dstColor1;
-  } else if (mask.r == 0.0 && mask.g == 0.0 && mask.b == 1.0){ //  BLUE
-    A = vec3(1.0);
-    B = vec3(1.0);
-  } else if (mask.rgb == vec3(0.0)){  //  BLACK
-    A = vec3(1.0);
-    B = vec3(1.0);
   } else {
-    A = texture2D(srcTexture,uv).rgb;
-    B = texture2D(dstTexture,uv).rgb;
-  }
+    A = B = vec3(1.0);
+  } 
 
 	vec3 color = A;
 	if (pos.y < radarHeight){
