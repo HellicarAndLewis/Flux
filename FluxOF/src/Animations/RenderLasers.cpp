@@ -174,6 +174,11 @@ void RenderLasers::selfUpdate(){
     ofLine(laserPositionPct.x,0, laserPositionPct.x, assets->terrainResolution());
     ofLine(0,laserPositionPct.y, assets->terrainResolution(), laserPositionPct.y);
     
+    
+    // Draw the mask
+    //
+    drawMask(0);
+    
     ofPopStyle();
     terrainTex.end();
 }

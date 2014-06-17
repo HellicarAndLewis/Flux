@@ -17,6 +17,7 @@ void RenderEngine::addUiClass(UIClass *_ui){
 }
 
 void RenderEngine::selfSceneTransformation(){
+
     if(!simulatorMode){
         calibration->shoe[currentViewPort].begin();
     }
@@ -73,6 +74,34 @@ void RenderEngine::startTransitionTo(QueueItem queueItem){
     //
     timeline->setPercentComplete(0.0);
     timeline->play();
+}
+
+void RenderEngine::drawMask(int viewPort){
+    if(!simulatorMode){
+        //calibration->shoe[currentViewPort].begin();
+
+        ofSetColor(255);
+        ofEnableBlendMode(OF_BLENDMODE_MULTIPLY);
+        
+        ofTexture tex;
+        
+        if(viewPort == 0){
+            tex = assets->terrainMask1;
+        } else {
+            tex = assets->terrainMask2;
+        }
+        
+        int s = tex.getWidth();
+        tex.bind();
+        glBegin(GL_QUADS);{
+            glTexCoord2d(0, 0); glVertex2d(0, 0);
+            glTexCoord2d(s, 0);glVertex2d(s, 0);
+            glTexCoord2d(s, s);glVertex2d(s, s);
+            glTexCoord2d(0, s);glVertex2d(0, s);
+        }glEnd();
+        tex.unbind();
+        ofEnableAlphaBlending();
+    }
 }
 
 bool RenderEngine::transitionDone(){
