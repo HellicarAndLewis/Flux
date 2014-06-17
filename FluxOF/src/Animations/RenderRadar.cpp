@@ -13,8 +13,16 @@ void RenderRadar::selfSetup(){
 
     //  AUDIO
     //
-    audioIn.setup(44100, 256);
+    audioBufferSize = 256;
+    audioIn.setup(44100, audioBufferSize);
     audioIn.start();
+    audioPixels.allocate(audioBufferSize,1, GL_RGB16F);
+    
+    ofDisa
+    
+    //  USERNAME TEXT
+    //
+    textTex.allocate(assets->terrainResolution(),assets->terrainResolution());
     
     //  SHOES
     //
@@ -68,6 +76,9 @@ void RenderRadar::selfSetupSystemGui(){
     sysGui->addSlider("Radar_Color_G", 0 , 1.0, &radarColor.g);
     sysGui->addSlider("Radar_Color_B", 0 , 1.0, &radarColor.b);
     sysGui->addSlider("Radar_Height",assets->sceneMin.y,assets->sceneMax.y, &radarHeight);
+    
+    sysGui->addLabel("Text");
+    sysGui->add2DPad("Text_offset", ofVec2f(0,assets->terrainResolution()),ofVec2f(0,assets->terrainResolution()), &textOffset);
 
 }
 
@@ -99,8 +110,22 @@ void RenderRadar::selfUpdate(){
         setupRenderIsFlipped(true);
     }
 
-    //  TERRAIN ANIMATION
+    //  USERNAME TEXTURE
     //
+    {
+        textTex.begin();
+        ofClear(0,0);
+        ofSetColor(255);
+        ofPushMatrix();
+        ofTranslate(textOffset);
+        ofPoint textCenter = assets->font.getStringBoundingBox(text,0,0).getCenter();
+        assets->font.drawString(text, -textCenter.x, -textCenter.y );
+        ofPopMatrix();
+        textTex.end();
+    }
+    
+    //  TERRAIN ANIMATION
+    //  -----------------------------------------
     
     //  RadarMask
     {
@@ -137,7 +162,7 @@ void RenderRadar::selfUpdate(){
         noiseTexture.end();
     }
     
-    //  Pixel displacement
+    //  Pixel displacement Transition Animation
     {
         terrainTransitionTex.swap();
         terrainTransitionTex.dst->begin();
@@ -171,22 +196,29 @@ void RenderRadar::selfUpdate(){
         glTexCoord2f(0,assets->terrainResolution());  glVertex3f(0,assets->terrainResolution(), 0);
         glEnd();
         terrainTransition.end();
-        
         terrainTransitionTex.dst->end();
-        
+    }
+    
+    //  Terrain texture
+    {
         terrainTex.begin();
+        
+        // colored transition
         terrainTransitionTex.dst->draw(0, 0);
         
+        // radar line
         ofPushStyle();
         ofPushMatrix();
         ofSetColor(radarColor);
         ofTranslate(radarCenter);
-        
         float radius = assets->terrainResolution();
         float angle = TWO_PI*radarPct;
         ofLine(0,0,radius*cos(angle),radius*sin(angle));
         ofPopMatrix();
         ofPopStyle();
+        
+        // username text
+        textTex.draw(0,0);
         
         terrainTex.end();
     }
@@ -260,7 +292,7 @@ void RenderRadar::selfDrawOverlay(){
         
         ofPushMatrix();
         ofScale(0.5, 0.5);
-        terrainTransitionTex.dst->draw(assets->terrainResolution()*0.25,0);
+        terrainTex.draw(assets->terrainResolution()*0.25,0);
         
         ofPushMatrix();
         ofTranslate(assets->terrainResolution()*1.25,0);

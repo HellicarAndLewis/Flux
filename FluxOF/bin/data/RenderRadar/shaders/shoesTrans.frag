@@ -192,13 +192,13 @@ void main(void){
   if(mask.a == 0.0){
     A = texture2D(srcTexture,uv).rgb;
     B = texture2D(dstTexture,uv).rgb;
-  } else if (mask.r == 1.0 && mask.g == 1.0 && mask.b == 0.0){ //  YELLOW
+  } else if (mask.r > 0.0 && mask.g > 0.0 && mask.b == 0.0){ //  YELLOW
     A = texture2D(srcTexture,uv).rgb;
     B = texture2D(dstTexture,uv).rgb;
-  } else if (mask.r == 1.0 && mask.g == 0.0 && mask.b == 0.0){ //  RED
+  } else if (mask.r > 0.0 && mask.g == 0.0 && mask.b == 0.0){ //  RED
     A = vec3(1.0);
     B = vec3(1.0);
-  } else if (mask.r == 0.0 && mask.g == 1.0 && mask.b == 0.0){ //  GREEN
+  } else if (mask.r == 0.0 && mask.g > 0.0 && mask.b == 0.0){ //  GREEN
     A = srcColor1;
     B = dstColor1;
   } else if (mask.r == 0.0 && mask.g == 0.0 && mask.b == 1.0){ //  BLUE
@@ -207,6 +207,9 @@ void main(void){
   } else if (mask.rgb == vec3(0.0)){  //  BLACK
     A = vec3(1.0);
     B = vec3(1.0);
+  } else {
+    A = texture2D(srcTexture,uv).rgb;
+    B = texture2D(dstTexture,uv).rgb;
   }
 
 	vec3 color = A;

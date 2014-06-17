@@ -36,6 +36,10 @@ public:
     void drawMask(int viewPort);
     
     UIBufferIn          audioIn;
+    ofFloatPixels       audioPixels;
+    ofTexture           audioTex;
+    int                 audioBufferSize;
+    
     CalibrationLoader   *calibration;
     RenderAssets        *assets;
     
@@ -44,6 +48,8 @@ public:
     vector<ofColor>     srcPalette;
     vector<ofColor>     dstPalette;
     
+    ofFbo               textTex;
+    ofPoint             textOffset;
     string              text;
     
     bool                simulatorMode;

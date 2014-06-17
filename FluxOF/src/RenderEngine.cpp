@@ -60,7 +60,7 @@ vector<ofColor> getColorPalette(ofImage &_img, int _nColors){
 }
 
 void RenderEngine::startTransitionTo(QueueItem queueItem){
-    text = queueItem.username;
+    text = "@adidas";//queueItem.username;
     
     //  Extract Colors
     //

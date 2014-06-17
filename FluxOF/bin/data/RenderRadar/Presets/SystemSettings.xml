@@ -19,7 +19,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Pct</Name>
-    <Value>0.870377839</Value>
+    <Value>0.417202562</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -39,5 +39,5 @@
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Height</Name>
-    <Value>18.734659195</Value>
+    <Value>5.650796890</Value>
 </Widget>
