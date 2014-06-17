@@ -34,17 +34,19 @@ public:
     virtual void selfSceneTransformation();
     
     void drawMask(int viewPort);
-        
-    RenderAssets *assets;
     
-    PingPong    shoeTex;
-    
-    vector<ofColor> colorPalette;
-    
-    string          text;
-    
-    bool            simulatorMode;
-    
-    CalibrationLoader   *calibration;
     UIBufferIn          audioIn;
+    CalibrationLoader   *calibration;
+    RenderAssets        *assets;
+    
+    PingPong            shoeTex;
+    
+    vector<ofColor>     srcPalette;
+    vector<ofColor>     dstPalette;
+    
+    string              text;
+    
+    bool                simulatorMode;
+    
+    
 };

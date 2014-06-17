@@ -130,7 +130,7 @@ void RenderRadar::selfUpdate(){
     noiseShader.end();
     noiseTexture.end();
     
-    if(colorPalette.size()){
+    {
         terrainTransitionTex.swap();
         terrainTransitionTex.dst->begin();
         terrainTransition.begin();
@@ -139,26 +139,19 @@ void RenderRadar::selfUpdate(){
         terrainTransition.getShader().setUniformTexture("normalMap", noiseTexture, 2);
         terrainTransition.getShader().setUniformTexture("radarTex", radarTexture, 3);
         
-        terrainTransition.getShader().setUniform3f("dstColor1",
-                                                   ((float)colorPalette[0].r)/255.0,
-                                                   ((float)colorPalette[0].g)/255.0,
-                                                   ((float)colorPalette[0].b)/255.0);
-        terrainTransition.getShader().setUniform3f("dstColor2",
-                                                   ((float)colorPalette[1].r)/255.0,
-                                                   ((float)colorPalette[1].g)/255.0,
-                                                   ((float)colorPalette[1].b)/255.0);
-        terrainTransition.getShader().setUniform3f("dstColor3",
-                                                   ((float)colorPalette[2].r)/255.0,
-                                                   ((float)colorPalette[2].g)/255.0,
-                                                   ((float)colorPalette[2].b)/255.0);
-        terrainTransition.getShader().setUniform3f("dstColor4",
-                                                   ((float)colorPalette[3].r)/255.0,
-                                                   ((float)colorPalette[3].g)/255.0,
-                                                   ((float)colorPalette[3].b)/255.0);
-        terrainTransition.getShader().setUniform3f("dstColor5",
-                                                   ((float)colorPalette[4].r)/255.0,
-                                                   ((float)colorPalette[4].g)/255.0,
-                                                   ((float)colorPalette[4].b)/255.0);
+        for(int i = 0; i < srcPalette.size(); i++){
+            terrainTransition.getShader().setUniform3f("srcColor"+ofToString(i+1),
+                                                       ((float)srcPalette[i].r)/255.0,
+                                                       ((float)srcPalette[i].g)/255.0,
+                                                       ((float)srcPalette[i].b)/255.0);
+        }
+        
+        for(int i = 0; i < dstPalette.size(); i++){
+            terrainTransition.getShader().setUniform3f("dstColor"+ofToString(i+1),
+                                                       ((float)dstPalette[i].r)/255.0,
+                                                       ((float)dstPalette[i].g)/255.0,
+                                                       ((float)dstPalette[i].b)/255.0);
+        }
         
         terrainTransition.getShader().setUniform1f("resolution", assets->terrainResolution());
         
@@ -222,6 +215,22 @@ void RenderRadar::selfDraw(){
     shoeTransition.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
     shoeTransition.getShader().setUniformTexture("srcTexture",shoeTex.src->getTextureReference(), 0);
     shoeTransition.getShader().setUniformTexture("dstTexture",shoeTex.dst->getTextureReference(), 1);
+    shoeTransition.getShader().setUniformTexture("colorMaskTexture", assets->shoeColorMask, 2);
+    
+    for(int i = 0; i < srcPalette.size(); i++){
+        shoeTransition.getShader().setUniform3f("dstColor"+ofToString(i+1),
+                                                ((float)srcPalette[i].r)/255.0,
+                                                ((float)srcPalette[i].g)/255.0,
+                                                ((float)srcPalette[i].b)/255.0);
+    }
+    
+    for(int i = 0; i < dstPalette.size(); i++){
+        shoeTransition.getShader().setUniform3f("dstColor"+ofToString(i+1),
+                                                ((float)dstPalette[i].r)/255.0,
+                                                ((float)dstPalette[i].g)/255.0,
+                                                ((float)dstPalette[i].b)/255.0);
+    }
+    
     assets->shoeMesh.draw();
     shoeTransition.end();
     ofEnableArbTex();
@@ -266,8 +275,8 @@ void RenderRadar::selfDrawOverlay(){
         ofPushMatrix();
         ofPushStyle();
         ofTranslate(ofGetWidth()-margin*1.5-paletteSize,0);
-        for(int i = 0; i < colorPalette.size(); i++){
-            ofSetColor(colorPalette[i]);
+        for(int i = 0; i < dstPalette.size(); i++){
+            ofSetColor(dstPalette[i]);
             ofCircle(margin, i*(paletteSize*2.0+5)+paletteSize*0.5+5, paletteSize);
         }
         ofPopStyle();

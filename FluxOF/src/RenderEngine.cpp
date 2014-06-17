@@ -62,14 +62,14 @@ vector<ofColor> getColorPalette(ofImage &_img, int _nColors){
 void RenderEngine::startTransitionTo(QueueItem queueItem){
     text = queueItem.username;
     
-    //  Load Image
+    //  Extract Colors
     //
-    colorPalette = getColorPalette(queueItem.image, 5);
+    srcPalette = dstPalette;
+    dstPalette = getColorPalette(queueItem.image, 5);
     
     //  Keep the image as a destinationTexture
     //
     float size = MIN(queueItem.image.getWidth(),queueItem.image.getHeight());
-    
     ofDisableArbTex();
     shoeTex.swap();
     shoeTex.dst->allocate(size,size);

@@ -9,8 +9,9 @@ public:
     int terrainResolution();
     
     ofVboMesh       terrainMesh,shoeMesh;
-    ofTexture       terrainDepthMap, terrainNormalMap, terrainMask1, terrainMask2;
+    ofTexture       terrainDepthMap, terrainNormalMap, terrainMask, terrainMask1, terrainMask2;
     ofTexture       shoeColorMask;
     ofPoint         sceneMin,sceneMax;
-
+    
+    ofTrueTypeFont  font;
 };

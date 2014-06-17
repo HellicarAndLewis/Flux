@@ -9,8 +9,6 @@ void CalibrationLoader::load(){
 }
 
 //--------------------------
-
-
 void CalibrationLoaderInstance::load(string path){
     // load the calibration-advanced yml
     cv::FileStorage fs(ofToDataPath( path+"/calibration-advanced.yml", true), cv::FileStorage::READ);

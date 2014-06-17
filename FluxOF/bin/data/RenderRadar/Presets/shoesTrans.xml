@@ -2,23 +2,13 @@
     <Kind>40</Kind>
     <Name>shoesTrans</Name>
     <IsMinified>0</IsMinified>
-    <XPosition>392.000000000</XPosition>
-    <YPosition>314.000000000</YPosition>
+    <XPosition>689.000000000</XPosition>
+    <YPosition>81.000000000</YPosition>
 </Canvas>
 <Widget>
     <Kind>2</Kind>
     <Name>ENABLE</Name>
     <Value>1</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>radarHeight</Name>
-    <Value>0.270935953</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>lineWidth</Name>
-    <Value>0.039408866</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
@@ -33,12 +23,97 @@
 <Widget>
     <Kind>25</Kind>
     <Name>z</Name>
-    <Value>0.324606687</Value>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>25</Kind>
+    <Name>x</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>25</Kind>
+    <Name>y</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>25</Kind>
+    <Name>z</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>25</Kind>
+    <Name>x</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>25</Kind>
+    <Name>y</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>25</Kind>
+    <Name>z</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>25</Kind>
+    <Name>x</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>25</Kind>
+    <Name>y</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>25</Kind>
+    <Name>z</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>25</Kind>
+    <Name>x</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>25</Kind>
+    <Name>y</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>25</Kind>
+    <Name>z</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>radarHeight</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>lineWidth</Name>
+    <Value>0.108374387</Value>
+</Widget>
+<Widget>
+    <Kind>25</Kind>
+    <Name>x</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>25</Kind>
+    <Name>y</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>25</Kind>
+    <Name>z</Name>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>tranNoiseZoom</Name>
-    <Value>0.866995096</Value>
+    <Value>1.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>

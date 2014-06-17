@@ -79,15 +79,20 @@ void RenderAssets::load(){
         }
 	}
     
-    //  Load Textures
+    //  Load ARB Textures
     //
     ofLoadImage(terrainDepthMap, "models/terrainDepthMap.png");
     ofLoadImage(terrainNormalMap, "models/terrainNormalMap.png");
+    ofLoadImage(terrainMask,"models/terrainMask.png");
     ofLoadImage(terrainMask1, "models/terrainMask1.png");
     ofLoadImage(terrainMask2, "models/terrainMask2.png");
     
+    //  Load SQR Textures
+    //
     ofDisableArbTex();
     ofLoadImage(shoeColorMask, "models/SHOE_MASKS.png");
     ofEnableArbTex();
+    
+    font.loadFont("models/AdiHaus", 90);
 
 }
