@@ -216,11 +216,10 @@ void RenderLasers::selfDraw(){
     shoeTransition.begin();
     shoeTransition.getShader().setUniform3f("laserColor",laserColor.r,laserColor.g,laserColor.b);
     shoeTransition.getShader().setUniform2f("laserPosition", laserPosition.x, laserPosition.y);
+    
     shoeTransition.getShader().setUniformTexture("srcTexture",shoeTex.src->getTextureReference(), 0);
     shoeTransition.getShader().setUniformTexture("dstTexture",shoeTex.dst->getTextureReference(), 1);
-    shoeTransition.getShader().setUniformTexture("colorMaskTexture", assets->shoeMask, 2);
-    
-    
+    shoeTransition.getShader().setUniformTexture("colorMaskTexture", assets->shoeColorMask, 2);
     assets->shoeMesh.draw();
     shoeTransition.end();
     

@@ -10,7 +10,7 @@ public:
     
     ofVboMesh       terrainMesh,shoeMesh;
     ofTexture       terrainDepthMap, terrainNormalMap, terrainMask1, terrainMask2;
-    ofTexture       shoeMask;
+    ofTexture       shoeColorMask;
     ofPoint         sceneMin,sceneMax;
 
 };

@@ -178,8 +178,17 @@ void main(void){
 	vec2 pos = vertexPos.xz;
 	pos.x *= -1.0;
 
-	vec3 A = texture2D(srcTexture,uv).rgb;
-	vec3 B = texture2D(dstTexture,uv).rgb;
+  vec3 A = vec3(0.0);
+  vec3 B = vec3(0.0);
+  vec3 mask = texture2D(colorMaskTexture,uv).rgb;
+
+  if(mask == vec3(1.0)) {
+    A = texture2D(srcTexture,uv).rgb;
+    B = texture2D(dstTexture,uv).rgb; 
+  } else {
+    A = B = mask;
+  }
+	
 	
 	vec3 color = A;
 	if( laserPosition.y > pos.x && laserPosition.x > pos.y){
