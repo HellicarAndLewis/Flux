@@ -36,6 +36,9 @@ void RenderLasers::selfSetup(){
         ofClear(0, 0);
         terrainTex[i].end();
     }
+    
+    shoeTex.allocate(100, 100);
+    
     ofEnableArbTex();
 }
 
@@ -127,8 +130,8 @@ void RenderLasers::selfUpdate(){
         terrainTransitionTex.swap();
         terrainTransitionTex.dst->begin();
         terrainTransition.begin();
-        //    terrainTransition.getShader().setUniformTexture("backbuffer", *terrainTransitionTex.src, 0);
-        //    terrainTransition.getShader().setUniformTexture("normalMap", terrainNormalMap, 2);
+//    terrainTransition.getShader().setUniformTexture("backbuffer", *terrainTransitionTex.src, 0);
+//    terrainTransition.getShader().setUniformTexture("normalMap", terrainNormalMap, 2);
         
         terrainTransition.getShader().setUniformTexture("depthMap", assets->terrainDepthMap, 0);
         terrainTransition.getShader().setUniformTexture("lasersMask", lasersMask, 1);
@@ -213,6 +216,11 @@ void RenderLasers::selfDraw(){
     shoeTransition.begin();
     shoeTransition.getShader().setUniform3f("laserColor",laserColor.r,laserColor.g,laserColor.b);
     shoeTransition.getShader().setUniform2f("laserPosition", laserPosition.x, laserPosition.y);
+    shoeTransition.getShader().setUniformTexture("srcTexture",shoeTex.src->getTextureReference(), 0);
+    shoeTransition.getShader().setUniformTexture("dstTexture",shoeTex.dst->getTextureReference(), 1);
+    shoeTransition.getShader().setUniformTexture("colorMaskTexture", assets->shoeMask, 2);
+    
+    
     assets->shoeMesh.draw();
     shoeTransition.end();
     
@@ -227,7 +235,6 @@ void RenderLasers::selfDraw(){
 
 void RenderLasers::selfDrawOverlay(){
     if(bDebug){
-        
         ofPushMatrix();
         ofScale(0.5, 0.5);
         terrainTransitionTex.dst->draw(assets->terrainResolution()*0.25,0);
@@ -235,7 +242,7 @@ void RenderLasers::selfDrawOverlay(){
         ofPushMatrix();
         ofTranslate(assets->terrainResolution()*1.25,0);
         ofScale(0.5, 0.5);
-        shoeTexB.draw(0, 0);
+        shoeTex.dst->draw(0, 0);
         ofPopMatrix();
         
         ofPushMatrix();
