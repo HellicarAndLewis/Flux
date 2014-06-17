@@ -95,9 +95,9 @@ void RenderEngine::drawMask(int viewPort){
         tex.bind();
         glBegin(GL_QUADS);{
             glTexCoord2d(0, 0); glVertex2d(0, 0);
-            glTexCoord2d(s, 0);glVertex2d(s, 0);
-            glTexCoord2d(s, s);glVertex2d(s, s);
-            glTexCoord2d(0, s);glVertex2d(0, s);
+            glTexCoord2d(s, 0); glVertex2d(s, 0);
+            glTexCoord2d(s, s); glVertex2d(s, s);
+            glTexCoord2d(0, s); glVertex2d(0, s);
         }glEnd();
         tex.unbind();
         ofEnableAlphaBlending();

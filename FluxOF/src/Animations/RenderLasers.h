@@ -49,7 +49,7 @@ protected:
     UIShader        terrainTransition;
     PingPong        terrainTransitionTex;
     
-    ofFbo           terrainTex;
+    ofFbo           terrainTex[2];
     ofFbo           terrainMapPrev;
     
     //  SHOES   TRANSITION

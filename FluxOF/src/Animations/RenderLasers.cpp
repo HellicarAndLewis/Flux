@@ -30,10 +30,12 @@ void RenderLasers::selfSetup(){
     terrainTransitionTex.clear();
     
     ofDisableArbTex();
-    terrainTex.allocate(assets->terrainResolution(),assets->terrainResolution());
-    terrainTex.begin();
-    ofClear(0, 0);
-    terrainTex.end();
+    for(int i=0;i<2;i++){
+        terrainTex[i].allocate(assets->terrainResolution(),assets->terrainResolution());
+        terrainTex[i].begin();
+        ofClear(0, 0);
+        terrainTex[i].end();
+    }
     ofEnableArbTex();
 }
 
@@ -165,22 +167,27 @@ void RenderLasers::selfUpdate(){
         
         terrainTransitionTex.dst->end();
         
+        for(int i=0;i<2;i++){
+            terrainTex[i].begin();{
+                ofClear(0,0,0,0);
+                
+                terrainTransitionTex.dst->draw(0, 0);
+                ofPushStyle();
+                
+                ofSetColor(laserColor);
+                ofLine(laserPositionPct.x,0, laserPositionPct.x, assets->terrainResolution());
+                ofLine(0,laserPositionPct.y, assets->terrainResolution(), laserPositionPct.y);
+                
+                
+                // Draw the mask
+                //
+                drawMask(i);
+                
+                ofPopStyle();
+            }terrainTex[i].end();
+        }
+       
     }
-    terrainTex.begin();
-    terrainTransitionTex.dst->draw(0, 0);
-    ofPushStyle();
-    
-    ofSetColor(laserColor);
-    ofLine(laserPositionPct.x,0, laserPositionPct.x, assets->terrainResolution());
-    ofLine(0,laserPositionPct.y, assets->terrainResolution(), laserPositionPct.y);
-    
-    
-    // Draw the mask
-    //
-    drawMask(0);
-    
-    ofPopStyle();
-    terrainTex.end();
 }
 
 void RenderLasers::selfDraw(){
@@ -188,16 +195,15 @@ void RenderLasers::selfDraw(){
 
     ofPushMatrix();
 
-    ofSetColor(255);
     
     //  TERRAIN
     //
     ofSetSmoothLighting(false);
     
     ofDisableArbTex();
-    terrainTex.getTextureReference().bind();
+    terrainTex[currentViewPort].getTextureReference().bind();
     assets->terrainMesh.draw();
-    terrainTex.getTextureReference().unbind();
+    terrainTex[currentViewPort].getTextureReference().unbind();
     ofEnableArbTex();
     
     //  SHOE
