@@ -180,13 +180,13 @@ void main(void){
 
   vec3 A = vec3(0.0);
   vec3 B = vec3(0.0);
-  vec3 mask = texture2D(colorMaskTexture,uv).rgb;
+  vec4 mask = texture2D(colorMaskTexture,uv);
 
-  if(mask == vec3(1.0)) {
+  if (mask.a == 0.0){
     A = texture2D(srcTexture,uv).rgb;
     B = texture2D(dstTexture,uv).rgb; 
   } else {
-    A = B = mask;
+    A = B = mask.rgb;
   }
 	
 	
