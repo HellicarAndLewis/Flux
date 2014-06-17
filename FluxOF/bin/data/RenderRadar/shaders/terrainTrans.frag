@@ -1,6 +1,9 @@
 uniform sampler2DRect backbuffer;
+
+uniform sampler2DRect maskTex;
 uniform sampler2DRect depthMap;
 uniform sampler2DRect normalMap;
+
 uniform sampler2DRect radarTex;
 
 uniform vec3 dstColor1;
@@ -16,15 +19,28 @@ uniform float radarThreshold;
 #define PI 3.14159265358979323846
 
 void main(void){
+
 	vec2 st = gl_FragCoord.xy;
 
 	float radar = texture2DRect(radarTex,st).r;
 	float depth = texture2DRect(depthMap,st).r;
+    float mask = texture2DRect(maskTex,st).r;
     vec4 bg = texture2DRect(backbuffer, st);
     
     gl_FragColor = bg;
 
-    if(radar>(1.0-radarThreshold) ){
+    if( mask>0.0 ){
+        //  Geometry
+        //
+        vec2 n = texture2DRect(normalMap,st).rg;
+        
+        vec3 color;
+        color = mix(dstColor1,dstColor2,n.x);
+        color = mix(color,dstColor3,n.y);
+
+
+        gl_FragColor = vec4(mix(bg.rgb,color,radar),1.0);
+    } else if(radar>(1.0-radarThreshold) ){
         //  TINT
         //
         vec3 colors[5];

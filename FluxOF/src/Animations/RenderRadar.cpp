@@ -99,45 +99,54 @@ void RenderRadar::selfUpdate(){
         setupRenderIsFlipped(true);
     }
 
-    //  TERRAIN TEXTURE
+    //  TERRAIN ANIMATION
     //
-    radarTexture.begin();
-    ofClear(0,0);
-    radarShader.begin();
-    radarShader.getShader().setUniform1f("pct", radarPct);
-    radarShader.getShader().setUniform2f("center", radarCenter.x, radarCenter.y);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
-    glTexCoord2f(assets->terrainResolution(), 0); glVertex3f(assets->terrainResolution(), 0, 0);
-    glTexCoord2f(assets->terrainResolution(), assets->terrainResolution()); glVertex3f(assets->terrainResolution(), assets->terrainResolution(), 0);
-    glTexCoord2f(0,assets->terrainResolution());  glVertex3f(0,assets->terrainResolution(), 0);
-    glEnd();
-    radarShader.end();
-    radarTexture.end();
     
-    noiseTexture.begin();
-    noiseShader.begin();
-    noiseShader.getShader().setUniformTexture("depthMap", assets->terrainDepthMap, 0);
-    noiseShader.getShader().setUniformTexture("normalMap", assets->terrainNormalMap, 1);
-    noiseShader.getShader().setUniformTexture("maskTex", radarTexture, 2);
+    //  RadarMask
+    {
+        radarTexture.begin();
+        ofClear(0,0);
+        radarShader.begin();
+        radarShader.getShader().setUniform1f("pct", radarPct);
+        radarShader.getShader().setUniform2f("center", radarCenter.x, radarCenter.y);
+        glBegin(GL_QUADS);
+        glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
+        glTexCoord2f(assets->terrainResolution(), 0); glVertex3f(assets->terrainResolution(), 0, 0);
+        glTexCoord2f(assets->terrainResolution(), assets->terrainResolution()); glVertex3f(assets->terrainResolution(), assets->terrainResolution(), 0);
+        glTexCoord2f(0,assets->terrainResolution());  glVertex3f(0,assets->terrainResolution(), 0);
+        glEnd();
+        radarShader.end();
+        radarTexture.end();
+    }
     
-    glBegin(GL_QUADS);
-    glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
-    glTexCoord2f(assets->terrainResolution(), 0); glVertex3f(assets->terrainResolution(), 0, 0);
-    glTexCoord2f(assets->terrainResolution(), assets->terrainResolution()); glVertex3f(assets->terrainResolution(), assets->terrainResolution(), 0);
-    glTexCoord2f(0,assets->terrainResolution());  glVertex3f(0,assets->terrainResolution(), 0);
-    glEnd();
-    noiseShader.end();
-    noiseTexture.end();
+    //  Noise Forces (for water-color effect)
+    {
+        noiseTexture.begin();
+        noiseShader.begin();
+        noiseShader.getShader().setUniformTexture("depthMap", assets->terrainDepthMap, 0);
+        noiseShader.getShader().setUniformTexture("normalMap", assets->terrainNormalMap, 1);
+        noiseShader.getShader().setUniformTexture("maskTex", assets->terrainMask, 2);
+        
+        glBegin(GL_QUADS);
+        glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
+        glTexCoord2f(assets->terrainResolution(), 0); glVertex3f(assets->terrainResolution(), 0, 0);
+        glTexCoord2f(assets->terrainResolution(), assets->terrainResolution()); glVertex3f(assets->terrainResolution(), assets->terrainResolution(), 0);
+        glTexCoord2f(0,assets->terrainResolution());  glVertex3f(0,assets->terrainResolution(), 0);
+        glEnd();
+        noiseShader.end();
+        noiseTexture.end();
+    }
     
+    //  Pixel displacement
     {
         terrainTransitionTex.swap();
         terrainTransitionTex.dst->begin();
         terrainTransition.begin();
         terrainTransition.getShader().setUniformTexture("backbuffer", *terrainTransitionTex.src, 0);
         terrainTransition.getShader().setUniformTexture("depthMap", assets->terrainDepthMap, 1);
-        terrainTransition.getShader().setUniformTexture("normalMap", noiseTexture, 2);
-        terrainTransition.getShader().setUniformTexture("radarTex", radarTexture, 3);
+        terrainTransition.getShader().setUniformTexture("maskTex", assets->terrainMask, 2);
+        terrainTransition.getShader().setUniformTexture("normalMap", noiseTexture, 3);
+        terrainTransition.getShader().setUniformTexture("radarTex", radarTexture, 4);
         
         for(int i = 0; i < srcPalette.size(); i++){
             terrainTransition.getShader().setUniform3f("srcColor"+ofToString(i+1),

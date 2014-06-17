@@ -271,11 +271,11 @@ void main (void){
     vec2 terrainVel = texture2DRect(normalMap,st).rg;
     vec2 vel = terrainVel;
 
-    float mask = texture2DRect(maskTex,st).r;
+    float mask = 1.0-texture2DRect(maskTex,st).r;
 
     if(mask>0.0){
         float height = texture2DRect(depthMap,st).r;
-        vec2 noiseVel = noiseXY( zoom*(1.0-height) ,speed);
+        vec2 noiseVel = noiseXY( zoom*pct ,speed);
         vel = mix(terrainVel,noiseVel,mask);
     }
 
