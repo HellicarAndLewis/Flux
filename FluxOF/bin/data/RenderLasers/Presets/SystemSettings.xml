@@ -3,10 +3,35 @@
     <Name>SystemSettings</Name>
     <IsMinified>1</IsMinified>
     <XPosition>1.000000000</XPosition>
-    <YPosition>154.000000000</YPosition>
+    <YPosition>176.000000000</YPosition>
 </Canvas>
 <Widget>
     <Kind>2</Kind>
     <Name>ENABLE</Name>
     <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Laser_Facus_X</Name>
+    <Value>50.177165985</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Laser_Facus_Y</Name>
+    <Value>49.539894104</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Laser_Color_R</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Laser_Color_G</Name>
+    <Value>0.679802954</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Laser_Color_B</Name>
+    <Value>1.000000000</Value>
 </Widget>

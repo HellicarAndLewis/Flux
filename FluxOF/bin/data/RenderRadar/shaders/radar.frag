@@ -1,6 +1,6 @@
 uniform float pct;
 uniform float tailWidth;
-uniform float resolution;
+
 uniform vec2 center;
 
 uniform float time;
@@ -8,8 +8,8 @@ uniform float time;
 #define PI 3.14159
 
 void main(void){
-	vec2 st = (gl_FragCoord.xy/vec2(resolution));
-	vec2 p = st+(center-1.0);
+	vec2 st = gl_FragCoord.xy;
+	vec2 p = st-center;
 	
 	float a = (atan(p.y,p.x) + (1.0-pct)*PI*2.0);
 	float r = sqrt(dot(p,p));	

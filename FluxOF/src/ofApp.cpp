@@ -5,33 +5,23 @@ void ofApp::setup(){
     ofSetVerticalSync(true);
     renderEngine = NULL;
     
-    
-    //  Initialize the Render
-    //
-    renderEngine = new RenderRadar();
-    
-    // Setup the controllers
-    //
-    imageQueue.renderEngine = renderEngine;
-    imageQueue.loadQueueFromFile();
-
-    nodeCommunication.imageQueue = &imageQueue;
-    nodeCommunication.setup();
-    
-    
     //  Load STUFF
     //
     calibration.load();
     renderAssets.load();
     
-    loadScene();
-    loadAnimation(LASERS);
+    imageQueue.loadQueueFromFile();
+    
+    //  SETUP Node
+    //
+    nodeCommunication.imageQueue = &imageQueue;
+    nodeCommunication.setup();
+    
+    //  start the RENDER
+    //
+    loadAnimation(RADAR);
 }
 
-void ofApp::loadScene(){
-    
-    
-}
 
 void ofApp::loadAnimation(ANIMATION_STYLE _animation){
     
@@ -69,7 +59,6 @@ void ofApp::loadAnimation(ANIMATION_STYLE _animation){
     //
 	renderEngine->play();
     renderEngine->getTimeline()->setDurationInSeconds(5);
-//    imageQueue.transitionTo(imageQueue.currentItem);
 }
 
 //--------------------------------------------------------------

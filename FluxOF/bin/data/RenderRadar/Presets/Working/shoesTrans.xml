@@ -11,24 +11,14 @@
     <Value>1</Value>
 </Widget>
 <Widget>
-    <Kind>25</Kind>
-    <Name>x</Name>
-    <Value>0.000000000</Value>
-</Widget>
-<Widget>
-    <Kind>25</Kind>
-    <Name>y</Name>
-    <Value>0.000000000</Value>
-</Widget>
-<Widget>
-    <Kind>25</Kind>
-    <Name>z</Name>
-    <Value>0.540796340</Value>
+    <Kind>4</Kind>
+    <Name>radarHeight</Name>
+    <Value>0.270935953</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>lineWidth</Name>
-    <Value>0.014778325</Value>
+    <Value>0.039408866</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
@@ -43,20 +33,15 @@
 <Widget>
     <Kind>25</Kind>
     <Name>z</Name>
-    <Value>0.000000000</Value>
+    <Value>0.324606687</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>tranNoiseZoom</Name>
-    <Value>0.453201979</Value>
+    <Value>0.866995096</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>tranWidth</Name>
     <Value>0.078817733</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>scale</Name>
-    <Value>0.620689631</Value>
 </Widget>
