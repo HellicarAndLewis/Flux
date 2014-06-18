@@ -1,8 +1,9 @@
 var WebSocketServer = require('ws').Server,
   http = require('http'),
   request = require('request'),
-  fs = require('fs');
-
+  fs = require('fs'),
+  gphoto2 = require('gphoto2'),
+  GPhoto = new gphoto2.GPhoto2();
 
 var imageFolder = "../FluxOF/bin/data/images/";
 var incommingItems = [];
@@ -95,7 +96,7 @@ var handleIncommingImages = function(data){
     var itemFound = false;
     for(var i in data) {
       if(incommingItems[u].id == data[i].id) {
-
+        itemFound = true;
       }
     }
     if(!itemFound){
@@ -106,6 +107,7 @@ var handleIncommingImages = function(data){
 
   //Look for the items in the local version of the queue, and see if its new
   for(var i in data){
+    //console.log("Search for ",data[i])
     var itemFound = false;
     for(var u in incommingItems){
       if(incommingItems[u].id == data[i].id){
@@ -138,8 +140,20 @@ pullImages();
 // Download a item to the local folder
 //
 var downloadImage = function(item){
-  console.log("Going to download "+item.image_url+" to "+imageFolder+item.id+".png")
+  console.log("Going to download "+item.image_url+" to "+imageFolder+item.id+".png id: "+item.id)
   request(item.image_url).pipe(fs.createWriteStream(imageFolder+item.id+".png"))
 
 };
+
+// List cameras / assign list item to variable to use below options
+GPhoto.list(function (list) {
+  if (list.length === 0) return;
+  var camera = list[0];
+  console.log('Found', camera.model);
+
+  // get configuration tree
+  camera.getConfig(function (er, settings) {
+    console.log(settings);
+  });
+});
 
