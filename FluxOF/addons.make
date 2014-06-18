@@ -1,6 +1,10 @@
 ofxAssimpModelLoader
 ofxCv
+ofxFft
+ofxLibwebsockets
 ofxMSATimer
+ofxOpenCv
+ofxOsc
 ofxRange
 ofxTextInputField
 ofxTimecode

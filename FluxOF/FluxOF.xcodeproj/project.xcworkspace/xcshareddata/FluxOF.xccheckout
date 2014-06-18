@@ -5,13 +5,15 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>CD15F607-9F47-41B8-BD92-AB4C56C8412D</string>
+	<string>E32A1D5C-CEDA-43FE-806F-AFAD52527864</string>
 	<key>IDESourceControlProjectName</key>
 	<string>FluxOF</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>116ABAEE-1CBC-4742-83CE-E747486B7A8A</key>
 		<string>https://github.com/obviousjim/ofxMSATimer</string>
+		<key>1385F886-0CFD-424F-B685-23919E2A6F54</key>
+		<string>https://github.com/kylemcdonald/ofxFft.git</string>
 		<key>2267B670-815E-4E3A-A05A-88116A36E417</key>
 		<string>https://github.com/YCAMInterlab/ofxTimeline</string>
 		<key>4FDC7E32-29CE-43DB-BDC6-2A94FF35E493</key>
@@ -20,6 +22,8 @@
 		<string>ssh://github.com/patriciogonzalezvivo/ofxUIProject.git</string>
 		<key>7373BDA4-F69B-4AD3-80E4-1BADFCF7E026</key>
 		<string>https://github.com/Flightphase/ofxRange</string>
+		<key>73754661-303A-4189-845B-C0C639263630</key>
+		<string>ssh://github.com/labatrockwell/ofxLibwebsockets.git</string>
 		<key>7F24154A-8D73-45D3-B5D7-9BB9787ADA76</key>
 		<string>ssh://github.com/arturoc/ofxTween.git</string>
 		<key>9E81E90F-32AE-46C6-9679-0E5B98CFCF94</key>
@@ -39,6 +43,8 @@
 	<dict>
 		<key>116ABAEE-1CBC-4742-83CE-E747486B7A8A</key>
 		<string>../../../../../addons/ofxMSATimer</string>
+		<key>1385F886-0CFD-424F-B685-23919E2A6F54</key>
+		<string>../../../../../addons/ofxFft</string>
 		<key>2267B670-815E-4E3A-A05A-88116A36E417</key>
 		<string>../../../../../addons/ofxTimeline</string>
 		<key>4FDC7E32-29CE-43DB-BDC6-2A94FF35E493</key>
@@ -47,6 +53,8 @@
 		<string>../../../../../addons/ofxUIProject</string>
 		<key>7373BDA4-F69B-4AD3-80E4-1BADFCF7E026</key>
 		<string>../../../../../addons/ofxRange</string>
+		<key>73754661-303A-4189-845B-C0C639263630</key>
+		<string>../../../../../addons/ofxLibwebsockets</string>
 		<key>7F24154A-8D73-45D3-B5D7-9BB9787ADA76</key>
 		<string>../../../../../addons/ofxTween</string>
 		<key>9E81E90F-32AE-46C6-9679-0E5B98CFCF94</key>
@@ -83,6 +91,22 @@
 			<string>FA3B5DB0-6D30-483C-882D-03EDC99827D8</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ofxCv</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1385F886-0CFD-424F-B685-23919E2A6F54</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxFft</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>73754661-303A-4189-845B-C0C639263630</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxLibwebsockets</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>

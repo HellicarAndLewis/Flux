@@ -11,6 +11,9 @@
 UIBufferIn::UIBufferIn(){
     bufferSize = 512;
     sampleRate = 44100;
+    
+//    fft = ofxFft::create(bufferSize, OF_FFT_WINDOW_HAMMING);
+    fft = ofxFft::create(bufferSize, OF_FFT_WINDOW_HAMMING, OF_FFT_FFTW);
 
     audioIn = new float[bufferSize];
 	audioBins.resize(fft->getBinSize());
@@ -18,9 +21,6 @@ UIBufferIn::UIBufferIn(){
     for(int i = 0; i < fft->getBinSize(); i++){
         middleBins[i] = 0;
     }
-    
-//    fft = ofxFft::create(bufferSize, OF_FFT_WINDOW_HAMMING);
-    fft = ofxFft::create(bufferSize, OF_FFT_WINDOW_HAMMING, OF_FFT_FFTW);
 }
 
 void UIBufferIn::setup(int _sampleRate, int _bufferSize){
