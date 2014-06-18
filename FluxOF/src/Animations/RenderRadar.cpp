@@ -121,6 +121,14 @@ void RenderRadar::selfUpdate(){
 //    }
 //    audioTex.loadData(audioPixels);
     
+    //  Color the radar
+    //
+    if(dstPalette.size()>0){
+        radarColor.set(dstPalette[3]);
+        radarColor.setBrightness(1.0);
+        radarColor.setSaturation(1.0);
+    }
+    
     //  USERNAME TEXTURE
     //
     {
@@ -200,13 +208,9 @@ void RenderRadar::selfUpdate(){
         terrainTransitionTex.dst->end();
     }
     
-    //  Terrain texture
+    //  OverLayer with information
     {
         terrainTex.begin();
-        
-        // colored transition
-//        terrainTransitionTex.dst->draw(0, 0);
-        
         ofClear(0,0);
         
         // radar line
@@ -234,7 +238,6 @@ void RenderRadar::selfDraw(){
     
     //  TERRAIN
     //
-
     ofPushMatrix();
     ofSetSmoothLighting(false);
     

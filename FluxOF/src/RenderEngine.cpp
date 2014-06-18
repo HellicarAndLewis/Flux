@@ -199,7 +199,6 @@ vector<ofColor> getColorPalette(ofImage &_img, int _nColors){
     ofImage smallImg;
     smallImg = _img;
     smallImg.resize(_img.getWidth()*0.25, _img.getHeight()*0.25);
-    const int colorCount = 3;
     const int sampleCount = smallImg.getHeight() * smallImg.getWidth();
     cv::Mat colorSamples( sampleCount, 1, CV_32FC3 );
     
@@ -226,7 +225,7 @@ vector<ofColor> getColorPalette(ofImage &_img, int _nColors){
     //  Add the complementary of the first one
     //
     palette.push_back(getComplement(palette[0]));
-    palette.push_back(ofColor(luminance(palette[0]*255.0)));
+    palette.push_back(ofColor(luminance(palette[0])));
     
     return palette;
 }
@@ -239,7 +238,7 @@ void RenderEngine::startTransitionTo(QueueItem queueItem){
     //  Extract Colors
     //
     srcPalette = dstPalette;
-    dstPalette = getColorPalette(queueItem.image, 5);
+    dstPalette = getColorPalette(queueItem.image, 3);
     
     //  Keep the image as a destinationTexture
     //
