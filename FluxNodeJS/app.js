@@ -5,7 +5,8 @@ var WebSocketServer = require('ws').Server,
   gphoto2 = require('gphoto2'),
   GPhoto = new gphoto2.GPhoto2();
 
-var imageFolder = "../FluxOF/bin/data/images/";
+var dataFolder = "../FluxOF/bin/data/"
+var imageFolder = dataFolder+"images/";
 var incommingItems = [];
 
 //
@@ -26,6 +27,9 @@ wss.on('connection', function(ws) {
       if (object.type && object.type == 'photoTrigger') {
         //TODO: Trigger the photo
         console.log("Trigger photo " + object.id);
+
+        uploadImage(dataFolder+"images_screenshots/"+object.id+".png", object.id);
+
       }
     } catch(e){
       console.log(e);
@@ -106,7 +110,7 @@ var handleIncommingImages = function(data){
   }
 
   //Look for the items in the local version of the queue, and see if its new
-  for(var i in data){
+  for(var i=data.length-1; i>=0;i--){
     //console.log("Search for ",data[i])
     var itemFound = false;
     for(var u in incommingItems){
@@ -132,7 +136,7 @@ var handleIncommingImages = function(data){
 };
 
 //Start the pulling of images
-//pullImages();
+pullImages();
 
 
 
@@ -159,7 +163,6 @@ var uploadImage = function(path, id){
   form.append('returned_image', fs.createReadStream(path))
 }
 
-uploadImage(imageFolder+"10192.png", 14713);
 
 //
 // List cameras / assign list item to variable to use below options

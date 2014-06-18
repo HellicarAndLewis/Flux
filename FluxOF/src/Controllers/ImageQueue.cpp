@@ -171,6 +171,7 @@ void ImageQueue::loadQueueFromFile(){
         newItem.path = load.getValue("path", "");
         newItem.username = load.getValue("username", "");
         newItem.itemId = load.getValue("itemId", 0);
+        newItem.takePhoto = false;
         
         oldItemsQueue.push_back(newItem);
         
