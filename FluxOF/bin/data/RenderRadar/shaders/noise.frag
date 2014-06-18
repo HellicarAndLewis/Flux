@@ -245,9 +245,7 @@ uniform float zoom;
 uniform float speed;
 uniform float pct;
 
-uniform sampler2DRect normalMap; 
-uniform sampler2DRect depthMap;
-uniform sampler2DRect maskTex;
+
 
 vec2 noiseXY(float _zoom, float _speed){
     vec2 st = gl_TexCoord[0].st;
@@ -264,6 +262,10 @@ vec2 noiseXY(float _zoom, float _speed){
     float ng = (simplexNoise3(vec3(v1, n)) + simplexNoise3(vec3(v2, n)) + simplexNoise3(vec3(v3, n))) / 6.0 + 0.5;
     return vec2(nr,ng);
 }
+
+uniform sampler2DRect normalMap; 
+uniform sampler2DRect depthMap;
+uniform sampler2DRect maskTex;
 
 void main (void){
     vec2 st = gl_TexCoord[0].st;//gl_FragCoord.xy

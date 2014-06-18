@@ -1,36 +1,16 @@
-uniform sampler2D srcTexture;
-uniform sampler2D dstTexture;
-uniform sampler2D colorMaskTexture;
-
-uniform vec3 srcColor1;
-uniform vec3 srcColor2;
-uniform vec3 srcColor3;
-uniform vec3 srcColor4;
-uniform vec3 srcColor5;
-
-uniform vec3 dstColor1;
-uniform vec3 dstColor2;
-uniform vec3 dstColor3;
-uniform vec3 dstColor4;
-uniform vec3 dstColor5;
-
-uniform float radarHeight;
-
-uniform float lineWidth;
+uniform sampler2DRect radarMsk;
+uniform sampler2DRect terrainMask;
+uniform sampler2DRect background;
 
 uniform vec3 radarColor;
-
-uniform float tranNoiseZoom;
-uniform float tranWidth;
-
-uniform float time;
+uniform float resolution;
 
 varying vec4 ambientGlobal, eyeSpaceVertexPos;
 varying vec4 vertexPos;
 varying vec3 vertexNormal;
 
 float PI = 3.14159265359;
-int lightsNumber = 3;
+int lightsNumber = 2;
 
 vec4 directional_light(in int lightIndex, in vec3 normal) {
   vec3 lightDir;
@@ -178,37 +158,18 @@ float perlin3(vec3 p) {
 
 void main(void){
 
-  //  Variables
-  //  
-	vec2 uv = gl_TexCoord[0].st;
-  vec3 pos = vertexPos.xyz;
+	vec2 uv = gl_TexCoord[0].st*vec2(resolution);
   vec3 n = normalize(vertexNormal);
-	vec3 A = vec3(0.0);
-	vec3 B = vec3(0.0);
-	
-  //  Masking
-  //
-  vec4 mask = texture2D(colorMaskTexture,uv);
-  if(mask.a == 0.0){
-    A = texture2D(srcTexture,uv).rgb;
-    B = texture2D(dstTexture,uv).rgb;
+
+  float mask = texture2DRect(terrainMask,uv).r;
+  vec3 bg = texture2DRect(background,uv).rgb;
+	vec3 color = vec3(1.0);
+
+  if(mask>0.0){
+    color = radarColor*gl_Color.rgb;
   } else {
-    A = B = vec3(1.0);
+    color = bg;
   }
-
-	vec3 color = A;
-	if (pos.y < radarHeight){
-		color = B;
-	} 
-
-	//	RADAR LINE
-	//
-	if( pos.y - lineWidth*5.0 < radarHeight && !(pos.y + lineWidth*5.0 < radarHeight) ){
-		float posPct = 1.0-((pos.y+lineWidth*5.0) - radarHeight)/(lineWidth*10.0);
-		float noise = perlin3(vertexPos.xyz*vec3(time*0.1)*tranNoiseZoom);
-		vec3 green = mix(color,radarColor,noise);
-		color = mix(color,green*2.0,pow(max(0.0, abs(sin(posPct*PI))*2.0-1.0),0.5));
-	}
 
   color *= calc_lighting_color(n).rgb;
 

@@ -44,9 +44,6 @@ protected:
     //
     UIShader        radarShader;
     ofFbo           radarTexture;
-    
-    UIShader        noiseShader;
-    ofFbo           noiseTexture;
 
     UIShader        terrainTransition;
     PingPong        terrainTransitionTex;
