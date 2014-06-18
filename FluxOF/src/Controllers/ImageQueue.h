@@ -37,6 +37,8 @@ public:
     QueueItem lastItem;
     QueueItem currentItem;
     
+    float transitionDelay;
+    
     ofxXmlSettings storedQueue;
         
 protected:

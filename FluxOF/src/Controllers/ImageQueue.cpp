@@ -24,6 +24,8 @@ void ImageQueue::loadQueueFromDir(){
             incommingItemsQueue.push_back(newItem);
         }
     }
+    
+    transitionDelay = -1;
 }
 
 void ImageQueue::setupUI(){
@@ -60,7 +62,21 @@ void ImageQueue::update(){
     // Determine if we should start a new transition
     //
     if(renderEngine->transitionDone()){
-        transitionToNextItem();
+        // Determine if the transition should be delayed
+        //
+        if(transitionDelay == -1){
+            if(incommingItemsQueue.size() > 0){
+                transitionDelay = 0;
+            } else {
+                transitionDelay = ofRandom(5);
+            }
+        }
+        transitionDelay -= 1.0/ofGetFrameRate();
+        
+        //If the delay counter has reached zero, then do the transition
+        if(transitionDelay <= 0){
+            transitionToNextItem();
+        }
     }
     
 }

@@ -115,5 +115,5 @@ void RenderEngine::drawMask(int viewPort){
 }
 
 bool RenderEngine::transitionDone(){
-    return !timeline->getIsPlaying();
+    return timeline->getPercentComplete() == 1;
 }
