@@ -168,7 +168,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>lineWidth</Name>
-    <Value>0.108374387</Value>
+    <Value>0.068965517</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
@@ -188,10 +188,10 @@
 <Widget>
     <Kind>4</Kind>
     <Name>tranNoiseZoom</Name>
-    <Value>1.000000000</Value>
+    <Value>0.857142866</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>tranWidth</Name>
-    <Value>0.078817733</Value>
+    <Value>0.187192112</Value>
 </Widget>

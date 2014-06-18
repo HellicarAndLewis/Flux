@@ -29,8 +29,7 @@ void RenderRadar::selfSetup(){
     
     //  TERRAIN
     //
-    noiseShader.loadFrag(getDataPath()+"shaders/noise.frag");
-    noiseTexture.allocate(assets->terrainResolution(),assets->terrainResolution());
+    terrainShader.load(getDataPath()+"shaders/terrain");
     
     radarShader.loadFrag(getDataPath()+"shaders/radar.frag");
     radarTexture.allocate(assets->terrainResolution(),assets->terrainResolution());
@@ -43,7 +42,6 @@ void RenderRadar::selfSetup(){
     terrainTransitionTex.clear();
     
     ofDisableArbTex();
-    
     terrainMeshTex.allocate(assets->terrainResolution(),assets->terrainResolution());
     
     terrainTex.allocate(assets->terrainResolution(),assets->terrainResolution());
@@ -60,12 +58,12 @@ void RenderRadar::selfSetupGuis(){
     lightAdd("SPOT", OF_LIGHT_SPOT);
     
     guiAdd(audioIn);
-    
-    guiAdd(noiseShader);
+
     guiAdd(radarShader);
     
     guiAdd(terrainTransition);
     guiAdd(terrainMeshTransition);
+    guiAdd(terrainShader);
     
     guiAdd(shoeTransition);
 }
@@ -128,13 +126,15 @@ void RenderRadar::selfUpdate(){
     //  USERNAME TEXTURE
     //
     {
+        ofPoint textCenter = assets->font.getStringBoundingBox(text,0,0).getCenter();
+        
         textTex.begin();
         ofPushStyle();
         ofClear(0,0);
         ofSetColor(255, textAlpha*255.0);
         ofPushMatrix();
         ofTranslate(textOffset);
-        ofPoint textCenter = assets->font.getStringBoundingBox(text,0,0).getCenter();
+        ofRotate(-90);
         assets->font.drawString(text, -textCenter.x, -textCenter.y );
         ofPopMatrix();
         ofPopStyle();
@@ -161,24 +161,6 @@ void RenderRadar::selfUpdate(){
         radarTexture.end();
     }
     
-    //  Noise Forces (for water-color effect)
-    {
-        noiseTexture.begin();
-        noiseShader.begin();
-        noiseShader.getShader().setUniformTexture("depthMap", assets->terrainDepthMap, 0);
-        noiseShader.getShader().setUniformTexture("normalMap", assets->terrainNormalMap, 1);
-        noiseShader.getShader().setUniformTexture("maskTex", assets->terrainMask, 2);
-        
-        glBegin(GL_QUADS);
-        glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
-        glTexCoord2f(assets->terrainResolution(), 0); glVertex3f(assets->terrainResolution(), 0, 0);
-        glTexCoord2f(assets->terrainResolution(), assets->terrainResolution()); glVertex3f(assets->terrainResolution(), assets->terrainResolution(), 0);
-        glTexCoord2f(0,assets->terrainResolution());  glVertex3f(0,assets->terrainResolution(), 0);
-        glEnd();
-        noiseShader.end();
-        noiseTexture.end();
-    }
-    
     //  Pixel displacement Transition Animation
     {
         terrainTransitionTex.swap();
@@ -187,7 +169,8 @@ void RenderRadar::selfUpdate(){
         terrainTransition.getShader().setUniformTexture("backbuffer", *terrainTransitionTex.src, 0);
         terrainTransition.getShader().setUniformTexture("depthMap", assets->terrainDepthMap, 1);
         terrainTransition.getShader().setUniformTexture("maskTex", assets->terrainMask, 2);
-        terrainTransition.getShader().setUniformTexture("normalMap", noiseTexture, 3);
+        terrainTransition.getShader().setUniformTexture("normalMap", assets->terrainNormalMap, 3);
+        
         terrainTransition.getShader().setUniformTexture("audioIn", audioTex, 4);
         
         terrainTransition.getShader().setUniformTexture("radarTex", radarTexture, 5);
@@ -242,6 +225,7 @@ void RenderRadar::selfUpdate(){
         terrainTex.end();
     }
     
+    //  Terrain Meshes
     {
         terrainMeshTransitionTex.begin();
         terrainMeshTransition.begin();
@@ -249,12 +233,14 @@ void RenderRadar::selfUpdate(){
         terrainMeshTransition.getShader().setUniformTexture("terrainMask", assets->terrainMask, 1);
         terrainMeshTransition.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
         terrainMeshTransition.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
+        
         glBegin(GL_QUADS);
         glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
         glTexCoord2f(assets->terrainResolution(), 0); glVertex3f(assets->terrainResolution(), 0, 0);
         glTexCoord2f(assets->terrainResolution(), assets->terrainResolution()); glVertex3f(assets->terrainResolution(), assets->terrainResolution(), 0);
         glTexCoord2f(0,assets->terrainResolution());  glVertex3f(0,assets->terrainResolution(), 0);
         glEnd();
+        
         terrainMeshTransition.end();
         terrainMeshTransitionTex.end();
         
@@ -276,15 +262,27 @@ void RenderRadar::selfDraw(){
     ofSetSmoothLighting(false);
     
     ofDisableArbTex();
-    terrainTex.getTextureReference().bind();
-    assets->terrainMesh.draw();
-    terrainTex.getTextureReference().unbind();
     
-    terrainMeshTex.getTextureReference().bind();
-    assets->terrainMesh.drawWireframe();
-    terrainMeshTex.getTextureReference().unbind();
+//    terrainTex.getTextureReference().bind();
+//    assets->terrainMesh.draw();
+//    terrainTex.getTextureReference().unbind();
     
+//    terrainMeshTex.getTextureReference().bind();
+//    assets->terrainMesh.drawWireframe();
+//    terrainMeshTex.getTextureReference().unbind();
+
     ofEnableArbTex();
+    
+    terrainShader.begin();
+    terrainShader.getShader().setUniformTexture("radarMsk", radarTexture, 0);
+    terrainShader.getShader().setUniformTexture("terrainMask", assets->terrainMask, 1);
+    terrainShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
+    terrainShader.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
+    
+    terrainShader.getShader().setUniform1f("resolution", assets->terrainResolution());
+    assets->terrainMesh.draw();
+    terrainShader.end();
+    
     
     ofPopMatrix();
 
@@ -346,9 +344,8 @@ void RenderRadar::selfDrawOverlay(){
         ofScale(0.25, 0.25);
         assets->terrainDepthMap.draw(0,0);
         assets->terrainNormalMap.draw(0,assets->terrainResolution());
-        noiseTexture.draw(0,assets->terrainResolution()*2.0);
-        radarTexture.draw(0,assets->terrainResolution()*3.0);
-        terrainMeshTex.draw(0,assets->terrainResolution()*4.0);
+        radarTexture.draw(0,assets->terrainResolution()*2.0);
+        terrainMeshTex.draw(0,assets->terrainResolution()*3.0);
         ofPopMatrix();
         
         ofPopMatrix();

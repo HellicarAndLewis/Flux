@@ -44,14 +44,12 @@ protected:
     //
     UIShader        radarShader;
     ofFbo           radarTexture;
-    
-    UIShader        noiseShader;
-    ofFbo           noiseTexture;
 
     UIShader        terrainTransition;
     PingPong        terrainTransitionTex;
     
     ofFbo           terrainTex;
+    UIShader        terrainShader;
     
     UIShader        terrainMeshTransition;
     ofFbo           terrainMeshTransitionTex;

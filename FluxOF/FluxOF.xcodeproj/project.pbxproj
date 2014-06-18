@@ -1059,10 +1059,10 @@
 		3D12CCF2194CBF01009A4040 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
-				3D12CD0C194DE00B009A4040 /* RenderLasers.cpp */,
 				3D12CD0D194DE00B009A4040 /* RenderLasers.h */,
-				3D12CCF3194CBF01009A4040 /* RenderRadar.cpp */,
+				3D12CD0C194DE00B009A4040 /* RenderLasers.cpp */,
 				3D12CCF4194CBF01009A4040 /* RenderRadar.h */,
+				3D12CCF3194CBF01009A4040 /* RenderRadar.cpp */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
