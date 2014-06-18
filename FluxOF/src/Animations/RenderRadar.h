@@ -52,6 +52,7 @@ protected:
     PingPong        terrainTransitionTex;
     
     ofFbo           terrainTex;
+    UIShader        terrainShader;
     
     UIShader        terrainMeshTransition;
     ofFbo           terrainMeshTransitionTex;

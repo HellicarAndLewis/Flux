@@ -128,13 +128,15 @@ void RenderRadar::selfUpdate(){
     //  USERNAME TEXTURE
     //
     {
+        ofPoint textCenter = assets->font.getStringBoundingBox(text,0,0).getCenter();
+        
         textTex.begin();
         ofPushStyle();
         ofClear(0,0);
         ofSetColor(255, textAlpha*255.0);
         ofPushMatrix();
         ofTranslate(textOffset);
-        ofPoint textCenter = assets->font.getStringBoundingBox(text,0,0).getCenter();
+        ofRotate(-90);
         assets->font.drawString(text, -textCenter.x, -textCenter.y );
         ofPopMatrix();
         ofPopStyle();
@@ -242,6 +244,7 @@ void RenderRadar::selfUpdate(){
         terrainTex.end();
     }
     
+    //  Terrain Meshes
     {
         terrainMeshTransitionTex.begin();
         terrainMeshTransition.begin();
@@ -249,12 +252,14 @@ void RenderRadar::selfUpdate(){
         terrainMeshTransition.getShader().setUniformTexture("terrainMask", assets->terrainMask, 1);
         terrainMeshTransition.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
         terrainMeshTransition.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
+        
         glBegin(GL_QUADS);
         glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
         glTexCoord2f(assets->terrainResolution(), 0); glVertex3f(assets->terrainResolution(), 0, 0);
         glTexCoord2f(assets->terrainResolution(), assets->terrainResolution()); glVertex3f(assets->terrainResolution(), assets->terrainResolution(), 0);
         glTexCoord2f(0,assets->terrainResolution());  glVertex3f(0,assets->terrainResolution(), 0);
         glEnd();
+        
         terrainMeshTransition.end();
         terrainMeshTransitionTex.end();
         
