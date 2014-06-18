@@ -189,12 +189,11 @@ void main(void){
   //  Masking
   //
   vec4 mask = texture2D(colorMaskTexture,uv);
-  if(mask.a == 0.0){
-    A = texture2D(srcTexture,uv).rgb;
-    B = texture2D(dstTexture,uv).rgb;
-  } else {
-    A = B = vec3(1.0);
-  } 
+    A = texture2D(srcTexture,uv).rgb * (1.-mask.a);
+    B = texture2D(dstTexture,uv).rgb * (1.-mask.a);
+    
+    A += vec3(1.)*mask.a;
+    B += vec3(1.)*mask.a;
 
 	vec3 color = A;
 	if (pos.y < radarHeight){
