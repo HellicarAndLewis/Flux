@@ -183,17 +183,27 @@ void main(void){
 	vec2 uv = gl_TexCoord[0].st;
   vec3 pos = vertexPos.xyz;
   vec3 n = normalize(vertexNormal);
-	vec3 A = vec3(0.0);
-	vec3 B = vec3(0.0);
+	vec3 A = texture2D(srcTexture,uv).rgb;
+  vec3 B = texture2D(dstTexture,uv).rgb;
 	
   //  Masking
   //
   vec4 mask = texture2D(colorMaskTexture,uv);
-    A = texture2D(srcTexture,uv).rgb * (1.-mask.a);
-    B = texture2D(dstTexture,uv).rgb * (1.-mask.a);
-    
-    A += vec3(1.)*mask.a;
-    B += vec3(1.)*mask.a;
+
+  //  RED channel
+  //
+  A = mix(A,(srcColor5.r>0.3)?vec3(1.0):vec3(0.0),mask.r*mask.a);
+  B = mix(B,(dstColor5.r>0.3)?vec3(1.0):vec3(0.0),mask.r*mask.a);
+
+  //  GREEN channel
+  //
+  A = mix(A,srcColor1,mask.g*mask.a);
+  B = mix(B,dstColor1,mask.g*mask.a);
+
+  //  BLUE channel
+  //
+  A = mix(A,srcColor2,mask.b*mask.a);
+  B = mix(B,dstColor2,mask.b*mask.a);
 
 	vec3 color = A;
 	if (pos.y < radarHeight){
