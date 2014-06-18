@@ -14,6 +14,8 @@
 //
 #include "ImageQueue.h"
 #include "NodeCommunication.h"
+#include "AudioTrigger.h"
+
 
 //  Animation Prototypes
 //
@@ -48,6 +50,7 @@ public:
     
     ImageQueue imageQueue;
     NodeCommunication nodeCommunication;
+    AudioTrigger audioTrigger;
     
     CalibrationLoader calibration;
 };

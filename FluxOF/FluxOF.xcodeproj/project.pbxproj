@@ -127,6 +127,7 @@
 		9ef1133bc23669a5c94fe30f676125b8 /* jsoncpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69668fde141262bc3c6ca9290e61cfa8 /* jsoncpp.cpp */; };
 		9f5c6dd965b4f3a6db5b88f87eccedae /* ofxUI2DGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02ff3b8d243cfb85ae0909eb3b41abb8 /* ofxUI2DGraph.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
+		BF8315E919521BC70044CFED /* AudioTrigger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF8315E719521BC70044CFED /* AudioTrigger.cpp */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
 		E45BE97C0E8CC7DD009D7055 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */; };
@@ -611,6 +612,8 @@
 		9fc0806c0db02eab5c9dbaf290c90fcd /* UIBufferIn.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = UIBufferIn.h; path = src/Audio/UIBufferIn.h; sourceTree = SOURCE_ROOT; };
 		9ff9126184dfbde8a912373ebe9d2f9d /* highgui.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = highgui.h; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv/highgui.h; sourceTree = SOURCE_ROOT; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
+		BF8315E719521BC70044CFED /* AudioTrigger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioTrigger.cpp; sourceTree = "<group>"; };
+		BF8315E819521BC70044CFED /* AudioTrigger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioTrigger.h; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
 		E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
@@ -1252,6 +1255,8 @@
 				5af7a2af0dd99e2967e392af3b6216a0 /* ImageQueue.h */,
 				e5d202e33dae6105ebd4982efbef6a04 /* NodeCommunication.cpp */,
 				d776e3e283aa82c5fe375b01f59a0fc4 /* NodeCommunication.h */,
+				BF8315E719521BC70044CFED /* AudioTrigger.cpp */,
+				BF8315E819521BC70044CFED /* AudioTrigger.h */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -2601,6 +2606,7 @@
 				fe278f5f783581237ae8ecb25ea719bb /* ofxEasingSine.cpp in Sources */,
 				32fc7731c1ef7b87e491c93d78c84b88 /* ofxTween.cpp in Sources */,
 				9f5c6dd965b4f3a6db5b88f87eccedae /* ofxUI2DGraph.cpp in Sources */,
+				BF8315E919521BC70044CFED /* AudioTrigger.cpp in Sources */,
 				4b3ed367ca852d522e2ee996fd98484a /* ofxUI2DPad.cpp in Sources */,
 				f1e8de8734ba6f69a5112fa8842e54b0 /* ofxUIBaseDraws.cpp in Sources */,
 				c381f2b7cfd84c0e540eb4bc733a62e4 /* ofxUIBiLabelSlider.cpp in Sources */,

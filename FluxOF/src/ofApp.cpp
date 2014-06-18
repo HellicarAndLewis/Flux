@@ -17,6 +17,9 @@ void ofApp::setup(){
     nodeCommunication.imageQueue = &imageQueue;
     nodeCommunication.setup();
     
+    // SETUP audio trigger
+    audioTrigger.setup();
+    
     //  start the RENDER
     //
     loadAnimation(RADAR);
@@ -53,6 +56,7 @@ void ofApp::loadAnimation(ANIMATION_STYLE _animation){
 
     renderEngine->addUiClass(&imageQueue);
     renderEngine->addUiClass(&nodeCommunication);
+    renderEngine->addUiClass(&audioTrigger);
     renderEngine->setCalibration(&calibration);
     
     //  Ready to GO
