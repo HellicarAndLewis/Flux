@@ -65,9 +65,7 @@
 		3d4ea8e172d3e4a30fefa969797f0789 /* ofxUIImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 938f5a098a216b403906129cc0e18a64 /* ofxUIImage.cpp */; };
 		3dd99892010a2ef461510c7e16919a19 /* UILUT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 258b2cff6a63d4da5c875d60f6a882aa /* UILUT.cpp */; };
 		43badbb2fe0f17d34b57a705622bd4a2 /* ofxUIScrollableCanvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = bfd3387aa9efa53e1b4f087b3fdfa1d3 /* ofxUIScrollableCanvas.cpp */; };
-		459fe66c636f55c1ebdc663705e2a61d /* fftOctaveAnalyzer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2ddde84526299077674dd70086bf69c6 /* fftOctaveAnalyzer.cpp */; };
 		46be87fc2c481a1eb41aed2a8b97fe96 /* ofxTLCurves.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7f47d144dc8b3e5cd297eaf57dc4f889 /* ofxTLCurves.cpp */; };
-		4761c555f40282e42d8c2b54524350b9 /* fft.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 673fb0126fd3f29233728ea2ae2bc508 /* fft.cpp */; };
 		483fa4f6d5fa6422c559b1f561a220b1 /* ofxAssimpMeshHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = f67fe68e327befbd4b777571efda413a /* ofxAssimpMeshHelper.cpp */; };
 		49e60cc9bbcafb6eade107cc20884b9c /* ofxTLColorTrack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3d5a2b98580af9336c8c1886c7a2324d /* ofxTLColorTrack.cpp */; };
 		4b3ed367ca852d522e2ee996fd98484a /* ofxUI2DPad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1553d7111bcbe7834bcc0784d535c378 /* ofxUI2DPad.cpp */; };
@@ -322,7 +320,6 @@
 		04461B6B194DAEAB00BCDAE0 /* x509v3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = x509v3.h; sourceTree = "<group>"; };
 		04CAFABA194F4EBB008CBA4C /* RenderAssets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RenderAssets.cpp; sourceTree = "<group>"; };
 		04CAFABB194F4EBB008CBA4C /* RenderAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderAssets.h; sourceTree = "<group>"; };
-		0540fbcc19d09a4cddf6de59a5918074 /* fft.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = fft.h; path = src/Audio/fft/fft.h; sourceTree = SOURCE_ROOT; };
 		06097a998f7fee43acdd0c8ef9f89a53 /* UISEM.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = UISEM.h; path = ../../../addons/ofxUIProject/src/fx/UISEM.h; sourceTree = SOURCE_ROOT; };
 		06c7032f68d99a145a53cb6f952b704c /* ofxUITextInput.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxUITextInput.cpp; path = ../../../addons/ofxUI/src/ofxUITextInput.cpp; sourceTree = SOURCE_ROOT; };
 		08a9c84b3ca68561be01ff374b226dde /* ofxUIWidget.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxUIWidget.cpp; path = ../../../addons/ofxUI/src/ofxUIWidget.cpp; sourceTree = SOURCE_ROOT; };
@@ -376,7 +373,6 @@
 		2d394124f88f348aa4142dcfb64b4bd1 /* ofxUIImageToggle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUIImageToggle.h; path = ../../../addons/ofxUI/src/ofxUIImageToggle.h; sourceTree = SOURCE_ROOT; };
 		2d6a1ed0341bf39e29131534b90522f0 /* HotKeys_impl_win.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = HotKeys_impl_win.cpp; path = ../../../addons/ofxUIProject/src/system/HotKeys_impl_win.cpp; sourceTree = SOURCE_ROOT; };
 		2dd185513a2875ec8a07867018e8bd02 /* ofxUIBiLabelSlider.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUIBiLabelSlider.h; path = ../../../addons/ofxUI/src/ofxUIBiLabelSlider.h; sourceTree = SOURCE_ROOT; };
-		2ddde84526299077674dd70086bf69c6 /* fftOctaveAnalyzer.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = fftOctaveAnalyzer.cpp; path = src/Audio/fft/fftOctaveAnalyzer.cpp; sourceTree = SOURCE_ROOT; };
 		2f050e7223102a218b1fb7ecd05fc3f5 /* kiss_fft.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = kiss_fft.h; path = ../../../addons/ofxTimeline/libs/kiss/include/kiss_fft.h; sourceTree = SOURCE_ROOT; };
 		30666c151f907fce97822a8a38b276a6 /* ofxHotKeys_impl_win.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxHotKeys_impl_win.cpp; path = ../../../addons/ofxTimeline/src/ofxHotKeys_impl_win.cpp; sourceTree = SOURCE_ROOT; };
 		30cbaaec78a0e9ebbb10a05aaeee8f99 /* ofxUISpacer.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxUISpacer.cpp; path = ../../../addons/ofxUI/src/ofxUISpacer.cpp; sourceTree = SOURCE_ROOT; };
@@ -498,7 +494,6 @@
 		65bac5a3b9c9387859a2b0e01dd0c5e7 /* pushpack1.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = pushpack1.h; path = ../../../addons/ofxAssimpModelLoader/libs/assimp/include/Compiler/pushpack1.h; sourceTree = SOURCE_ROOT; };
 		664d65407be633c038fa9498bcf62aa7 /* ofxUIFPSSlider.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUIFPSSlider.h; path = ../../../addons/ofxUI/src/ofxUIFPSSlider.h; sourceTree = SOURCE_ROOT; };
 		66c910bfbec609d16e3b249a8448466d /* ofxTLSwitches.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxTLSwitches.h; path = ../../../addons/ofxTimeline/src/ofxTLSwitches.h; sourceTree = SOURCE_ROOT; };
-		673fb0126fd3f29233728ea2ae2bc508 /* fft.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = fft.cpp; path = src/Audio/fft/fft.cpp; sourceTree = SOURCE_ROOT; };
 		689fe82c6569027132ca3ee568a4ee1e /* ofxTLBangs.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxTLBangs.cpp; path = ../../../addons/ofxTimeline/src/ofxTLBangs.cpp; sourceTree = SOURCE_ROOT; };
 		68eb873762b550705aa7464c7dfffede /* ofxTLLFO.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxTLLFO.h; path = ../../../addons/ofxTimeline/src/ofxTLLFO.h; sourceTree = SOURCE_ROOT; };
 		69c9e7ccffb0319abb500bda0f9d53b5 /* ofOpenALSoundPlayer_TimelineAdditions.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofOpenALSoundPlayer_TimelineAdditions.h; path = ../../../addons/ofxTimeline/libs/ofOpenALSoundPlayer_TimelineAdditions/src/ofOpenALSoundPlayer_TimelineAdditions.h; sourceTree = SOURCE_ROOT; };
@@ -622,7 +617,6 @@
 		bcb6a6d9093ff11ee0d7d470a2de47c9 /* ofxTextInputField.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxTextInputField.cpp; path = ../../../addons/ofxTextInputField/src/ofxTextInputField.cpp; sourceTree = SOURCE_ROOT; };
 		bfd3387aa9efa53e1b4f087b3fdfa1d3 /* ofxUIScrollableCanvas.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxUIScrollableCanvas.cpp; path = ../../../addons/ofxUI/src/ofxUIScrollableCanvas.cpp; sourceTree = SOURCE_ROOT; };
 		bfee9391f78307b42aa09c9afad043a8 /* kiss_fftr.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = kiss_fftr.h; path = ../../../addons/ofxTimeline/libs/kiss/include/kiss_fftr.h; sourceTree = SOURCE_ROOT; };
-		c05dec02cc4285bdd1f539ebd9d417bc /* fftOctaveAnalyzer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = fftOctaveAnalyzer.h; path = src/Audio/fft/fftOctaveAnalyzer.h; sourceTree = SOURCE_ROOT; };
 		c0c170274130b1919a0672510837efa9 /* UISurface.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = UISurface.h; path = ../../../addons/ofxUIProject/src/core/UISurface.h; sourceTree = SOURCE_ROOT; };
 		c161222f68d4f7ce28bc4f61e6324dd3 /* ofxUIBaseDraws.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUIBaseDraws.h; path = ../../../addons/ofxUI/src/ofxUIBaseDraws.h; sourceTree = SOURCE_ROOT; };
 		c38d6dcc3ab9aae213a64015b75adbd4 /* ofxUIScrollableCanvas.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUIScrollableCanvas.h; path = ../../../addons/ofxUI/src/ofxUIScrollableCanvas.h; sourceTree = SOURCE_ROOT; };
@@ -988,17 +982,6 @@
 			name = camera;
 			sourceTree = "<group>";
 		};
-		11a7563b3f106784317f51c706a7a934 /* fft */ = {
-			isa = PBXGroup;
-			children = (
-				673fb0126fd3f29233728ea2ae2bc508 /* fft.cpp */,
-				0540fbcc19d09a4cddf6de59a5918074 /* fft.h */,
-				2ddde84526299077674dd70086bf69c6 /* fftOctaveAnalyzer.cpp */,
-				c05dec02cc4285bdd1f539ebd9d417bc /* fftOctaveAnalyzer.h */,
-			);
-			name = fft;
-			sourceTree = "<group>";
-		};
 		11d541a012ed5066ea787e91fcea7ac8 /* libs */ = {
 			isa = PBXGroup;
 			children = (
@@ -1281,7 +1264,6 @@
 		6bd9fc8fe8460e5570dfab863a785d59 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
-				11a7563b3f106784317f51c706a7a934 /* fft */,
 				e869e560e55fad61359fc76f944262f6 /* UIBufferIn.cpp */,
 				9fc0806c0db02eab5c9dbaf290c90fcd /* UIBufferIn.h */,
 			);
@@ -1992,8 +1974,6 @@
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
-				4761c555f40282e42d8c2b54524350b9 /* fft.cpp in Sources */,
-				459fe66c636f55c1ebdc663705e2a61d /* fftOctaveAnalyzer.cpp in Sources */,
 				4fe4d2d52a0ed27dab64b26d562406e2 /* UIBufferIn.cpp in Sources */,
 				3b8120368b4fccd80883baf3128d1467 /* ofxAssimpAnimation.cpp in Sources */,
 				3D75283D194B525A008D4DF8 /* Calibration.cpp in Sources */,

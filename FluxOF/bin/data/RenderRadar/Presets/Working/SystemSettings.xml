@@ -19,27 +19,27 @@
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Pct</Name>
-    <Value>0.711816728</Value>
+    <Value>0.228295818</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Color_R</Name>
-    <Value>0.000000000</Value>
+    <Value>0.617647171</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Color_G</Name>
-    <Value>0.932203054</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>Radar_Color_B</Name>
     <Value>1.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
+    <Name>Radar_Color_B</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
     <Name>Radar_Height</Name>
-    <Value>17.329086304</Value>
+    <Value>8.604095459</Value>
 </Widget>
 <Widget>
     <Kind>11</Kind>

@@ -277,7 +277,7 @@ void RenderRadar::selfDraw(){
     shoeTransition.getShader().setUniformTexture("colorMaskTexture", assets->shoeColorMask, 2);
     
     for(int i = 0; i < srcPalette.size(); i++){
-        shoeTransition.getShader().setUniform3f("dstColor"+ofToString(i+1),
+        shoeTransition.getShader().setUniform3f("srcColor"+ofToString(i+1),
                                                 ((float)srcPalette[i].r)/255.0,
                                                 ((float)srcPalette[i].g)/255.0,
                                                 ((float)srcPalette[i].b)/255.0);
