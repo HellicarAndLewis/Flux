@@ -69,14 +69,28 @@ void RenderEngine::startTransitionTo(QueueItem queueItem){
     
     //  Keep the image as a destinationTexture
     //
-    float size = MIN(queueItem.image.getWidth(),queueItem.image.getHeight());
+    //float size = MIN(queueItem.image.getWidth(),queueItem.image.getHeight());
+    int size = 512;
+    
+    int width, height;
+    if(queueItem.image.getWidth() > queueItem.image.getHeight()){
+        height = size;
+        width = size * queueItem.image.getWidth() /  queueItem.image.getHeight();
+    } else {
+        width = size;
+        height = size * queueItem.image.getHeight() /  queueItem.image.getWidth();
+    }
+    
     ofDisableArbTex();
     shoeTex.swap();
-    shoeTex.dst->allocate(size,size);
-    shoeTex.dst->begin();
-    ofSetColor(255);
-    queueItem.image.draw(0,0);
-    shoeTex.dst->end();
+    shoeTex.dst->allocate(512,512);
+    shoeTex.dst->begin();{
+        ofClear(0);
+        ofSetColor(255);
+        ofSetRectMode(OF_RECTMODE_CENTER);
+        queueItem.image.draw(256,256, -width, -height);
+        ofSetRectMode(OF_RECTMODE_CORNER);
+    } shoeTex.dst->end();
     ofEnableArbTex();
     
     //  Start Animation
