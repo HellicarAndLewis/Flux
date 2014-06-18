@@ -95,6 +95,6 @@ void RenderAssets::load(){
     ofLoadImage(shoeColorMask, "models/SHOE_MASKS.png");
     ofEnableArbTex();
     
-    font.loadFont("fonts/AdiHaus.ttf", 90);
+    font.loadFont("fonts/AdiHaus", 90);
 
 }

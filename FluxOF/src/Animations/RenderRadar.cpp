@@ -121,6 +121,14 @@ void RenderRadar::selfUpdate(){
 //    }
 //    audioTex.loadData(audioPixels);
     
+    //  Color the radar
+    //
+    if(dstPalette.size()>0){
+        radarColor.set(dstPalette[3]);
+        radarColor.setBrightness(1.0);
+        radarColor.setSaturation(1.0);
+    }
+    
     //  USERNAME TEXTURE
     //
     {
@@ -200,13 +208,9 @@ void RenderRadar::selfUpdate(){
         terrainTransitionTex.dst->end();
     }
     
-    //  Terrain texture
+    //  OverLayer with information
     {
         terrainTex.begin();
-        
-        // colored transition
-//        terrainTransitionTex.dst->draw(0, 0);
-        
         ofClear(0,0);
         
         // radar line
@@ -234,7 +238,6 @@ void RenderRadar::selfDraw(){
     
     //  TERRAIN
     //
-
     ofPushMatrix();
     ofSetSmoothLighting(false);
     
@@ -303,25 +306,16 @@ void RenderRadar::selfDraw(){
 void RenderRadar::selfDrawOverlay(){
     if(bDebug){
         
-        ofPushMatrix();
-        
-        ofScale(0.5, 0.5);
-        terrainTex.draw(assets->terrainResolution()*0.25,0);
-        
-        ofPushMatrix();
-        ofTranslate(assets->terrainResolution()*1.25,0);
-        shoeTex.dst->draw(0, 0);
-        assets->shoeUVWireframe.draw(0, 0,shoeTex.dst->getWidth(), shoeTex.dst->getHeight());
-        ofPopMatrix();
-        
-        ofPushMatrix();
-        ofScale(0.25, 0.25);
-        assets->terrainDepthMap.draw(0,0);
-        assets->terrainNormalMap.draw(0,assets->terrainResolution());
-        radarTexture.draw(0,assets->terrainResolution()*2.0);
-        ofPopMatrix();
-        
-        ofPopMatrix();
+//        ofPushMatrix();
+//        ofScale(0.5, 0.5);
+//        terrainTex.draw(assets->terrainResolution()*0.25,0);
+//        ofPushMatrix();
+//        ofScale(0.25, 0.25);
+//        assets->terrainDepthMap.draw(0,0);
+//        assets->terrainNormalMap.draw(0,assets->terrainResolution());
+//        radarTexture.draw(0,assets->terrainResolution()*2.0);
+//        ofPopMatrix();
+//        ofPopMatrix();
         
 //        audioTex.draw(0,assets->terrainResolution()*0.5,assets->terrainResolution()*0.5,10);
         
@@ -330,11 +324,17 @@ void RenderRadar::selfDrawOverlay(){
         
         ofPushMatrix();
         ofPushStyle();
-        ofTranslate(ofGetWidth()-margin*1.5-paletteSize,0);
+        
+        ofTranslate(ofGetWidth()-assets->terrainResolution()*0.5,0);
+        shoeTex.dst->draw(0, 0);
+        assets->shoeUVWireframe.draw(0, 0,shoeTex.dst->getWidth(), shoeTex.dst->getHeight());
+        
+        ofTranslate(-margin*1.5-paletteSize,0);
         for(int i = 0; i < dstPalette.size(); i++){
             ofSetColor(dstPalette[i]);
             ofCircle(margin, i*(paletteSize*2.0+5)+paletteSize*0.5+5, paletteSize);
         }
+        
         ofPopStyle();
         ofPopMatrix();
     }
