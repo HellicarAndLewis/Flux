@@ -1408,8 +1408,8 @@
 		6bd9fc8fe8460e5570dfab863a785d59 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
-				e869e560e55fad61359fc76f944262f6 /* UIBufferIn.cpp */,
 				9fc0806c0db02eab5c9dbaf290c90fcd /* UIBufferIn.h */,
+				e869e560e55fad61359fc76f944262f6 /* UIBufferIn.cpp */,
 			);
 			name = Audio;
 			sourceTree = "<group>";

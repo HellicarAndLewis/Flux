@@ -26,10 +26,13 @@ public:
     
     string  getClassName(){return "BUFFER-IN";};
     
+    ofTexture           texture;
+    
 protected:
-    void    setupUI();
-    void    guiEvent(ofxUIEventArgs &e);
-    void    audioReceived( float * input, int bufferSize, int nChannels );
+    void setupUI();
+    void draw(ofEventArgs & args);
+    void guiEvent(ofxUIEventArgs &e);
+    void audioReceived( float * input, int bufferSize, int nChannels );
     
     ofSoundStream stream;
     
@@ -38,6 +41,8 @@ protected:
 	vector<float> audioBins;
     float   *audioIn;
     float   *middleBins;
+    
+    ofFloatPixels       pixels;
     
     int     sampleRate;
     int     bufferSize;
