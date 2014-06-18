@@ -132,7 +132,7 @@ var handleIncommingImages = function(data){
 };
 
 //Start the pulling of images
-pullImages();
+//pullImages();
 
 
 
@@ -142,10 +142,28 @@ pullImages();
 var downloadImage = function(item){
   console.log("Going to download "+item.image_url+" to "+imageFolder+item.id+".png id: "+item.id)
   request(item.image_url).pipe(fs.createWriteStream(imageFolder+item.id+".png"))
-
 };
 
+//
+// Upload image to UDOX
+//
+var uploadImage = function(path, id){
+  var r = request.post('http://dev.adi063.adidas.u-dox.com/api/returned-image/', function optionalCallback (err, httpResponse, body) {
+    if (err) {
+      return console.error('upload failed:', err);
+    }
+    console.log('Upload successful!  Server responded with:', body);
+  }).auth('adidas', 'udox and adidas', true)
+  var form = r.form()
+  form.append('id', id)
+  form.append('returned_image', fs.createReadStream(path))
+}
+
+uploadImage(imageFolder+"10192.png", 14713);
+
+//
 // List cameras / assign list item to variable to use below options
+//
 GPhoto.list(function (list) {
   if (list.length === 0) return;
   var camera = list[0];
@@ -156,4 +174,6 @@ GPhoto.list(function (list) {
     console.log(settings);
   });
 });
+
+
 
