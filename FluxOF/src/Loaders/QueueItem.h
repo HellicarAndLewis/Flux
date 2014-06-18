@@ -6,5 +6,6 @@ public:
     ofImage image;
     string path;
     string username;
-    int itemId;    
+    int itemId;
+    bool takePhoto;
 };

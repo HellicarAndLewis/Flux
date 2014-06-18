@@ -19,7 +19,7 @@ public:
     bool connected;
     float reconnectCounter;
     bool triggerPicture;
-    
+    bool lastTriggerPicture;
     ofxUILabel * statusLabel;
     
     

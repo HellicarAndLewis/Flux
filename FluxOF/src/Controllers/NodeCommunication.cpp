@@ -34,10 +34,16 @@ void NodeCommunication::update(){
             }
         } else {
             //Connected
-            if(triggerPicture){
-                client.send("{ \"type\": \"photoTrigger\", \"id\":"+ofToString(imageQueue->currentItem.itemId)+"}");
-                triggerPicture = false;
+            if(imageQueue->currentItem.takePhoto){
+                if(triggerPicture && lastTriggerPicture != triggerPicture){
+                    cout<<"Take picutre"<<endl;
+                    ofSaveScreen("images_screenshots/"+ofToString(imageQueue->currentItem.itemId)+".png");
+
+                    client.send("{ \"type\": \"photoTrigger\", \"id\":"+ofToString(imageQueue->currentItem.itemId)+"}");
+                }
             }
+            lastTriggerPicture = triggerPicture;
+
         }
     }
 }
@@ -100,6 +106,7 @@ void NodeCommunication::onMessage( ofxLibwebsockets::Event& args ){
                 newItem.itemId = queueItem["id"].asInt();
                 newItem.path = "images/"+queueItem["id"].asString()+".png";
                 newItem.username = queueItem["username"].asString();
+                newItem.takePhoto = true;
                 
                 imageQueue->incommingItemsQueue.push_back(newItem);
             }
