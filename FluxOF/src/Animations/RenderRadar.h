@@ -40,6 +40,10 @@ public:
     
 protected:
 	
+    //  Text
+    //
+    UIShader        audioTextShader;
+    
     // TERRAIN TRANSITION
     //
     UIShader        radarShader;

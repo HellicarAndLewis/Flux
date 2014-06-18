@@ -14,6 +14,7 @@ void RenderRadar::selfSetup(){
     //  AUDIO
     //
     audioIn.start();
+    audioTextShader.loadFrag(getDataPath()+"audioText.frag");
     
     //  USERNAME TEXT
     //
@@ -31,7 +32,6 @@ void RenderRadar::selfSetup(){
     radarTexture.allocate(assets->terrainResolution(),assets->terrainResolution());
     
     terrainMeshShader.load(getDataPath()+"shaders/terrainMesh");
-    
     
     terrainTransition.loadFrag(getDataPath()+"shaders/terrainTrans.frag");
     terrainTransitionTex.allocate(assets->terrainResolution(),assets->terrainResolution());
@@ -52,8 +52,10 @@ void RenderRadar::selfSetupGuis(){
     lightAdd("SPOT", OF_LIGHT_SPOT);
     
     guiAdd(audioIn);
-
+    
     // 2D (just frag shaders)
+    guiAdd(audioTextShader);
+    
     guiAdd(radarShader);
     guiAdd(terrainTransition);
     
@@ -213,7 +215,18 @@ void RenderRadar::selfUpdate(){
         ofPopStyle();
         
         // username text
-        textTex.draw(0,0);
+//        textTex.draw(0,0);
+        audioTextShader.begin();
+        audioTextShader.getShader().setUniformTexture("textTex", textTex, 1);
+        audioTextShader.getShader().setUniformTexture("audioTex", audioIn.texture, 0);
+        audioTextShader.getShader().setUniform1f("audioTexSize", audioIn.texture.getWidth());
+        glBegin(GL_QUADS);
+        glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
+        glTexCoord2f(assets->terrainResolution(), 0); glVertex3f(assets->terrainResolution(), 0, 0);
+        glTexCoord2f(assets->terrainResolution(), assets->terrainResolution()); glVertex3f(assets->terrainResolution(), assets->terrainResolution(), 0);
+        glTexCoord2f(0,assets->terrainResolution());  glVertex3f(0,assets->terrainResolution(), 0);
+        glEnd();
+        audioTextShader.end();
         
         terrainTex.end();
     }
