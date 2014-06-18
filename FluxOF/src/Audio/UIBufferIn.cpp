@@ -11,13 +11,16 @@
 UIBufferIn::UIBufferIn(){
     bufferSize = 512;
     sampleRate = 44100;
-    left    = new float[bufferSize];
-	right   = new float[bufferSize];
-    
-    for(int i = 0; i < bufferSize; i++){
-        left[i] = 0;
-        right[i] = 0;
+
+    audioIn = new float[bufferSize];
+	audioBins.resize(fft->getBinSize());
+    middleBins = new float[fft->getBinSize()];
+    for(int i = 0; i < fft->getBinSize(); i++){
+        middleBins[i] = 0;
     }
+    
+//    fft = ofxFft::create(bufferSize, OF_FFT_WINDOW_HAMMING);
+    fft = ofxFft::create(bufferSize, OF_FFT_WINDOW_HAMMING, OF_FFT_FFTW);
 }
 
 void UIBufferIn::setup(int _sampleRate, int _bufferSize){
@@ -26,30 +29,57 @@ void UIBufferIn::setup(int _sampleRate, int _bufferSize){
 }
 
 UIBufferIn::~UIBufferIn(){
-    delete []left;
-    delete []right;
+    delete []audioIn;
+    delete []middleBins;
+    delete fft;
 }
 
 void UIBufferIn::start(){
-    stream.setup(0, 2, sampleRate, bufferSize, 4);
+    stream.setup(0, 1, sampleRate, bufferSize, 4);
     stream.setInput(this);
 }
 
 void UIBufferIn::audioReceived(float * input, int bufferSize, int nChannels ){
-    for (int i = 0; i < bufferSize; i++){
-		left[i] = input[i*2];
-		right[i] = input[i*2+1];
+    float maxValue = 0;
+	for(int i = 0; i < bufferSize; i++) {
+		if(abs(input[i]) > maxValue) {
+			maxValue = abs(input[i]);
+		}
+        audioIn[i] = input[i];
 	}
+	for(int i = 0; i < bufferSize; i++) {
+		input[i] /= maxValue;
+	}
+	
+	fft->setSignal(input);
+	
+	float* curFft = fft->getAmplitude();
+	memcpy(&audioBins[0], curFft, sizeof(float) * fft->getBinSize());
+	
+	maxValue = 0;
+	for(int i = 0; i < fft->getBinSize(); i++) {
+		if(abs(audioBins[i]) > maxValue) {
+			maxValue = abs(audioBins[i]);
+		}
+	}
+	for(int i = 0; i < fft->getBinSize(); i++) {
+		audioBins[i] /= maxValue;
+	}
+	
+	soundMutex.lock();
+    for(int i = 0; i < fft->getBinSize(); i++){
+        middleBins[i] = audioBins[i];
+    }
+	soundMutex.unlock();
 }
 
 void UIBufferIn::stop(){
     stream.stop();
-    
 }
 
 void UIBufferIn::setupUI(){
-    gui->addWaveform("LEFT", left, bufferSize);
-    gui->addWaveform("RIGHT", right, bufferSize);
+    gui->addWaveform("Buffer", audioIn, bufferSize);
+    gui->addSpectrum("FFT", middleBins, fft->getBinSize());
 }
 
 void UIBufferIn::guiEvent(ofxUIEventArgs &e){

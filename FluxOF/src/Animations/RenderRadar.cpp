@@ -13,9 +13,8 @@ void RenderRadar::selfSetup(){
 
     //  AUDIO
     //
-    audioBufferSize = 256;
-    audioIn.setup(44100, audioBufferSize);
     audioIn.start();
+    audioBufferSize = audioIn.getBufferSize();
     audioPixels.allocate(audioBufferSize,1,3);
     audioTex.allocate(audioBufferSize,1, GL_RGB16F);
     
@@ -57,14 +56,16 @@ void RenderRadar::selfSetupGuis(){
     
     guiAdd(audioIn);
 
+    // 2D (just frag shaders)
     guiAdd(radarShader);
-    
     guiAdd(terrainTransition);
     
-    guiAdd(terrainMeshShader);
+    //  3D
     guiAdd(terrainShader);
+    guiAdd(terrainMeshShader);
     
     guiAdd(shoeTransition);
+    
 }
 
 void RenderRadar::selfGuiEvent(ofxUIEventArgs &e){

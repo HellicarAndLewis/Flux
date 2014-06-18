@@ -5,6 +5,8 @@
 //
 //
 #pragma once
+
+#include "ofxFft.h"
 #include "UIClass.h"
 
 class UIBufferIn : public UIClass, public ofBaseSoundInput {
@@ -30,6 +32,12 @@ protected:
     void    audioReceived( float * input, int bufferSize, int nChannels );
     
     ofSoundStream stream;
+    
+    ofxFft  *fft;
+    ofMutex soundMutex;
+	vector<float> audioBins;
+    float   *audioIn;
+    float   *middleBins;
     
     int     sampleRate;
     int     bufferSize;
