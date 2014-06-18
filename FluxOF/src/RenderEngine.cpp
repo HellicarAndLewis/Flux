@@ -242,28 +242,33 @@ void RenderEngine::startTransitionTo(QueueItem queueItem){
     
     //  Keep the image as a destinationTexture
     //
-    //float size = MIN(queueItem.image.getWidth(),queueItem.image.getHeight());
-    int size = 512;
+    int size = 1024;
+    float optimalWidth = 0.7;
+    float optimalHeight = 0.95;
     
     int width, height;
-    if(queueItem.image.getWidth() > queueItem.image.getHeight()){
-        height = size;
-        width = size * queueItem.image.getWidth() /  queueItem.image.getHeight();
+    if(queueItem.image.getWidth()/optimalWidth > queueItem.image.getHeight()/optimalHeight){
+        height = size * optimalHeight;
+        width = height * queueItem.image.getWidth() /  queueItem.image.getHeight();
     } else {
-        width = size;
-        height = size * queueItem.image.getHeight() /  queueItem.image.getWidth();
+        width = size * optimalWidth;
+        height = width * queueItem.image.getHeight() /  queueItem.image.getWidth();
     }
     
     ofDisableArbTex();
     shoeTex.swap();
-    shoeTex.dst->allocate(512,512);
+   
+    if(!shoeTex.dst->isAllocated() || shoeTex.dst->getWidth() != size){
+        shoeTex.dst->allocate(size,size);
+    }
     shoeTex.dst->begin();{
         ofClear(0);
         ofSetColor(255);
         ofSetRectMode(OF_RECTMODE_CENTER);
-        queueItem.image.draw(256,256, -width, -height);
+        queueItem.image.draw(size/2.0,size/2.0, -width, -height);
         ofSetRectMode(OF_RECTMODE_CORNER);
     } shoeTex.dst->end();
+    
     ofEnableArbTex();
     
     //  Start Animation

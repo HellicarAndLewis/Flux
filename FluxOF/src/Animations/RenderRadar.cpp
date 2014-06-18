@@ -329,8 +329,12 @@ void RenderRadar::selfDrawOverlay(){
         ofPushStyle();
         
         ofTranslate(ofGetWidth()-assets->terrainResolution()*0.5,0);
-        shoeTex.dst->draw(0, 0);
-        assets->shoeUVWireframe.draw(0, 0,shoeTex.dst->getWidth(), shoeTex.dst->getHeight());
+        
+        ofPushMatrix();{
+            ofScale(0.5, 0.5);
+            shoeTex.dst->draw(0, 0);
+            assets->shoeUVWireframe.draw(0, 0,shoeTex.dst->getWidth(), shoeTex.dst->getHeight());
+        } ofPopMatrix();
         
         ofTranslate(-margin*1.5-paletteSize,0);
         for(int i = 0; i < dstPalette.size(); i++){

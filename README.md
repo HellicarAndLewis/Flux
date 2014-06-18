@@ -29,6 +29,7 @@ git clone https://github.com/rezaali/ofxUI.git
 git clone https://github.com/patriciogonzalezvivo/ofxUIProject.git; cd ofxUIProject; git checkout develop_viewports; cd -
 git clone https://github.com/patriciogonzalezvivo/ofxFX.git
 git clone https://github.com/labatrockwell/ofxLibwebsockets.git
+git clone https://github.com/kylemcdonald/ofxFft.git
 
 Usage
 ===

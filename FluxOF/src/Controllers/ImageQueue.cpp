@@ -61,7 +61,7 @@ void ImageQueue::update(){
     
     // Determine if we should start a new transition
     //
-    if(renderEngine->transitionDone()){
+    if(renderEngine->transitionDone() || currentItem.path.length() == 0){
         // Determine if the transition should be delayed
         //
         if(transitionDelay == -1){
