@@ -39,10 +39,6 @@ public:
     void selfDrawOverlay();
     
 protected:
-	
-    //  Text
-    //
-    UIShader        audioTextShader;
     
     // TERRAIN TRANSITION
     //
