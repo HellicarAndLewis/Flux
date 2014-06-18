@@ -167,17 +167,12 @@ void main(void){
 	vec3 color = vec3(1.0);
 
   if(mask>0.0){
-    //  Sharp zone
-    //
     color = gl_Color.rgb;
   } else {
-    //  Smooth zone
-    //
     vec4 over = texture2DRect(overlayer,uv);
     color = mix(bg,over.rgb,over.a);
+    color *= calc_lighting_color(n).rgb;
   }
-
-  color *= calc_lighting_color(n).rgb;
 
 	gl_FragColor.rgb = color;
 	gl_FragColor.a = 1.0;

@@ -54,6 +54,7 @@ public:
     ofPoint             textOffset;
     string              text;
     float               textAlpha;
+    float               textScale;
     
     bool                simulatorMode;
     

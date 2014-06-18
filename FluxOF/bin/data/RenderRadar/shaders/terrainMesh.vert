@@ -15,7 +15,7 @@ void main(){
 
 	vec2 uv = gl_TexCoord[0].xy*vec2(resolution);
 
-	vec3 radar = texture2DRect(radarMsk,uv).rgb;
+	float radar = texture2DRect(radarMsk,uv).r;
 	vec3 bg = texture2DRect(background,uv).rgb;
 
 	vertexPos = gl_Vertex;
@@ -26,6 +26,6 @@ void main(){
 	ambientGlobal = gl_LightModel.ambient * gl_FrontMaterial.ambient + gl_FrontMaterial.emission;
 
 	gl_Position = ftransform();
-	gl_FrontColor.rgb = bg;
+	gl_FrontColor.rgb = mix(bg,radarColor,radar);
 	gl_FrontColor.a = 1.0;
 }

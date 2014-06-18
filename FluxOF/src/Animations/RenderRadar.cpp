@@ -34,21 +34,19 @@ void RenderRadar::selfSetup(){
     radarShader.loadFrag(getDataPath()+"shaders/radar.frag");
     radarTexture.allocate(assets->terrainResolution(),assets->terrainResolution());
     
-    terrainMeshTransition.loadFrag(getDataPath()+"shaders/terrainMeshTrans.frag");
-    terrainMeshTransitionTex.allocate(assets->terrainResolution(),assets->terrainResolution());
+    terrainMeshShader.load(getDataPath()+"shaders/terrainMesh");
+    
     
     terrainTransition.loadFrag(getDataPath()+"shaders/terrainTrans.frag");
     terrainTransitionTex.allocate(assets->terrainResolution(),assets->terrainResolution());
     terrainTransitionTex.clear();
-    
-    ofDisableArbTex();
-    terrainMeshTex.allocate(assets->terrainResolution(),assets->terrainResolution());
     
     terrainTex.allocate(assets->terrainResolution(),assets->terrainResolution());
     terrainTex.begin();
     ofClear(0, 0);
     terrainTex.end();
     
+    ofDisableArbTex();
     shoeTex.allocate(100, 100);
     ofEnableArbTex();
 }
@@ -62,7 +60,8 @@ void RenderRadar::selfSetupGuis(){
     guiAdd(radarShader);
     
     guiAdd(terrainTransition);
-    guiAdd(terrainMeshTransition);
+    
+    guiAdd(terrainMeshShader);
     guiAdd(terrainShader);
     
     guiAdd(shoeTransition);
@@ -84,8 +83,7 @@ void RenderRadar::selfSetupSystemGui(){
     sysGui->addLabel("Text");
     sysGui->add2DPad("Text_offset", ofVec2f(0,assets->terrainResolution()),ofVec2f(0,assets->terrainResolution()), &textOffset);
     sysGui->addSlider("Text_Alpha", 0.0, 1.0, &textAlpha);
-    
-
+    sysGui->addSlider("Text_Scale", 0.0, 1.0, &textScale);
 }
 
 void RenderRadar::guiSystemEvent(ofxUIEventArgs &e){
@@ -135,6 +133,7 @@ void RenderRadar::selfUpdate(){
         ofPushMatrix();
         ofTranslate(textOffset);
         ofRotate(-90);
+        ofScale(textScale, textScale);
         assets->font.drawString(text, -textCenter.x, -textCenter.y );
         ofPopMatrix();
         ofPopStyle();
@@ -206,7 +205,9 @@ void RenderRadar::selfUpdate(){
         terrainTex.begin();
         
         // colored transition
-        terrainTransitionTex.dst->draw(0, 0);
+//        terrainTransitionTex.dst->draw(0, 0);
+        
+        ofClear(0,0);
         
         // radar line
         ofPushStyle();
@@ -224,30 +225,6 @@ void RenderRadar::selfUpdate(){
         
         terrainTex.end();
     }
-    
-    //  Terrain Meshes
-    {
-        terrainMeshTransitionTex.begin();
-        terrainMeshTransition.begin();
-        terrainMeshTransition.getShader().setUniformTexture("radarMask", radarTexture, 0);
-        terrainMeshTransition.getShader().setUniformTexture("terrainMask", assets->terrainMask, 1);
-        terrainMeshTransition.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
-        terrainMeshTransition.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
-        
-        glBegin(GL_QUADS);
-        glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
-        glTexCoord2f(assets->terrainResolution(), 0); glVertex3f(assets->terrainResolution(), 0, 0);
-        glTexCoord2f(assets->terrainResolution(), assets->terrainResolution()); glVertex3f(assets->terrainResolution(), assets->terrainResolution(), 0);
-        glTexCoord2f(0,assets->terrainResolution());  glVertex3f(0,assets->terrainResolution(), 0);
-        glEnd();
-        
-        terrainMeshTransition.end();
-        terrainMeshTransitionTex.end();
-        
-        terrainMeshTex.begin();
-        terrainMeshTransitionTex.draw(0,0);
-        terrainMeshTex.end();
-    }
 }
 
 void RenderRadar::selfDraw(){
@@ -261,28 +238,25 @@ void RenderRadar::selfDraw(){
     ofPushMatrix();
     ofSetSmoothLighting(false);
     
-    ofDisableArbTex();
-    
-//    terrainTex.getTextureReference().bind();
-//    assets->terrainMesh.draw();
-//    terrainTex.getTextureReference().unbind();
-    
-//    terrainMeshTex.getTextureReference().bind();
-//    assets->terrainMesh.drawWireframe();
-//    terrainMeshTex.getTextureReference().unbind();
-
-    ofEnableArbTex();
-    
     terrainShader.begin();
     terrainShader.getShader().setUniformTexture("radarMsk", radarTexture, 0);
     terrainShader.getShader().setUniformTexture("terrainMask", assets->terrainMask, 1);
     terrainShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
+    terrainShader.getShader().setUniformTexture("overlayer", terrainTex, 3);
     terrainShader.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
-    
     terrainShader.getShader().setUniform1f("resolution", assets->terrainResolution());
     assets->terrainMesh.draw();
     terrainShader.end();
     
+    terrainMeshShader.begin();
+    terrainMeshShader.getShader().setUniformTexture("radarMsk", radarTexture, 0);
+    terrainMeshShader.getShader().setUniformTexture("terrainMask", assets->terrainMask, 1);
+    terrainMeshShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
+    terrainMeshShader.getShader().setUniformTexture("overlayer", terrainTex, 3);
+    terrainMeshShader.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
+    terrainMeshShader.getShader().setUniform1f("resolution", assets->terrainResolution());
+    assets->terrainMesh.drawWireframe();
+    terrainMeshShader.end();
     
     ofPopMatrix();
 
@@ -345,7 +319,6 @@ void RenderRadar::selfDrawOverlay(){
         assets->terrainDepthMap.draw(0,0);
         assets->terrainNormalMap.draw(0,assets->terrainResolution());
         radarTexture.draw(0,assets->terrainResolution()*2.0);
-        terrainMeshTex.draw(0,assets->terrainResolution()*3.0);
         ofPopMatrix();
         
         ofPopMatrix();

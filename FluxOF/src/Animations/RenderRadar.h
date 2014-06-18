@@ -51,9 +51,7 @@ protected:
     ofFbo           terrainTex;
     UIShader        terrainShader;
     
-    UIShader        terrainMeshTransition;
-    ofFbo           terrainMeshTransitionTex;
-    ofFbo           terrainMeshTex;
+    UIShader        terrainMeshShader;
     
     //  SHOES   TRANSITION
     //
