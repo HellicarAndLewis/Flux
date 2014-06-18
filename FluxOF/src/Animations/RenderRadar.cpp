@@ -14,9 +14,6 @@ void RenderRadar::selfSetup(){
     //  AUDIO
     //
     audioIn.start();
-    audioBufferSize = audioIn.getBufferSize();
-    audioPixels.allocate(audioBufferSize,1,3);
-    audioTex.allocate(audioBufferSize,1, GL_RGB16F);
     
     //  USERNAME TEXT
     //
@@ -114,14 +111,7 @@ void RenderRadar::selfUpdate(){
         cameraEnable(false);
         setupRenderIsFlipped(true);
     }
-    
-    //  Audio
-    //
-//    for (int x = 0; x < audioBufferSize; x++){
-//        audioPixels.setColor(x, 0, ofFloatColor(abs(sin(audioIn.left[x]*100.0)),0.0,0.0,1.0));
-//    }
-//    audioTex.loadData(audioPixels);
-    
+
     //  Color the radar
     //
     if(dstPalette.size()>0){
@@ -178,9 +168,6 @@ void RenderRadar::selfUpdate(){
         terrainTransition.getShader().setUniformTexture("depthMap", assets->terrainDepthMap, 1);
         terrainTransition.getShader().setUniformTexture("maskTex", assets->terrainMask, 2);
         terrainTransition.getShader().setUniformTexture("normalMap", assets->terrainNormalMap, 3);
-        
-        terrainTransition.getShader().setUniformTexture("audioIn", audioTex, 4);
-        
         terrainTransition.getShader().setUniformTexture("radarTex", radarTexture, 5);
         
         for(int i = 0; i < srcPalette.size(); i++){
@@ -306,6 +293,8 @@ void RenderRadar::selfDraw(){
 
 void RenderRadar::selfDrawOverlay(){
     if(bDebug){
+        
+        audioIn.texture.draw(0,0,audioIn.texture.getWidth()*2.0,50);
         
 //        ofPushMatrix();
 //        ofScale(0.5, 0.5);

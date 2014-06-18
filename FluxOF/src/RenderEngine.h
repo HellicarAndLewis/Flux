@@ -38,9 +38,6 @@ public:
     void drawMask(int viewPort);
     
     UIBufferIn          audioIn;
-    ofFloatPixels       audioPixels;
-    ofTexture           audioTex;
-    int                 audioBufferSize;
     
     CalibrationLoader   *calibration;
     RenderAssets        *assets;

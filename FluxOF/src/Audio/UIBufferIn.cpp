@@ -21,6 +21,9 @@ UIBufferIn::UIBufferIn(){
     for(int i = 0; i < fft->getBinSize(); i++){
         middleBins[i] = 0;
     }
+    
+    pixels.allocate(fft->getBinSize(),1,3);
+    texture.allocate(fft->getBinSize(),1, GL_RGB16F);
 }
 
 void UIBufferIn::setup(int _sampleRate, int _bufferSize){
@@ -34,9 +37,33 @@ UIBufferIn::~UIBufferIn(){
     delete fft;
 }
 
+void UIBufferIn::setupUI(){
+    gui->addWaveform("Buffer", audioIn, bufferSize);
+    gui->addSpectrum("FFT", middleBins, fft->getBinSize());
+}
+
+void UIBufferIn::guiEvent(ofxUIEventArgs &e){
+    string name = e.widget->getName();
+    
+//    if(name == "ENABLE"){
+//        if(bEnable){
+//            start();
+//        } else {
+//            stop();
+//        }
+//    }
+}
+
 void UIBufferIn::start(){
     stream.setup(0, 1, sampleRate, bufferSize, 4);
     stream.setInput(this);
+    
+    ofAddListener(ofEvents().draw,this,&UIBufferIn::draw);
+}
+
+void UIBufferIn::stop(){
+    stream.stop();
+    ofRemoveListener(ofEvents().draw, this, &UIBufferIn::draw);
 }
 
 void UIBufferIn::audioReceived(float * input, int bufferSize, int nChannels ){
@@ -73,23 +100,9 @@ void UIBufferIn::audioReceived(float * input, int bufferSize, int nChannels ){
 	soundMutex.unlock();
 }
 
-void UIBufferIn::stop(){
-    stream.stop();
-}
-
-void UIBufferIn::setupUI(){
-    gui->addWaveform("Buffer", audioIn, bufferSize);
-    gui->addSpectrum("FFT", middleBins, fft->getBinSize());
-}
-
-void UIBufferIn::guiEvent(ofxUIEventArgs &e){
-    string name = e.widget->getName();
-    
-    if(name == "ENABLE"){
-        if(bEnable){
-            start();
-        } else {
-            stop();
-        }
+void UIBufferIn::draw(ofEventArgs & args){
+    for (int i = 0; i < fft->getBinSize(); i++){
+        pixels.setColor(i, 0, ofFloatColor(middleBins[i],audioIn[i],audioIn[i*2-3],1.0));
     }
+    texture.loadData(pixels);
 }
