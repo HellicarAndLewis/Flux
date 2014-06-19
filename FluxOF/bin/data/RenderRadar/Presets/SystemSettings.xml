@@ -19,12 +19,12 @@
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Pct</Name>
-    <Value>0.757234752</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Color_R</Name>
-    <Value>0.222221851</Value>
+    <Value>0.047618985</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -39,13 +39,13 @@
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Height</Name>
-    <Value>18.148641586</Value>
+    <Value>4.484563828</Value>
 </Widget>
 <Widget>
     <Kind>11</Kind>
     <Name>Text_offset</Name>
-    <XValue>923.113281250</XValue>
-    <YValue>913.024658203</YValue>
+    <XValue>948.334960938</XValue>
+    <YValue>902.935974121</YValue>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -55,5 +55,5 @@
 <Widget>
     <Kind>4</Kind>
     <Name>Text_Scale</Name>
-    <Value>0.463054180</Value>
+    <Value>0.325123161</Value>
 </Widget>

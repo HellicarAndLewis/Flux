@@ -178,9 +178,6 @@ void main(void){
     color *= calc_lighting_color(n).rgb;
   }
 
-  
-  
-
 	gl_FragColor.rgb = color;
 	gl_FragColor.a = 1.0;
 }

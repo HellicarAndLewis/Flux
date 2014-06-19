@@ -1,6 +1,15 @@
 <Map>
     <Bangs></Bangs>
-    <Switches></Switches>
+    <Switches>
+        <Mapping>
+            <Widget>
+                <WidgetName>TAKE PICTURE</WidgetName>
+                <WidgetID>6</WidgetID>
+                <WidgetCanvasParent>NODE-COM</WidgetCanvasParent>
+            </Widget>
+            <Track></Track>
+        </Mapping>
+    </Switches>
     <SliderCurves>
         <Mapping>
             <Widget>

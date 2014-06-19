@@ -290,7 +290,7 @@ void main(void){
         //  Geometry
         //
         vec3 color;
-        color = mix(dstColor2,dstColor1,depth);
+        color = mix(dstColor3,dstColor4,depth);
         gl_FragColor = vec4(mix(bg.rgb,color,radar),1.0);
         
     } else if(radar>(1.0-radarThreshold) ){
@@ -303,7 +303,7 @@ void main(void){
         colors[3] = dstColor4;
         colors[4] = dstColor5;
 
-        float index = depth*3.0;
+        float index = 0.0+depth*3.0;
 
         float fIndex = floor(index);
         float mIndex = mod(index,fIndex);

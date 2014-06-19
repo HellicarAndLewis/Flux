@@ -25,6 +25,8 @@ uniform float tranWidth;
 
 uniform float time;
 
+uniform float bLights;
+
 varying vec4 ambientGlobal, eyeSpaceVertexPos;
 varying vec4 vertexPos;
 varying vec3 vertexNormal;
@@ -219,7 +221,9 @@ void main(void){
 		color = mix(color,green*2.0,pow(max(0.0, abs(sin(posPct*PI))*2.0-1.0),0.5));
 	}
 
-  color *= calc_lighting_color(n).rgb;
+  if(bLights>0.5){
+    color *= calc_lighting_color(n).rgb;
+  }
 
 	gl_FragColor.rgb = color;
 	gl_FragColor.a = 1.0;

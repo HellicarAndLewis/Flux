@@ -1,6 +1,8 @@
 uniform sampler2DRect radarMsk;
 uniform sampler2DRect terrainMask;
 uniform sampler2DRect background;
+uniform sampler2DRect overlayer;
+uniform sampler2DRect ripples;
 
 uniform vec3 radarColor;
 
@@ -141,9 +143,10 @@ void main(){
 	vec3 bg = texture2DRect(background,uv).rgb;
 
 	vertexPos = gl_Vertex;
+
 	vertexNormal = normalize(gl_NormalMatrix * gl_Normal);
 
-	eyeSpaceVertexPos = gl_ModelViewMatrix * gl_Vertex;
+	eyeSpaceVertexPos = gl_ModelViewMatrix * vertexPos;
 
 	ambientGlobal = gl_LightModel.ambient * gl_FrontMaterial.ambient + gl_FrontMaterial.emission;
 

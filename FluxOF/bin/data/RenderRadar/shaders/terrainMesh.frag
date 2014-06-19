@@ -2,6 +2,7 @@ uniform sampler2DRect radarMsk;
 uniform sampler2DRect terrainMask;
 uniform sampler2DRect background;
 uniform sampler2DRect overlayer;
+uniform sampler2DRect ripples;
 
 uniform vec3 radarColor;
 uniform float resolution;
