@@ -263,7 +263,8 @@ void RenderRadar::selfUpdate(){
         ofTranslate(textOffset);
         ofRotate(-90);
         ofScale(textScale, textScale);
-        assets->font.drawString(text, -textCenter.x, -textCenter.y );
+//        assets->font.drawString(text, -textCenter.x, -textCenter.y );
+        assets->font.drawString(text, 0.0, -textCenter.y );
         ofPopMatrix();
         ofPopStyle();
         
