@@ -22,7 +22,7 @@
 #include "UIShader.h"
 
 #include "ofxMultiGLFWWindow.h"
-
+#include "ofxColorPalette.h"
 
 
 class RenderEngine : public UITime3DProject {
