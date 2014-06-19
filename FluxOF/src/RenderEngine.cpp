@@ -8,8 +8,19 @@
 
 #include "RenderEngine.h"
 
+void RenderEngine::selfSetup(){
+    cameraEnable(false);
+    setupRenderIsFlipped(true);
+}
+
+void RenderEngine::selfUpdate(){
+    setupNumViewports(3);
+
+}
+
 void RenderEngine::setCalibration(CalibrationLoader *_calibration){
     calibration = _calibration;
+    
 }
 
 void RenderEngine::addUiClass(UIClass *_ui){
@@ -18,8 +29,9 @@ void RenderEngine::addUiClass(UIClass *_ui){
 
 void RenderEngine::selfSceneTransformation(){
 
-    if(!simulatorMode){
-        calibration->shoe[currentViewPort].begin();
+    if(currentViewPort > 0){
+        int view = currentViewPort - 1;
+        calibration->shoe[view].begin();
     }
 }
 
@@ -257,7 +269,7 @@ void RenderEngine::startTransitionTo(QueueItem queueItem){
     
     ofDisableArbTex();
     shoeTex.swap();
-   
+    
     if(!shoeTex.dst->isAllocated() || shoeTex.dst->getWidth() != size){
         shoeTex.dst->allocate(size,size);
     }
@@ -303,6 +315,199 @@ void RenderEngine::drawMask(int viewPort){
         }glEnd();
         tex.unbind();
         ofEnableAlphaBlending();
+    }
+}
+
+void RenderEngine::draw(ofEventArgs & args){
+    glfw = (ofxMultiGLFWWindow*)ofGetWindowPtr();
+    int viewNum = glfw->getWindowIndex();
+
+    if(bRenderSystem){
+        //for(int viewNum=0;viewNum<numViewports;viewNum++){
+        {
+            currentViewPort = viewNum;
+            ofPushStyle();
+
+            getRenderTarget(viewNum).begin();
+            //  Background
+            //
+            if ( background != NULL ){
+                background->draw();
+            }
+            
+            //  2D scene
+            //
+            ofPushStyle();
+            ofPushMatrix();
+            selfDrawBackground();
+            ofPopMatrix();
+            ofPopStyle();
+            
+            //  Start 3D scene
+            //
+            {
+                if(viewNum == 0){
+                    getCameraRef().begin();
+                }
+                fog.begin();
+                
+                //  Scene Setup
+                //
+                selfSceneTransformation();
+                
+                //  Cached Values
+                //
+                glGetFloatv(GL_MODELVIEW_MATRIX, viewMatrix.getPtr());
+                glGetFloatv(GL_PROJECTION_MATRIX, projectionMatrix.getPtr());
+                glGetDoublev(GL_PROJECTION_MATRIX, matP);
+                glGetDoublev(GL_MODELVIEW_MATRIX, matM);
+                glGetIntegerv(GL_VIEWPORT, viewport);
+                
+                //            glEnable(GL_DEPTH_TEST);
+                ofEnableDepthTest();
+                //            glDepthMask(false);
+                
+                if (bEdit){
+                    lightsDraw();
+                }
+                
+                //  Draw Debug
+                //
+                if( bDebug ){
+                    ofPushStyle();
+                    ofPushMatrix();
+                    
+                    selfDrawDebug();
+                    
+                    ofPopMatrix();
+                    ofPopStyle();
+                }
+                
+                //  Draw Scene
+                //
+                {
+                    lightsBegin();
+                    ofPushStyle();
+                    ofPushMatrix();
+                    
+                    selfDraw();
+                    
+                    ofPopMatrix();
+                    ofPopStyle();
+                    lightsEnd();
+                }
+                
+                //  Draw Log
+                //
+                {
+                    ofPushStyle();
+                    ofDisableLighting();
+                    ofSetColor(background->getUIBrightness()*255.0);
+                    logGui.draw();
+                    ofPopStyle();
+                }
+                
+                //            glDepthMask(true);
+                ofDisableDepthTest();
+                //            glDisable(GL_DEPTH_TEST);
+                fog.end();
+                
+                //  Update Mouse
+                //
+                if (bUpdateCursor){
+                    unprojectCursor(cursor, ofGetMouseX(), ofGetMouseY());
+                    bUpdateCursor = false;
+                }
+
+                
+                if(viewNum == 0){
+                    getCameraRef().end();
+                }
+            }
+            
+            //  Draw Overlay
+            //
+            if(viewNum==0){
+                ofPushStyle();
+                ofPushMatrix();
+                selfDrawOverlay();
+                ofPopMatrix();
+                ofPopStyle();
+            }
+            
+            
+            getRenderTarget(viewNum).end();
+            
+        }
+        //  Post-Draw ( shader time )
+        //
+        ofDisableLighting();
+        selfPostDraw();
+        
+        logGui.drawStatus();
+        
+        ofPopStyle();
+    }
+    
+    
+	if(timeline != NULL && viewNum == 0){
+        
+        if ( timeline->getIsShowing() ){
+            glDisable(GL_DEPTH_TEST);
+            glDisable(GL_LIGHTING);
+            ofPushStyle();
+            ofFill();
+            ofSetColor(0,100);
+            ofRect(4, ofGetHeight() - timeline->getHeight() - 4, ofGetWidth() - 8, timeline->getHeight());
+            ofPopStyle();
+        }
+        
+		timeline->draw();
+	}
+}
+
+
+ofFbo& RenderEngine::getRenderTarget(int viewNumber){
+    ofFbo *renderTarget = &renderTargets[viewNumber];
+    int width = ofGetWidth() ;
+    int height = ofGetHeight();
+    if(!renderTarget->isAllocated() || renderTarget->getWidth() != width || renderTarget->getHeight() != height){
+        ofFbo::Settings settings;
+        settings.width = width;
+        settings.height = height;
+        settings.internalformat = GL_RGB;
+        settings.numSamples = 0;
+        settings.useDepth = true;
+        settings.useStencil = true;
+        settings.depthStencilAsTexture = true;
+
+        settings.textureTarget = ofGetUsingArbTex() ? GL_TEXTURE_RECTANGLE_ARB : GL_TEXTURE_2D;
+        renderTarget->allocate(settings);
+
+		renderTarget->begin();
+		ofClear(0,0,0,0);
+		renderTarget->end();
+    }
+    
+    return *renderTarget;
+}
+
+
+void RenderEngine::selfPostDraw(){
+    glfw = (ofxMultiGLFWWindow*)ofGetWindowPtr();
+    
+    int i = glfw->getWindowIndex();
+    
+    if(i == 0){
+        getRenderTarget(i).draw(0
+                                             , 0
+                                             , getRenderTarget(i).getWidth()
+                                             , getRenderTarget(i).getHeight());
+    } else {
+        getRenderTarget(i).draw(0
+                                             , getRenderTarget(i).getHeight()
+                                             , getRenderTarget(i).getWidth()
+                                             , -getRenderTarget(i).getHeight());
     }
 }
 

@@ -5,6 +5,43 @@ void ofApp::setup(){
     ofSetVerticalSync(true);
     renderEngine = NULL;
     
+    
+    ofxMultiGLFWWindow *glfw = (ofxMultiGLFWWindow*)ofGetWindowPtr();
+    
+    int numberOfMonitors;
+	GLFWmonitor** monitors = glfwGetMonitors(&numberOfMonitors);
+    
+    vector<ofRectangle> monitorSizes;
+    
+	for (int iC=0; iC < numberOfMonitors; iC++){
+		int xM; int yM;
+		glfwGetMonitorPos(monitors[iC], &xM, &yM);
+		const GLFWvidmode * desktopMode = glfwGetVideoMode(monitors[iC]);
+		ofRectangle monitorRect(xM, yM, desktopMode->width, desktopMode->height);
+		monitorSizes.push_back(monitorRect);
+	}
+    
+    cout<<"Num windows: "<<numberOfMonitors<<endl;
+    
+    if(numberOfMonitors == 3){
+        ofSetWindowShape(1920, 1080);
+        for(int i=0;i<2;i++){
+            GLFWwindow * window = glfw->createWindow();
+            glfw->setWindow(window);
+            
+            if(i==0){
+                ofSetWindowPosition(monitorSizes[0].width + 200, 100);
+            } else {
+                ofSetWindowPosition(monitorSizes[0].width + monitorSizes[1].width + 200, 100);
+                ofToggleFullscreen();
+            }
+            ofToggleFullscreen();
+        }
+        
+        glfw->showWindow(glfw->windows.at(0));
+    }
+    
+    
     //  Load STUFF
     //
     calibration.load();

@@ -7,6 +7,8 @@
 #include "RenderRadar.h"
 
 void RenderRadar::selfSetup(){
+    RenderEngine::selfSetup();
+    
     ofSetVerticalSync(true);
     ofEnableAlphaBlending();
     ofEnableSmoothing();
@@ -97,15 +99,7 @@ void RenderRadar::guiRenderEvent(ofxUIEventArgs &e){
 //---------------------------------------------------
 
 void RenderRadar::selfUpdate(){
-    if(simulatorMode){
-        setupNumViewports(1);
-        cameraEnable(true);
-        setupRenderIsFlipped(false);
-    } else {
-        setupNumViewports(2);
-        cameraEnable(false);
-        setupRenderIsFlipped(true);
-    }
+    RenderEngine::selfUpdate();
 
     //  Color the radar
     //
