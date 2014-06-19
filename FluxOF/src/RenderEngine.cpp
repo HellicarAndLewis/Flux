@@ -318,12 +318,14 @@ void RenderEngine::drawMask(int viewPort){
     }
 }
 
+//
+// Main draw loop, done once for every window
+//
 void RenderEngine::draw(ofEventArgs & args){
     glfw = (ofxMultiGLFWWindow*)ofGetWindowPtr();
     int viewNum = glfw->getWindowIndex();
 
     if(bRenderSystem){
-        //for(int viewNum=0;viewNum<numViewports;viewNum++){
         {
             currentViewPort = viewNum;
             ofPushStyle();

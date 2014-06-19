@@ -5,26 +5,34 @@ void ofApp::setup(){
     ofSetVerticalSync(true);
     renderEngine = NULL;
     
-    
     ofxMultiGLFWWindow *glfw = (ofxMultiGLFWWindow*)ofGetWindowPtr();
-    
+
+    //Look for number of monitors
+    //
     int numberOfMonitors;
 	GLFWmonitor** monitors = glfwGetMonitors(&numberOfMonitors);
-    
-    vector<ofRectangle> monitorSizes;
-    
-	for (int iC=0; iC < numberOfMonitors; iC++){
-		int xM; int yM;
-		glfwGetMonitorPos(monitors[iC], &xM, &yM);
-		const GLFWvidmode * desktopMode = glfwGetVideoMode(monitors[iC]);
-		ofRectangle monitorRect(xM, yM, desktopMode->width, desktopMode->height);
-		monitorSizes.push_back(monitorRect);
-	}
-    
     cout<<"Num windows: "<<numberOfMonitors<<endl;
+
     
+    // Setup the render views
+    //
     if(numberOfMonitors == 3){
+        
+        //Find the positions of the monitors
+        //
+        vector<ofRectangle> monitorSizes;
+        for (int iC=0; iC < numberOfMonitors; iC++){
+            int xM; int yM;
+            glfwGetMonitorPos(monitors[iC], &xM, &yM);
+            const GLFWvidmode * desktopMode = glfwGetVideoMode(monitors[iC]);
+            ofRectangle monitorRect(xM, yM, desktopMode->width, desktopMode->height);
+            monitorSizes.push_back(monitorRect);
+        }
+
+        //Set the main window to full HD
         ofSetWindowShape(1920, 1080);
+
+        //Run through the windows, and create the additional render views
         for(int i=0;i<2;i++){
             GLFWwindow * window = glfw->createWindow();
             glfw->setWindow(window);
@@ -39,6 +47,8 @@ void ofApp::setup(){
         }
         
         glfw->showWindow(glfw->windows.at(0));
+    } else {
+        ofToggleFullscreen();
     }
     
     
