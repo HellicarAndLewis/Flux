@@ -47,7 +47,6 @@ public:
     vector<ofColor>     srcPalette;
     vector<ofColor>     dstPalette;
     
-    ofFbo               textTex;
     ofPoint             textOffset;
     string              text;
     float               textAlpha;

@@ -102,7 +102,14 @@ void UIBufferIn::audioReceived(float * input, int bufferSize, int nChannels ){
 
 void UIBufferIn::draw(ofEventArgs & args){
     for (int i = 0; i < fft->getBinSize(); i++){
-        pixels.setColor(i, 0, ofFloatColor(middleBins[i],audioIn[i],audioIn[i*2-3],1.0));
+        ofFloatColor color;
+        
+        
+        color.setBrightness(1.0);
+        color.setSaturation(1.0);
+        color.setHue(fft->getAmplitude()[i]);//middleBins[i]);
+        
+        pixels.setColor(i, 0, color);
     }
     texture.loadData(pixels);
 }

@@ -15,10 +15,6 @@ void RenderRadar::selfSetup(){
     //
     audioIn.start();
     
-    //  USERNAME TEXT
-    //
-    textTex.allocate(assets->terrainResolution(),assets->terrainResolution());
-    
     //  SHOES
     //
     shoeTransition.load(getDataPath()+"shaders/shoesTrans");
@@ -31,7 +27,6 @@ void RenderRadar::selfSetup(){
     radarTexture.allocate(assets->terrainResolution(),assets->terrainResolution());
     
     terrainMeshShader.load(getDataPath()+"shaders/terrainMesh");
-    
     
     terrainTransition.loadFrag(getDataPath()+"shaders/terrainTrans.frag");
     terrainTransitionTex.allocate(assets->terrainResolution(),assets->terrainResolution());
@@ -52,7 +47,7 @@ void RenderRadar::selfSetupGuis(){
     lightAdd("SPOT", OF_LIGHT_SPOT);
     
     guiAdd(audioIn);
-
+    
     // 2D (just frag shaders)
     guiAdd(radarShader);
     guiAdd(terrainTransition);
@@ -118,25 +113,6 @@ void RenderRadar::selfUpdate(){
         radarColor.set(dstPalette[3]);
         radarColor.setBrightness(1.0);
         radarColor.setSaturation(1.0);
-    }
-    
-    //  USERNAME TEXTURE
-    //
-    {
-        ofPoint textCenter = assets->font.getStringBoundingBox(text,0,0).getCenter();
-        
-        textTex.begin();
-        ofPushStyle();
-        ofClear(0,0);
-        ofSetColor(255, textAlpha*255.0);
-        ofPushMatrix();
-        ofTranslate(textOffset);
-        ofRotate(-90);
-        ofScale(textScale, textScale);
-        assets->font.drawString(text, -textCenter.x, -textCenter.y );
-        ofPopMatrix();
-        ofPopStyle();
-        textTex.end();
     }
     
     //  TERRAIN ANIMATION
@@ -213,7 +189,18 @@ void RenderRadar::selfUpdate(){
         ofPopStyle();
         
         // username text
-        textTex.draw(0,0);
+        //
+        ofPoint textCenter = assets->font.getStringBoundingBox(text,0,0).getCenter();
+        ofPushStyle();
+        ofClear(0,0);
+        ofSetColor(255, textAlpha*255.0);
+        ofPushMatrix();
+        ofTranslate(textOffset);
+        ofRotate(-90);
+        ofScale(textScale, textScale);
+        assets->font.drawString(text, -textCenter.x, -textCenter.y );
+        ofPopMatrix();
+        ofPopStyle();
         
         terrainTex.end();
     }
@@ -294,20 +281,7 @@ void RenderRadar::selfDraw(){
 void RenderRadar::selfDrawOverlay(){
     if(bDebug){
         
-        audioIn.texture.draw(0,0,audioIn.texture.getWidth()*2.0,50);
-        
-//        ofPushMatrix();
-//        ofScale(0.5, 0.5);
-//        terrainTex.draw(assets->terrainResolution()*0.25,0);
-//        ofPushMatrix();
-//        ofScale(0.25, 0.25);
-//        assets->terrainDepthMap.draw(0,0);
-//        assets->terrainNormalMap.draw(0,assets->terrainResolution());
-//        radarTexture.draw(0,assets->terrainResolution()*2.0);
-//        ofPopMatrix();
-//        ofPopMatrix();
-        
-//        audioTex.draw(0,assets->terrainResolution()*0.5,assets->terrainResolution()*0.5,10);
+        audioIn.texture.draw(0,0,audioIn.texture.getWidth()*2.0,10);
         
         float paletteSize = 10;
         float margin = 15;

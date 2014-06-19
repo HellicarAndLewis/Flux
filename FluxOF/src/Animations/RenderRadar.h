@@ -39,7 +39,7 @@ public:
     void selfDrawOverlay();
     
 protected:
-	
+    
     // TERRAIN TRANSITION
     //
     UIShader        radarShader;
