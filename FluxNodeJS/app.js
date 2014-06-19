@@ -167,16 +167,57 @@ var uploadImage = function(path, id){
 //
 // List cameras / assign list item to variable to use below options
 //
+var camera;
 GPhoto.list(function (list) {
   if (list.length === 0) return;
-  var camera = list[0];
+  camera = list[0];
   console.log('Found', camera.model);
 
   // get configuration tree
-  camera.getConfig(function (er, settings) {
-    console.log(settings);
+  /*camera.getConfig(function (er, settings) {
+    console.log(settings.main.children);
   });
+*/
+  // Set configuration values
+
+  //Set the image format 
+  /*
+  "choices":[
+     "Large Fine JPEG",
+     "Large Normal JPEG",
+     "Medium Fine JPEG",
+     "Medium Normal JPEG",
+     "Small Fine JPEG  (S1 Fine)",
+     "Small Normal JPEG (S1 Normal)",
+     "Smaller JPEG (S2)",
+     "Tiny JPEG (S3)",
+     "RAW + Large Fine JPEG",
+     "RAW"
+  ]
+  */
+  camera.setConfigValue('imageformat', "Small Fine JPEG  (S1 Fine)", function (er) {
+    camera.setConfigValue('copyright', "", function (er) {
+      camera.setConfigValue('artist', "", function (er) {
+
+        setTimeout(takePhoto, 4000);
+      });
+    });
+  });
+
+   // Take picture with camera object obtained from list()
+  
+ 
 });
+
+var takePhoto = function(){
+  console.log("Take photo")
+  if(camera){
+    camera.takePicture({download: true}, function (er, data) {
+      fs.writeFileSync(__dirname + '/picture.jpg', data);
+      console.log("photo taken")
+    });
+  }
+}
 
 
 
