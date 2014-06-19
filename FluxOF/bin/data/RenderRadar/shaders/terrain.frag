@@ -175,9 +175,11 @@ void main(void){
     //
     vec4 over = texture2DRect(overlayer,uv);
     color = mix(bg,over.rgb,over.a);
+    color *= calc_lighting_color(n).rgb;
   }
 
-  color *= calc_lighting_color(n).rgb;
+  
+  
 
 	gl_FragColor.rgb = color;
 	gl_FragColor.a = 1.0;

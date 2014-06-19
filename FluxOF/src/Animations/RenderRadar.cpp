@@ -15,6 +15,11 @@ void RenderRadar::selfSetup(){
     //
     audioIn.start();
     
+    audioTerrain.loadFrag(getDataPath()+"shaders/audioTerrain.frag");
+    
+    ripples.allocate(assets->terrainResolution(), assets->terrainResolution(),GL_RGBA);
+    ripplesNormals.allocate(assets->terrainResolution(), assets->terrainResolution());
+    
     //  SHOES
     //
     shoeTransition.load(getDataPath()+"shaders/shoesTrans");
@@ -25,6 +30,9 @@ void RenderRadar::selfSetup(){
     
     radarShader.loadFrag(getDataPath()+"shaders/radar.frag");
     radarTexture.allocate(assets->terrainResolution(),assets->terrainResolution());
+    
+    terrainNoise.loadFrag(getDataPath()+"shaders/noise.frag");
+    terrainNoiseTex.allocate(assets->terrainResolution(),assets->terrainResolution());
     
     terrainMeshShader.load(getDataPath()+"shaders/terrainMesh");
     
@@ -37,6 +45,7 @@ void RenderRadar::selfSetup(){
     ofClear(0, 0);
     terrainTex.end();
     
+    //  Non-Arb
     ofDisableArbTex();
     shoeTex.allocate(100, 100);
     ofEnableArbTex();
@@ -49,7 +58,10 @@ void RenderRadar::selfSetupGuis(){
     guiAdd(audioIn);
     
     // 2D (just frag shaders)
+    guiAdd(audioTerrain);
+    
     guiAdd(radarShader);
+    guiAdd(terrainNoise);
     guiAdd(terrainTransition);
     
     //  3D
@@ -61,7 +73,6 @@ void RenderRadar::selfSetupGuis(){
 }
 
 void RenderRadar::selfGuiEvent(ofxUIEventArgs &e){
-    
 }
 
 void RenderRadar::selfSetupSystemGui(){
@@ -77,6 +88,9 @@ void RenderRadar::selfSetupSystemGui(){
     sysGui->add2DPad("Text_offset", ofVec2f(0,assets->terrainResolution()),ofVec2f(0,assets->terrainResolution()), &textOffset);
     sysGui->addSlider("Text_Alpha", 0.0, 1.0, &textAlpha);
     sysGui->addSlider("Text_Scale", 0.0, 1.0, &textScale);
+    
+//    sysGui->addLabel("Ripples");
+//    sysGui->addSlider("Ripples_dump", 0.9, 0.999999, &ripples.damping);
 }
 
 void RenderRadar::guiSystemEvent(ofxUIEventArgs &e){
@@ -93,6 +107,17 @@ void RenderRadar::guiRenderEvent(ofxUIEventArgs &e){
     string name = e.widget->getName();
     
 }
+//---------------------------------------------------
+
+void RenderRadar::selfBegin(){
+    ripples.begin();
+    ofClear(0,255);
+    ripples.end();
+    ripples.update();
+    ripples.begin();
+    ofClear(0,255);
+    ripples.end();
+}
 
 //---------------------------------------------------
 
@@ -107,6 +132,47 @@ void RenderRadar::selfUpdate(){
         setupRenderIsFlipped(true);
     }
 
+    //  AUDIO REACTION
+    //  -----------------------------------------
+    {
+//        audioTerrainFbo.begin();
+//        ofClear(0, 0);
+//        audioTerrain.begin();
+//        audioTerrain.getShader().setUniformTexture("heightMap", assets->terrainDepthMap, 0);
+//        audioTerrain.getShader().setUniformTexture("audioFft", audioIn.texture, 1);
+//        audioTerrain.getShader().setUniform1f("audioFftSize", audioIn.texture.getWidth());
+//        glBegin(GL_QUADS);
+//        glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
+//        glTexCoord2f(assets->terrainResolution(), 0); glVertex3f(assets->terrainResolution(), 0, 0);
+//        glTexCoord2f(assets->terrainResolution(), assets->terrainResolution()); glVertex3f(assets->terrainResolution(), assets->terrainResolution(), 0);
+//        glTexCoord2f(0,assets->terrainResolution());  glVertex3f(0,assets->terrainResolution(), 0);
+//        glEnd();
+//        audioTerrain.end();
+//        audioTerrainFbo.end();
+        
+        ripples.begin();
+//        audioTerrainFbo.draw(0,0);
+        
+        audioTerrain.begin();
+        audioTerrain.getShader().setUniformTexture("heightMap", assets->terrainDepthMap, 0);
+        audioTerrain.getShader().setUniformTexture("audioFft", audioIn.texture, 1);
+        audioTerrain.getShader().setUniform1f("audioFftSize", audioIn.texture.getWidth());
+        glBegin(GL_QUADS);
+        glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
+        glTexCoord2f(assets->terrainResolution(), 0); glVertex3f(assets->terrainResolution(), 0, 0);
+        glTexCoord2f(assets->terrainResolution(), assets->terrainResolution()); glVertex3f(assets->terrainResolution(), assets->terrainResolution(), 0);
+        glTexCoord2f(0,assets->terrainResolution());  glVertex3f(0,assets->terrainResolution(), 0);
+        glEnd();
+        audioTerrain.end();
+        
+        ripples.end();
+        
+        ripples.update();
+        ripplesNormals << ripples;
+//        ripplesNormals.update();
+    }
+    
+    
     //  Color the radar
     //
     if(dstPalette.size()>0){
@@ -137,13 +203,28 @@ void RenderRadar::selfUpdate(){
     
     //  Pixel displacement Transition Animation
     {
+        
+        if(terrainNoise.bEnable){
+            terrainNoiseTex.begin();
+            terrainNoise.begin();
+            ofClear(0);
+            assets->terrainNormalMap.draw(0,0);
+            terrainNoise.end();
+            terrainNoiseTex.end();
+        }
+        
+        
         terrainTransitionTex.swap();
         terrainTransitionTex.dst->begin();
         terrainTransition.begin();
         terrainTransition.getShader().setUniformTexture("backbuffer", *terrainTransitionTex.src, 0);
         terrainTransition.getShader().setUniformTexture("depthMap", assets->terrainDepthMap, 1);
         terrainTransition.getShader().setUniformTexture("maskTex", assets->terrainMask, 2);
-        terrainTransition.getShader().setUniformTexture("normalMap", assets->terrainNormalMap, 3);
+        if(terrainNoise.bEnable){
+            terrainTransition.getShader().setUniformTexture("normalMap", terrainNoiseTex, 3);
+        } else {
+            terrainTransition.getShader().setUniformTexture("normalMap", assets->terrainNormalMap, 3);
+        }
         terrainTransition.getShader().setUniformTexture("radarTex", radarTexture, 5);
         
         for(int i = 0; i < srcPalette.size(); i++){
@@ -221,6 +302,8 @@ void RenderRadar::selfDraw(){
     terrainShader.getShader().setUniformTexture("terrainMask", assets->terrainMask, 1);
     terrainShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
     terrainShader.getShader().setUniformTexture("overlayer", terrainTex, 3);
+    terrainShader.getShader().setUniformTexture("ripplesNormals", ripplesNormals, 4);
+    
     terrainShader.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
     terrainShader.getShader().setUniform1f("resolution", assets->terrainResolution());
     assets->terrainMesh.draw();
@@ -281,6 +364,10 @@ void RenderRadar::selfDraw(){
 void RenderRadar::selfDrawOverlay(){
     if(bDebug){
         
+        ofPushMatrix();
+        ofScale(0.5, 0.5);
+        ripplesNormals.draw(0,0);
+        ofPopMatrix();
         audioIn.texture.draw(0,0,audioIn.texture.getWidth()*2.0,10);
         
         float paletteSize = 10;

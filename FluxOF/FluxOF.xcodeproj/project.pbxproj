@@ -39,6 +39,7 @@
 		367dcc4f49387527c2f529ca3de9162f /* UI3DGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4db90cff9ba77283835bfe7969621919 /* UI3DGrid.cpp */; };
 		3D86184419520B1800E4F4B8 /* UITime2DProject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86184019520B1800E4F4B8 /* UITime2DProject.cpp */; };
 		3D86184519520B1800E4F4B8 /* UITime3DProject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D86184219520B1800E4F4B8 /* UITime3DProject.cpp */; };
+		3DFC7507195308D000A6634D /* ofxFXObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFC74FA195308D000A6634D /* ofxFXObject.cpp */; };
 		3a02cdf226d01ebb6533d47f0bb42c5a /* ofxTLTicker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = e8e616bc8e15dee74a54901f444f74a3 /* ofxTLTicker.cpp */; };
 		3b32d3b612022d0c5b272bdd39e8a60f /* ofxTLVideoTrack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 16644a54427c234fd75cb89d48524e02 /* ofxTLVideoTrack.cpp */; };
 		3b8120368b4fccd80883baf3128d1467 /* ofxAssimpAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 36068d6c1d6d412786a5c4c1868cfb5e /* ofxAssimpAnimation.cpp */; };
@@ -366,6 +367,42 @@
 		3D86184119520B1800E4F4B8 /* UITime2DProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITime2DProject.h; sourceTree = "<group>"; };
 		3D86184219520B1800E4F4B8 /* UITime3DProject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UITime3DProject.cpp; sourceTree = "<group>"; };
 		3D86184319520B1800E4F4B8 /* UITime3DProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITime3DProject.h; sourceTree = "<group>"; };
+		3DFC74E0195308D000A6634D /* ofxBlend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxBlend.h; sourceTree = "<group>"; };
+		3DFC74E1195308D000A6634D /* ofxClone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxClone.h; sourceTree = "<group>"; };
+		3DFC74E2195308D000A6634D /* ofxMask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxMask.h; sourceTree = "<group>"; };
+		3DFC74E3195308D000A6634D /* ofxMultiTexture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxMultiTexture.h; sourceTree = "<group>"; };
+		3DFC74E5195308D000A6634D /* ofxBarrelChromaAb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxBarrelChromaAb.h; sourceTree = "<group>"; };
+		3DFC74E6195308D000A6634D /* ofxBloom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxBloom.h; sourceTree = "<group>"; };
+		3DFC74E7195308D000A6634D /* ofxBlur.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxBlur.h; sourceTree = "<group>"; };
+		3DFC74E8195308D000A6634D /* ofxBokeh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxBokeh.h; sourceTree = "<group>"; };
+		3DFC74E9195308D000A6634D /* ofxChromaAb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxChromaAb.h; sourceTree = "<group>"; };
+		3DFC74EA195308D000A6634D /* ofxChromaGlitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxChromaGlitch.h; sourceTree = "<group>"; };
+		3DFC74EB195308D000A6634D /* ofxContrast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxContrast.h; sourceTree = "<group>"; };
+		3DFC74EC195308D000A6634D /* ofxGaussianBlur.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxGaussianBlur.h; sourceTree = "<group>"; };
+		3DFC74ED195308D000A6634D /* ofxGlow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxGlow.h; sourceTree = "<group>"; };
+		3DFC74EE195308D000A6634D /* ofxGrayscale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxGrayscale.h; sourceTree = "<group>"; };
+		3DFC74EF195308D000A6634D /* ofxInverse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxInverse.h; sourceTree = "<group>"; };
+		3DFC74F0195308D000A6634D /* ofxLUT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxLUT.h; sourceTree = "<group>"; };
+		3DFC74F1195308D000A6634D /* ofxMedian.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxMedian.h; sourceTree = "<group>"; };
+		3DFC74F2195308D000A6634D /* ofxOldTv.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxOldTv.h; sourceTree = "<group>"; };
+		3DFC74F4195308D000A6634D /* ofxFBM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxFBM.h; sourceTree = "<group>"; };
+		3DFC74F5195308D000A6634D /* ofxFire.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxFire.h; sourceTree = "<group>"; };
+		3DFC74F6195308D000A6634D /* ofxGrayScott.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxGrayScott.h; sourceTree = "<group>"; };
+		3DFC74F7195308D000A6634D /* ofxNoise.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxNoise.h; sourceTree = "<group>"; };
+		3DFC74F8195308D000A6634D /* ofxTint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxTint.h; sourceTree = "<group>"; };
+		3DFC74F9195308D000A6634D /* ofxFX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxFX.h; sourceTree = "<group>"; };
+		3DFC74FA195308D000A6634D /* ofxFXObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxFXObject.cpp; sourceTree = "<group>"; };
+		3DFC74FB195308D000A6634D /* ofxFXObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxFXObject.h; sourceTree = "<group>"; };
+		3DFC74FC195308D000A6634D /* ofxSwapBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxSwapBuffer.h; sourceTree = "<group>"; };
+		3DFC74FE195308D000A6634D /* ofxAbsDiff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxAbsDiff.h; sourceTree = "<group>"; };
+		3DFC74FF195308D000A6634D /* ofxBounce.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxBounce.h; sourceTree = "<group>"; };
+		3DFC7500195308D000A6634D /* ofxDisplacePixels.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxDisplacePixels.h; sourceTree = "<group>"; };
+		3DFC7501195308D000A6634D /* ofxEdgeDetect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxEdgeDetect.h; sourceTree = "<group>"; };
+		3DFC7502195308D000A6634D /* ofxFlow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxFlow.h; sourceTree = "<group>"; };
+		3DFC7503195308D000A6634D /* ofxNormals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxNormals.h; sourceTree = "<group>"; };
+		3DFC7504195308D000A6634D /* ofxRipples.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxRipples.h; sourceTree = "<group>"; };
+		3DFC7505195308D000A6634D /* ofxSubstract.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxSubstract.h; sourceTree = "<group>"; };
+		3DFC7506195308D000A6634D /* ofxThreshold.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxThreshold.h; sourceTree = "<group>"; };
 		3a9f7a3be9399dcb2bccd4d2a883c1c2 /* RenderAssets.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = RenderAssets.h; path = src/Loaders/RenderAssets.h; sourceTree = SOURCE_ROOT; };
 		3b1e218bb487735b3b3c780d9b5f1836 /* UILight.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = UILight.h; path = ../../../addons/ofxUIProject/src/gl/UILight.h; sourceTree = SOURCE_ROOT; };
 		3b361208cd4107e479f04e7bce6d93aa /* NetworkingUtils.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = NetworkingUtils.cpp; path = ../../../addons/ofxOsc/libs/oscpack/src/ip/posix/NetworkingUtils.cpp; sourceTree = SOURCE_ROOT; };
@@ -1161,6 +1198,90 @@
 			path = ../../../addons/ofxUIProject/extra/UITimeProject;
 			sourceTree = "<group>";
 		};
+		3DFC74DD195308CF00A6634D /* ofxFX */ = {
+			isa = PBXGroup;
+			children = (
+				3DFC74DE195308D000A6634D /* src */,
+			);
+			name = ofxFX;
+			sourceTree = "<group>";
+		};
+		3DFC74DE195308D000A6634D /* src */ = {
+			isa = PBXGroup;
+			children = (
+				3DFC74DF195308D000A6634D /* composers */,
+				3DFC74E4195308D000A6634D /* filters */,
+				3DFC74F3195308D000A6634D /* generative */,
+				3DFC74F9195308D000A6634D /* ofxFX.h */,
+				3DFC74FA195308D000A6634D /* ofxFXObject.cpp */,
+				3DFC74FB195308D000A6634D /* ofxFXObject.h */,
+				3DFC74FC195308D000A6634D /* ofxSwapBuffer.h */,
+				3DFC74FD195308D000A6634D /* operations */,
+			);
+			name = src;
+			path = ../../../addons/ofxFX/src;
+			sourceTree = "<group>";
+		};
+		3DFC74DF195308D000A6634D /* composers */ = {
+			isa = PBXGroup;
+			children = (
+				3DFC74E0195308D000A6634D /* ofxBlend.h */,
+				3DFC74E1195308D000A6634D /* ofxClone.h */,
+				3DFC74E2195308D000A6634D /* ofxMask.h */,
+				3DFC74E3195308D000A6634D /* ofxMultiTexture.h */,
+			);
+			path = composers;
+			sourceTree = "<group>";
+		};
+		3DFC74E4195308D000A6634D /* filters */ = {
+			isa = PBXGroup;
+			children = (
+				3DFC74E5195308D000A6634D /* ofxBarrelChromaAb.h */,
+				3DFC74E6195308D000A6634D /* ofxBloom.h */,
+				3DFC74E7195308D000A6634D /* ofxBlur.h */,
+				3DFC74E8195308D000A6634D /* ofxBokeh.h */,
+				3DFC74E9195308D000A6634D /* ofxChromaAb.h */,
+				3DFC74EA195308D000A6634D /* ofxChromaGlitch.h */,
+				3DFC74EB195308D000A6634D /* ofxContrast.h */,
+				3DFC74EC195308D000A6634D /* ofxGaussianBlur.h */,
+				3DFC74ED195308D000A6634D /* ofxGlow.h */,
+				3DFC74EE195308D000A6634D /* ofxGrayscale.h */,
+				3DFC74EF195308D000A6634D /* ofxInverse.h */,
+				3DFC74F0195308D000A6634D /* ofxLUT.h */,
+				3DFC74F1195308D000A6634D /* ofxMedian.h */,
+				3DFC74F2195308D000A6634D /* ofxOldTv.h */,
+			);
+			path = filters;
+			sourceTree = "<group>";
+		};
+		3DFC74F3195308D000A6634D /* generative */ = {
+			isa = PBXGroup;
+			children = (
+				3DFC74F4195308D000A6634D /* ofxFBM.h */,
+				3DFC74F5195308D000A6634D /* ofxFire.h */,
+				3DFC74F6195308D000A6634D /* ofxGrayScott.h */,
+				3DFC74F7195308D000A6634D /* ofxNoise.h */,
+				3DFC74F8195308D000A6634D /* ofxTint.h */,
+			);
+			path = generative;
+			sourceTree = "<group>";
+		};
+		3DFC74FD195308D000A6634D /* operations */ = {
+			isa = PBXGroup;
+			children = (
+				3DFC74FE195308D000A6634D /* ofxAbsDiff.h */,
+				3DFC74FF195308D000A6634D /* ofxBounce.h */,
+				3DFC7500195308D000A6634D /* ofxDisplacePixels.h */,
+				3DFC7501195308D000A6634D /* ofxEdgeDetect.h */,
+				3DFC7502195308D000A6634D /* ofxFlow.h */,
+				3DFC7503195308D000A6634D /* ofxNormals.h */,
+				3DFC7504195308D000A6634D /* ofxRipples.h */,
+				3DFC7505195308D000A6634D /* ofxSubstract.h */,
+				3DFC7506195308D000A6634D /* ofxThreshold.h */,
+			);
+			path = operations;
+			sourceTree = "<group>";
+		};
 		3c8a947d9c8a0aa13fbe74e89a4c2854 /* ofxTimeline */ = {
 			isa = PBXGroup;
 			children = (
@@ -1762,6 +1883,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				3DFC74DD195308CF00A6634D /* ofxFX */,
 				2c8f245acbe61e28646c17f20b185423 /* ofxAssimpModelLoader */,
 				6025faf6414c2ca589764d26b59a2f04 /* ofxCv */,
 				bbc2b4228932c2aacc6701cf220c981b /* ofxFft */,
@@ -2533,6 +2655,7 @@
 				86135253dc7909ca8590e1574a6d2112 /* Protocol.cpp in Sources */,
 				6d73a566cfec0b462fe6e43c7cf4d23f /* Reactor.cpp in Sources */,
 				f3ad9e2a2e56b6af32a0bdaf2fc8a017 /* Server.cpp in Sources */,
+				3DFC7507195308D000A6634D /* ofxFXObject.cpp in Sources */,
 				9119bfc53670a98106e367bbc1bd167a /* ofxMSATimer.cpp in Sources */,
 				250a95ba26587be85db0a353e6e1dea2 /* ofxCvColorImage.cpp in Sources */,
 				1d5f3298c2fa073628012944b1efde88 /* ofxCvContourFinder.cpp in Sources */,
@@ -3113,6 +3236,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
+				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -3198,6 +3322,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

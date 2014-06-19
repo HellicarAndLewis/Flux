@@ -18,6 +18,9 @@
 //
 #include "UIShader.h"
 
+#include "ofxRipples.h"
+#include "ofxNormals.h"
+
 class RenderRadar : public RenderEngine {
 public:
     
@@ -32,6 +35,8 @@ public:
     void selfSetupRenderGui();
     void guiRenderEvent(ofxUIEventArgs &e);
     
+    void selfBegin();
+    
     void selfSetup();
     void selfUpdate();
 
@@ -40,11 +45,20 @@ public:
     
 protected:
     
+    //  AUDIO
+    //
+    UIShader        audioTerrain;
+    ofxRipples      ripples;
+    ofxNormals      ripplesNormals;
+    
     // TERRAIN TRANSITION
     //
     UIShader        radarShader;
     ofFbo           radarTexture;
 
+    UIShader        terrainNoise;
+    ofFbo           terrainNoiseTex;
+    
     UIShader        terrainTransition;
     PingPong        terrainTransitionTex;
     

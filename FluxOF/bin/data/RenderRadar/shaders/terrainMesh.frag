@@ -5,6 +5,7 @@ uniform sampler2DRect overlayer;
 
 uniform vec3 radarColor;
 uniform float resolution;
+uniform float time;
 
 varying vec4 ambientGlobal, eyeSpaceVertexPos;
 varying vec4 vertexPos;
