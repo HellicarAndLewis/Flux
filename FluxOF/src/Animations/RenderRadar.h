@@ -50,6 +50,7 @@ protected:
     UIShader        audioTerrain;
     ofxRipples      ripples;
     ofxNormals      ripplesNormals;
+    ofFloatColor    ripplesColor;
     
     // TERRAIN TRANSITION
     //

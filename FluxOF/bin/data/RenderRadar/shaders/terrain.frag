@@ -4,6 +4,7 @@ uniform sampler2DRect background;
 uniform sampler2DRect overlayer;
 uniform sampler2DRect ripples;
 
+uniform vec3 ripplesColor;
 uniform vec3 radarColor;
 uniform float resolution;
 
@@ -170,7 +171,7 @@ void main(void){
   
   float r = texture2DRect(ripples,uv).x;
   vec3 bg = texture2DRect(background,uv).rgb;
-  bg = mix(bg,radarColor,r);
+  bg = mix(bg,ripplesColor,r);
 	
   if(mask>0.0){
     //  Sharp zone

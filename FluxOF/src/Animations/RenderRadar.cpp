@@ -89,7 +89,11 @@ void RenderRadar::selfSetupSystemGui(){
     sysGui->addSlider("Text_Alpha", 0.0, 1.0, &textAlpha);
     sysGui->addSlider("Text_Scale", 0.0, 1.0, &textScale);
     
-//    sysGui->addLabel("Ripples");
+    sysGui->addLabel("Ripples");
+    sysGui->addSlider("Ripples_R", 0., 1., &ripplesColor.r);
+    sysGui->addSlider("Ripples_G", 0., 1., &ripplesColor.g);
+    sysGui->addSlider("Ripples_B", 0., 1., &ripplesColor.b);
+    
 //    sysGui->addSlider("Ripples_dump", 0.9, 0.999999, &ripples.damping);
 }
 
@@ -288,6 +292,7 @@ void RenderRadar::selfDraw(){
     terrainShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
     terrainShader.getShader().setUniformTexture("overlayer", terrainTex, 3);
     terrainShader.getShader().setUniformTexture("ripples", ripples, 4);
+    terrainShader.getShader().setUniform3f("ripplesColor", ripplesColor.r,ripplesColor.g,ripplesColor.b);
     terrainShader.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
     terrainShader.getShader().setUniform1f("resolution", assets->terrainResolution());
     assets->terrainMesh.draw();
@@ -298,8 +303,10 @@ void RenderRadar::selfDraw(){
     terrainMeshShader.getShader().setUniformTexture("terrainMask", assets->terrainMask, 1);
     terrainMeshShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
     terrainMeshShader.getShader().setUniformTexture("overlayer", terrainTex, 3);
-    terrainShader.getShader().setUniformTexture("ripples", ripples, 4);
+    terrainMeshShader.getShader().setUniformTexture("ripples", ripples, 4);
+    terrainMeshShader.getShader().setUniform3f("ripplesColor", ripplesColor.r,ripplesColor.g,ripplesColor.b);
     terrainMeshShader.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
+    terrainMeshShader.getShader().setUniform1f("radarPct",radarPct);
     terrainMeshShader.getShader().setUniform1f("resolution", assets->terrainResolution());
     assets->terrainMesh.drawWireframe();
     terrainMeshShader.end();

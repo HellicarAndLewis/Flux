@@ -2,8 +2,8 @@
     <Kind>40</Kind>
     <Name>SystemSettings</Name>
     <IsMinified>0</IsMinified>
-    <XPosition>1299.000000000</XPosition>
-    <YPosition>122.000000000</YPosition>
+    <XPosition>1410.000000000</XPosition>
+    <YPosition>36.000000000</YPosition>
 </Canvas>
 <Widget>
     <Kind>2</Kind>
@@ -19,27 +19,27 @@
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Pct</Name>
-    <Value>0.425442129</Value>
+    <Value>0.928456604</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Color_R</Name>
-    <Value>1.000000000</Value>
+    <Value>0.817073822</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Color_G</Name>
-    <Value>0.686274588</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>Radar_Color_B</Name>
     <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
+    <Name>Radar_Color_B</Name>
+    <Value>1.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
     <Name>Radar_Height</Name>
-    <Value>12.161541939</Value>
+    <Value>21.238290787</Value>
 </Widget>
 <Widget>
     <Kind>11</Kind>
@@ -56,4 +56,19 @@
     <Kind>4</Kind>
     <Name>Text_Scale</Name>
     <Value>0.403940886</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Ripples_R</Name>
+    <Value>1.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Ripples_G</Name>
+    <Value>1.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Ripples_B</Name>
+    <Value>1.000000000</Value>
 </Widget>

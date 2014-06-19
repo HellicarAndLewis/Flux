@@ -4,6 +4,7 @@ uniform sampler2DRect background;
 uniform sampler2DRect overlayer;
 uniform sampler2DRect ripples;
 
+uniform vec3 ripplesColor;
 uniform vec3 radarColor;
 
 uniform float resolution;
@@ -143,7 +144,7 @@ void main(){
 
   float r = texture2DRect(ripples,uv).x;
 	vec3 bg = texture2DRect(background,uv).rgb;
-  bg = mix(bg,radarColor,r);
+  bg = mix(bg,ripplesColor,r);
 
 	vertexPos = gl_Vertex;
 
