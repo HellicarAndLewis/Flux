@@ -140,7 +140,10 @@ void main(){
 	vec2 uv = gl_TexCoord[0].xy*vec2(resolution);
 
 	float radar = texture2DRect(radarMsk,uv).r;
-	vec3 bg = texture2DRect(background,uv).rgb;
+
+  float r = texture2DRect(ripples,uv).x;
+  vec3 bg = texture2DRect(background,uv).rgb;
+  bg = mix(bg,radarColor,r);
 
 	vertexPos = gl_Vertex;
 

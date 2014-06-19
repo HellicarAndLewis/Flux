@@ -195,3 +195,8 @@
     <Name>tranWidth</Name>
     <Value>0.187192112</Value>
 </Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>bLights</Name>
+    <Value>0.113300495</Value>
+</Widget>
