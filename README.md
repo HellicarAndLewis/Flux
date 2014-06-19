@@ -30,6 +30,7 @@ git clone https://github.com/patriciogonzalezvivo/ofxUIProject.git; cd ofxUIProj
 git clone https://github.com/patriciogonzalezvivo/ofxFX.git
 git clone https://github.com/labatrockwell/ofxLibwebsockets.git
 git clone https://github.com/kylemcdonald/ofxFft.git
+git clone https://github.com/charlesveasey/ofxMultiGLFWWindow.git
 
 Usage
 ===

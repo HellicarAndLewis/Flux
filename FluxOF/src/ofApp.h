@@ -4,6 +4,8 @@
 
 //  Addons
 //
+#include "ofxMultiGLFWWindow.h"
+
 
 //  Loaders
 //

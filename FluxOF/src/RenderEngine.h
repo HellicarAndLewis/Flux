@@ -21,6 +21,9 @@
 #include "PingPong.h"
 #include "UIShader.h"
 
+#include "ofxMultiGLFWWindow.h"
+#include "ofxColorPalette.h"
+
 
 class RenderEngine : public UITime3DProject {
 public:
@@ -35,7 +38,14 @@ public:
     
     virtual void selfSceneTransformation();
     
+    virtual void selfSetup();
+    virtual void selfUpdate();
+    
     void drawMask(int viewPort);
+    
+    void draw(ofEventArgs & args);
+    void selfPostDraw();
+    ofFbo& getRenderTarget(int viewNumber);
     
     UIBufferIn          audioIn;
     
@@ -53,6 +63,8 @@ public:
     float               textScale;
     
     bool                simulatorMode;
-    
+
+    ofxMultiGLFWWindow *glfw;
+
     
 };

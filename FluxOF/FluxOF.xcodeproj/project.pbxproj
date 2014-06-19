@@ -128,6 +128,8 @@
 		9ef1133bc23669a5c94fe30f676125b8 /* jsoncpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69668fde141262bc3c6ca9290e61cfa8 /* jsoncpp.cpp */; };
 		9f5c6dd965b4f3a6db5b88f87eccedae /* ofxUI2DGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02ff3b8d243cfb85ae0909eb3b41abb8 /* ofxUI2DGraph.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
+		BF70BF7D1953228800009CF7 /* ofxMultiGLFWWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF70BF7B1953228800009CF7 /* ofxMultiGLFWWindow.cpp */; };
+		BF70BF8619535AC700009CF7 /* ofxColorPalette.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF70BF8519535AC700009CF7 /* ofxColorPalette.cpp */; };
 		BF8315E919521BC70044CFED /* AudioTrigger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF8315E719521BC70044CFED /* AudioTrigger.cpp */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -649,6 +651,10 @@
 		9fc0806c0db02eab5c9dbaf290c90fcd /* UIBufferIn.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = UIBufferIn.h; path = src/Audio/UIBufferIn.h; sourceTree = SOURCE_ROOT; };
 		9ff9126184dfbde8a912373ebe9d2f9d /* highgui.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = highgui.h; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv/highgui.h; sourceTree = SOURCE_ROOT; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
+		BF70BF7B1953228800009CF7 /* ofxMultiGLFWWindow.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = ofxMultiGLFWWindow.cpp; sourceTree = "<group>"; };
+		BF70BF7C1953228800009CF7 /* ofxMultiGLFWWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxMultiGLFWWindow.h; sourceTree = "<group>"; };
+		BF70BF8419535ABC00009CF7 /* ofxColorPalette.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxColorPalette.h; sourceTree = "<group>"; };
+		BF70BF8519535AC700009CF7 /* ofxColorPalette.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxColorPalette.cpp; sourceTree = "<group>"; };
 		BF8315E719521BC70044CFED /* AudioTrigger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioTrigger.cpp; sourceTree = "<group>"; };
 		BF8315E819521BC70044CFED /* AudioTrigger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioTrigger.h; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
@@ -1883,6 +1889,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				BF70BF791953228800009CF7 /* ofxMultiGLFWWindow */,
 				3DFC74DD195308CF00A6634D /* ofxFX */,
 				2c8f245acbe61e28646c17f20b185423 /* ofxAssimpModelLoader */,
 				6025faf6414c2ca589764d26b59a2f04 /* ofxCv */,
@@ -1932,6 +1939,24 @@
 			name = "3rd party frameworks";
 			sourceTree = "<group>";
 		};
+		BF70BF791953228800009CF7 /* ofxMultiGLFWWindow */ = {
+			isa = PBXGroup;
+			children = (
+				BF70BF7A1953228800009CF7 /* src */,
+			);
+			name = ofxMultiGLFWWindow;
+			sourceTree = "<group>";
+		};
+		BF70BF7A1953228800009CF7 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				BF70BF7B1953228800009CF7 /* ofxMultiGLFWWindow.cpp */,
+				BF70BF7C1953228800009CF7 /* ofxMultiGLFWWindow.h */,
+			);
+			name = src;
+			path = ../../../addons/ofxMultiGLFWWindow/src;
+			sourceTree = "<group>";
+		};
 		E4328144138ABC890047C5CB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1974,6 +1999,8 @@
 				84f6287fa54b66c746947875f6690182 /* ofApp.h */,
 				cb5c010df012b9aae70dc20cf7e974ac /* RenderEngine.cpp */,
 				a84a511203e1d158d8ccff51d36afc04 /* RenderEngine.h */,
+				BF70BF8419535ABC00009CF7 /* ofxColorPalette.h */,
+				BF70BF8519535AC700009CF7 /* ofxColorPalette.cpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -2716,6 +2743,7 @@
 				de69bd6cb5972050a485ec9cb65cb655 /* ofOpenALSoundPlayer_TimelineAdditions.cpp in Sources */,
 				168c43f69af6a8042ea0b13f08dfe5ff /* easing_terms_of_use.html in Sources */,
 				9266028e1aecbb027abf64d8cfab4b5f /* ofxEasing.cpp in Sources */,
+				BF70BF8619535AC700009CF7 /* ofxColorPalette.cpp in Sources */,
 				5e0dbde5736deb3a5886b3f1e3b4578d /* ofxEasingBack.cpp in Sources */,
 				ead3ce0789481f975f351f39ee5137c4 /* ofxEasingBounce.cpp in Sources */,
 				27765d1bff26bd9a6186915f24dfd27c /* ofxEasingCirc.cpp in Sources */,
@@ -2769,6 +2797,7 @@
 				f8d05f7c7f785ce323983b47e137110b /* ofxUITextInput.cpp in Sources */,
 				04c82720b149ce576b8cbb06ac6d40d2 /* ofxUIToggle.cpp in Sources */,
 				e3a1109f67d711d6c256031e9b907021 /* ofxUIToggleMatrix.cpp in Sources */,
+				BF70BF7D1953228800009CF7 /* ofxMultiGLFWWindow.cpp in Sources */,
 				60012c723b05938a3d38833536981664 /* ofxUIValuePlotter.cpp in Sources */,
 				ae281bebf3a00f1fc37f3da0ac10fa4d /* ofxUIWaveform.cpp in Sources */,
 				82845e1f8c90e1f5a99d98683a1ff0c2 /* ofxUIWidget.cpp in Sources */,
