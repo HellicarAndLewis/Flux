@@ -24,7 +24,6 @@
 #include "ofxMultiGLFWWindow.h"
 #include "ofxColorPalette.h"
 
-
 class RenderEngine : public UITime3DProject {
 public:
     
@@ -65,6 +64,4 @@ public:
     bool                simulatorMode;
 
     ofxMultiGLFWWindow *glfw;
-
-    
 };
