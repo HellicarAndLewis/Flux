@@ -2,9 +2,11 @@ uniform sampler2DRect radarMsk;
 uniform sampler2DRect terrainMask;
 uniform sampler2DRect background;
 uniform sampler2DRect overlayer;
+uniform sampler2DRect ripples;
 
 uniform vec3 radarColor;
 uniform float resolution;
+uniform float time;
 
 varying vec4 ambientGlobal, eyeSpaceVertexPos;
 varying vec4 vertexPos;
@@ -163,7 +165,11 @@ void main(void){
   vec3 n = normalize(vertexNormal);
 
   float mask = texture2DRect(terrainMask,uv).r;
+
+  float r = texture2DRect(ripples,uv).x;
   vec3 bg = texture2DRect(background,uv).rgb;
+  bg = mix(bg,radarColor,r);
+
 	vec3 color = vec3(1.0);
 
   if(mask>0.0){

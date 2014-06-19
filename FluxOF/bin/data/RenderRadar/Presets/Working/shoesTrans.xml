@@ -3,7 +3,7 @@
     <Name>shoesTrans</Name>
     <IsMinified>1</IsMinified>
     <XPosition>1.000000000</XPosition>
-    <YPosition>526.000000000</YPosition>
+    <YPosition>576.000000000</YPosition>
 </Canvas>
 <Widget>
     <Kind>2</Kind>
@@ -194,4 +194,9 @@
     <Kind>4</Kind>
     <Name>tranWidth</Name>
     <Value>0.187192112</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>bLights</Name>
+    <Value>0.113300495</Value>
 </Widget>

@@ -3,7 +3,7 @@
     <Name>noise</Name>
     <IsMinified>1</IsMinified>
     <XPosition>1.000000000</XPosition>
-    <YPosition>426.000000000</YPosition>
+    <YPosition>476.000000000</YPosition>
 </Canvas>
 <Widget>
     <Kind>2</Kind>
@@ -13,15 +13,15 @@
 <Widget>
     <Kind>4</Kind>
     <Name>zoom</Name>
-    <Value>0.487469763</Value>
+    <Value>0.620689631</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>speed</Name>
-    <Value>1.000000000</Value>
+    <Value>0.024630541</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>pct</Name>
-    <Value>0.615763545</Value>
+    <Value>0.743842363</Value>
 </Widget>

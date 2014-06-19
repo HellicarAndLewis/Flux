@@ -1,9 +1,9 @@
 <Canvas>
     <Kind>40</Kind>
     <Name>SystemSettings</Name>
-    <IsMinified>1</IsMinified>
-    <XPosition>1.000000000</XPosition>
-    <YPosition>176.000000000</YPosition>
+    <IsMinified>0</IsMinified>
+    <XPosition>1299.000000000</XPosition>
+    <YPosition>122.000000000</YPosition>
 </Canvas>
 <Widget>
     <Kind>2</Kind>
@@ -19,17 +19,17 @@
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Pct</Name>
-    <Value>0.757234752</Value>
+    <Value>0.425442129</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Color_R</Name>
-    <Value>0.222221851</Value>
+    <Value>1.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Color_G</Name>
-    <Value>1.000000000</Value>
+    <Value>0.686274588</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -39,13 +39,13 @@
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Height</Name>
-    <Value>18.148641586</Value>
+    <Value>12.161541939</Value>
 </Widget>
 <Widget>
     <Kind>11</Kind>
     <Name>Text_offset</Name>
-    <XValue>923.113281250</XValue>
-    <YValue>913.024658203</YValue>
+    <XValue>913.024658203</XValue>
+    <YValue>1013.911315918</YValue>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -55,5 +55,5 @@
 <Widget>
     <Kind>4</Kind>
     <Name>Text_Scale</Name>
-    <Value>0.463054180</Value>
+    <Value>0.403940886</Value>
 </Widget>

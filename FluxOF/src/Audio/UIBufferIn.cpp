@@ -23,6 +23,10 @@ UIBufferIn::UIBufferIn(){
     }
     
     pixels.allocate(fft->getBinSize(),1,3);
+    
+    for (int i = 0; i < fft->getBinSize(); i++){
+        pixels.setColor(i, 0, ofFloatColor(0.0));
+    }
     texture.allocate(fft->getBinSize(),1, GL_RGB16F);
 }
 
@@ -102,12 +106,11 @@ void UIBufferIn::audioReceived(float * input, int bufferSize, int nChannels ){
 
 void UIBufferIn::draw(ofEventArgs & args){
     for (int i = 0; i < fft->getBinSize(); i++){
-        ofFloatColor color;
+        ofFloatColor color = ofFloatColor(middleBins[i]);
         
-        
-        color.setBrightness(1.0);
-        color.setSaturation(1.0);
-        color.setHue(fft->getAmplitude()[i]);//middleBins[i]);
+//        color.setBrightness(1.0);
+//        color.setSaturation(1.0);
+//        color.setHue(middleBins[i]);
         
         pixels.setColor(i, 0, color);
     }
