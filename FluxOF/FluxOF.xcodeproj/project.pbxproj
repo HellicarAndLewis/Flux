@@ -2083,8 +2083,8 @@
 				70985b38aec9acbbbc012cfe8769f873 /* Loaders */,
 				19c22cd05d10f78b32ff80c6be3a9385 /* ofApp.cpp */,
 				84f6287fa54b66c746947875f6690182 /* ofApp.h */,
-				cb5c010df012b9aae70dc20cf7e974ac /* RenderEngine.cpp */,
 				a84a511203e1d158d8ccff51d36afc04 /* RenderEngine.h */,
+				cb5c010df012b9aae70dc20cf7e974ac /* RenderEngine.cpp */,
 				BF70BF8419535ABC00009CF7 /* ofxColorPalette.h */,
 				BF70BF8519535AC700009CF7 /* ofxColorPalette.cpp */,
 			);

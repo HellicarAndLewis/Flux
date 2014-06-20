@@ -18,8 +18,7 @@ void RenderEngine::selfSetup(){
 }
 
 void RenderEngine::selfSetupRenderGui(){
-    rdrGui->addToggle("TERRAIN 1 SYPHON", &terrain1maskSyphon);
-    
+    rdrGui->addToggle("TERRAIN 1 SYPHON", &terrainMaskSyphon);
 }
 
 
@@ -90,17 +89,13 @@ void RenderEngine::startTransitionTo(QueueItem queueItem){
 // This will draw a mask image on the terrain that is multiplied to the background.
 //
 void RenderEngine::drawMask(int view){
-    // if(!simulatorMode){
     ofSetColor(255);
-    //ofEnableBlendMode(OF_BLENDMODE_MULTIPLY);
-    
-    ofTexture tex;
-    
-    
-    
     int s = 1024;
 
-    if(terrain1maskSyphon ){
+    if(terrainMaskSyphon ){
+        
+        //Draw the map with syphon input
+        //
         if(view == 1){
             ofClear(255);
               glEnable(GL_BLEND);
@@ -117,24 +112,21 @@ void RenderEngine::drawMask(int view){
             syphon.unbind();
             
         } else {
-            syphon.draw(0, 0, 1024, 1024);
+            syphon.draw(0, 0, s, s);
         }
     }
     else if(view > 0){
-        ofTexture * _tex = NULL;
 
+        //Draw the mask with the loaded texture
+        //
+        ofTexture * _tex;
         if(view == 1){
             _tex = &assets->terrainMask1;
         } else {
             _tex = &assets->terrainMask2;
         }
-        
-        
-        
-        if(_tex){
-            _tex->bind();
-            s = _tex->getWidth();
-        }
+        _tex->bind();
+        s = _tex->getWidth();
         
         glBegin(GL_QUADS);{
             glTexCoord2d(0, 0); glVertex2d(0, 0);
@@ -142,15 +134,15 @@ void RenderEngine::drawMask(int view){
             glTexCoord2d(s, s); glVertex2d(s, s);
             glTexCoord2d(0, s); glVertex2d(0, s);
         }glEnd();
+        _tex->unbind();
         
-        if(_tex){
-            _tex->unbind();
-        }
     } else {
+        // No mask (simulator)
+        //
         ofClear(255);
     }
+
     ofEnableAlphaBlending();
-    // }
 }
 
 //
@@ -334,14 +326,14 @@ void RenderEngine::selfPostDraw(){
     
     if(i == 0){
         getRenderTarget(i).draw(0
-                                             , 0
-                                             , getRenderTarget(i).getWidth()
-                                             , getRenderTarget(i).getHeight());
+                                , 0
+                                , getRenderTarget(i).getWidth()
+                                , getRenderTarget(i).getHeight());
     } else {
         getRenderTarget(i).draw(0
-                                             , getRenderTarget(i).getHeight()
-                                             , getRenderTarget(i).getWidth()
-                                             , -getRenderTarget(i).getHeight());
+                                , getRenderTarget(i).getHeight()
+                                , getRenderTarget(i).getWidth()
+                                , -getRenderTarget(i).getHeight());
     }
 }
 

@@ -65,9 +65,9 @@ public:
     
     bool                simulatorMode;
     
-    bool                terrain1maskSyphon;
+    bool                terrainMaskSyphon;
 
-    ofxMultiGLFWWindow *glfw;
+    ofxMultiGLFWWindow  *glfw;
     
     ofxSyphonClient     syphon;
 };
