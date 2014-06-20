@@ -80,29 +80,33 @@ void RenderEngine::startTransitionTo(QueueItem queueItem){
 // This will draw a mask image on the terrain that is multiplied to the background.
 //
 void RenderEngine::drawMask(int viewPort){
-   // if(!simulatorMode){
-        ofSetColor(255);
-        //ofEnableBlendMode(OF_BLENDMODE_MULTIPLY);
-        
-        ofTexture tex;
-        
-        if(viewPort == 0){
-            tex = assets->terrainMask1;
-        } else {
-            tex = assets->terrainMask2;
-        }
-        
-        int s = tex.getWidth();
+    // if(!simulatorMode){
+    ofSetColor(255);
+    //ofEnableBlendMode(OF_BLENDMODE_MULTIPLY);
+    
+    ofTexture tex;
+    
+    if(viewPort == 0){
+        tex = assets->terrainMask1;
+    } else {
+        tex = assets->terrainMask2;
+    }
+    
+    int s = tex.getWidth();
+    if(numViewports > 1){
         tex.bind();
-        glBegin(GL_QUADS);{
-            glTexCoord2d(0, 0); glVertex2d(0, 0);
-            glTexCoord2d(s, 0); glVertex2d(s, 0);
-            glTexCoord2d(s, s); glVertex2d(s, s);
-            glTexCoord2d(0, s); glVertex2d(0, s);
-        }glEnd();
+    }
+    glBegin(GL_QUADS);{
+        glTexCoord2d(0, 0); glVertex2d(0, 0);
+        glTexCoord2d(s, 0); glVertex2d(s, 0);
+        glTexCoord2d(s, s); glVertex2d(s, s);
+        glTexCoord2d(0, s); glVertex2d(0, s);
+    }glEnd();
+    if(numViewports > 1){
         tex.unbind();
-        ofEnableAlphaBlending();
-   // }
+    }
+    ofEnableAlphaBlending();
+    // }
 }
 
 //
@@ -111,12 +115,12 @@ void RenderEngine::drawMask(int viewPort){
 void RenderEngine::draw(ofEventArgs & args){
     glfw = (ofxMultiGLFWWindow*)ofGetWindowPtr();
     int viewNum = glfw->getWindowIndex();
-
+    
     if(bRenderSystem){
         {
             currentViewPort = viewNum;
             ofPushStyle();
-
+            
             getRenderTarget(viewNum).begin();
             //  Background
             //
