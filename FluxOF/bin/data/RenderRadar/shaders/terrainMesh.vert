@@ -1,16 +1,16 @@
-uniform sampler2DRect radarMask;
-uniform sampler2DRect terrainAreas;
-uniform sampler2DRect background;
-uniform sampler2DRect overlayer;
-uniform sampler2DRect ripples;
 uniform sampler2DRect terrainMask;
+uniform sampler2DRect terrainAreas;
+uniform float resolution;
 
+uniform sampler2DRect ripples;
 uniform vec3 ripplesColor;
-uniform vec3 radarColor;
 
+uniform sampler2DRect radarMask;
+uniform vec3 radarColor;
 uniform float radarPct;
 
-uniform float resolution;
+uniform sampler2DRect background;
+uniform sampler2DRect overlayer;
 
 varying vec4 ambientGlobal, eyeSpaceVertexPos;
 varying vec4 vertexPos;
@@ -140,22 +140,16 @@ vec4 calc_lighting_color(in vec3 normal) {
 
 void main(){
 	gl_TexCoord[0] = gl_MultiTexCoord0;
-
 	vec2 uv = gl_TexCoord[0].xy*vec2(resolution);
-
-	float radar = texture2DRect(radarMask,uv).r;
 
   float r = texture2DRect(ripples,uv).x;
   vec3 bg = texture2DRect(background,uv).rgb;
   bg = mix(bg,ripplesColor,r);
 
 	vertexPos = gl_Vertex;
-
 	vertexNormal = normalize(gl_NormalMatrix * gl_Normal);
-
 	eyeSpaceVertexPos = gl_ModelViewMatrix * vertexPos;
-
-	ambientGlobal = gl_LightModel.ambient * gl_FrontMaterial.ambient + gl_FrontMaterial.emission;
+	// ambientGlobal = gl_LightModel.ambient * gl_FrontMaterial.ambient + gl_FrontMaterial.emission;
 
 	float area = texture2DRect(terrainAreas,uv).r;
 	if(area>0.0){
@@ -164,9 +158,10 @@ void main(){
 
 	gl_Position = ftransform();
 
-  vec4 mask = texture2DRect(terrainMask,uv);
-
-	gl_FrontColor.rgb = mix(bg,radarColor,radar);
+  float radar = texture2DRect(radarMask,uv).r;
+	gl_FrontColor.rgb = mix(bg,mix(bg,radarColor,radar),radarPct);
 	gl_FrontColor.a = 1.0;
-  gl_FrontColor *= mask.r;
+
+  // vec4 mask = texture2DRect(terrainMask,uv);
+  // gl_FrontColor *= mask.r;
 }

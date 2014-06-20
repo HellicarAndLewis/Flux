@@ -11,6 +11,11 @@
     <Value>1</Value>
 </Widget>
 <Widget>
+    <Kind>2</Kind>
+    <Name>Test Pattern</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
     <Kind>11</Kind>
     <Name>Radar_Center</Name>
     <XValue>464.078826904</XValue>
@@ -19,7 +24,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Pct</Name>
-    <Value>0.014979795</Value>
+    <Value>0.535223603</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -29,7 +34,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Color_G</Name>
-    <Value>0.652777791</Value>
+    <Value>0.650000036</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -39,7 +44,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Height</Name>
-    <Value>5.209832668</Value>
+    <Value>4.484563828</Value>
 </Widget>
 <Widget>
     <Kind>11</Kind>

@@ -337,33 +337,42 @@ void RenderRadar::selfDraw(){
         ofPushMatrix();
         ofSetSmoothLighting(false);
         
-        terrainShader.begin();
-        terrainShader.getShader().setUniformTexture("radarMask", radarTexture, 0);
-        terrainShader.getShader().setUniformTexture("terrainArea", assets->terrainMask, 1);
-        terrainShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
-        terrainShader.getShader().setUniformTexture("overlayer", terrainTex, 3);
-        terrainShader.getShader().setUniformTexture("ripples", ripples, 4);
-        terrainShader.getShader().setUniformTexture("terrainMask", terrainMask[currentViewPort].getTextureReference(), 5);
-        terrainShader.getShader().setUniform3f("ripplesColor", ripplesColor.r,ripplesColor.g,ripplesColor.b);
-        terrainShader.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
-        terrainShader.getShader().setUniform1f("resolution", assets->terrainResolution());
+        if(terrainShader.bEnable){
+            terrainShader.begin();
+            terrainShader.getShader().setUniformTexture("terrainAreas", assets->terrainMask, 0);
+            terrainShader.getShader().setUniformTexture("terrainMask", terrainMask[currentViewPort].getTextureReference(), 1);
+            terrainShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
+            terrainShader.getShader().setUniformTexture("overlayer", terrainTex, 3);
+            terrainShader.getShader().setUniformTexture("ripples", ripples, 4);
+            terrainShader.getShader().setUniformTexture("radarMask", radarTexture, 5);
+            
+            terrainShader.getShader().setUniform3f("ripplesColor", ripplesColor.r,ripplesColor.g,ripplesColor.b);
+            terrainShader.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
+            
+            terrainShader.getShader().setUniform1f("resolution", assets->terrainResolution());
+            
+            assets->terrainMesh.draw();
+            terrainShader.end();
+        }
         
-        assets->terrainMesh.draw();
-        terrainShader.end();
-        
-        terrainMeshShader.begin();
-        terrainMeshShader.getShader().setUniformTexture("radarMask", radarTexture, 0);
-        terrainMeshShader.getShader().setUniformTexture("terrainArea", assets->terrainMask, 1);
-        terrainMeshShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
-        terrainMeshShader.getShader().setUniformTexture("overlayer", terrainTex, 3);
-        terrainMeshShader.getShader().setUniformTexture("ripples", ripples, 4);
-        terrainMeshShader.getShader().setUniformTexture("terrainMask", terrainMask[currentViewPort].getTextureReference(), 5);
-        terrainMeshShader.getShader().setUniform3f("ripplesColor", ripplesColor.r,ripplesColor.g,ripplesColor.b);
-        terrainMeshShader.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
-        terrainMeshShader.getShader().setUniform1f("radarPct",radarPct);
-        terrainMeshShader.getShader().setUniform1f("resolution", assets->terrainResolution());
-        assets->terrainMesh.drawWireframe();
-        terrainMeshShader.end();
+        if(terrainMeshShader.bEnable){
+            terrainMeshShader.begin();
+            
+            terrainMeshShader.getShader().setUniformTexture("terrainAreas", assets->terrainMask, 0);
+            terrainMeshShader.getShader().setUniformTexture("terrainMask", terrainMask[currentViewPort].getTextureReference(), 1);
+            terrainMeshShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
+            terrainMeshShader.getShader().setUniformTexture("overlayer", terrainTex, 3);
+            terrainMeshShader.getShader().setUniformTexture("ripples", ripples, 4);
+            terrainMeshShader.getShader().setUniformTexture("radarMask", radarTexture, 5);
+            
+            terrainMeshShader.getShader().setUniform3f("ripplesColor", ripplesColor.r,ripplesColor.g,ripplesColor.b);
+            terrainMeshShader.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
+            
+            terrainMeshShader.getShader().setUniform1f("resolution", assets->terrainResolution());
+            
+            assets->terrainMesh.drawWireframe();
+            terrainMeshShader.end();
+        }
         
         ofPopMatrix();
         
