@@ -80,9 +80,9 @@ void RenderEngine::startTransitionTo(QueueItem queueItem){
 // This will draw a mask image on the terrain that is multiplied to the background.
 //
 void RenderEngine::drawMask(int viewPort){
-    if(!simulatorMode){
+   // if(!simulatorMode){
         ofSetColor(255);
-        ofEnableBlendMode(OF_BLENDMODE_MULTIPLY);
+        //ofEnableBlendMode(OF_BLENDMODE_MULTIPLY);
         
         ofTexture tex;
         
@@ -102,7 +102,7 @@ void RenderEngine::drawMask(int viewPort){
         }glEnd();
         tex.unbind();
         ofEnableAlphaBlending();
-    }
+   // }
 }
 
 //

@@ -68,6 +68,8 @@ protected:
     
     UIShader        terrainMeshShader;
     
+    ofFbo           terrainMask[2];
+    
     //  SHOES   TRANSITION
     //
     UIShader        shoeTransition;

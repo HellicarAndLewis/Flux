@@ -47,6 +47,11 @@ void RenderRadar::selfSetup(){
     ofClear(0, 0);
     terrainTex.end();
     
+
+    for(int i=0;i<2;i++){
+        terrainMask[i].allocate(assets->terrainResolution(),assets->terrainResolution());
+    }
+
     //  Non-Arb
     ofDisableArbTex();
     shoeTex.allocate(100, 100);
@@ -237,43 +242,60 @@ void RenderRadar::selfUpdate(){
     
     //  OverLayer with information
     {
-        terrainTex.begin();
-        ofClear(0,0);
         
-        // radar line
-        ofPushStyle();
-        ofPushMatrix();
-        ofSetColor(radarColor);
-        ofTranslate(radarCenter);
-        float radius = assets->terrainResolution();
-        float angle = TWO_PI*radarPct;
-        ofLine(0,0,radius*cos(angle),radius*sin(angle));
-        ofPopMatrix();
-        ofPopStyle();
-        
-        // username text
-        //
-        ofPoint textCenter = assets->font.getStringBoundingBox(text,0,0).getCenter();
-        ofPushStyle();
-        ofClear(0,0);
-        ofSetColor(255, textAlpha*255.0);
-        ofPushMatrix();
-        ofTranslate(textOffset);
-        ofRotate(-90);
-        ofScale(textScale, textScale);
-//        assets->font.drawString(text, -textCenter.x, -textCenter.y );
-        assets->font.drawString(text, 0.0, -textCenter.y );
-        ofPopMatrix();
-        ofPopStyle();
-        
-        terrainTex.end();
+            terrainTex.begin();{
+                ofClear(0,0);
+                
+                // radar line
+                ofPushStyle();
+                ofPushMatrix();
+                ofSetColor(radarColor);
+                ofTranslate(radarCenter);
+                float radius = assets->terrainResolution();
+                float angle = TWO_PI*radarPct;
+                ofLine(0,0,radius*cos(angle),radius*sin(angle));
+                ofPopMatrix();
+                ofPopStyle();
+                
+                // username text
+                //
+                ofPoint textCenter = assets->font.getStringBoundingBox(text,0,0).getCenter();
+                ofPushStyle();
+                ofClear(0,0);
+                ofSetColor(255, textAlpha*255.0);
+                ofPushMatrix();
+                ofTranslate(textOffset);
+                ofRotate(-90);
+                ofScale(textScale, textScale);
+                //        assets->font.drawString(text, -textCenter.x, -textCenter.y );
+                assets->font.drawString(text, 0.0, -textCenter.y );
+                ofPopMatrix();
+                
+                ofPopStyle();
+
+                
+                
+                
+            }terrainTex.end();
+    }
+    
+    // Mask
+    //
+    for(int i=0;i<2;i++){
+        terrainMask[i].begin();{
+            // Draw the mask
+            //
+            drawMask(i);
+            
+        } terrainMask[i].end();
     }
 }
 
 void RenderRadar::selfDraw(){
-    
+   
+    int view = 0;
     if(currentViewPort > 0){
-        int view = currentViewPort - 1;
+        view = currentViewPort - 1;
         calibration->ground[view].begin();
     }
     
@@ -294,9 +316,11 @@ void RenderRadar::selfDraw(){
     terrainShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
     terrainShader.getShader().setUniformTexture("overlayer", terrainTex, 3);
     terrainShader.getShader().setUniformTexture("ripples", ripples, 4);
+    terrainShader.getShader().setUniformTexture("mask", terrainMask[view].getTextureReference(), 5);
     terrainShader.getShader().setUniform3f("ripplesColor", ripplesColor.r,ripplesColor.g,ripplesColor.b);
     terrainShader.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
     terrainShader.getShader().setUniform1f("resolution", assets->terrainResolution());
+    
     assets->terrainMesh.draw();
     terrainShader.end();
     
@@ -306,6 +330,7 @@ void RenderRadar::selfDraw(){
     terrainMeshShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
     terrainMeshShader.getShader().setUniformTexture("overlayer", terrainTex, 3);
     terrainMeshShader.getShader().setUniformTexture("ripples", ripples, 4);
+    terrainMeshShader.getShader().setUniformTexture("mask", terrainMask[view].getTextureReference(), 5);
     terrainMeshShader.getShader().setUniform3f("ripplesColor", ripplesColor.r,ripplesColor.g,ripplesColor.b);
     terrainMeshShader.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
     terrainMeshShader.getShader().setUniform1f("radarPct",radarPct);
@@ -406,6 +431,9 @@ void RenderRadar::selfDrawOverlay(){
             ofSetColor(dstPalette[i]);
             ofCircle(margin, i*(paletteSize*2.0+5)+paletteSize*0.5+5, paletteSize);
         }
+        
+        ofSetColor(255);
+        terrainMask[0].draw(0,0);
         
         ofPopStyle();
         ofPopMatrix();

@@ -84,8 +84,8 @@ void RenderAssets::load(){
     ofLoadImage(terrainDepthMap, "models/terrainDepthMap.png");
     ofLoadImage(terrainNormalMap, "models/terrainNormalMap.png");
     ofLoadImage(terrainMask,"models/terrainMask.png");
-    ofLoadImage(terrainMask1, "models/terrainMask1.png");
-    ofLoadImage(terrainMask2, "models/terrainMask2.png");
+    ofLoadImage(terrainMask1, "textures/terrainMask1.png");
+    ofLoadImage(terrainMask2, "textures/terrainMask2.png");
     ofLoadImage(shoeUVWireframe, "textures/shoe_uv_wireframe.png");
     
     
