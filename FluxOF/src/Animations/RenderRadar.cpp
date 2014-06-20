@@ -12,7 +12,7 @@ void RenderRadar::selfSetup(){
     ofSetVerticalSync(true);
     ofEnableAlphaBlending();
     ofEnableSmoothing();
-
+    
     //  AUDIO
     //
     audioIn.start();
@@ -47,11 +47,11 @@ void RenderRadar::selfSetup(){
     ofClear(0, 0);
     terrainTex.end();
     
-
+    
     for(int i=0;i<3;i++){
         terrainMask[i].allocate(assets->terrainResolution(),assets->terrainResolution());
     }
-
+    
     //  Non-Arb
     ofDisableArbTex();
     shoeTex.allocate(100, 100);
@@ -102,7 +102,7 @@ void RenderRadar::selfSetupSystemGui(){
     sysGui->addSlider("Ripples_G", 0., 1., &ripplesColor.g);
     sysGui->addSlider("Ripples_B", 0., 1., &ripplesColor.b);
     
-//    sysGui->addSlider("Ripples_dump", 0.9, 0.999999, &ripples.damping);
+    //    sysGui->addSlider("Ripples_dump", 0.9, 0.999999, &ripples.damping);
 }
 
 void RenderRadar::guiSystemEvent(ofxUIEventArgs &e){
@@ -111,12 +111,12 @@ void RenderRadar::guiSystemEvent(ofxUIEventArgs &e){
 }
 
 void RenderRadar::selfSetupRenderGui(){
-
+    
     rdrGui->addLabel("Render mode");
     rdrGui->addToggle("Simulator", &simulatorMode);
-
+    
     RenderEngine::selfSetupRenderGui();
-
+    
 }
 
 void RenderRadar::guiRenderEvent(ofxUIEventArgs &e){
@@ -139,11 +139,11 @@ void RenderRadar::selfBegin(){
 
 void RenderRadar::selfUpdate(){
     RenderEngine::selfUpdate();
-
+    
     //  AUDIO REACTION
     //  -----------------------------------------
     {
-
+        
         
         ripples.begin();
         audioTerrain.begin();
@@ -161,7 +161,7 @@ void RenderRadar::selfUpdate(){
         ripples.end();
         
         ripples.update();
-//        ripplesNormals << ripples;
+        //        ripplesNormals << ripples;
     }
     
     
@@ -248,40 +248,40 @@ void RenderRadar::selfUpdate(){
     //  OverLayer with information
     {
         
-            terrainTex.begin();{
-                ofClear(0,0);
-                
-                // radar line
-                ofPushStyle();
-                ofPushMatrix();
-                ofSetColor(radarColor);
-                ofTranslate(radarCenter);
-                float radius = assets->terrainResolution();
-                float angle = TWO_PI*radarPct;
-                ofLine(0,0,radius*cos(angle),radius*sin(angle));
-                ofPopMatrix();
-                ofPopStyle();
-                
-                // username text
-                //
-                ofPoint textCenter = assets->font.getStringBoundingBox(text,0,0).getCenter();
-                ofPushStyle();
-                ofClear(0,0);
-                ofSetColor(255, textAlpha*255.0);
-                ofPushMatrix();
-                ofTranslate(textOffset);
-                ofRotate(-90);
-                ofScale(textScale, textScale);
-                //        assets->font.drawString(text, -textCenter.x, -textCenter.y );
-                assets->font.drawString(text, 0.0, -textCenter.y );
-                ofPopMatrix();
-                
-                ofPopStyle();
-
-                
-                
-                
-            }terrainTex.end();
+        terrainTex.begin();{
+            ofClear(0,0);
+            
+            // radar line
+            ofPushStyle();
+            ofPushMatrix();
+            ofSetColor(radarColor);
+            ofTranslate(radarCenter);
+            float radius = assets->terrainResolution();
+            float angle = TWO_PI*radarPct;
+            ofLine(0,0,radius*cos(angle),radius*sin(angle));
+            ofPopMatrix();
+            ofPopStyle();
+            
+            // username text
+            //
+            ofPoint textCenter = assets->font.getStringBoundingBox(text,0,0).getCenter();
+            ofPushStyle();
+            ofClear(0,0);
+            ofSetColor(255, textAlpha*255.0);
+            ofPushMatrix();
+            ofTranslate(textOffset);
+            ofRotate(-90);
+            ofScale(textScale, textScale);
+            //        assets->font.drawString(text, -textCenter.x, -textCenter.y );
+            assets->font.drawString(text, 0.0, -textCenter.y );
+            ofPopMatrix();
+            
+            ofPopStyle();
+            
+            
+            
+            
+        }terrainTex.end();
     }
     
     // Mask
@@ -297,7 +297,7 @@ void RenderRadar::selfUpdate(){
 }
 
 void RenderRadar::selfDraw(){
-   
+    
     int view = 0;
     if(currentViewPort > 0){
         view = currentViewPort - 1;
@@ -307,7 +307,7 @@ void RenderRadar::selfDraw(){
     lightsBegin();
     
     materials["MATERIAL 1"]->begin();
-
+    
     ofSetColor(255);
     
     //  TERRAIN
@@ -354,7 +354,7 @@ void RenderRadar::selfDraw(){
     
     
     
-
+    
     //  SHOE
     //
     
@@ -403,7 +403,7 @@ void RenderRadar::selfDraw(){
         int view = currentViewPort - 1;
         calibration->shoe[view].end();
     }
-
+    
     
     materials["MATERIAL 1"]->end();
 }
