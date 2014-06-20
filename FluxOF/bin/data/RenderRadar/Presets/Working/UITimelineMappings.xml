@@ -13,9 +13,9 @@
     <SliderCurves>
         <Mapping>
             <Widget>
-                <WidgetName>radarPct</WidgetName>
-                <WidgetID>15</WidgetID>
-                <WidgetCanvasParent>terrainMesh</WidgetCanvasParent>
+                <WidgetName>Radar_Height</WidgetName>
+                <WidgetID>19</WidgetID>
+                <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
             </Widget>
             <Track></Track>
         </Mapping>
@@ -29,9 +29,9 @@
         </Mapping>
         <Mapping>
             <Widget>
-                <WidgetName>Radar_Height</WidgetName>
-                <WidgetID>19</WidgetID>
-                <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
+                <WidgetName>radarPct</WidgetName>
+                <WidgetID>15</WidgetID>
+                <WidgetCanvasParent>terrainMesh</WidgetCanvasParent>
             </Widget>
             <Track></Track>
         </Mapping>

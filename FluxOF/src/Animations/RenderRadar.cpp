@@ -216,7 +216,7 @@ void RenderRadar::selfUpdate(){
         terrainTransition.begin();
         terrainTransition.getShader().setUniformTexture("backbuffer", *terrainTransitionTex.src, 0);
         terrainTransition.getShader().setUniformTexture("depthMap", assets->terrainDepthMap, 1);
-        terrainTransition.getShader().setUniformTexture("terrainAreas", assets->terrainMask, 2);
+        terrainTransition.getShader().setUniformTexture("terrainAreas", assets->terrainAreasMap, 2);
         if(terrainNoise.bEnable){
             terrainTransition.getShader().setUniformTexture("normalMap", terrainNoiseTex, 3);
         } else {
@@ -339,7 +339,7 @@ void RenderRadar::selfDraw(){
         
         if(terrainShader.bEnable){
             terrainShader.begin();
-            terrainShader.getShader().setUniformTexture("terrainAreas", assets->terrainMask, 0);
+            terrainShader.getShader().setUniformTexture("terrainAreas", assets->terrainAreasMap, 0);
             terrainShader.getShader().setUniformTexture("terrainMask", terrainMask[currentViewPort].getTextureReference(), 1);
             terrainShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
             terrainShader.getShader().setUniformTexture("overlayer", terrainTex, 3);
@@ -358,7 +358,7 @@ void RenderRadar::selfDraw(){
         if(terrainMeshShader.bEnable){
             terrainMeshShader.begin();
             
-            terrainMeshShader.getShader().setUniformTexture("terrainAreas", assets->terrainMask, 0);
+            terrainMeshShader.getShader().setUniformTexture("terrainAreas", assets->terrainAreasMap, 0);
             terrainMeshShader.getShader().setUniformTexture("terrainMask", terrainMask[currentViewPort].getTextureReference(), 1);
             terrainMeshShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
             terrainMeshShader.getShader().setUniformTexture("overlayer", terrainTex, 3);
