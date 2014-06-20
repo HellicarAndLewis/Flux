@@ -1,9 +1,9 @@
-uniform sampler2DRect radarMsk;
-uniform sampler2DRect terrainMask;
+uniform sampler2DRect radarMask;
+uniform sampler2DRect terrainAreas;
 uniform sampler2DRect background;
 uniform sampler2DRect overlayer;
 uniform sampler2DRect ripples;
-uniform sampler2DRect mask;
+uniform sampler2DRect terrainMask;
 
 uniform vec3 ripplesColor;
 uniform vec3 radarColor;
@@ -169,16 +169,15 @@ void main(void){
 	vec2 uv = gl_TexCoord[0].st*vec2(resolution);
   vec3 n = normalize(vertexNormal);
 
-  float maskVal = texture2DRect(terrainMask,uv).r;
+  float area = texture2DRect(terrainAreas,uv).r;
 
   float r = texture2DRect(ripples,uv).x;
   vec3 bg = texture2DRect(background,uv).rgb;
   bg = mix(bg,ripplesColor,r);
 
   vec3 color = vec3(1.0);
-  vec4 maskColor = texture2DRect(mask,uv);
 
-  if(maskVal>0.0 && radarPct < 1.0){
+  if(area>0.0 && radarPct < 1.0){
     color = gl_Color.rgb;
   } else {
     vec4 over = texture2DRect(overlayer,uv);
@@ -188,5 +187,7 @@ void main(void){
 
 	gl_FragColor.rgb = color;
 	gl_FragColor.a = 1.0;
-    gl_FragColor *= maskColor.r;
+
+  vec4 mask = texture2DRect(terrainMask,uv);
+  gl_FragColor *= mask.r;
 }

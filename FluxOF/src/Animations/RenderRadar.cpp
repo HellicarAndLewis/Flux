@@ -211,7 +211,7 @@ void RenderRadar::selfUpdate(){
         terrainTransition.begin();
         terrainTransition.getShader().setUniformTexture("backbuffer", *terrainTransitionTex.src, 0);
         terrainTransition.getShader().setUniformTexture("depthMap", assets->terrainDepthMap, 1);
-        terrainTransition.getShader().setUniformTexture("maskTex", assets->terrainMask, 2);
+        terrainTransition.getShader().setUniformTexture("terrainAreas", assets->terrainMask, 2);
         if(terrainNoise.bEnable){
             terrainTransition.getShader().setUniformTexture("normalMap", terrainNoiseTex, 3);
         } else {
@@ -316,12 +316,12 @@ void RenderRadar::selfDraw(){
     ofSetSmoothLighting(false);
     
     terrainShader.begin();
-    terrainShader.getShader().setUniformTexture("radarMsk", radarTexture, 0);
-    terrainShader.getShader().setUniformTexture("terrainMask", assets->terrainMask, 1);
+    terrainShader.getShader().setUniformTexture("radarMask", radarTexture, 0);
+    terrainShader.getShader().setUniformTexture("terrainArea", assets->terrainMask, 1);
     terrainShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
     terrainShader.getShader().setUniformTexture("overlayer", terrainTex, 3);
     terrainShader.getShader().setUniformTexture("ripples", ripples, 4);
-    terrainShader.getShader().setUniformTexture("mask", terrainMask[currentViewPort].getTextureReference(), 5);
+    terrainShader.getShader().setUniformTexture("terrainMask", terrainMask[currentViewPort].getTextureReference(), 5);
     terrainShader.getShader().setUniform3f("ripplesColor", ripplesColor.r,ripplesColor.g,ripplesColor.b);
     terrainShader.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
     terrainShader.getShader().setUniform1f("resolution", assets->terrainResolution());
@@ -330,12 +330,12 @@ void RenderRadar::selfDraw(){
     terrainShader.end();
     
     terrainMeshShader.begin();
-    terrainMeshShader.getShader().setUniformTexture("radarMsk", radarTexture, 0);
-    terrainMeshShader.getShader().setUniformTexture("terrainMask", assets->terrainMask, 1);
+    terrainMeshShader.getShader().setUniformTexture("radarMask", radarTexture, 0);
+    terrainMeshShader.getShader().setUniformTexture("terrainArea", assets->terrainMask, 1);
     terrainMeshShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
     terrainMeshShader.getShader().setUniformTexture("overlayer", terrainTex, 3);
     terrainMeshShader.getShader().setUniformTexture("ripples", ripples, 4);
-    terrainMeshShader.getShader().setUniformTexture("mask", terrainMask[currentViewPort].getTextureReference(), 5);
+    terrainMeshShader.getShader().setUniformTexture("terrainMask", terrainMask[currentViewPort].getTextureReference(), 5);
     terrainMeshShader.getShader().setUniform3f("ripplesColor", ripplesColor.r,ripplesColor.g,ripplesColor.b);
     terrainMeshShader.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
     terrainMeshShader.getShader().setUniform1f("radarPct",radarPct);
