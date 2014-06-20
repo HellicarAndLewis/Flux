@@ -1,6 +1,6 @@
 uniform sampler2DRect backbuffer;
 
-uniform sampler2DRect maskTex;
+uniform sampler2DRect terrainAreas;
 uniform sampler2DRect depthMap;
 uniform sampler2DRect normalMap;
 uniform sampler2DRect audioTex;
@@ -281,12 +281,12 @@ void main(void){
 
 	float radar = texture2DRect(radarTex,st).r;
 	float depth = texture2DRect(depthMap,st).r;
-    float mask = texture2DRect(maskTex,st).r;
+    float areas = texture2DRect(terrainAreas,st).r;
     vec4 bg = texture2DRect(backbuffer, st);
 
     gl_FragColor = bg;
     
-    if( mask>0.0 ){
+    if( areas > 0.0 ){
         //  Geometry
         //
         vec3 color;
@@ -342,7 +342,6 @@ void main(void){
     
     	gl_FragColor = mix(color,bg,inc);
 	}
-
 
     gl_FragColor.a = 1.0;
 }

@@ -24,12 +24,12 @@
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Color_R</Name>
-    <Value>0.047618985</Value>
+    <Value>1.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Color_G</Name>
-    <Value>1.000000000</Value>
+    <Value>0.333334625</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -39,7 +39,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Height</Name>
-    <Value>15.158554077</Value>
+    <Value>22.504343033</Value>
 </Widget>
 <Widget>
     <Kind>11</Kind>
