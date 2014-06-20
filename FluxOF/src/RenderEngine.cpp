@@ -11,7 +11,17 @@
 void RenderEngine::selfSetup(){
     cameraEnable(false);
     setupRenderIsFlipped(true);
+    
+    syphon.set("Photoshop", "psGrabberDebug");
+    syphon.setup();
+    
 }
+
+void RenderEngine::selfSetupRenderGui(){
+    rdrGui->addToggle("TERRAIN 1 SYPHON", &terrain1maskSyphon);
+    
+}
+
 
 void RenderEngine::selfUpdate(){
     setupNumViewports(3);
@@ -79,31 +89,65 @@ void RenderEngine::startTransitionTo(QueueItem queueItem){
 //
 // This will draw a mask image on the terrain that is multiplied to the background.
 //
-void RenderEngine::drawMask(int viewPort){
+void RenderEngine::drawMask(int view){
     // if(!simulatorMode){
     ofSetColor(255);
     //ofEnableBlendMode(OF_BLENDMODE_MULTIPLY);
     
     ofTexture tex;
     
-    if(viewPort == 0){
-        tex = assets->terrainMask1;
-    } else {
-        tex = assets->terrainMask2;
-    }
     
-    int s = tex.getWidth();
-    if(numViewports > 1){
-        tex.bind();
+    
+    int s = 1024;
+
+    if(terrain1maskSyphon ){
+        if(view == 1){
+            ofClear(255);
+              glEnable(GL_BLEND);
+            glBlendFuncSeparate(GL_ZERO, GL_ONE_MINUS_SRC_COLOR, GL_ONE, GL_ONE);
+            syphon.bind();
+
+            glBegin(GL_QUADS);{
+                glTexCoord2d(0, 0); glVertex2d(0, s);
+                glTexCoord2d(s, 0); glVertex2d(s, s);
+                glTexCoord2d(s, s); glVertex2d(s, 0);
+                glTexCoord2d(0, s); glVertex2d(0, 0);
+            }glEnd();
+            
+            syphon.unbind();
+            
+        } else {
+            syphon.draw(0, 0, 1024, 1024);
+        }
     }
-    glBegin(GL_QUADS);{
-        glTexCoord2d(0, 0); glVertex2d(0, 0);
-        glTexCoord2d(s, 0); glVertex2d(s, 0);
-        glTexCoord2d(s, s); glVertex2d(s, s);
-        glTexCoord2d(0, s); glVertex2d(0, s);
-    }glEnd();
-    if(numViewports > 1){
-        tex.unbind();
+    else if(view > 0){
+        ofTexture * _tex = NULL;
+
+        if(view == 1){
+            _tex = &assets->terrainMask1;
+        } else {
+            _tex = &assets->terrainMask2;
+        }
+        
+        
+        
+        if(_tex){
+            _tex->bind();
+            s = _tex->getWidth();
+        }
+        
+        glBegin(GL_QUADS);{
+            glTexCoord2d(0, 0); glVertex2d(0, 0);
+            glTexCoord2d(s, 0); glVertex2d(s, 0);
+            glTexCoord2d(s, s); glVertex2d(s, s);
+            glTexCoord2d(0, s); glVertex2d(0, s);
+        }glEnd();
+        
+        if(_tex){
+            _tex->unbind();
+        }
+    } else {
+        ofClear(255);
     }
     ofEnableAlphaBlending();
     // }

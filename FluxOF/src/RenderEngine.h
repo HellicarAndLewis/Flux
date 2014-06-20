@@ -24,6 +24,8 @@
 #include "ofxMultiGLFWWindow.h"
 #include "ofxColorPalette.h"
 
+#include "ofxSyphon.h"
+
 class RenderEngine : public UITime3DProject {
 public:
     
@@ -36,6 +38,8 @@ public:
     virtual bool transitionDone();
         
     virtual void selfSetup();
+    virtual void selfSetupRenderGui();
+
     virtual void selfUpdate();
     
     void drawMask(int viewPort);
@@ -60,6 +64,10 @@ public:
     float               textScale;
     
     bool                simulatorMode;
+    
+    bool                terrain1maskSyphon;
 
     ofxMultiGLFWWindow *glfw;
+    
+    ofxSyphonClient     syphon;
 };
