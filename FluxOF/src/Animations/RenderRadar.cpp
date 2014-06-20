@@ -55,6 +55,7 @@ void RenderRadar::selfSetup(){
     //  Non-Arb
     ofDisableArbTex();
     shoeTex.allocate(100, 100);
+    testFbo.allocate(1024,1024, GL_RGB);
     ofEnableArbTex();
 }
 
@@ -84,6 +85,10 @@ void RenderRadar::selfGuiEvent(ofxUIEventArgs &e){
 }
 
 void RenderRadar::selfSetupSystemGui(){
+    sysGui->addLabel("TEST");
+    sysGui->addToggle("Test Pattern", &testPatternEnabled);
+    
+    
     sysGui->addLabel("Radar");
     sysGui->add2DPad("Radar_Center",ofVec2f(0,assets->terrainResolution()),ofVec2f(0,assets->terrainResolution()),&radarCenter);
     sysGui->addSlider("Radar_Pct", 0.0, 1.0, &radarPct);
@@ -294,6 +299,21 @@ void RenderRadar::selfUpdate(){
             
         } terrainMask[i].end();
     }
+    
+    // TEST
+    //
+    if(testPatternEnabled){
+        testFbo.begin();
+        ofClear(50,0,0,255);
+        for(int x=0;x<1024;x+= 15){
+            ofLine(x, 0, x, 1024);
+        }
+        for(int x=0;x<1024;x+= 15){
+            ofLine(0, x, 1024, x);
+        }
+        
+        testFbo.end();
+    }
 }
 
 void RenderRadar::selfDraw(){
@@ -304,48 +324,59 @@ void RenderRadar::selfDraw(){
         calibration->ground[view].begin();
     }
     
-    lightsBegin();
     
-    materials["MATERIAL 1"]->begin();
-    
-    ofSetColor(255);
-    
-    //  TERRAIN
-    //
-    ofPushMatrix();
-    ofSetSmoothLighting(false);
-    
-    terrainShader.begin();
-    terrainShader.getShader().setUniformTexture("radarMask", radarTexture, 0);
-    terrainShader.getShader().setUniformTexture("terrainArea", assets->terrainMask, 1);
-    terrainShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
-    terrainShader.getShader().setUniformTexture("overlayer", terrainTex, 3);
-    terrainShader.getShader().setUniformTexture("ripples", ripples, 4);
-    terrainShader.getShader().setUniformTexture("terrainMask", terrainMask[currentViewPort].getTextureReference(), 5);
-    terrainShader.getShader().setUniform3f("ripplesColor", ripplesColor.r,ripplesColor.g,ripplesColor.b);
-    terrainShader.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
-    terrainShader.getShader().setUniform1f("resolution", assets->terrainResolution());
-    
-    assets->terrainMesh.draw();
-    terrainShader.end();
-    
-    terrainMeshShader.begin();
-    terrainMeshShader.getShader().setUniformTexture("radarMask", radarTexture, 0);
-    terrainMeshShader.getShader().setUniformTexture("terrainArea", assets->terrainMask, 1);
-    terrainMeshShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
-    terrainMeshShader.getShader().setUniformTexture("overlayer", terrainTex, 3);
-    terrainMeshShader.getShader().setUniformTexture("ripples", ripples, 4);
-    terrainMeshShader.getShader().setUniformTexture("terrainMask", terrainMask[currentViewPort].getTextureReference(), 5);
-    terrainMeshShader.getShader().setUniform3f("ripplesColor", ripplesColor.r,ripplesColor.g,ripplesColor.b);
-    terrainMeshShader.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
-    terrainMeshShader.getShader().setUniform1f("radarPct",radarPct);
-    terrainMeshShader.getShader().setUniform1f("resolution", assets->terrainResolution());
-    assets->terrainMesh.drawWireframe();
-    terrainMeshShader.end();
-    
-    ofPopMatrix();
-    
-    lightsEnd();
+    if(!testPatternEnabled){
+        lightsBegin();
+        
+        materials["MATERIAL 1"]->begin();
+        
+        ofSetColor(255);
+        
+        //  TERRAIN
+        //
+        ofPushMatrix();
+        ofSetSmoothLighting(false);
+        
+        terrainShader.begin();
+        terrainShader.getShader().setUniformTexture("radarMask", radarTexture, 0);
+        terrainShader.getShader().setUniformTexture("terrainArea", assets->terrainMask, 1);
+        terrainShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
+        terrainShader.getShader().setUniformTexture("overlayer", terrainTex, 3);
+        terrainShader.getShader().setUniformTexture("ripples", ripples, 4);
+        terrainShader.getShader().setUniformTexture("terrainMask", terrainMask[currentViewPort].getTextureReference(), 5);
+        terrainShader.getShader().setUniform3f("ripplesColor", ripplesColor.r,ripplesColor.g,ripplesColor.b);
+        terrainShader.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
+        terrainShader.getShader().setUniform1f("resolution", assets->terrainResolution());
+        
+        assets->terrainMesh.draw();
+        terrainShader.end();
+        
+        terrainMeshShader.begin();
+        terrainMeshShader.getShader().setUniformTexture("radarMask", radarTexture, 0);
+        terrainMeshShader.getShader().setUniformTexture("terrainArea", assets->terrainMask, 1);
+        terrainMeshShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
+        terrainMeshShader.getShader().setUniformTexture("overlayer", terrainTex, 3);
+        terrainMeshShader.getShader().setUniformTexture("ripples", ripples, 4);
+        terrainMeshShader.getShader().setUniformTexture("terrainMask", terrainMask[currentViewPort].getTextureReference(), 5);
+        terrainMeshShader.getShader().setUniform3f("ripplesColor", ripplesColor.r,ripplesColor.g,ripplesColor.b);
+        terrainMeshShader.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
+        terrainMeshShader.getShader().setUniform1f("radarPct",radarPct);
+        terrainMeshShader.getShader().setUniform1f("resolution", assets->terrainResolution());
+        assets->terrainMesh.drawWireframe();
+        terrainMeshShader.end();
+        
+        ofPopMatrix();
+        
+        lightsEnd();
+    } else {
+        
+        //TEST
+        //
+        ofSetColor(255);
+        testFbo.getTextureReference().bind();
+        assets->terrainMesh.draw();
+        testFbo.getTextureReference().unbind();
+    }
     
     if(currentViewPort > 0){
         int view = currentViewPort - 1;

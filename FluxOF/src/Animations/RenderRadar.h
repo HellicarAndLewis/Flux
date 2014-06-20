@@ -80,4 +80,8 @@ protected:
     ofPoint         radarCenter;
     float           radarPct;
     float           radarHeight;
+    
+    // TEST
+    bool            testPatternEnabled;
+    ofFbo           testFbo;
 };
