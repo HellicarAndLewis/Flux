@@ -34,9 +34,7 @@ public:
     
     virtual void startTransitionTo(QueueItem queueItem);
     virtual bool transitionDone();
-    
-    virtual void selfSceneTransformation();
-    
+        
     virtual void selfSetup();
     virtual void selfUpdate();
     

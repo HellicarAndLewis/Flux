@@ -27,14 +27,6 @@ void RenderEngine::addUiClass(UIClass *_ui){
     guiAdd( *_ui );
 }
 
-void RenderEngine::selfSceneTransformation(){
-
-    if(currentViewPort > 0){
-        int view = currentViewPort - 1;
-        calibration->shoe[view].begin();
-    }
-}
-
 
 
 //---------------------------------------------------------------
@@ -148,9 +140,6 @@ void RenderEngine::draw(ofEventArgs & args){
                 }
                 fog.begin();
                 
-                //  Scene Setup
-                //
-                selfSceneTransformation();
                 
                 //  Cached Values
                 //
@@ -183,7 +172,7 @@ void RenderEngine::draw(ofEventArgs & args){
                 //  Draw Scene
                 //
                 {
-                    lightsBegin();
+                    //lightsBegin();
                     ofPushStyle();
                     ofPushMatrix();
                     
@@ -191,7 +180,7 @@ void RenderEngine::draw(ofEventArgs & args){
                     
                     ofPopMatrix();
                     ofPopStyle();
-                    lightsEnd();
+                   // lightsEnd();
                 }
                 
                 //  Draw Log

@@ -271,6 +271,14 @@ void RenderRadar::selfUpdate(){
 }
 
 void RenderRadar::selfDraw(){
+    
+    if(currentViewPort > 0){
+        int view = currentViewPort - 1;
+        calibration->ground[view].begin();
+    }
+    
+    lightsBegin();
+    
     materials["MATERIAL 1"]->begin();
 
     ofSetColor(255);
@@ -306,9 +314,27 @@ void RenderRadar::selfDraw(){
     terrainMeshShader.end();
     
     ofPopMatrix();
+    
+    lightsEnd();
+    
+    if(currentViewPort > 0){
+        int view = currentViewPort - 1;
+        calibration->ground[view].end();
+    }
+    
+    
+    
 
     //  SHOE
     //
+    
+    if(currentViewPort > 0){
+        int view = currentViewPort - 1;
+        calibration->shoe[view].begin();
+    }
+    lightsBegin();
+    
+    
     ofPushMatrix();
     ofSetSmoothLighting(true);
     
@@ -340,9 +366,14 @@ void RenderRadar::selfDraw(){
     
     ofPopMatrix();
     
-    if(!simulatorMode){
-        calibration->shoe[currentViewPort].end();
+    
+    lightsEnd();
+    
+    if(currentViewPort > 0){
+        int view = currentViewPort - 1;
+        calibration->shoe[view].end();
     }
+
     
     materials["MATERIAL 1"]->end();
 }
