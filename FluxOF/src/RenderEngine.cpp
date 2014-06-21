@@ -15,16 +15,52 @@ void RenderEngine::selfSetup(){
     syphon.set("Photoshop", "psGrabberDebug");
     syphon.setup();
     
+    ofDisableArbTex();
+    terrainTexture.allocate(2048, 2048);
+    terrainMaskTexture.allocate(1024, 1024);
+    shoeBackgroundTexture.allocate(1024, 1024);
+    shoeForegroundTexture.allocate(1024, 1024);
+    ofEnableArbTex();
+    
+    
 }
 
 void RenderEngine::selfSetupRenderGui(){
     rdrGui->addToggle("TERRAIN 1 SYPHON", &terrainMaskSyphon);
+    
+    rdrGui->addLabel("Render stages");
+    rdrGui->addToggle("Terrain", &terrainDrawEnabled);
+    rdrGui->addToggle("Terrain Mask", &terrainMaskDrawEnabled);
+    rdrGui->addToggle("Shoe Background", &shoeBackgroundDrawEnabled);
+    rdrGui->addToggle("Shoe Details", &shoeDetailsDrawEnabled);
+    rdrGui->addToggle("Shoe Foreground", &shoeForegroundDrawEnabled);
+    rdrGui->addToggle("Shoe Mask", &shoeMaskDrawEnabled);
 }
 
 
 void RenderEngine::selfUpdate(){
     setupNumViewports(3);
-
+    
+    terrainTexture.begin();{
+        ofClear(0,255);
+        updateTerrainTexture(ofPoint(terrainTexture.getWidth(), terrainTexture.getHeight()));
+    } terrainTexture.end();
+    
+    shoeBackgroundTexture.begin();{
+        ofClear(0);
+        updateShoeBackgroundTexture(ofPoint(shoeBackgroundTexture.getWidth(), shoeBackgroundTexture.getHeight()));
+    } shoeBackgroundTexture.end();
+    
+    shoeForegroundTexture.begin(); {
+        ofClear(0 , 0);
+        updateShoeForegroundTexture(ofPoint(shoeForegroundTexture.getWidth(), shoeForegroundTexture.getHeight()));
+    } shoeForegroundTexture.end();
+    
+    if(renderPasses.getWidth() != ofGetWidth() || renderPasses.getHeight() != ofGetHeight()){
+        cout<<"Allocate render passes fbo "<<ofGetWidth()<<"x"<<ofGetHeight()<<endl;
+        renderPasses.allocate(ofGetWidth(), ofGetHeight());
+    }
+    
 }
 
 void RenderEngine::setCalibration(CalibrationLoader *_calibration){
@@ -88,6 +124,7 @@ void RenderEngine::startTransitionTo(QueueItem queueItem){
 //
 // This will draw a mask image on the terrain that is multiplied to the background.
 //
+/*
 void RenderEngine::drawMask(int view){
     ofSetColor(255);
     int s = 1024;
@@ -144,15 +181,133 @@ void RenderEngine::drawMask(int view){
 
     ofEnableAlphaBlending();
 }
+*/
+
+
+void RenderEngine::startMatrixTranformation(int viewport, bool terrain){
+    if(viewport == 0){
+        getCameraRef().begin();
+    } else {
+        if(terrain){
+            calibration->ground[viewport-1].begin();
+        } else {
+            calibration->shoe[viewport-1].begin();
+        }
+    }
+}
+
+void RenderEngine::endMatrixTranformation(int viewport, bool terrain){
+    if(viewport == 0){
+        getCameraRef().end();
+    } else {
+        if(terrain){
+            calibration->ground[viewport-1].end();
+        } else {
+            calibration->shoe[viewport-1].end();
+        }
+    }
+}
+
 
 //
 // Main draw loop, done once for every window
 //
 void RenderEngine::draw(ofEventArgs & args){
     glfw = (ofxMultiGLFWWindow*)ofGetWindowPtr();
-    int viewNum = glfw->getWindowIndex();
+    currentViewPort = glfw->getWindowIndex();
     
-    if(bRenderSystem){
+    ofPushStyle();
+    
+    getRenderTarget(currentViewPort).begin();{
+        
+        //Blue debug background
+        ofClear(0,0,100);
+        
+        
+        renderPasses.clear();
+    
+        // 1: Terrain draw
+        //
+        if(terrainDrawEnabled){
+            ofPushMatrix();
+            renderPasses.dst->begin();
+            startMatrixTranformation(currentViewPort, true);
+            drawTerrain(currentViewPort);
+            endMatrixTranformation(currentViewPort, true);
+            renderPasses.dst->end();
+            renderPasses.swap();
+            ofPopMatrix();
+        }
+        
+        // 2: Terrain Mask draw
+        //
+        if(terrainMaskDrawEnabled){
+            
+            //Update the mask
+            terrainMaskTexture.begin();{
+                ofClear(255, 255);
+                updateTerrainMaskTexture(ofPoint(terrainMaskTexture.getWidth(), terrainMaskTexture.getHeight()), currentViewPort);
+            } terrainMaskTexture.end();
+            
+
+            // Render the mask
+            renderPasses.dst->begin(); {
+                
+                //Draw the source (the thing that should be masked)
+                renderPasses.src->draw(0,0);
+
+                
+                
+                // Render the mask fbo, reusing the src fbo for effeciency
+                renderPasses.src->begin();{
+                    ofClear(0, 255);
+                    startMatrixTranformation(currentViewPort, true);
+                    drawTerrainMask(currentViewPort);
+                    endMatrixTranformation(currentViewPort, true);
+                } renderPasses.src->end();
+                
+                //Multiply the mask
+                ofEnableBlendMode(OF_BLENDMODE_MULTIPLY);
+                ofDisableDepthTest();
+                
+                //Draw the mask (can't do it with draw)
+                renderPasses.src->getTextureReference().bind();
+                int s = renderPasses.src->getWidth();
+                glBegin(GL_QUADS);{
+                    glTexCoord2d(0, 0); glVertex2d(0, 0);
+                    glTexCoord2d(s, 0); glVertex2d(s, 0);
+                    glTexCoord2d(s, s); glVertex2d(s, s);
+                    glTexCoord2d(0, s); glVertex2d(0, s);
+                }glEnd();
+                renderPasses.src->getTextureReference().unbind();
+                
+                ofEnableAlphaBlending();
+                
+            } renderPasses.dst->end();
+            
+            renderPasses.swap();
+        }
+        
+        
+        
+        ofSetColor(255);
+        renderPasses.src->draw(0,0);
+    
+    } getRenderTarget(currentViewPort).end();
+    
+    
+    //  Post-Draw ( shader time )
+    //
+    ofDisableLighting();
+    selfPostDraw();
+    
+    logGui.drawStatus();
+    
+    ofPopStyle();
+    
+    
+
+    /*if(bRenderSystem){
         {
             currentViewPort = viewNum;
             ofPushStyle();
@@ -274,9 +429,10 @@ void RenderEngine::draw(ofEventArgs & args){
         
         ofPopStyle();
     }
+    */
     
     
-	if(timeline != NULL && viewNum == 0){
+	if(timeline != NULL && currentViewPort == 0){
         
         if ( timeline->getIsShowing() ){
             glDisable(GL_DEPTH_TEST);
@@ -290,7 +446,78 @@ void RenderEngine::draw(ofEventArgs & args){
         
 		timeline->draw();
 	}
+     
+     
 }
+
+
+void RenderEngine::updateTerrainTexture(ofPoint size){
+    assets->terrainUVWireframe.draw(0, 0, size.x, size.y);
+}
+
+void RenderEngine::updateTerrainMaskTexture(ofPoint size, int viewport){
+    
+    //Draw the mask into a fbo that can be applied
+    //
+    //    if(viewport > 0){
+    ofTexture * _tex;
+    if(viewport == 1){
+        _tex = &assets->terrainMask1;
+    } else {
+        _tex = &assets->terrainMask2;
+    }
+    _tex->bind();
+
+    ofSetColor(255);
+    glBegin(GL_QUADS);{
+        glTexCoord2d(0, 0); glVertex2d(0, 0);
+        glTexCoord2d(size.x, 0); glVertex2d(size.x, 0);
+        glTexCoord2d(size.x, size.y); glVertex2d(size.x, size.y);
+        glTexCoord2d(0, size.y); glVertex2d(0, size.y);
+    }glEnd();
+    _tex->unbind();
+    // }
+}
+
+
+void RenderEngine::updateShoeBackgroundTexture(ofPoint size){
+    
+}
+void RenderEngine::updateShoeForegroundTexture(ofPoint size){
+    
+}
+
+
+//Draw a simple UV wireframe map
+//
+void RenderEngine::drawTerrain(int viewport){
+    ofEnableDepthTest();
+    ofSetColor(255);
+    terrainTexture.getTextureReference().bind();{
+        assets->terrainMesh.draw();
+    } terrainTexture.getTextureReference().unbind();
+}
+
+
+void RenderEngine::drawTerrainMask(int viewport){
+    
+    //Apply the fbo to the terrain mesh
+    //
+    ofEnableDepthTest();
+    terrainMaskTexture.getTextureReference().bind();{
+        assets->terrainMesh.draw();
+    } terrainMaskTexture.getTextureReference().unbind();
+
+}
+void RenderEngine::drawShoeBackground(int viewport){
+}
+void RenderEngine::drawShoeDetails(int viewport){
+}
+void RenderEngine::drawShoeForeground(int viewport){
+}
+void RenderEngine::drawShoeMask(int viewport){
+}
+
 
 
 ofFbo& RenderEngine::getRenderTarget(int viewNumber){

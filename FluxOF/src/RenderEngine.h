@@ -42,7 +42,38 @@ public:
 
     virtual void selfUpdate();
     
-    void drawMask(int viewPort);
+    void startMatrixTranformation(int viewport, bool terrain);
+    void endMatrixTranformation(int viewport, bool terrain);
+    
+    // Render pass fbo's
+    ofFbo terrainTexture;
+    ofFbo terrainMaskTexture;
+    ofFbo shoeBackgroundTexture;
+    ofFbo shoeForegroundTexture;
+    
+    PingPong renderPasses;
+    
+    // Texture update calls
+    virtual void updateTerrainTexture(ofPoint size);
+    virtual void updateTerrainMaskTexture(ofPoint size, int viewport);
+    virtual void updateShoeBackgroundTexture(ofPoint size);
+    virtual void updateShoeForegroundTexture(ofPoint size);
+    
+    // Drawing calls
+    virtual void drawTerrain(int viewport);
+    virtual void drawTerrainMask(int viewport);
+    virtual void drawShoeBackground(int viewport);
+    virtual void drawShoeDetails(int viewport);
+    virtual void drawShoeForeground(int viewport);
+    virtual void drawShoeMask(int viewport);
+    
+    //Enable / disable stages
+    bool terrainDrawEnabled;
+    bool terrainMaskDrawEnabled;
+    bool shoeBackgroundDrawEnabled;
+    bool shoeDetailsDrawEnabled;
+    bool shoeForegroundDrawEnabled;
+    bool shoeMaskDrawEnabled;
     
     void draw(ofEventArgs & args);
     void selfPostDraw();

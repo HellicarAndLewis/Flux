@@ -43,6 +43,10 @@ public:
     void selfDraw();
     void selfDrawOverlay();
     
+    
+    //Draw
+    void drawTerrain(int viewport);
+        
 protected:
     
     //  AUDIO

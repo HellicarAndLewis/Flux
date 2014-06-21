@@ -163,8 +163,7 @@ float perlin3(vec3 p) {
 }
 
 void main(void){
-
-	vec2 uv = gl_TexCoord[0].st*vec2(resolution);
+  vec2 uv = gl_TexCoord[0].st*vec2(resolution);
   vec3 n = normalize(vertexNormal);
 
   float area = texture2DRect(terrainAreas,uv).r;
@@ -190,6 +189,6 @@ void main(void){
 	gl_FragColor.rgb = color;
 	gl_FragColor.a = 1.0;
 
-  vec4 mask = texture2DRect(terrainMask,uv);
-  gl_FragColor *= mask.r;
+/*  vec4 mask = texture2DRect(terrainMask,uv);
+  gl_FragColor *= mask.r;*/
 }

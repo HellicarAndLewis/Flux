@@ -187,7 +187,7 @@ void main(void){
 
 	gl_FragColor.rgb = color;
 	gl_FragColor.a = 1.0;
-
+/*
   vec4 mask = texture2DRect(terrainMask,uv);
-  gl_FragColor *= mask.r;
+  gl_FragColor *= mask.r;*/
 }

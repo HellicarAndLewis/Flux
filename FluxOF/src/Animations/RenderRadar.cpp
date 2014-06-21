@@ -88,7 +88,7 @@ void RenderRadar::selfGuiEvent(ofxUIEventArgs &e){
 
 void RenderRadar::selfSetupSystemGui(){
     sysGui->addLabel("TEST Patterns");
-
+    
     vector<string> items;
     items.push_back("disabled");
     items.push_back("grid");
@@ -170,7 +170,7 @@ void RenderRadar::selfUpdate(){
             glTexCoord2f(0,assets->terrainResolution());  glVertex3f(0,assets->terrainResolution(), 0);
             glEnd();
             audioTerrain.end();
-        } 
+        }
         
         ripples.end();
         
@@ -304,7 +304,7 @@ void RenderRadar::selfUpdate(){
         terrainMask[i].begin();{
             // Draw the mask
             //
-            drawMask(i);
+            //drawMask(i);
             
         } terrainMask[i].end();
     }
@@ -337,6 +337,68 @@ void RenderRadar::selfUpdate(){
     }
 }
 
+void RenderRadar::drawTerrain(int viewport){
+    ofEnableDepthTest();
+    
+    
+    lightsBegin();
+    
+    materials["MATERIAL 1"]->begin();
+    
+    ofSetColor(255);
+    
+    //  TERRAIN
+    //
+    ofPushMatrix();
+    ofSetSmoothLighting(false);
+    
+    
+    if(terrainShader.bEnable){
+        terrainShader.begin();
+        terrainShader.getShader().setUniformTexture("terrainAreas", assets->terrainAreasMap, 0);
+//        terrainShader.getShader().setUniformTexture("terrainMask", terrainMaskTexture.getTextureReference(), 1);
+        terrainShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
+        terrainShader.getShader().setUniformTexture("overlayer", terrainTex, 3);
+        terrainShader.getShader().setUniformTexture("ripples", ripples, 4);
+        terrainShader.getShader().setUniformTexture("radarMask", radarTexture, 5);
+        
+        terrainShader.getShader().setUniform3f("ripplesColor", ripplesColor.r,ripplesColor.g,ripplesColor.b);
+        terrainShader.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
+        
+        terrainShader.getShader().setUniform1f("resolution", assets->terrainResolution());
+        
+        assets->terrainMesh.draw();
+       
+        terrainShader.end();
+    }
+    
+    if(terrainMeshShader.bEnable){
+        terrainMeshShader.begin();
+        
+        terrainMeshShader.getShader().setUniformTexture("terrainAreas", assets->terrainAreasMap, 0);
+//        terrainMeshShader.getShader().setUniformTexture("terrainMask", terrainMaskTexture.getTextureReference(), 1);
+        terrainMeshShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
+        terrainMeshShader.getShader().setUniformTexture("overlayer", terrainTex, 3);
+        terrainMeshShader.getShader().setUniformTexture("ripples", ripples, 4);
+        terrainMeshShader.getShader().setUniformTexture("radarMask", radarTexture, 5);
+        
+        terrainMeshShader.getShader().setUniform3f("ripplesColor", ripplesColor.r,ripplesColor.g,ripplesColor.b);
+        terrainMeshShader.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
+        
+        terrainMeshShader.getShader().setUniform1f("resolution", assets->terrainResolution());
+        
+        assets->terrainMesh.drawWireframe();
+        terrainMeshShader.end();
+    }
+    
+    ofPopMatrix();
+    
+    materials["MATERIAL 1"]->end();
+
+    lightsEnd();
+    
+}
+
 void RenderRadar::selfDraw(){
     
     int view = 0;
@@ -345,175 +407,105 @@ void RenderRadar::selfDraw(){
         calibration->ground[view].begin();
     }
     
-   
-    if(!testPatternEnabled){
-        lightsBegin();
-        
-        materials["MATERIAL 1"]->begin();
-        
-        ofSetColor(255);
-        
-        //  TERRAIN
-        //
-        ofPushMatrix();
-        ofSetSmoothLighting(false);
-        
-        if(terrainShader.bEnable){
-            terrainShader.begin();
-            terrainShader.getShader().setUniformTexture("terrainAreas", assets->terrainAreasMap, 0);
-            terrainShader.getShader().setUniformTexture("terrainMask", terrainMask[currentViewPort].getTextureReference(), 1);
-            terrainShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
-            terrainShader.getShader().setUniformTexture("overlayer", terrainTex, 3);
-            terrainShader.getShader().setUniformTexture("ripples", ripples, 4);
-            terrainShader.getShader().setUniformTexture("radarMask", radarTexture, 5);
-            
-            terrainShader.getShader().setUniform3f("ripplesColor", ripplesColor.r,ripplesColor.g,ripplesColor.b);
-            terrainShader.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
-            
-            terrainShader.getShader().setUniform1f("resolution", assets->terrainResolution());
-            
-            assets->terrainMesh.draw();
-            terrainShader.end();
-        }
-        
-        if(terrainMeshShader.bEnable){
-            terrainMeshShader.begin();
-            
-            terrainMeshShader.getShader().setUniformTexture("terrainAreas", assets->terrainAreasMap, 0);
-            terrainMeshShader.getShader().setUniformTexture("terrainMask", terrainMask[currentViewPort].getTextureReference(), 1);
-            terrainMeshShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
-            terrainMeshShader.getShader().setUniformTexture("overlayer", terrainTex, 3);
-            terrainMeshShader.getShader().setUniformTexture("ripples", ripples, 4);
-            terrainMeshShader.getShader().setUniformTexture("radarMask", radarTexture, 5);
-            
-            terrainMeshShader.getShader().setUniform3f("ripplesColor", ripplesColor.r,ripplesColor.g,ripplesColor.b);
-            terrainMeshShader.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
-            
-            terrainMeshShader.getShader().setUniform1f("resolution", assets->terrainResolution());
-            
-            assets->terrainMesh.drawWireframe();
-            terrainMeshShader.end();
-        }
-        
-        ofPopMatrix();
-        
-        lightsEnd();
-    } else if(testPatternEnabled) {
-        
-        //TEST
-        //
-        ofSetColor(255);
-        if(testMode != "wireframeTerrain"){
-            testFbo.getTextureReference().bind();
-            assets->terrainMesh.draw();
-            testFbo.getTextureReference().unbind();
-            
-        } else {
-            assets->terrainMesh.drawWireframe();
-        }
-    }
-    
-    if(currentViewPort > 0){
-        int view = currentViewPort - 1;
-        calibration->ground[view].end();
-    }
-    
-    
-    //  SHOE
-    //
-    
-    if(currentViewPort > 0){
-        int view = currentViewPort - 1;
-        calibration->shoe[view].begin();
-    }
     
     if(!testPatternEnabled){
         
-        lightsBegin();
+        //  SHOE
+        //
         
-        
-        ofPushMatrix();
-        ofSetSmoothLighting(true);
-        
-        ofDisableArbTex();
-        
-        if(shoeTransition.bEnable){
-            shoeTransition.begin();
-            shoeTransition.getShader().setUniform1f("radarHeight", radarHeight);
-            shoeTransition.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
-            shoeTransition.getShader().setUniformTexture("srcTexture",shoeTex.src->getTextureReference(), 0);
-            shoeTransition.getShader().setUniformTexture("dstTexture",shoeTex.dst->getTextureReference(), 1);
-            shoeTransition.getShader().setUniformTexture("colorMaskTexture", assets->shoeColorMask, 2);
-            
-            for(int i = 0; i < srcPalette.size(); i++){
-                shoeTransition.getShader().setUniform3f("srcColor"+ofToString(i+1),
-                                                        ((float)srcPalette[i].r)/255.0,
-                                                        ((float)srcPalette[i].g)/255.0,
-                                                        ((float)srcPalette[i].b)/255.0);
-            }
-            
-            for(int i = 0; i < dstPalette.size(); i++){
-                shoeTransition.getShader().setUniform3f("dstColor"+ofToString(i+1),
-                                                        ((float)dstPalette[i].r)/255.0,
-                                                        ((float)dstPalette[i].g)/255.0,
-                                                        ((float)dstPalette[i].b)/255.0);
-            }
-            
-            assets->shoeMesh.draw();
-            shoeTransition.end();
+        if(currentViewPort > 0){
+            int view = currentViewPort - 1;
+            calibration->shoe[view].begin();
         }
         
-        if(shoeLaserTransition.bEnable){
-            shoeLaserTransition.begin();
-            shoeLaserTransition.getShader().setUniform1f("radarHeight", radarHeight);
-            shoeLaserTransition.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
-            shoeLaserTransition.getShader().setUniformTexture("srcTexture",shoeTex.src->getTextureReference(), 0);
-            shoeLaserTransition.getShader().setUniformTexture("dstTexture",shoeTex.dst->getTextureReference(), 1);
-            shoeLaserTransition.getShader().setUniformTexture("colorMaskTexture", assets->shoeColorMask, 2);
+        if(!testPatternEnabled){
             
-            for(int i = 0; i < srcPalette.size(); i++){
-                shoeLaserTransition.getShader().setUniform3f("srcColor"+ofToString(i+1),
-                                                        ((float)srcPalette[i].r)/255.0,
-                                                        ((float)srcPalette[i].g)/255.0,
-                                                        ((float)srcPalette[i].b)/255.0);
-            }
-            
-            for(int i = 0; i < dstPalette.size(); i++){
-                shoeLaserTransition.getShader().setUniform3f("dstColor"+ofToString(i+1),
-                                                        ((float)dstPalette[i].r)/255.0,
-                                                        ((float)dstPalette[i].g)/255.0,
-                                                        ((float)dstPalette[i].b)/255.0);
-            }
-            
-            assets->shoeMesh.draw();
-            shoeLaserTransition.end();
-        }
-        
-        ofEnableArbTex();
-        
-        ofPopMatrix();
-        
-        
-        lightsEnd();
-    } else {
-        if(testMode == "wireframeShoe"){
-            ofSetColor(255);
             lightsBegin();
-            assets->shoeUVWireframe.bind();
-            assets->shoeMesh.draw();
-            assets->shoeUVWireframe.unbind();
+            
+            
+            ofPushMatrix();
+            ofSetSmoothLighting(true);
+            
+            ofDisableArbTex();
+            
+            if(shoeTransition.bEnable){
+                shoeTransition.begin();
+                shoeTransition.getShader().setUniform1f("radarHeight", radarHeight);
+                shoeTransition.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
+                shoeTransition.getShader().setUniformTexture("srcTexture",shoeTex.src->getTextureReference(), 0);
+                shoeTransition.getShader().setUniformTexture("dstTexture",shoeTex.dst->getTextureReference(), 1);
+                shoeTransition.getShader().setUniformTexture("colorMaskTexture", assets->shoeColorMask, 2);
+                
+                for(int i = 0; i < srcPalette.size(); i++){
+                    shoeTransition.getShader().setUniform3f("srcColor"+ofToString(i+1),
+                                                            ((float)srcPalette[i].r)/255.0,
+                                                            ((float)srcPalette[i].g)/255.0,
+                                                            ((float)srcPalette[i].b)/255.0);
+                }
+                
+                for(int i = 0; i < dstPalette.size(); i++){
+                    shoeTransition.getShader().setUniform3f("dstColor"+ofToString(i+1),
+                                                            ((float)dstPalette[i].r)/255.0,
+                                                            ((float)dstPalette[i].g)/255.0,
+                                                            ((float)dstPalette[i].b)/255.0);
+                }
+                
+                assets->shoeMesh.draw();
+                shoeTransition.end();
+            }
+            
+            if(shoeLaserTransition.bEnable){
+                shoeLaserTransition.begin();
+                shoeLaserTransition.getShader().setUniform1f("radarHeight", radarHeight);
+                shoeLaserTransition.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
+                shoeLaserTransition.getShader().setUniformTexture("srcTexture",shoeTex.src->getTextureReference(), 0);
+                shoeLaserTransition.getShader().setUniformTexture("dstTexture",shoeTex.dst->getTextureReference(), 1);
+                shoeLaserTransition.getShader().setUniformTexture("colorMaskTexture", assets->shoeColorMask, 2);
+                
+                for(int i = 0; i < srcPalette.size(); i++){
+                    shoeLaserTransition.getShader().setUniform3f("srcColor"+ofToString(i+1),
+                                                                 ((float)srcPalette[i].r)/255.0,
+                                                                 ((float)srcPalette[i].g)/255.0,
+                                                                 ((float)srcPalette[i].b)/255.0);
+                }
+                
+                for(int i = 0; i < dstPalette.size(); i++){
+                    shoeLaserTransition.getShader().setUniform3f("dstColor"+ofToString(i+1),
+                                                                 ((float)dstPalette[i].r)/255.0,
+                                                                 ((float)dstPalette[i].g)/255.0,
+                                                                 ((float)dstPalette[i].b)/255.0);
+                }
+                
+                assets->shoeMesh.draw();
+                shoeLaserTransition.end();
+            }
+            
+            ofEnableArbTex();
+            
+            ofPopMatrix();
+            
+            
             lightsEnd();
-
+        } else {
+            if(testMode == "wireframeShoe"){
+                ofSetColor(255);
+                lightsBegin();
+                assets->shoeUVWireframe.bind();
+                assets->shoeMesh.draw();
+                assets->shoeUVWireframe.unbind();
+                lightsEnd();
+                
+            }
         }
+        
+        if(currentViewPort > 0){
+            int view = currentViewPort - 1;
+            calibration->shoe[view].end();
+        }
+        
+        
+        materials["MATERIAL 1"]->end();
     }
-    
-    if(currentViewPort > 0){
-        int view = currentViewPort - 1;
-        calibration->shoe[view].end();
-    }
-    
-    
-    materials["MATERIAL 1"]->end();
 }
 
 void RenderRadar::selfDrawOverlay(){
