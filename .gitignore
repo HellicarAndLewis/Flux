@@ -38,3 +38,5 @@ FluxOF/bin/data/RenderRadar/snapshots
 /FluxOF/bin/data/images_screenshots
 
 /photos
+
+/FluxNodeJS/tmp*
