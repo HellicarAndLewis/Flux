@@ -100,9 +100,9 @@ void RenderRadar::selfSetupSystemGui(){
     sysGui->addLabel("Radar");
     sysGui->add2DPad("Radar_Center",ofVec2f(0,assets->terrainResolution()),ofVec2f(0,assets->terrainResolution()),&radarCenter);
     sysGui->addSlider("Radar_Pct", 0.0, 1.0, &radarPct);
-    sysGui->addSlider("Radar_Color_R", 0 , 1.0, &radarColor.r);
-    sysGui->addSlider("Radar_Color_G", 0 , 1.0, &radarColor.g);
-    sysGui->addSlider("Radar_Color_B", 0 , 1.0, &radarColor.b);
+//    sysGui->addSlider("Radar_Color_R", 0 , 1.0, &radarColor.r);
+//    sysGui->addSlider("Radar_Color_G", 0 , 1.0, &radarColor.g);
+//    sysGui->addSlider("Radar_Color_B", 0 , 1.0, &radarColor.b);
     sysGui->addSlider("Radar_Height",assets->sceneMin.y,assets->sceneMax.y, &radarHeight);
     
     sysGui->addLabel("Text");
@@ -111,9 +111,11 @@ void RenderRadar::selfSetupSystemGui(){
     sysGui->addSlider("Text_Scale", 0.0, 1.0, &textScale);
     
     sysGui->addLabel("Ripples");
-    sysGui->addSlider("Ripples_R", 0., 1., &ripplesColor.r);
-    sysGui->addSlider("Ripples_G", 0., 1., &ripplesColor.g);
-    sysGui->addSlider("Ripples_B", 0., 1., &ripplesColor.b);
+//    sysGui->addSlider("Ripples_R", 0., 1., &ripplesColor.r);
+//    sysGui->addSlider("Ripples_G", 0., 1., &ripplesColor.g);
+//    sysGui->addSlider("Ripples_B", 0., 1., &ripplesColor.b);
+    sysGui->addSlider("Lerp_To_RadarColor", 0., 0.1, &ripplesColorLerpToRadar);
+    sysGui->addSlider("Lerp_To_WhiteColor", 0., 0.1, &ripplesColorLerpToWhite);
 }
 
 void RenderRadar::guiSystemEvent(ofxUIEventArgs &e){
@@ -185,6 +187,18 @@ void RenderRadar::selfUpdate(){
         radarColor.set(dstPalette[3]);
         radarColor.setBrightness(1.0);
         radarColor.setSaturation(1.0);
+    }
+    
+    if(ripplesColorLerpToRadar>0.0){
+        ripplesColor.r = ofLerp(ripplesColor.r, radarColor.r, ripplesColorLerpToRadar);
+        ripplesColor.g = ofLerp(ripplesColor.g, radarColor.g, ripplesColorLerpToRadar);
+        ripplesColor.b = ofLerp(ripplesColor.b, radarColor.b, ripplesColorLerpToRadar);
+    }
+    
+    if(ripplesColorLerpToWhite>0.0){
+        ripplesColor.r = ofLerp(ripplesColor.r, 1, ripplesColorLerpToWhite);
+        ripplesColor.g = ofLerp(ripplesColor.g, 1, ripplesColorLerpToWhite);
+        ripplesColor.b = ofLerp(ripplesColor.b, 1, ripplesColorLerpToWhite);
     }
     
     //  TERRAIN ANIMATION
@@ -417,8 +431,14 @@ void RenderRadar::selfDraw(){
             int view = currentViewPort - 1;
             calibration->shoe[view].begin();
         }
-        
-        if(!testPatternEnabled){
+        if(shoeTransition.bEnable){
+            shoeTransition.begin();
+            shoeTransition.getShader().setUniform1f("radarHeight", radarHeight);
+            shoeTransition.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
+            shoeTransition.getShader().setUniformTexture("srcTexture",shoeTex.src->getTextureReference(), 0);
+            shoeTransition.getShader().setUniformTexture("dstTexture",shoeTex.dst->getTextureReference(), 1);
+            shoeTransition.getShader().setUniformTexture("colorMaskTexture", assets->shoeColorMask, 2);
+            shoeTransition.getShader().setUniform1i("splitLaser", simulatorMode);
             
             lightsBegin();
             
