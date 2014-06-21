@@ -12,7 +12,27 @@
 </Widget>
 <Widget>
     <Kind>2</Kind>
-    <Name>Test Pattern</Name>
+    <Name>disabled</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>grid</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>wireframeTerrain</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>wireframeShoe</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>normalmap</Name>
     <Value>0</Value>
 </Widget>
 <Widget>
@@ -29,22 +49,22 @@
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Color_R</Name>
-    <Value>0.000000000</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>Radar_Color_G</Name>
-    <Value>0.555555105</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>Radar_Color_B</Name>
     <Value>1.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
+    <Name>Radar_Color_G</Name>
+    <Value>0.375000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Radar_Color_B</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
     <Name>Radar_Height</Name>
-    <Value>16.415988922</Value>
+    <Value>22.848497391</Value>
 </Widget>
 <Widget>
     <Kind>11</Kind>

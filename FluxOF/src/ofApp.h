@@ -22,12 +22,6 @@
 //  Animation Prototypes
 //
 #include "RenderRadar.h"
-#include "RenderLasers.h"
-
-enum ANIMATION_STYLE {
-    RADAR = 0,
-    LASERS
-};
 
 class ofApp : public ofBaseApp{
 public:
@@ -44,7 +38,7 @@ public:
     void windowResized(int w, int h);
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
-    void loadAnimation(ANIMATION_STYLE _animation);
+    void loadAnimation();
     
     RenderEngine *renderEngine;
     

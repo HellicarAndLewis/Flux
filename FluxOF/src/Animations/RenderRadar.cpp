@@ -25,6 +25,7 @@ void RenderRadar::selfSetup(){
     //  SHOES
     //
     shoeTransition.load(getDataPath()+"shaders/shoesTrans");
+    shoeLaserTransition.load(getDataPath()+"shaders/shoesLaserTrans");
     
     //  TERRAIN
     //
@@ -78,6 +79,7 @@ void RenderRadar::selfSetupGuis(){
     guiAdd(terrainMeshShader);
     
     guiAdd(shoeTransition);
+    guiAdd(shoeLaserTransition);
     
 }
 
@@ -434,29 +436,59 @@ void RenderRadar::selfDraw(){
         ofSetSmoothLighting(true);
         
         ofDisableArbTex();
-        shoeTransition.begin();
-        shoeTransition.getShader().setUniform1f("radarHeight", radarHeight);
-        shoeTransition.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
-        shoeTransition.getShader().setUniformTexture("srcTexture",shoeTex.src->getTextureReference(), 0);
-        shoeTransition.getShader().setUniformTexture("dstTexture",shoeTex.dst->getTextureReference(), 1);
-        shoeTransition.getShader().setUniformTexture("colorMaskTexture", assets->shoeColorMask, 2);
         
-        for(int i = 0; i < srcPalette.size(); i++){
-            shoeTransition.getShader().setUniform3f("srcColor"+ofToString(i+1),
-                                                    ((float)srcPalette[i].r)/255.0,
-                                                    ((float)srcPalette[i].g)/255.0,
-                                                    ((float)srcPalette[i].b)/255.0);
+        if(shoeTransition.bEnable){
+            shoeTransition.begin();
+            shoeTransition.getShader().setUniform1f("radarHeight", radarHeight);
+            shoeTransition.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
+            shoeTransition.getShader().setUniformTexture("srcTexture",shoeTex.src->getTextureReference(), 0);
+            shoeTransition.getShader().setUniformTexture("dstTexture",shoeTex.dst->getTextureReference(), 1);
+            shoeTransition.getShader().setUniformTexture("colorMaskTexture", assets->shoeColorMask, 2);
+            
+            for(int i = 0; i < srcPalette.size(); i++){
+                shoeTransition.getShader().setUniform3f("srcColor"+ofToString(i+1),
+                                                        ((float)srcPalette[i].r)/255.0,
+                                                        ((float)srcPalette[i].g)/255.0,
+                                                        ((float)srcPalette[i].b)/255.0);
+            }
+            
+            for(int i = 0; i < dstPalette.size(); i++){
+                shoeTransition.getShader().setUniform3f("dstColor"+ofToString(i+1),
+                                                        ((float)dstPalette[i].r)/255.0,
+                                                        ((float)dstPalette[i].g)/255.0,
+                                                        ((float)dstPalette[i].b)/255.0);
+            }
+            
+            assets->shoeMesh.draw();
+            shoeTransition.end();
         }
         
-        for(int i = 0; i < dstPalette.size(); i++){
-            shoeTransition.getShader().setUniform3f("dstColor"+ofToString(i+1),
-                                                    ((float)dstPalette[i].r)/255.0,
-                                                    ((float)dstPalette[i].g)/255.0,
-                                                    ((float)dstPalette[i].b)/255.0);
+        if(shoeLaserTransition.bEnable){
+            shoeLaserTransition.begin();
+            shoeLaserTransition.getShader().setUniform1f("radarHeight", radarHeight);
+            shoeLaserTransition.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
+            shoeLaserTransition.getShader().setUniformTexture("srcTexture",shoeTex.src->getTextureReference(), 0);
+            shoeLaserTransition.getShader().setUniformTexture("dstTexture",shoeTex.dst->getTextureReference(), 1);
+            shoeLaserTransition.getShader().setUniformTexture("colorMaskTexture", assets->shoeColorMask, 2);
+            
+            for(int i = 0; i < srcPalette.size(); i++){
+                shoeLaserTransition.getShader().setUniform3f("srcColor"+ofToString(i+1),
+                                                        ((float)srcPalette[i].r)/255.0,
+                                                        ((float)srcPalette[i].g)/255.0,
+                                                        ((float)srcPalette[i].b)/255.0);
+            }
+            
+            for(int i = 0; i < dstPalette.size(); i++){
+                shoeLaserTransition.getShader().setUniform3f("dstColor"+ofToString(i+1),
+                                                        ((float)dstPalette[i].r)/255.0,
+                                                        ((float)dstPalette[i].g)/255.0,
+                                                        ((float)dstPalette[i].b)/255.0);
+            }
+            
+            assets->shoeMesh.draw();
+            shoeLaserTransition.end();
         }
         
-        assets->shoeMesh.draw();
-        shoeTransition.end();
         ofEnableArbTex();
         
         ofPopMatrix();
