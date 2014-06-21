@@ -32,7 +32,7 @@ void RenderEngine::setCalibration(CalibrationLoader *_calibration){
     
 }
 
-void RenderEngine::addUiClass(UIClass *_ui){
+void RenderEngine::addUIClass(UIClass *_ui){
     guiAdd( *_ui );
 }
 

@@ -1,13 +1,15 @@
-uniform sampler2DRect radarMask;
 uniform sampler2DRect terrainAreas;
+uniform sampler2DRect terrainMask;
+uniform float resolution;
+
 uniform sampler2DRect background;
 uniform sampler2DRect overlayer;
-uniform sampler2DRect ripples;
-uniform sampler2DRect terrainMask;
 
-uniform vec3 ripplesColor;
+uniform sampler2DRect radarMask;
 uniform vec3 radarColor;
-uniform float resolution;
+
+uniform sampler2DRect ripples;
+uniform vec3 ripplesColor;
 
 varying vec4 ambientGlobal, eyeSpaceVertexPos;
 varying vec4 vertexPos;

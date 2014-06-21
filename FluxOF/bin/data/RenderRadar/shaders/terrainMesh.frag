@@ -1,17 +1,16 @@
-uniform sampler2DRect radarMask;
 uniform sampler2DRect terrainAreas;
-uniform sampler2DRect background;
-uniform sampler2DRect overlayer;
-uniform sampler2DRect ripples;
 uniform sampler2DRect terrainMask;
+uniform float resolution;
 
-uniform vec3 ripplesColor;
+uniform sampler2DRect radarMask;
 uniform vec3 radarColor;
-
 uniform float radarPct;
 
-uniform float resolution;
-uniform float time;
+uniform sampler2DRect ripples;
+uniform vec3 ripplesColor;
+
+uniform sampler2DRect background;
+uniform sampler2DRect overlayer;
 
 varying vec4 ambientGlobal, eyeSpaceVertexPos;
 varying vec4 vertexPos;
@@ -176,10 +175,11 @@ void main(void){
   bg = mix(bg,ripplesColor,r);
 
   vec3 color = vec3(1.0);
-
-  if(area>0.0 && radarPct < 1.0){
-    color = gl_Color.rgb;
-  } else {
+  if(area>0.0){
+    color = gl_Color.rgb;//mix(bg,gl_Color.rgb,radarPct);
+  }  else {
+    //  Smooth zone
+    //
     vec4 over = texture2DRect(overlayer,uv);
     color = mix(bg,over.rgb,over.a);
     color *= calc_lighting_color(n).rgb;
