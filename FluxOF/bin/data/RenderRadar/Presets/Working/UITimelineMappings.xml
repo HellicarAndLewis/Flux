@@ -13,16 +13,16 @@
     <SliderCurves>
         <Mapping>
             <Widget>
-                <WidgetName>Radar_Height</WidgetName>
-                <WidgetID>19</WidgetID>
+                <WidgetName>Radar_Pct</WidgetName>
+                <WidgetID>11</WidgetID>
                 <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
             </Widget>
             <Track></Track>
         </Mapping>
         <Mapping>
             <Widget>
-                <WidgetName>Radar_Pct</WidgetName>
-                <WidgetID>11</WidgetID>
+                <WidgetName>Radar_Height</WidgetName>
+                <WidgetID>19</WidgetID>
                 <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
             </Widget>
             <Track></Track>

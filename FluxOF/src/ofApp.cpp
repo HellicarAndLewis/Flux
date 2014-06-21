@@ -101,9 +101,9 @@ void ofApp::loadAnimation(ANIMATION_STYLE _animation){
     //
 	renderEngine->setup();
 
-    renderEngine->addUiClass(&imageQueue);
-    renderEngine->addUiClass(&nodeCommunication);
-    renderEngine->addUiClass(&audioTrigger);
+    renderEngine->addUIClass(&imageQueue);
+    renderEngine->addUIClass(&nodeCommunication);
+    renderEngine->addUIClass(&audioTrigger);
     renderEngine->setCalibration(&calibration);
     
     //  Ready to GO

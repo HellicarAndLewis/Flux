@@ -9,7 +9,7 @@
 #pragma once
 
 #include "ofxCv.h"
-#include "UITime3DProject.h"
+#include "ofxTimeline3DPro.h"
 
 //  INPUTS
 //
@@ -26,10 +26,10 @@
 
 #include "ofxSyphon.h"
 
-class RenderEngine : public UITime3DProject {
+class RenderEngine : public ofxTimeline3DPro {
 public:
     
-    virtual void addUiClass(UIClass *uiClass);
+    virtual void addUIClass(UIClass *UIClass);
     virtual void setCalibration(CalibrationLoader *_calibration);
     
     virtual string getSystemName(){ return "RenderEngine-SuperClass";}
