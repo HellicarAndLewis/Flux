@@ -81,9 +81,9 @@ void RenderAssets::load(){
     
     //  Load ARB Textures
     //
-    ofLoadImage(terrainDepthMap, "models/terrainDepthMap.png");
-    ofLoadImage(terrainNormalMap, "models/terrainNormalMap.png");
-    ofLoadImage(terrainAreasMap,"models/terrainMask.png");
+    ofLoadImage(terrainDepthMap, "textures/terrainDepthMap.png");
+    ofLoadImage(terrainNormalMap, "textures/terrainNormalMap.png");
+    ofLoadImage(terrainAreasMap,"textures/terrainAreasMap.png");
     ofLoadImage(terrainMask1, "textures/terrainMask1.png");
     ofLoadImage(terrainMask2, "textures/terrainMask2.png");
     
@@ -91,7 +91,7 @@ void RenderAssets::load(){
     //  Load SQR Textures
     //
     ofDisableArbTex();
-    ofLoadImage(shoeColorMask, "models/SHOE_MASKS.png");
+    ofLoadImage(shoeColorMask, "models/shoeAreasMap.png");
     ofLoadImage(shoeUVWireframe, "textures/shoe_uv_wireframe.png");
     ofLoadImage(terrainUVWireframe, "textures/terrain_uv_wireframe.png");
     ofEnableArbTex();
