@@ -163,6 +163,7 @@ var pullImages = function(){
 // Parse the response from UDOX
 //
 var handleIncommingImages = function(data){
+
   //First delete items in the local queue that are not present at udox anymore
   for(var u in incommingItems){
     var itemFound = false;
@@ -177,6 +178,8 @@ var handleIncommingImages = function(data){
     }
   }
 
+  
+  var downloading;
   //Look for the items in the local version of the queue, and see if its new
   for(var i=data.length-1; i>=0;i--){
     //console.log("Search for ",data[i])
@@ -189,10 +192,14 @@ var handleIncommingImages = function(data){
 
     if(!itemFound){
       console.log("New item "+data[i].username);
-
+      downloading = true;
       //If its new, then download it
-      downloadImage(data[i]);
-      incommingItems.push(data[i]);
+      var d = data[i];
+      downloadImage(d, function(){
+        incommingItems.push(d);
+        sendIncommingImage();
+        setTimeout(pullImages, 3000);
+      });
     }
   }
 
@@ -200,7 +207,8 @@ var handleIncommingImages = function(data){
   sendIncommingImage();
 
   //Do this again after 3 seconds
-  setTimeout(pullImages, 3000);
+  if(!downloading)
+    setTimeout(pullImages, 3000);
 };
 
 
@@ -210,9 +218,15 @@ var handleIncommingImages = function(data){
 //
 // Download a item to the local folder
 //
-var downloadImage = function(item){
+var downloadImage = function(item, cb){
   console.log("Going to download "+item.image_url+" to "+imageFolder+item.id+".png id: "+item.id)
-  request(item.image_url).pipe(fs.createWriteStream(imageFolder+item.id+".png"))
+  var r = request(item.image_url).pipe(fs.createWriteStream(imageFolder+item.id+".png"))
+
+  r.on('close', function () { 
+    console.log("Downlaod complete");
+    cb();
+  });
+
 };
 
 //
