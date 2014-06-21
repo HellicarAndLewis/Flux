@@ -111,10 +111,11 @@ void RenderRadar::selfSetupSystemGui(){
     sysGui->addSlider("Text_Scale", 0.0, 1.0, &textScale);
     
     sysGui->addLabel("Ripples");
-    sysGui->addSlider("Ripples_R", 0., 1., &ripplesColor.r);
-    sysGui->addSlider("Ripples_G", 0., 1., &ripplesColor.g);
-    sysGui->addSlider("Ripples_B", 0., 1., &ripplesColor.b);
-    sysGui->addSlider("Lerp_To_RadarColor", 0., 0.1, &ripplesColorLerp);
+//    sysGui->addSlider("Ripples_R", 0., 1., &ripplesColor.r);
+//    sysGui->addSlider("Ripples_G", 0., 1., &ripplesColor.g);
+//    sysGui->addSlider("Ripples_B", 0., 1., &ripplesColor.b);
+    sysGui->addSlider("Lerp_To_RadarColor", 0., 0.1, &ripplesColorLerpToRadar);
+    sysGui->addSlider("Lerp_To_WhiteColor", 0., 0.1, &ripplesColorLerpToWhite);
 }
 
 void RenderRadar::guiSystemEvent(ofxUIEventArgs &e){
@@ -188,10 +189,16 @@ void RenderRadar::selfUpdate(){
         radarColor.setSaturation(1.0);
     }
     
-    if(ripplesColorLerp>0.0){
-        ripplesColor.r = ofLerp(ripplesColor.r, radarColor.r, ripplesColorLerp);
-        ripplesColor.g = ofLerp(ripplesColor.g, radarColor.g, ripplesColorLerp);
-        ripplesColor.b = ofLerp(ripplesColor.b, radarColor.b, ripplesColorLerp);
+    if(ripplesColorLerpToRadar>0.0){
+        ripplesColor.r = ofLerp(ripplesColor.r, radarColor.r, ripplesColorLerpToRadar);
+        ripplesColor.g = ofLerp(ripplesColor.g, radarColor.g, ripplesColorLerpToRadar);
+        ripplesColor.b = ofLerp(ripplesColor.b, radarColor.b, ripplesColorLerpToRadar);
+    }
+    
+    if(ripplesColorLerpToWhite>0.0){
+        ripplesColor.r = ofLerp(ripplesColor.r, 1, ripplesColorLerpToWhite);
+        ripplesColor.g = ofLerp(ripplesColor.g, 1, ripplesColorLerpToWhite);
+        ripplesColor.b = ofLerp(ripplesColor.b, 1, ripplesColorLerpToWhite);
     }
     
     //  TERRAIN ANIMATION

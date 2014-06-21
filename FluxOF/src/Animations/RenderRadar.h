@@ -51,7 +51,8 @@ protected:
     ofxRipples      ripples;
     ofxNormals      ripplesNormals;
     ofFloatColor    ripplesColor;
-    float           ripplesColorLerp;
+    float           ripplesColorLerpToRadar;
+    float           ripplesColorLerpToWhite;
     
     // TERRAIN TRANSITION
     //

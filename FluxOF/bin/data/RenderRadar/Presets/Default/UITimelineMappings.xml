@@ -13,6 +13,14 @@
     <SliderCurves>
         <Mapping>
             <Widget>
+                <WidgetName>scale</WidgetName>
+                <WidgetID>7</WidgetID>
+                <WidgetCanvasParent>audioTerrain</WidgetCanvasParent>
+            </Widget>
+            <Track></Track>
+        </Mapping>
+        <Mapping>
+            <Widget>
                 <WidgetName>tailWidth</WidgetName>
                 <WidgetID>7</WidgetID>
                 <WidgetCanvasParent>radar</WidgetCanvasParent>
@@ -29,6 +37,22 @@
         </Mapping>
         <Mapping>
             <Widget>
+                <WidgetName>Lerp_To_RadarColor</WidgetName>
+                <WidgetID>32</WidgetID>
+                <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
+            </Widget>
+            <Track></Track>
+        </Mapping>
+        <Mapping>
+            <Widget>
+                <WidgetName>Lerp_To_WhiteColor</WidgetName>
+                <WidgetID>34</WidgetID>
+                <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
+            </Widget>
+            <Track></Track>
+        </Mapping>
+        <Mapping>
+            <Widget>
                 <WidgetName>Radar_Pct</WidgetName>
                 <WidgetID>20</WidgetID>
                 <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
@@ -38,7 +62,7 @@
         <Mapping>
             <Widget>
                 <WidgetName>Radar_Height</WidgetName>
-                <WidgetID>28</WidgetID>
+                <WidgetID>22</WidgetID>
                 <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
             </Widget>
             <Track></Track>
