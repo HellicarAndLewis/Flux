@@ -217,6 +217,8 @@ void RenderEngine::draw(ofEventArgs & args){
     currentViewPort = glfw->getWindowIndex();
     
     ofPushStyle();
+    ofDisableLighting();
+
     
     getRenderTarget(currentViewPort).begin();{
         

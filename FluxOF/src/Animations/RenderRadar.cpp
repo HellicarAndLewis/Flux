@@ -159,7 +159,7 @@ void RenderRadar::selfUpdate(){
         
         
         ripples.begin();
-        
+        ofClear(0);
         if (audioTerrain.bEnable) {
             audioTerrain.begin();
             audioTerrain.getShader().setUniformTexture("heightMap", assets->terrainDepthMap, 0);
@@ -208,6 +208,7 @@ void RenderRadar::selfUpdate(){
     {
         radarTexture.begin();
         ofClear(0,0);
+        
         radarShader.begin();
         radarShader.getShader().setUniform1f("pct", radarPct);
         radarShader.getShader().setUniform2f("center", radarCenter.x, radarCenter.y);
@@ -235,42 +236,45 @@ void RenderRadar::selfUpdate(){
         
         
         terrainTransitionTex.swap();
-        terrainTransitionTex.dst->begin();
-        terrainTransition.begin();
-        terrainTransition.getShader().setUniformTexture("backbuffer", *terrainTransitionTex.src, 0);
-        terrainTransition.getShader().setUniformTexture("depthMap", assets->terrainDepthMap, 1);
-        terrainTransition.getShader().setUniformTexture("terrainAreas", assets->terrainAreasMap, 2);
-        if(terrainNoise.bEnable){
-            terrainTransition.getShader().setUniformTexture("normalMap", terrainNoiseTex, 3);
-        } else {
-            terrainTransition.getShader().setUniformTexture("normalMap", assets->terrainNormalMap, 3);
-        }
-        terrainTransition.getShader().setUniformTexture("radarTex", radarTexture, 5);
-        
-        for(int i = 0; i < srcPalette.size(); i++){
-            terrainTransition.getShader().setUniform3f("srcColor"+ofToString(i+1),
-                                                       ((float)srcPalette[i].r)/255.0,
-                                                       ((float)srcPalette[i].g)/255.0,
-                                                       ((float)srcPalette[i].b)/255.0);
-        }
-        
-        for(int i = 0; i < dstPalette.size(); i++){
-            terrainTransition.getShader().setUniform3f("dstColor"+ofToString(i+1),
-                                                       ((float)dstPalette[i].r)/255.0,
-                                                       ((float)dstPalette[i].g)/255.0,
-                                                       ((float)dstPalette[i].b)/255.0);
-        }
-        
-        terrainTransition.getShader().setUniform1f("resolution", assets->terrainResolution());
-        
-        glBegin(GL_QUADS);
-        glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
-        glTexCoord2f(assets->terrainResolution(), 0); glVertex3f(assets->terrainResolution(), 0, 0);
-        glTexCoord2f(assets->terrainResolution(), assets->terrainResolution()); glVertex3f(assets->terrainResolution(), assets->terrainResolution(), 0);
-        glTexCoord2f(0,assets->terrainResolution());  glVertex3f(0,assets->terrainResolution(), 0);
-        glEnd();
-        terrainTransition.end();
-        terrainTransitionTex.dst->end();
+        terrainTransitionTex.dst->begin();{
+            
+            ofClear(0,0);
+            
+            terrainTransition.begin();{
+                terrainTransition.getShader().setUniformTexture("backbuffer", *terrainTransitionTex.src, 0);
+                terrainTransition.getShader().setUniformTexture("depthMap", assets->terrainDepthMap, 1);
+                terrainTransition.getShader().setUniformTexture("terrainAreas", assets->terrainAreasMap, 2);
+                if(terrainNoise.bEnable){
+                    terrainTransition.getShader().setUniformTexture("normalMap", terrainNoiseTex, 3);
+                } else {
+                    terrainTransition.getShader().setUniformTexture("normalMap", assets->terrainNormalMap, 3);
+                }
+                terrainTransition.getShader().setUniformTexture("radarTex", radarTexture, 5);
+                
+                for(int i = 0; i < srcPalette.size(); i++){
+                    terrainTransition.getShader().setUniform3f("srcColor"+ofToString(i+1),
+                                                               ((float)srcPalette[i].r)/255.0,
+                                                               ((float)srcPalette[i].g)/255.0,
+                                                               ((float)srcPalette[i].b)/255.0);
+                }
+                
+                for(int i = 0; i < dstPalette.size(); i++){
+                    terrainTransition.getShader().setUniform3f("dstColor"+ofToString(i+1),
+                                                               ((float)dstPalette[i].r)/255.0,
+                                                               ((float)dstPalette[i].g)/255.0,
+                                                               ((float)dstPalette[i].b)/255.0);
+                }
+                
+                terrainTransition.getShader().setUniform1f("resolution", assets->terrainResolution());
+                
+                glBegin(GL_QUADS);
+                glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
+                glTexCoord2f(assets->terrainResolution(), 0); glVertex3f(assets->terrainResolution(), 0, 0);
+                glTexCoord2f(assets->terrainResolution(), assets->terrainResolution()); glVertex3f(assets->terrainResolution(), assets->terrainResolution(), 0);
+                glTexCoord2f(0,assets->terrainResolution());  glVertex3f(0,assets->terrainResolution(), 0);
+                glEnd();
+            } terrainTransition.end();
+        } terrainTransitionTex.dst->end();
     }
     
     //  OverLayer with information
@@ -406,10 +410,11 @@ void RenderRadar::drawTerrain(int viewport){
     }
     
     ofPopMatrix();
-    
+   
+    lightsEnd();
+
     materials["MATERIAL 1"]->end();
 
-    lightsEnd();
     
 }
 
