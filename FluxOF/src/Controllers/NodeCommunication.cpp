@@ -34,10 +34,10 @@ void NodeCommunication::update(){
             }
         } else {
             //Connected
-            if(imageQueue->currentItem.takePhoto){
+            if(imageQueue->currentItem.takePhoto || imageQueue->currentItem.username.length() > 0){
                 if(triggerPicture && lastTriggerPicture != triggerPicture){
                     cout<<"Take picutre"<<endl;
-                    ofSaveScreen("images_screenshots/"+ofToString(imageQueue->currentItem.itemId)+".png");
+                    //ofSaveScreen("images_screenshots/"+ofToString(imageQueue->currentItem.itemId)+".png");
 
                     client.send("{ \"type\": \"photoTrigger\", \"id\":"+ofToString(imageQueue->currentItem.itemId)+"}");
                 }

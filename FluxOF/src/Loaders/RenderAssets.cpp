@@ -91,7 +91,7 @@ void RenderAssets::load(){
     //  Load SQR Textures
     //
     ofDisableArbTex();
-    ofLoadImage(shoeColorMask, "models/shoeAreasMap.png");
+    ofLoadImage(shoeColorMask, "textures/shoeAreasMap.png");
     ofLoadImage(shoeUVWireframe, "textures/shoe_uv_wireframe.png");
     ofLoadImage(terrainUVWireframe, "textures/terrain_uv_wireframe.png");
     ofEnableArbTex();

@@ -27,8 +27,12 @@ wss.on('connection', function(ws) {
       if (object.type && object.type == 'photoTrigger') {
         //TODO: Trigger the photo
         console.log("Trigger photo " + object.id);
+        
+        takePhoto({name:object.id}, function(path){          
+          uploadImage(path, object.id);          
+        })
 
-        uploadImage(dataFolder+"images_screenshots/"+object.id+".png", object.id);
+        //uploadImage(dataFolder+"images_screenshots/"+object.id+".png", object.id);
 
       }
     } catch(e){
@@ -39,7 +43,71 @@ wss.on('connection', function(ws) {
     console.log("oF WebSocket closed")
     ofConnection = undefined;
   });
+});
 
+
+//
+// List cameras / assign list item to variable to use below options
+//
+console.log("\n\n#############################################")
+console.log("################ Starting up ################")
+console.log("#############################################\n\n")
+var camera;
+GPhoto.list(function (list) {
+  if (list.length === 0) {
+    console.log("No cameras found")
+    
+    //Start the pulling of images
+    pullImages();
+    
+    return;
+  };
+  camera = list[0];
+  console.log('Found', camera.model);
+
+  // get configuration tree
+  /*camera.getConfig(function (er, settings) {
+    console.log(settings.main.children);
+  });
+*/
+  // Set configuration values
+
+  //Set the image format 
+  /*
+  "choices":[
+     "Large Fine JPEG",
+     "Large Normal JPEG",
+     "Medium Fine JPEG",
+     "Medium Normal JPEG",
+     "Small Fine JPEG  (S1 Fine)",
+     "Small Normal JPEG (S1 Normal)",
+     "Smaller JPEG (S2)",
+     "Tiny JPEG (S3)",
+     "RAW + Large Fine JPEG",
+     "RAW"
+  ]
+  */
+
+  console.log("Preparing camera... hold on");
+  camera.setConfigValue('imageformat', "Small Fine JPEG  (S1 Fine)", function (er) {
+    camera.setConfigValue('copyright', "", function (er) {
+      camera.setConfigValue('artist', "", function (er) {
+        console.log("Taking test photo in 4 seconds");
+        setTimeout(function(){
+          takePhoto({name:'test'}, function(){
+
+            console.log("### Setup done, starting to pull images from UDOX ###\n");
+            //Start the pulling of images
+            pullImages();
+          });
+        }, 4000);
+      });
+    });
+  });
+
+   // Take picture with camera object obtained from list()
+  
+ 
 });
 
 
@@ -135,8 +203,7 @@ var handleIncommingImages = function(data){
   setTimeout(pullImages, 3000);
 };
 
-//Start the pulling of images
-pullImages();
+
 
 
 
@@ -152,6 +219,7 @@ var downloadImage = function(item){
 // Upload image to UDOX
 //
 var uploadImage = function(path, id){
+  console.log("Uploading "+path+" to "+id);
   var r = request.post('http://dev.adi063.adidas.u-dox.com/api/returned-image/', function optionalCallback (err, httpResponse, body) {
     if (err) {
       return console.error('upload failed:', err);
@@ -164,57 +232,16 @@ var uploadImage = function(path, id){
 }
 
 
-//
-// List cameras / assign list item to variable to use below options
-//
-var camera;
-GPhoto.list(function (list) {
-  if (list.length === 0) return;
-  camera = list[0];
-  console.log('Found', camera.model);
 
-  // get configuration tree
-  /*camera.getConfig(function (er, settings) {
-    console.log(settings.main.children);
-  });
-*/
-  // Set configuration values
-
-  //Set the image format 
-  /*
-  "choices":[
-     "Large Fine JPEG",
-     "Large Normal JPEG",
-     "Medium Fine JPEG",
-     "Medium Normal JPEG",
-     "Small Fine JPEG  (S1 Fine)",
-     "Small Normal JPEG (S1 Normal)",
-     "Smaller JPEG (S2)",
-     "Tiny JPEG (S3)",
-     "RAW + Large Fine JPEG",
-     "RAW"
-  ]
-  */
-  camera.setConfigValue('imageformat', "Small Fine JPEG  (S1 Fine)", function (er) {
-    camera.setConfigValue('copyright', "", function (er) {
-      camera.setConfigValue('artist', "", function (er) {
-
-        setTimeout(takePhoto, 4000);
-      });
-    });
-  });
-
-   // Take picture with camera object obtained from list()
-  
- 
-});
-
-var takePhoto = function(){
+var takePhoto = function(options, cb){
   console.log("Take photo")
   if(camera){
     camera.takePicture({download: true}, function (er, data) {
-      fs.writeFileSync(__dirname + '/picture.jpg', data);
+      var path = __dirname+"/../photos" + '/'+options.name+'.jpg';
+      fs.writeFileSync(path, data);
       console.log("photo taken")
+
+      if(cb) cb(path);
     });
   }
 }
