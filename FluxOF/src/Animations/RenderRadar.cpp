@@ -343,7 +343,7 @@ void RenderRadar::selfDraw(){
         calibration->ground[view].begin();
     }
     
-   /*
+   
     if(!testPatternEnabled){
         lightsBegin();
         
@@ -416,8 +416,6 @@ void RenderRadar::selfDraw(){
         calibration->ground[view].end();
     }
     
-    
-    */
     
     //  SHOE
     //
