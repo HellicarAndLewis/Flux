@@ -86,13 +86,14 @@ void RenderAssets::load(){
     ofLoadImage(terrainMask,"models/terrainMask.png");
     ofLoadImage(terrainMask1, "textures/terrainMask1.png");
     ofLoadImage(terrainMask2, "textures/terrainMask2.png");
-    ofLoadImage(shoeUVWireframe, "textures/shoe_uv_wireframe.png");
     
     
     //  Load SQR Textures
     //
     ofDisableArbTex();
     ofLoadImage(shoeColorMask, "models/SHOE_MASKS.png");
+    ofLoadImage(shoeUVWireframe, "textures/shoe_uv_wireframe.png");
+    ofLoadImage(terrainUVWireframe, "textures/terrain_uv_wireframe.png");
     ofEnableArbTex();
     
     font.loadFont("fonts/AdiHaus", 90);

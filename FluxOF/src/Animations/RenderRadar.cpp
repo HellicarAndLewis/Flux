@@ -90,7 +90,8 @@ void RenderRadar::selfSetupSystemGui(){
     vector<string> items;
     items.push_back("disabled");
     items.push_back("grid");
-    items.push_back("wireframe");
+    items.push_back("wireframeTerrain");
+    items.push_back("wireframeShoe");
     items.push_back("normalmap");
     sysGui->addRadio("Test pattern", items);
     
@@ -308,13 +309,13 @@ void RenderRadar::selfUpdate(){
     // TEST
     //
     ofxUIRadio * ui = ( ofxUIRadio * )sysGui->getWidget("Test pattern");
-    string testPattern = ui->getActiveName();
-    testPatternEnabled = (testPattern.length() != 0 && testPattern != "disabled");
+    testMode = ui->getActiveName();
+    testPatternEnabled = (testMode.length() != 0 && testMode != "disabled");
     if(testPatternEnabled){
         
         testFbo.begin();
         
-        if(testPattern == "grid"){
+        if(testMode == "grid"){
             
             ofClear(50,0,0,255);
             for(int x=0;x<1024;x+= 15){
@@ -323,8 +324,10 @@ void RenderRadar::selfUpdate(){
             for(int x=0;x<1024;x+= 15){
                 ofLine(0, x, 1024, x);
             }
-        } else if (testPattern == "normalmap"){
+        } else if (testMode == "normalmap"){
             assets->terrainNormalMap.draw(0, 0, 1024, 1024);
+        } else {
+            ofClear(0);
         }
         
         testFbo.end();
@@ -339,7 +342,7 @@ void RenderRadar::selfDraw(){
         calibration->ground[view].begin();
     }
     
-    
+   /*
     if(!testPatternEnabled){
         lightsBegin();
         
@@ -388,9 +391,14 @@ void RenderRadar::selfDraw(){
         //TEST
         //
         ofSetColor(255);
-        testFbo.getTextureReference().bind();
-        assets->terrainMesh.draw();
-        testFbo.getTextureReference().unbind();
+        if(testMode != "wireframeTerrain"){
+            testFbo.getTextureReference().bind();
+            assets->terrainMesh.draw();
+            testFbo.getTextureReference().unbind();
+            
+        } else {
+            assets->terrainMesh.drawWireframe();
+        }
     }
     
     if(currentViewPort > 0){
@@ -399,7 +407,7 @@ void RenderRadar::selfDraw(){
     }
     
     
-    
+    */
     
     //  SHOE
     //
@@ -408,42 +416,56 @@ void RenderRadar::selfDraw(){
         int view = currentViewPort - 1;
         calibration->shoe[view].begin();
     }
-    lightsBegin();
     
-    
-    ofPushMatrix();
-    ofSetSmoothLighting(true);
-    
-    ofDisableArbTex();
-    shoeTransition.begin();
-    shoeTransition.getShader().setUniform1f("radarHeight", radarHeight);
-    shoeTransition.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
-    shoeTransition.getShader().setUniformTexture("srcTexture",shoeTex.src->getTextureReference(), 0);
-    shoeTransition.getShader().setUniformTexture("dstTexture",shoeTex.dst->getTextureReference(), 1);
-    shoeTransition.getShader().setUniformTexture("colorMaskTexture", assets->shoeColorMask, 2);
-    
-    for(int i = 0; i < srcPalette.size(); i++){
-        shoeTransition.getShader().setUniform3f("srcColor"+ofToString(i+1),
-                                                ((float)srcPalette[i].r)/255.0,
-                                                ((float)srcPalette[i].g)/255.0,
-                                                ((float)srcPalette[i].b)/255.0);
+    if(!testPatternEnabled){
+        
+        lightsBegin();
+        
+        
+        ofPushMatrix();
+        ofSetSmoothLighting(true);
+        
+        ofDisableArbTex();
+        shoeTransition.begin();
+        shoeTransition.getShader().setUniform1f("radarHeight", radarHeight);
+        shoeTransition.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
+        shoeTransition.getShader().setUniformTexture("srcTexture",shoeTex.src->getTextureReference(), 0);
+        shoeTransition.getShader().setUniformTexture("dstTexture",shoeTex.dst->getTextureReference(), 1);
+        shoeTransition.getShader().setUniformTexture("colorMaskTexture", assets->shoeColorMask, 2);
+        
+        for(int i = 0; i < srcPalette.size(); i++){
+            shoeTransition.getShader().setUniform3f("srcColor"+ofToString(i+1),
+                                                    ((float)srcPalette[i].r)/255.0,
+                                                    ((float)srcPalette[i].g)/255.0,
+                                                    ((float)srcPalette[i].b)/255.0);
+        }
+        
+        for(int i = 0; i < dstPalette.size(); i++){
+            shoeTransition.getShader().setUniform3f("dstColor"+ofToString(i+1),
+                                                    ((float)dstPalette[i].r)/255.0,
+                                                    ((float)dstPalette[i].g)/255.0,
+                                                    ((float)dstPalette[i].b)/255.0);
+        }
+        
+        assets->shoeMesh.draw();
+        shoeTransition.end();
+        ofEnableArbTex();
+        
+        ofPopMatrix();
+        
+        
+        lightsEnd();
+    } else {
+        if(testMode == "wireframeShoe"){
+            ofSetColor(255);
+            lightsBegin();
+            assets->shoeUVWireframe.bind();
+            assets->shoeMesh.draw();
+            assets->shoeUVWireframe.unbind();
+            lightsEnd();
+
+        }
     }
-    
-    for(int i = 0; i < dstPalette.size(); i++){
-        shoeTransition.getShader().setUniform3f("dstColor"+ofToString(i+1),
-                                                ((float)dstPalette[i].r)/255.0,
-                                                ((float)dstPalette[i].g)/255.0,
-                                                ((float)dstPalette[i].b)/255.0);
-    }
-    
-    assets->shoeMesh.draw();
-    shoeTransition.end();
-    ofEnableArbTex();
-    
-    ofPopMatrix();
-    
-    
-    lightsEnd();
     
     if(currentViewPort > 0){
         int view = currentViewPort - 1;

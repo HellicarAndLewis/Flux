@@ -83,5 +83,6 @@ protected:
     
     // TEST
     bool            testPatternEnabled;
+    string          testMode;
     ofFbo           testFbo;
 };
