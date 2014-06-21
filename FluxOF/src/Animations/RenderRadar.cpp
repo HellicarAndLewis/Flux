@@ -100,9 +100,9 @@ void RenderRadar::selfSetupSystemGui(){
     sysGui->addLabel("Radar");
     sysGui->add2DPad("Radar_Center",ofVec2f(0,assets->terrainResolution()),ofVec2f(0,assets->terrainResolution()),&radarCenter);
     sysGui->addSlider("Radar_Pct", 0.0, 1.0, &radarPct);
-    sysGui->addSlider("Radar_Color_R", 0 , 1.0, &radarColor.r);
-    sysGui->addSlider("Radar_Color_G", 0 , 1.0, &radarColor.g);
-    sysGui->addSlider("Radar_Color_B", 0 , 1.0, &radarColor.b);
+//    sysGui->addSlider("Radar_Color_R", 0 , 1.0, &radarColor.r);
+//    sysGui->addSlider("Radar_Color_G", 0 , 1.0, &radarColor.g);
+//    sysGui->addSlider("Radar_Color_B", 0 , 1.0, &radarColor.b);
     sysGui->addSlider("Radar_Height",assets->sceneMin.y,assets->sceneMax.y, &radarHeight);
     
     sysGui->addLabel("Text");
@@ -114,6 +114,7 @@ void RenderRadar::selfSetupSystemGui(){
     sysGui->addSlider("Ripples_R", 0., 1., &ripplesColor.r);
     sysGui->addSlider("Ripples_G", 0., 1., &ripplesColor.g);
     sysGui->addSlider("Ripples_B", 0., 1., &ripplesColor.b);
+    sysGui->addSlider("Lerp_To_RadarColor", 0., 0.1, &ripplesColorLerp);
 }
 
 void RenderRadar::guiSystemEvent(ofxUIEventArgs &e){
@@ -185,6 +186,12 @@ void RenderRadar::selfUpdate(){
         radarColor.set(dstPalette[3]);
         radarColor.setBrightness(1.0);
         radarColor.setSaturation(1.0);
+    }
+    
+    if(ripplesColorLerp>0.0){
+        ripplesColor.r = ofLerp(ripplesColor.r, radarColor.r, ripplesColorLerp);
+        ripplesColor.g = ofLerp(ripplesColor.g, radarColor.g, ripplesColorLerp);
+        ripplesColor.b = ofLerp(ripplesColor.b, radarColor.b, ripplesColorLerp);
     }
     
     //  TERRAIN ANIMATION
@@ -444,6 +451,7 @@ void RenderRadar::selfDraw(){
             shoeTransition.getShader().setUniformTexture("srcTexture",shoeTex.src->getTextureReference(), 0);
             shoeTransition.getShader().setUniformTexture("dstTexture",shoeTex.dst->getTextureReference(), 1);
             shoeTransition.getShader().setUniformTexture("colorMaskTexture", assets->shoeColorMask, 2);
+            shoeTransition.getShader().setUniform1i("splitLaser", simulatorMode);
             
             for(int i = 0; i < srcPalette.size(); i++){
                 shoeTransition.getShader().setUniform3f("srcColor"+ofToString(i+1),

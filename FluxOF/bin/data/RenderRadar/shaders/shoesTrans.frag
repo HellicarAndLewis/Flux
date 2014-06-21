@@ -21,7 +21,7 @@ uniform float lineWidth;
 uniform vec3 radarColor;
 
 uniform float tranNoiseZoom;
-uniform float tranWidth;
+uniform int splitLaser;
 
 uniform float time;
 
@@ -214,7 +214,7 @@ void main(void){
 
 	//	RADAR LINE
 	//
-	if( pos.y - lineWidth*5.0 < radarHeight && !(pos.y + lineWidth*5.0 < radarHeight) ){
+	if( pos.y - lineWidth*5.0 < radarHeight && !(pos.y + lineWidth*5.0 < radarHeight) && splitLaser == 1){
 		float posPct = 1.0-((pos.y+lineWidth*5.0) - radarHeight)/(lineWidth*10.0);
 		float noise = perlin3(vertexPos.xyz*vec3(time*0.1)*tranNoiseZoom);
 		vec3 green = mix(color,radarColor,noise);
