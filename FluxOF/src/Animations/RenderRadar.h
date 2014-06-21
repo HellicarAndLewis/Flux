@@ -73,6 +73,7 @@ protected:
     //  SHOES   TRANSITION
     //
     UIShader        shoeTransition;
+    UIShader        shoeLaserTransition;
     
     //  RADAR
     //

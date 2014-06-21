@@ -107,7 +107,6 @@
 		7252706da14c1be63950adda6d4d0967 /* ofxUIFPS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = feb61645ef9120f5bacb7462a91bd7ca /* ofxUIFPS.cpp */; };
 		72a929d3561b8232a182abfcbb325491 /* ofxOscBundle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65eefa3da3526e9cdd9c21f90d9b5684 /* ofxOscBundle.cpp */; };
 		740a58cbfdfe578c83a349afda24a0fe /* ofxUISlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0de8b77977749c1835a9472b57301c75 /* ofxUISlider.cpp */; };
-		760ac07991bf3dcbf685af817f1a4654 /* RenderLasers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6b52f38c35366b50ca62d74acf3da592 /* RenderLasers.cpp */; };
 		782c2b355cb6ebc83bdb95e0bd931001 /* kiss_fftr.c in Sources */ = {isa = PBXBuildFile; fileRef = b86c4bcf6618e3505813c304817a9b6f /* kiss_fftr.c */; };
 		7a61c288ae942e5885881232ef142c87 /* ofxEasyFft.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67bfc7f21e824f5a7fac65e02fcd4c18 /* ofxEasyFft.cpp */; };
 		7ac6376b15bcf4d368ec068f0ecce711 /* ofxTimeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 173c557b81a5be86d194eeb6d6250f91 /* ofxTimeline.cpp */; };
@@ -570,7 +569,6 @@
 		69668fde141262bc3c6ca9290e61cfa8 /* jsoncpp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = jsoncpp.cpp; path = ../../../addons/ofxLibwebsockets/libs/jsoncpp/jsoncpp.cpp; sourceTree = SOURCE_ROOT; };
 		69c9e7ccffb0319abb500bda0f9d53b5 /* ofOpenALSoundPlayer_TimelineAdditions.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofOpenALSoundPlayer_TimelineAdditions.h; path = ../../../addons/ofxTimeline/libs/ofOpenALSoundPlayer_TimelineAdditions/src/ofOpenALSoundPlayer_TimelineAdditions.h; sourceTree = SOURCE_ROOT; };
 		6b3cdfd1a15e92f074e7d5ae17e4d7ec /* RunningBackground.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = RunningBackground.h; path = ../../../addons/ofxCv/libs/ofxCv/include/ofxCv/RunningBackground.h; sourceTree = SOURCE_ROOT; };
-		6b52f38c35366b50ca62d74acf3da592 /* RenderLasers.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = RenderLasers.cpp; path = src/Animations/RenderLasers.cpp; sourceTree = SOURCE_ROOT; };
 		6b65e6930994cc4b2d2b8b33b10f6e99 /* OscPacketListener.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = OscPacketListener.h; path = ../../../addons/ofxOsc/libs/oscpack/src/osc/OscPacketListener.h; sourceTree = SOURCE_ROOT; };
 		6b907cfbb1b0fede76c41aa0c64ddaf7 /* heap.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = heap.h; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/heap.h; sourceTree = SOURCE_ROOT; };
 		6bc7dd2c4e83a707848be258865dbb01 /* ofxTLAudioTrack.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxTLAudioTrack.h; path = ../../../addons/ofxTimeline/src/ofxTLAudioTrack.h; sourceTree = SOURCE_ROOT; };
@@ -775,7 +773,6 @@
 		bfee9391f78307b42aa09c9afad043a8 /* kiss_fftr.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = kiss_fftr.h; path = ../../../addons/ofxTimeline/libs/kiss/include/kiss_fftr.h; sourceTree = SOURCE_ROOT; };
 		c161222f68d4f7ce28bc4f61e6324dd3 /* ofxUIBaseDraws.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUIBaseDraws.h; path = ../../../addons/ofxUI/src/ofxUIBaseDraws.h; sourceTree = SOURCE_ROOT; };
 		c1c56d20a1a57dc44096bfe709100d93 /* ofxCvContourFinder.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxCvContourFinder.h; path = ../../../addons/ofxOpenCv/src/ofxCvContourFinder.h; sourceTree = SOURCE_ROOT; };
-		c269e6ebd47ee8e60d1a53104957100c /* RenderLasers.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = RenderLasers.h; path = src/Animations/RenderLasers.h; sourceTree = SOURCE_ROOT; };
 		c2fac65c491d4231379f3298ec59c6e9 /* ofxOscReceiver.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxOscReceiver.cpp; path = ../../../addons/ofxOsc/src/ofxOscReceiver.cpp; sourceTree = SOURCE_ROOT; };
 		c38d6dcc3ab9aae213a64015b75adbd4 /* ofxUIScrollableCanvas.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUIScrollableCanvas.h; path = ../../../addons/ofxUI/src/ofxUIScrollableCanvas.h; sourceTree = SOURCE_ROOT; };
 		c42fd9e28a60a8e420539088dfcad6bb /* txt_db.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = txt_db.h; path = ../../../addons/ofxLibwebsockets/libs/openssl/openssl/txt_db.h; sourceTree = SOURCE_ROOT; };
@@ -1809,8 +1806,6 @@
 		81724f1332eb4b71e810441ad0de2c09 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
-				6b52f38c35366b50ca62d74acf3da592 /* RenderLasers.cpp */,
-				c269e6ebd47ee8e60d1a53104957100c /* RenderLasers.h */,
 				a995b6ea81fa6fd1508e06ff40a4ac9b /* RenderRadar.cpp */,
 				a34fd28fcca5ca375b9592a40f19e0b9 /* RenderRadar.h */,
 			);
@@ -2738,7 +2733,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
-				760ac07991bf3dcbf685af817f1a4654 /* RenderLasers.cpp in Sources */,
 				1c8b57710b706d78778cfc5d9620761d /* RenderRadar.cpp in Sources */,
 				4fe4d2d52a0ed27dab64b26d562406e2 /* UIBufferIn.cpp in Sources */,
 				503618b114af1e51804c70515a986459 /* ImageQueue.cpp in Sources */,

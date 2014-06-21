@@ -15,3 +15,8 @@
     <Name>Simulator</Name>
     <Value>1</Value>
 </Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>TERRAIN 1 SYPHON</Name>
+    <Value>0</Value>
+</Widget>

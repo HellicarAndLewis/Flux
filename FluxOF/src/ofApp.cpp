@@ -69,11 +69,11 @@ void ofApp::setup(){
     
     //  start the RENDER
     //
-    loadAnimation(RADAR);
+    loadAnimation();
 }
 
 
-void ofApp::loadAnimation(ANIMATION_STYLE _animation){
+void ofApp::loadAnimation(){
     
     if (renderEngine != NULL){
         renderEngine->stop();
@@ -81,13 +81,8 @@ void ofApp::loadAnimation(ANIMATION_STYLE _animation){
         renderEngine = NULL;
     }
     
-    if (_animation == RADAR){
-        renderEngine = new RenderRadar();
-    } else if (_animation == LASERS){
-        renderEngine = new RenderLasers();
-    } else {
-        return;
-    }
+    
+    renderEngine = new RenderRadar();
     
     //  Link renderEngine to ImageQueue
     //
@@ -125,12 +120,6 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
-    if(key == OF_KEY_F1){
-        loadAnimation(RADAR);
-    } else if (key == OF_KEY_F2){
-        loadAnimation(LASERS);
-    }
     
 }
 
