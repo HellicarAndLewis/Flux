@@ -40,7 +40,6 @@ public:
     void selfSetup();
     void selfUpdate();
 
-    void selfDraw();
     void selfDrawOverlay();
     
     

@@ -536,9 +536,6 @@ void RenderRadar::drawShoeForeground(int viewport){
     }
 }
 
-void RenderRadar::selfDraw(){
-    
-}
 
 void RenderRadar::selfDrawOverlay(){
     if(bDebug){
