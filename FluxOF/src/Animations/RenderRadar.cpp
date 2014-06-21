@@ -85,9 +85,14 @@ void RenderRadar::selfGuiEvent(ofxUIEventArgs &e){
 }
 
 void RenderRadar::selfSetupSystemGui(){
-    sysGui->addLabel("TEST");
-    sysGui->addToggle("Test Pattern", &testPatternEnabled);
-    
+    sysGui->addLabel("TEST Patterns");
+
+    vector<string> items;
+    items.push_back("disabled");
+    items.push_back("grid");
+    items.push_back("wireframe");
+    items.push_back("normalmap");
+    sysGui->addRadio("Test pattern", items);
     
     sysGui->addLabel("Radar");
     sysGui->add2DPad("Radar_Center",ofVec2f(0,assets->terrainResolution()),ofVec2f(0,assets->terrainResolution()),&radarCenter);
@@ -302,14 +307,24 @@ void RenderRadar::selfUpdate(){
     
     // TEST
     //
+    ofxUIRadio * ui = ( ofxUIRadio * )sysGui->getWidget("Test pattern");
+    string testPattern = ui->getActiveName();
+    testPatternEnabled = (testPattern.length() != 0 && testPattern != "disabled");
     if(testPatternEnabled){
+        
         testFbo.begin();
-        ofClear(50,0,0,255);
-        for(int x=0;x<1024;x+= 15){
-            ofLine(x, 0, x, 1024);
-        }
-        for(int x=0;x<1024;x+= 15){
-            ofLine(0, x, 1024, x);
+        
+        if(testPattern == "grid"){
+            
+            ofClear(50,0,0,255);
+            for(int x=0;x<1024;x+= 15){
+                ofLine(x, 0, x, 1024);
+            }
+            for(int x=0;x<1024;x+= 15){
+                ofLine(0, x, 1024, x);
+            }
+        } else if (testPattern == "normalmap"){
+            assets->terrainNormalMap.draw(0, 0, 1024, 1024);
         }
         
         testFbo.end();
@@ -368,7 +383,7 @@ void RenderRadar::selfDraw(){
         ofPopMatrix();
         
         lightsEnd();
-    } else {
+    } else if(testPatternEnabled) {
         
         //TEST
         //
