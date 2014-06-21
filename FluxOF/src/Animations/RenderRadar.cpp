@@ -106,8 +106,6 @@ void RenderRadar::selfSetupSystemGui(){
     sysGui->addSlider("Ripples_R", 0., 1., &ripplesColor.r);
     sysGui->addSlider("Ripples_G", 0., 1., &ripplesColor.g);
     sysGui->addSlider("Ripples_B", 0., 1., &ripplesColor.b);
-    
-    //    sysGui->addSlider("Ripples_dump", 0.9, 0.999999, &ripples.damping);
 }
 
 void RenderRadar::guiSystemEvent(ofxUIEventArgs &e){
@@ -151,17 +149,20 @@ void RenderRadar::selfUpdate(){
         
         
         ripples.begin();
-        audioTerrain.begin();
-        audioTerrain.getShader().setUniformTexture("heightMap", assets->terrainDepthMap, 0);
-        audioTerrain.getShader().setUniformTexture("audioFft", audioIn.texture, 1);
-        audioTerrain.getShader().setUniform1f("audioFftSize", audioIn.texture.getWidth());
-        glBegin(GL_QUADS);
-        glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
-        glTexCoord2f(assets->terrainResolution(), 0); glVertex3f(assets->terrainResolution(), 0, 0);
-        glTexCoord2f(assets->terrainResolution(), assets->terrainResolution()); glVertex3f(assets->terrainResolution(), assets->terrainResolution(), 0);
-        glTexCoord2f(0,assets->terrainResolution());  glVertex3f(0,assets->terrainResolution(), 0);
-        glEnd();
-        audioTerrain.end();
+        
+        if (audioTerrain.bEnable) {
+            audioTerrain.begin();
+            audioTerrain.getShader().setUniformTexture("heightMap", assets->terrainDepthMap, 0);
+            audioTerrain.getShader().setUniformTexture("audioFft", audioIn.texture, 1);
+            audioTerrain.getShader().setUniform1f("audioFftSize", audioIn.texture.getWidth());
+            glBegin(GL_QUADS);
+            glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
+            glTexCoord2f(assets->terrainResolution(), 0); glVertex3f(assets->terrainResolution(), 0, 0);
+            glTexCoord2f(assets->terrainResolution(), assets->terrainResolution()); glVertex3f(assets->terrainResolution(), assets->terrainResolution(), 0);
+            glTexCoord2f(0,assets->terrainResolution());  glVertex3f(0,assets->terrainResolution(), 0);
+            glEnd();
+            audioTerrain.end();
+        } 
         
         ripples.end();
         
