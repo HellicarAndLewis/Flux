@@ -44,9 +44,11 @@ public:
     void selfDrawOverlay();
     
     
-    //Draw
+    //Draw override the render rengine
     void drawTerrain(int viewport);
-        
+    void drawShoeBackground(int viewport);
+    void drawShoeForeground(int viewport);
+    
 protected:
     
     //  AUDIO
