@@ -156,8 +156,6 @@ void RenderRadar::selfUpdate(){
     //  AUDIO REACTION
     //  -----------------------------------------
     {
-        
-        
         ripples.begin();
         ofClear(0);
         if (audioTerrain.bEnable) {
@@ -175,9 +173,7 @@ void RenderRadar::selfUpdate(){
         }
         
         ripples.end();
-        
         ripples.update();
-        //        ripplesNormals << ripples;
     }
     
     
@@ -427,17 +423,9 @@ void RenderRadar::drawShoeBackground(int viewport){
         int view = currentViewPort - 1;
         calibration->shoe[view].begin();
     }
+    
     if(shoeTransition.bEnable){
-        shoeTransition.begin();
-        shoeTransition.getShader().setUniform1f("radarHeight", radarHeight);
-        shoeTransition.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
-        shoeTransition.getShader().setUniformTexture("srcTexture",shoeTex.src->getTextureReference(), 0);
-        shoeTransition.getShader().setUniformTexture("dstTexture",shoeTex.dst->getTextureReference(), 1);
-        shoeTransition.getShader().setUniformTexture("colorMaskTexture", assets->shoeColorMask, 2);
-        shoeTransition.getShader().setUniform1i("splitLaser", simulatorMode);
-        
         lightsBegin();
-        
         
         ofPushMatrix();
         ofSetSmoothLighting(true);
@@ -451,6 +439,7 @@ void RenderRadar::drawShoeBackground(int viewport){
             shoeTransition.getShader().setUniformTexture("srcTexture",shoeTex.src->getTextureReference(), 0);
             shoeTransition.getShader().setUniformTexture("dstTexture",shoeTex.dst->getTextureReference(), 1);
             shoeTransition.getShader().setUniformTexture("colorMaskTexture", assets->shoeColorMask, 2);
+            shoeTransition.getShader().setUniform1i("splitLaser", simulatorMode);
             
             for(int i = 0; i < srcPalette.size(); i++){
                 shoeTransition.getShader().setUniform3f("srcColor"+ofToString(i+1),
@@ -471,10 +460,7 @@ void RenderRadar::drawShoeBackground(int viewport){
         }
         
         ofEnableArbTex();
-        
         ofPopMatrix();
-        
-        
         lightsEnd();
     }
 }
@@ -490,16 +476,14 @@ void RenderRadar::drawShoeForeground(int viewport){
         int view = currentViewPort - 1;
         calibration->shoe[view].begin();
     }
-    if(shoeTransition.bEnable){
-        
+    
+    if(shoeLaserTransition.bEnable){
         lightsBegin();
-        
         
         ofPushMatrix();
         ofSetSmoothLighting(true);
         
         ofDisableArbTex();
-        
         
         if(shoeLaserTransition.bEnable){
             shoeLaserTransition.begin();
@@ -530,7 +514,6 @@ void RenderRadar::drawShoeForeground(int viewport){
         ofEnableArbTex();
         
         ofPopMatrix();
-        
         
         lightsEnd();
     }

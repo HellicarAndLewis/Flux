@@ -20,13 +20,13 @@ Install addons:
     cd addons
     git clone https://github.com/Flightphase/ofxTextInputField.git
     git clone https://github.com/YCAMInterlab/ofxTimecode.git
-    git clone https://github.com/ofxMSATimer/ofxMSATimer.git
+    git clone https://github.com/obviousjim/ofxMSATimer.git
     git clone https://github.com/Flightphase/ofxRange.git
     git clone https://github.com/arturoc/ofxTween.git
     git clone https://github.com/YCAMInterlab/ofxTimeline.git
     git clone https://github.com/kylemcdonald/ofxCv.git
     git clone https://github.com/rezaali/ofxUI.git
-    git clone https://github.com/patriciogonzalezvivo/ofxPro.git; 
+    git clone https://github.com/patriciogonzalezvivo/ofxPro.git
     git clone https://github.com/patriciogonzalezvivo/ofxFX.git
     git clone https://github.com/labatrockwell/ofxLibwebsockets.git
     git clone https://github.com/kylemcdonald/ofxFft.git

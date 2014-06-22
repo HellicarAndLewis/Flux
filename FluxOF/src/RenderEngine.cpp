@@ -60,7 +60,6 @@ void RenderEngine::selfUpdate(){
         cout<<"Allocate render passes fbo "<<ofGetWidth()<<"x"<<ofGetHeight()<<endl;
         renderPasses.allocate(ofGetWidth(), ofGetHeight());
     }
-    
 }
 
 void RenderEngine::setCalibration(CalibrationLoader *_calibration){

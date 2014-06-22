@@ -2,8 +2,8 @@
     <Kind>40</Kind>
     <Name>audioTerrain</Name>
     <IsMinified>0</IsMinified>
-    <XPosition>246.000000000</XPosition>
-    <YPosition>346.000000000</YPosition>
+    <XPosition>674.000000000</XPosition>
+    <YPosition>280.000000000</YPosition>
 </Canvas>
 <Widget>
     <Kind>2</Kind>
@@ -13,7 +13,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>audioFftSize</Name>
-    <Value>0.172413796</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -23,7 +23,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>pct</Name>
-    <Value>0.768472910</Value>
+    <Value>0.605911314</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>

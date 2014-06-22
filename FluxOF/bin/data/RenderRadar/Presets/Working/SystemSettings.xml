@@ -33,7 +33,7 @@
 <Widget>
     <Kind>2</Kind>
     <Name>normalmap</Name>
-    <Value>0</Value>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>11</Kind>
@@ -49,7 +49,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Height</Name>
-    <Value>5.611752510</Value>
+    <Value>22.848497391</Value>
 </Widget>
 <Widget>
     <Kind>11</Kind>
@@ -75,5 +75,5 @@
 <Widget>
     <Kind>4</Kind>
     <Name>Lerp_To_WhiteColor</Name>
-    <Value>0.000067186</Value>
+    <Value>0.055000003</Value>
 </Widget>
