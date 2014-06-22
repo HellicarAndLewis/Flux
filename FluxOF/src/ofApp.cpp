@@ -18,6 +18,10 @@ void ofApp::setup(){
     //
     if(numberOfMonitors == 3){
         
+        //Set the main window to full HD
+        ofSetWindowShape(1920, 1080);
+        
+        
         //Find the positions of the monitors
         //
         vector<ofRectangle> monitorSizes;
@@ -28,9 +32,6 @@ void ofApp::setup(){
             ofRectangle monitorRect(xM, yM, desktopMode->width, desktopMode->height);
             monitorSizes.push_back(monitorRect);
         }
-
-        //Set the main window to full HD
-        ofSetWindowShape(1920, 1080);
 
         //Run through the windows, and create the additional render views
         for(int i=0;i<2;i++){
@@ -46,7 +47,11 @@ void ofApp::setup(){
             ofToggleFullscreen();
         }
         
+        glfw->setWindow(glfw->windows.at(0));
         glfw->showWindow(glfw->windows.at(0));
+        
+    
+
     } else {
         ofToggleFullscreen();
     }
