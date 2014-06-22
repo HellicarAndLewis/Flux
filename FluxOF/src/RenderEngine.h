@@ -52,6 +52,7 @@ public:
     ofFbo shoeForegroundTexture;
     
     PingPong renderPasses;
+    PingPong renderTmpFbo;
     
     // Texture update calls
     virtual void updateTerrainTexture(ofPoint size);

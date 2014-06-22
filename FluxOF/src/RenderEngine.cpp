@@ -290,6 +290,17 @@ void RenderEngine::draw(ofEventArgs & args){
             renderPasses.swap();
         }
         
+        //Draw the terrain to the output FBO
+        //
+        ofSetColor(255);
+        renderPasses.src->draw(0,0);
+        
+        
+        
+        
+        // Starting on a fresh FBO here
+        renderPasses.clear();
+
         // 3: Shoe Background
         //
         if(shoeBackgroundDrawEnabled){
@@ -299,9 +310,6 @@ void RenderEngine::draw(ofEventArgs & args){
                 ofDisableAlphaBlending();
                 ofDisableDepthTest();
               
-                //Draw the source
-                renderPasses.src->draw(0,0);
-             
                 ofEnableDepthTest();
                 //Draw the shoe background
                 startMatrixTranformation(currentViewPort, false);
@@ -313,34 +321,58 @@ void RenderEngine::draw(ofEventArgs & args){
             ofPopMatrix();
         }
         
-
-        
-        // 4: Shoe Background
+        // 4: Shoe Details
         //
-        if(shoeForegroundDrawEnabled){
+        if(shoeDetailsDrawEnabled){
             ofPushMatrix();
             renderPasses.dst->begin();{
                 ofClear(0, 0);
-                ofDisableAlphaBlending();
+                //ofDisableAlphaBlending();
                 ofDisableDepthTest();
                 
                 //Draw the source
                 renderPasses.src->draw(0,0);
                 
-                ofEnableDepthTest();
-                ofEnableAlphaBlending();
-               // ofEnableBlendMode(OF_BLENDMODE_SCREEN);
                 //Draw the shoe background
-                // Render the mask fbo, reusing the src fbo for effeciency
+                drawShoeDetails(currentViewPort);
+               
+                
+            } renderPasses.dst->end();
+            renderPasses.swap();
+            ofPopMatrix();
+        }
+        
+
+        
+        // 5: Shoe Foreground
+        //
+        if(shoeForegroundDrawEnabled){
+            ofPushMatrix();
+            renderPasses.dst->begin();{
+                ofClear(0, 0);
+                //ofDisableAlphaBlending();
+                ofDisableDepthTest();
+                
+                //Draw the source
+                renderPasses.src->draw(0,0);
+                
+                // Draw the shoe background
                 renderPasses.src->begin();{
-                    ofClear(0, 255);
+                    ofClear(0, 0);
+                    
+                    ofEnableDepthTest();
+                    ofEnableAlphaBlending();
+
                     startMatrixTranformation(currentViewPort, false);
                     drawShoeForeground(currentViewPort);
                     endMatrixTranformation(currentViewPort, false);
                 } renderPasses.src->end();
                 
-                //Multiply the mask
-                ofEnableBlendMode(OF_BLENDMODE_ADD);
+                ofDisableDepthTest();
+
+                glEnable(GL_BLEND);
+                glBlendFuncSeparate(GL_ONE, GL_ONE, GL_ONE, GL_ONE);
+                glBlendEquation(GL_FUNC_ADD);
                 
                 //Draw the mask (can't do it with draw)
                 renderPasses.src->getTextureReference().bind();
@@ -362,7 +394,8 @@ void RenderEngine::draw(ofEventArgs & args){
         
 
         
-        
+        ofDisableAlphaBlending();
+        ofDisableDepthTest();
         ofSetColor(255);
         renderPasses.src->draw(0,0);
         
@@ -485,6 +518,8 @@ void RenderEngine::drawShoeBackground(int viewport){
     assets->shoeUVWireframe.unbind();
 }
 void RenderEngine::drawShoeDetails(int viewport){
+    ofSetColor(255);
+    ofRect(0, 0, 500, 500);
 }
 void RenderEngine::drawShoeForeground(int viewport){
     assets->shoeUVWireframe.bind();
