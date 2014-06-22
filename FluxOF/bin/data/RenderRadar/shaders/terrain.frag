@@ -177,7 +177,8 @@ void main(void){
   if(area>0.0){
     //  Sharp zone
     //
-    color = gl_Color.rgb;
+    vec4 over = texture2DRect(overlayer,uv);
+    color = mix(gl_Color.rgb,over.rgb,over.a);
   } else {
     //  Smooth zone
     //
@@ -185,6 +186,8 @@ void main(void){
     color = mix(bg,over.rgb,over.a);
     color *= calc_lighting_color(n).rgb;
   }
+
+
 
 	gl_FragColor.rgb = color;
 	gl_FragColor.a = 1.0;

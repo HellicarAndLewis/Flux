@@ -84,6 +84,9 @@ protected:
     ofPoint         radarCenter;
     float           radarPct;
     float           radarHeight;
+    float           radarRadius;
+    float           radarAlpha;
+    float           radarRadiusAlpha;
     
     // TEST
     bool            testPatternEnabled;

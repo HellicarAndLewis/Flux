@@ -98,10 +98,14 @@ void RenderRadar::selfSetupSystemGui(){
     sysGui->addLabel("Radar");
     sysGui->add2DPad("Radar_Center",ofVec2f(0,assets->terrainResolution()),ofVec2f(0,assets->terrainResolution()),&radarCenter);
     sysGui->addSlider("Radar_Pct", 0.0, 1.0, &radarPct);
+    sysGui->addSlider("Radar_Alpha",0,255, &radarAlpha);
 //    sysGui->addSlider("Radar_Color_R", 0 , 1.0, &radarColor.r);
 //    sysGui->addSlider("Radar_Color_G", 0 , 1.0, &radarColor.g);
 //    sysGui->addSlider("Radar_Color_B", 0 , 1.0, &radarColor.b);
     sysGui->addSlider("Radar_Height",assets->sceneMin.y,assets->sceneMax.y, &radarHeight);
+    
+    sysGui->addSlider("Radar_Radius", 0., assets->terrainResolution(), &radarRadius);
+    sysGui->addSlider("Radar_Radius_Alpha", 0., assets->terrainResolution(), &radarRadiusAlpha);
     
     sysGui->addLabel("Text");
     sysGui->add2DPad("Text_offset", ofVec2f(0,assets->terrainResolution()),ofVec2f(0,assets->terrainResolution()), &textOffset);
@@ -160,7 +164,7 @@ void RenderRadar::selfUpdate(){
             glEnd();
             audioTerrain.end();
         } else {
-//            ofClear(0,255);
+            ofClear(0,255);
         }
         ripples.end();
         ripples.update();
@@ -269,14 +273,24 @@ void RenderRadar::selfUpdate(){
         terrainTex.begin();{
             ofClear(0,0);
             
-            // radar line
             ofPushStyle();
             ofPushMatrix();
-            ofSetColor(radarColor);
             ofTranslate(radarCenter);
+            
+            ofSetLineWidth(2);
+            
+            // radar line
+            ofSetColor(radarColor,radarAlpha);
             float radius = assets->terrainResolution();
             float angle = TWO_PI*radarPct;
             ofLine(0,0,radius*cos(angle),radius*sin(angle));
+            
+            // Circle line
+            ofSetColor(radarColor,radarRadiusAlpha);
+            ofNoFill();
+            ofSetCircleResolution(36);
+            ofCircle(0, 0, radarRadius);
+            
             ofPopMatrix();
             ofPopStyle();
             
@@ -284,20 +298,16 @@ void RenderRadar::selfUpdate(){
             //
             ofPoint textCenter = assets->font.getStringBoundingBox(text,0,0).getCenter();
             ofPushStyle();
-            ofClear(0,0);
             ofSetColor(255, textAlpha*255.0);
             ofPushMatrix();
             ofTranslate(textOffset);
             ofRotate(-90);
             ofScale(textScale, textScale);
-            //        assets->font.drawString(text, -textCenter.x, -textCenter.y );
+//        assets->font.drawString(text, -textCenter.x, -textCenter.y );
             assets->font.drawString(text, 0.0, -textCenter.y );
             ofPopMatrix();
             
             ofPopStyle();
-            
-            
-            
             
         }terrainTex.end();
     }
@@ -360,11 +370,10 @@ void RenderRadar::drawTerrain(int viewport){
     if(terrainShader.bEnable){
         terrainShader.begin();
         terrainShader.getShader().setUniformTexture("terrainAreas", assets->terrainAreasMap, 0);
-//        terrainShader.getShader().setUniformTexture("terrainMask", terrainMaskTexture.getTextureReference(), 1);
-        terrainShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
-        terrainShader.getShader().setUniformTexture("overlayer", terrainTex, 3);
-        terrainShader.getShader().setUniformTexture("ripples", ripples, 4);
-        terrainShader.getShader().setUniformTexture("radarMask", radarTexture, 5);
+        terrainShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 1);
+        terrainShader.getShader().setUniformTexture("overlayer", terrainTex, 2);
+        terrainShader.getShader().setUniformTexture("ripples", ripples, 3);
+        terrainShader.getShader().setUniformTexture("radarMask", radarTexture, 4);
         
         terrainShader.getShader().setUniform3f("ripplesColor", ripplesColor.r,ripplesColor.g,ripplesColor.b);
         terrainShader.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
@@ -380,11 +389,10 @@ void RenderRadar::drawTerrain(int viewport){
         terrainMeshShader.begin();
         
         terrainMeshShader.getShader().setUniformTexture("terrainAreas", assets->terrainAreasMap, 0);
-//        terrainMeshShader.getShader().setUniformTexture("terrainMask", terrainMaskTexture.getTextureReference(), 1);
-        terrainMeshShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 2);
-        terrainMeshShader.getShader().setUniformTexture("overlayer", terrainTex, 3);
-        terrainMeshShader.getShader().setUniformTexture("ripples", ripples, 4);
-        terrainMeshShader.getShader().setUniformTexture("radarMask", radarTexture, 5);
+        terrainMeshShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 1);
+        terrainMeshShader.getShader().setUniformTexture("overlayer", terrainTex, 2);
+        terrainMeshShader.getShader().setUniformTexture("ripples", ripples, 3);
+        terrainMeshShader.getShader().setUniformTexture("radarMask", radarTexture, 4);
         
         terrainMeshShader.getShader().setUniform3f("ripplesColor", ripplesColor.r,ripplesColor.g,ripplesColor.b);
         terrainMeshShader.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
@@ -516,8 +524,10 @@ void RenderRadar::selfDrawOverlay(){
         ofPushMatrix();
         ofScale(0.5, 0.5);
         ripples.draw(0,0);
+        terrainTex.draw(0,0);
         ofPopMatrix();
         audioIn.texture.draw(0,0,audioIn.texture.getWidth()*2.0,10);
+        
         
         float paletteSize = 10;
         float margin = 15;
