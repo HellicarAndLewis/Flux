@@ -260,6 +260,7 @@ void RenderEngine::draw(ofEventArgs & args){
                 renderPasses.src->draw(0,0);
 
                 
+                ofSetColor(255);
                 
                 // Render the mask fbo, reusing the src fbo for effeciency
                 renderPasses.src->begin();{
@@ -449,8 +450,9 @@ void RenderEngine::draw(ofEventArgs & args){
         
 		timeline->draw();
 	}
-     
-     
+    
+    ofSetColor(255);
+    ofDrawBitmapString(ofToString(ofGetFrameRate()), ofPoint(10,10));
 }
 
 
