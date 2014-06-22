@@ -13,22 +13,22 @@
 <Widget>
     <Kind>25</Kind>
     <Name>POSX</Name>
-    <Value>-204.839462280</Value>
+    <Value>130.890014648</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
     <Name>POSY</Name>
-    <Value>159.713867188</Value>
+    <Value>1000.000000000</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
     <Name>POSZ</Name>
-    <Value>-191.668334961</Value>
+    <Value>151.831146240</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
     <Name>aHUE</Name>
-    <Value>0.439790577</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
@@ -43,7 +43,7 @@
 <Widget>
     <Kind>25</Kind>
     <Name>dHUE</Name>
-    <Value>0.099476442</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
@@ -53,12 +53,12 @@
 <Widget>
     <Kind>25</Kind>
     <Name>dBRI</Name>
-    <Value>0.486910999</Value>
+    <Value>0.099476442</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
     <Name>sHUE</Name>
-    <Value>0.685863853</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
