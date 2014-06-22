@@ -19,7 +19,6 @@
 #include "UIShader.h"
 
 #include "ofxRipples.h"
-#include "ofxNormals.h"
 
 class RenderRadar : public RenderEngine {
 public:
@@ -34,8 +33,6 @@ public:
     
     void selfSetupRenderGui();
     void guiRenderEvent(ofxUIEventArgs &e);
-    
-    void selfBegin();
     
     void selfSetup();
     void selfUpdate();
@@ -54,7 +51,6 @@ protected:
     //
     UIShader        audioTerrain;
     ofxRipples      ripples;
-    ofxNormals      ripplesNormals;
     ofFloatColor    ripplesColor;
     float           ripplesColorLerpToRadar;
     float           ripplesColorLerpToWhite;

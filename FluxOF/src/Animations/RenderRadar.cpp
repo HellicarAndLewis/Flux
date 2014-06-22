@@ -19,8 +19,7 @@ void RenderRadar::selfSetup(){
     
     audioTerrain.loadFrag(getDataPath()+"shaders/audioTerrain.frag");
     
-    ripples.allocate(assets->terrainResolution(), assets->terrainResolution(),GL_RGBA);
-    ripplesNormals.allocate(assets->terrainResolution(), assets->terrainResolution());
+    ripples.allocate(assets->terrainResolution(), assets->terrainResolution());
     
     //  SHOES
     //
@@ -80,7 +79,6 @@ void RenderRadar::selfSetupGuis(){
     
     guiAdd(shoeTransition);
     guiAdd(shoeLaserTransition);
-    
 }
 
 void RenderRadar::selfGuiEvent(ofxUIEventArgs &e){
@@ -124,12 +122,10 @@ void RenderRadar::guiSystemEvent(ofxUIEventArgs &e){
 }
 
 void RenderRadar::selfSetupRenderGui(){
-    
     rdrGui->addLabel("Render mode");
     rdrGui->addToggle("Simulator", &simulatorMode);
     
     RenderEngine::selfSetupRenderGui();
-    
 }
 
 void RenderRadar::guiRenderEvent(ofxUIEventArgs &e){
@@ -138,26 +134,19 @@ void RenderRadar::guiRenderEvent(ofxUIEventArgs &e){
 }
 //---------------------------------------------------
 
-void RenderRadar::selfBegin(){
-    ripples.begin();
-    ofClear(0,255);
-    ripples.end();
-    ripples.update();
-    ripples.begin();
-    ofClear(0,255);
-    ripples.end();
-}
-
-//---------------------------------------------------
-
 void RenderRadar::selfUpdate(){
     RenderEngine::selfUpdate();
+    
+    if(ofGetElapsedTimef()<3.0){
+        ripples.begin();
+        ofClear(0,255);
+        ripples.end();
+    }
     
     //  AUDIO REACTION
     //  -----------------------------------------
     {
         ripples.begin();
-        ofClear(0);
         if (audioTerrain.bEnable) {
             audioTerrain.begin();
             audioTerrain.getShader().setUniformTexture("heightMap", assets->terrainDepthMap, 0);
@@ -170,8 +159,9 @@ void RenderRadar::selfUpdate(){
             glTexCoord2f(0,assets->terrainResolution());  glVertex3f(0,assets->terrainResolution(), 0);
             glEnd();
             audioTerrain.end();
+        } else {
+//            ofClear(0,255);
         }
-        
         ripples.end();
         ripples.update();
     }

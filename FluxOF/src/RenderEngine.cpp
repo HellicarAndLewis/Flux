@@ -21,8 +21,6 @@ void RenderEngine::selfSetup(){
     shoeBackgroundTexture.allocate(1024, 1024);
     shoeForegroundTexture.allocate(1024, 1024);
     ofEnableArbTex();
-    
-    
 }
 
 void RenderEngine::selfSetupRenderGui(){
