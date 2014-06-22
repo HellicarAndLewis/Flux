@@ -2,8 +2,8 @@
     <Kind>40</Kind>
     <Name>RenderSettings</Name>
     <IsMinified>0</IsMinified>
-    <XPosition>1496.000000000</XPosition>
-    <YPosition>111.000000000</YPosition>
+    <XPosition>1000.000000000</XPosition>
+    <YPosition>49.000000000</YPosition>
 </Canvas>
 <Widget>
     <Kind>2</Kind>
@@ -38,7 +38,7 @@
 <Widget>
     <Kind>2</Kind>
     <Name>Shoe Details</Name>
-    <Value>0</Value>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>

@@ -37,22 +37,6 @@
         </Mapping>
         <Mapping>
             <Widget>
-                <WidgetName>Lerp_To_RadarColor</WidgetName>
-                <WidgetID>32</WidgetID>
-                <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
-            </Widget>
-            <Track></Track>
-        </Mapping>
-        <Mapping>
-            <Widget>
-                <WidgetName>Lerp_To_WhiteColor</WidgetName>
-                <WidgetID>34</WidgetID>
-                <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
-            </Widget>
-            <Track></Track>
-        </Mapping>
-        <Mapping>
-            <Widget>
                 <WidgetName>Radar_Pct</WidgetName>
                 <WidgetID>20</WidgetID>
                 <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
@@ -63,6 +47,22 @@
             <Widget>
                 <WidgetName>Radar_Height</WidgetName>
                 <WidgetID>22</WidgetID>
+                <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
+            </Widget>
+            <Track></Track>
+        </Mapping>
+        <Mapping>
+            <Widget>
+                <WidgetName>Lerp_To_RadarColor</WidgetName>
+                <WidgetID>32</WidgetID>
+                <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
+            </Widget>
+            <Track></Track>
+        </Mapping>
+        <Mapping>
+            <Widget>
+                <WidgetName>Lerp_To_WhiteColor</WidgetName>
+                <WidgetID>34</WidgetID>
                 <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
             </Widget>
             <Track></Track>
