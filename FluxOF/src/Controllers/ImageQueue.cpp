@@ -8,25 +8,7 @@
 
 #include "ImageQueue.h"
 
-void ImageQueue::loadQueueFromDir(){
-    //Mockup data
-    string path = "images";
-    ofDirectory backgroundsDir(path);
-    if(backgroundsDir.exists()){
-		backgroundsDir.listDir();
-        int total = backgroundsDir.getFiles().size();
-        for (int i = 0; i < total; i++) {
-            QueueItem newItem;
-            newItem.path = "images/"+backgroundsDir.getName(i);
-            newItem.image.loadImage(newItem.path);
-            newItem.username = "@Username"+ofToString(i+1);
-            
-            incommingItemsQueue.push_back(newItem);
-        }
-    }
-    
-    transitionDelay = -1;
-}
+
 
 void ImageQueue::setupUI(){
     incommingSizeLabel = gui->addLabel("");;
@@ -172,14 +154,32 @@ void ImageQueue::loadQueueFromFile(){
         newItem.username = load.getValue("username", "");
         newItem.itemId = load.getValue("itemId", 0);
         newItem.takePhoto = false;
-        
+        newItem.timestamp = load.getValue("timestamp", (int)ofGetUnixTime());
         oldItemsQueue.push_back(newItem);
         
         load.popTag();
     }
 }
 
-
+void ImageQueue::loadQueueFromDir(){
+    //Mockup data
+    string path = "images";
+    ofDirectory backgroundsDir(path);
+    if(backgroundsDir.exists()){
+		backgroundsDir.listDir();
+        int total = backgroundsDir.getFiles().size();
+        for (int i = 0; i < total; i++) {
+            QueueItem newItem;
+            newItem.path = "images/"+backgroundsDir.getName(i);
+            newItem.image.loadImage(newItem.path);
+            newItem.username = "@Username"+ofToString(i+1);
+            
+            incommingItemsQueue.push_back(newItem);
+        }
+    }
+    
+    transitionDelay = -1;
+}
 //
 //
 //

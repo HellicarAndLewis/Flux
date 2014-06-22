@@ -107,7 +107,8 @@ void NodeCommunication::onMessage( ofxLibwebsockets::Event& args ){
                 newItem.path = "images/"+queueItem["id"].asString()+".png";
                 newItem.username = queueItem["username"].asString();
                 newItem.takePhoto = true;
-                
+                newItem.timestamp = ofGetUnixTime();
+
                 imageQueue->incommingItemsQueue.push_back(newItem);
             }
         }
