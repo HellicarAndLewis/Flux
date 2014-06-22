@@ -333,7 +333,7 @@ void RenderEngine::draw(ofEventArgs & args){
                 
                 //Draw the source
                 renderPasses.src->draw(0,0);
-                
+
                 //Draw the shoe background
                 drawShoeDetails(currentViewPort);
                
@@ -521,7 +521,13 @@ void RenderEngine::drawShoeBackground(int viewport){
 }
 void RenderEngine::drawShoeDetails(int viewport){
     ofSetColor(255);
-    ofRect(0, 0, 500, 500);
+    ofEnableAlphaBlending();
+    if(viewport == 2){
+        assets->shoeDetails2.draw(0, ofGetHeight(), ofGetWidth(), -ofGetHeight());
+    } else {
+        assets->shoeDetails1.draw(0, ofGetHeight(), ofGetWidth(), -ofGetHeight());
+    }
+
 }
 void RenderEngine::drawShoeForeground(int viewport){
     assets->shoeUVWireframe.bind();

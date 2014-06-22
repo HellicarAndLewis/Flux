@@ -31,6 +31,7 @@ Install addons:
     git clone https://github.com/labatrockwell/ofxLibwebsockets.git
     git clone https://github.com/kylemcdonald/ofxFft.git
     git clone https://github.com/charlesveasey/ofxMultiGLFWWindow.git
+    git clone https://github.com/bakercp/ofxIO.git
 
 Usage
 ===

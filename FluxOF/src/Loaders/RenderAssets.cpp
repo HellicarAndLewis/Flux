@@ -12,8 +12,34 @@ int RenderAssets::terrainResolution(){
     return terrainDepthMap.getWidth();
 }
 
+void RenderAssets::onDirectoryWatcherItemModified(const DirectoryWatcherManager::DirectoryEvent& evt)
+{
+    ofLogError("Modified: " + evt.item.path());
+    
+    if (evt.item.path().find("shoeDetails1") != std::string::npos) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            ofLoadImage(shoeDetails1, "textures/shoeDetails1.png");
+        });
+    }
+    if (evt.item.path().find("shoeDetails2") != std::string::npos) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            ofLoadImage(shoeDetails2, "textures/shoeDetails2.png");
+        });
+    }
+
+    
+}
+
 
 void RenderAssets::load(){
+    watcher.registerAllEvents(this);
+    
+    std::string folderToWatch = ofToDataPath("textures", true);
+    bool listExistingItemsOnStart = true;
+    
+    watcher.addPath(folderToWatch, listExistingItemsOnStart, &fileFilter);
+
+    
     //  Load modeles
     //
     ofxAssimpModelLoader shoeModel;
@@ -86,7 +112,8 @@ void RenderAssets::load(){
     ofLoadImage(terrainAreasMap,"textures/terrainAreasMap.png");
     ofLoadImage(terrainMask1, "textures/terrainMask1.png");
     ofLoadImage(terrainMask2, "textures/terrainMask2.png");
-    
+    ofLoadImage(shoeDetails1, "textures/shoeDetails1.png");
+    ofLoadImage(shoeDetails2, "textures/shoeDetails2.png");
     
     //  Load SQR Textures
     //
