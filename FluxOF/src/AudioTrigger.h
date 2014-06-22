@@ -16,4 +16,6 @@ public:
 protected:
     void    setupUI();
     void    guiEvent(ofxUIEventArgs &e);
+    
+    ofxOscSender osc;
 };

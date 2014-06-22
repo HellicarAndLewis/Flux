@@ -26,6 +26,17 @@ void RenderAssets::onDirectoryWatcherItemModified(const DirectoryWatcherManager:
             ofLoadImage(shoeDetails2, "textures/shoeDetails2.png");
         });
     }
+    
+    if (evt.item.path().find("terrainMask1") != std::string::npos) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            ofLoadImage(terrainMask1, "textures/terrainMask1.png");
+        });
+    }
+    if (evt.item.path().find("terrainMask2") != std::string::npos) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            ofLoadImage(terrainMask2, "textures/terrainMask2.png");
+        });
+    }
 
     
 }

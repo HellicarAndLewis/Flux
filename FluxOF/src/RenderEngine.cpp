@@ -76,7 +76,7 @@ void RenderEngine::addUIClass(UIClass *_ui){
 //---------------------------------------------------------------
 
 void RenderEngine::startTransitionTo(QueueItem queueItem){
-    text = "123456789012345";//"@adidas";//queueItem.username;
+    text = "@"+queueItem.username;
     
     //  Extract Colors
     //

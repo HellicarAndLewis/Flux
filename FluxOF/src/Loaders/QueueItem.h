@@ -8,4 +8,5 @@ public:
     string username;
     int itemId;
     bool takePhoto;
+    int timestamp;
 };
