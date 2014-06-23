@@ -1,5 +1,14 @@
 <Map>
-    <Bangs></Bangs>
+    <Bangs>
+        <Mapping>
+            <Widget>
+                <WidgetName>radarPing</WidgetName>
+                <WidgetID>5</WidgetID>
+                <WidgetCanvasParent>AUDIO-TRIGGER</WidgetCanvasParent>
+            </Widget>
+            <Track></Track>
+        </Mapping>
+    </Bangs>
     <Switches>
         <Mapping>
             <Widget>
@@ -11,38 +20,6 @@
         </Mapping>
     </Switches>
     <SliderCurves>
-        <Mapping>
-            <Widget>
-                <WidgetName>tailWidth</WidgetName>
-                <WidgetID>7</WidgetID>
-                <WidgetCanvasParent>radar</WidgetCanvasParent>
-            </Widget>
-            <Track></Track>
-        </Mapping>
-        <Mapping>
-            <Widget>
-                <WidgetName>radarPct</WidgetName>
-                <WidgetID>15</WidgetID>
-                <WidgetCanvasParent>terrainMesh</WidgetCanvasParent>
-            </Widget>
-            <Track></Track>
-        </Mapping>
-        <Mapping>
-            <Widget>
-                <WidgetName>Radar_Radius</WidgetName>
-                <WidgetID>26</WidgetID>
-                <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
-            </Widget>
-            <Track></Track>
-        </Mapping>
-        <Mapping>
-            <Widget>
-                <WidgetName>Radar_Radius_Alpha</WidgetName>
-                <WidgetID>28</WidgetID>
-                <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
-            </Widget>
-            <Track></Track>
-        </Mapping>
         <Mapping>
             <Widget>
                 <WidgetName>Radar_Pct</WidgetName>
@@ -64,6 +41,38 @@
                 <WidgetName>Radar_Height</WidgetName>
                 <WidgetID>24</WidgetID>
                 <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
+            </Widget>
+            <Track></Track>
+        </Mapping>
+        <Mapping>
+            <Widget>
+                <WidgetName>Radar_Radius</WidgetName>
+                <WidgetID>26</WidgetID>
+                <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
+            </Widget>
+            <Track></Track>
+        </Mapping>
+        <Mapping>
+            <Widget>
+                <WidgetName>Radar_Radius_Alpha</WidgetName>
+                <WidgetID>28</WidgetID>
+                <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
+            </Widget>
+            <Track></Track>
+        </Mapping>
+        <Mapping>
+            <Widget>
+                <WidgetName>tailWidth</WidgetName>
+                <WidgetID>7</WidgetID>
+                <WidgetCanvasParent>radar</WidgetCanvasParent>
+            </Widget>
+            <Track></Track>
+        </Mapping>
+        <Mapping>
+            <Widget>
+                <WidgetName>radarPct</WidgetName>
+                <WidgetID>15</WidgetID>
+                <WidgetCanvasParent>terrainMesh</WidgetCanvasParent>
             </Widget>
             <Track></Track>
         </Mapping>
