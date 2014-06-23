@@ -390,6 +390,26 @@ void RenderEngine::draw(ofEventArgs & args){
             ofPopMatrix();
         }
         
+        // 6: Shoe Mask
+        if(shoeMaskDrawEnabled){
+            ofPushMatrix();
+            renderPasses.dst->begin();{
+                ofDisableDepthTest();
+                //Draw the source
+                renderPasses.src->draw(0,0);
+
+                
+                ofEnableAlphaBlending();
+                glBlendFuncSeparate( GL_ZERO, GL_ONE, GL_ZERO, GL_SRC_ALPHA );
+                
+                drawShoeMask(currentViewPort);
+            } renderPasses.dst->end();
+            renderPasses.swap();
+
+            ofPopMatrix();
+        }
+        
+        
 
         
         ofDisableAlphaBlending();
@@ -511,11 +531,15 @@ void RenderEngine::drawTerrainMask(int viewport){
     } terrainMaskTexture.getTextureReference().unbind();
 
 }
+
+
 void RenderEngine::drawShoeBackground(int viewport){
     assets->shoeUVWireframe.bind();
     assets->shoeMesh.draw();
     assets->shoeUVWireframe.unbind();
 }
+
+
 void RenderEngine::drawShoeDetails(int viewport){
     ofSetColor(255);
     ofEnableAlphaBlending();
@@ -526,13 +550,30 @@ void RenderEngine::drawShoeDetails(int viewport){
     }
 
 }
+
+
 void RenderEngine::drawShoeForeground(int viewport){
     assets->shoeUVWireframe.bind();
     assets->shoeMesh.draw();
     assets->shoeUVWireframe.unbind();
 
 }
+
+
 void RenderEngine::drawShoeMask(int viewport){
+    ofSetColor(255);
+//    assets->shoeMask1.draw(0, ofGetHeight(), ofGetWidth(), -ofGetHeight());
+
+    int x = assets->shoeMask1.getWidth();
+    int y = assets->shoeMask1.getHeight();
+    assets->shoeMask1.bind();
+    glBegin(GL_QUADS);{
+        glTexCoord2d(0, 0); glVertex2d(0, 0);
+        glTexCoord2d(x, 0); glVertex2d(x, 0);
+        glTexCoord2d(x, y); glVertex2d(x, y);
+        glTexCoord2d(0, y); glVertex2d(0, y);
+    }glEnd();
+    assets->shoeMask1.unbind();
 }
 
 

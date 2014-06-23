@@ -38,7 +38,20 @@ void RenderAssets::onDirectoryWatcherItemModified(const DirectoryWatcherManager:
         });
     }
 
+  
     
+    if (evt.item.path().find("shoeMask1") != std::string::npos) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            ofLoadImage(shoeMask1, "textures/shoeMask1.png");
+        });
+    }
+    if (evt.item.path().find("shoeMask2") != std::string::npos) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            ofLoadImage(shoeMask2, "textures/shoeMask2.png");
+        });
+    }
+    
+
 }
 
 
@@ -125,6 +138,8 @@ void RenderAssets::load(){
     ofLoadImage(terrainMask2, "textures/terrainMask2.png");
     ofLoadImage(shoeDetails1, "textures/shoeDetails1.png");
     ofLoadImage(shoeDetails2, "textures/shoeDetails2.png");
+    ofLoadImage(shoeMask1, "textures/shoeMask1.png");
+    ofLoadImage(shoeMask2, "textures/shoeMask2.png");
     
     //  Load SQR Textures
     //

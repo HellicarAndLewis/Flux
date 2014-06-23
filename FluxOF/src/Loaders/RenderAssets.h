@@ -14,7 +14,7 @@ public:
     ofTexture       terrainDepthMap, terrainNormalMap, terrainAreasMap, terrainMask1, terrainMask2, terrainUVWireframe;
     ofTexture       shoeColorMask, shoeUVWireframe;
     
-    ofTexture       shoeDetails1, shoeDetails2;
+    ofTexture       shoeDetails1, shoeDetails2, shoeMask1, shoeMask2;
     ofPoint         sceneMin,sceneMax;
     
     ofTrueTypeFont  font;
