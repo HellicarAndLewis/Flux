@@ -19,7 +19,7 @@ void RenderRadar::selfSetup(){
     
     audioTerrain.loadFrag(getDataPath()+"shaders/audioTerrain.frag");
     
-    ripples.allocate(assets->terrainResolution(), assets->terrainResolution());
+    ripples.allocate(assets->terrainResolution(), assets->terrainResolution(), GL_RGBA);
     
     //  SHOES
     //
@@ -141,7 +141,7 @@ void RenderRadar::guiRenderEvent(ofxUIEventArgs &e){
 void RenderRadar::selfUpdate(){
     RenderEngine::selfUpdate();
     
-    if(ofGetElapsedTimef()<5.0){
+    if(ofGetElapsedTimef()<10.0){
         ripples.begin();
         ofClear(0,255);
         ripples.end();
@@ -277,14 +277,15 @@ void RenderRadar::selfUpdate(){
             ofPushMatrix();
             ofTranslate(radarCenter);
             
-            ofSetLineWidth(2);
-            
+            ofSetLineWidth(1);
             // radar line
             ofSetColor(radarColor,radarAlpha);
             float radius = assets->terrainResolution();
             float angle = TWO_PI*radarPct;
             ofLine(0,0,radius*cos(angle),radius*sin(angle));
             
+            
+            ofSetLineWidth(2);
             // Circle line
             ofSetColor(radarColor,radarRadiusAlpha);
             ofNoFill();

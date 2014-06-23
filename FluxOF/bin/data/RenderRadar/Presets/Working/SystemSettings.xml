@@ -38,28 +38,28 @@
 <Widget>
     <Kind>11</Kind>
     <Name>Radar_Center</Name>
-    <XValue>464.078826904</XValue>
-    <YValue>554.876831055</YValue>
+    <XValue>459.034484863</XValue>
+    <YValue>534.699523926</YValue>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Pct</Name>
-    <Value>0.630501628</Value>
+    <Value>1.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Alpha</Name>
-    <Value>255.000000000</Value>
+    <Value>14.999999046</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Height</Name>
-    <Value>3.803053141</Value>
+    <Value>11.060607910</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Radius</Name>
-    <Value>623.449523926</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
