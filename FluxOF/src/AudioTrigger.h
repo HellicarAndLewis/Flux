@@ -17,5 +17,5 @@ protected:
     void    setupUI();
     void    guiEvent(ofxUIEventArgs &e);
     
-    ofxMidiOut midiOut;
+    ofxMidiOut * midiOut;
 };

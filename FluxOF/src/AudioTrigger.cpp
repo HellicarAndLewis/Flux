@@ -2,7 +2,8 @@
 
 void AudioTrigger::setup(){
     ofxMidiOut::listPorts();
-    midiOut.openPort("IAC Driver Bus 1");
+    midiOut = new ofxMidiOut();
+    midiOut->openPort("IAC Driver Bus 1");
     
 }
 
@@ -13,8 +14,8 @@ void AudioTrigger::setupUI(){
 void AudioTrigger::guiEvent(ofxUIEventArgs &e){
     if(e.getName() == "radarPing"){
         if(e.getButton()->getValue()){
-            e.getButton()->setValue(false);
-            midiOut.sendNoteOn(1, 1);
+            //e.getButton()->setValue(false);
+            midiOut->sendNoteOn(1, 1);
         }
 //        ofxOscMessage msg;
   //      msg.setAddress("/test");
