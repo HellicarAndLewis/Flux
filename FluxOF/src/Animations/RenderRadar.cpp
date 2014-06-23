@@ -33,6 +33,8 @@ void RenderRadar::selfSetup(){
     radarShader.loadFrag(getDataPath()+"shaders/radar.frag");
     radarTexture.allocate(assets->terrainResolution(),assets->terrainResolution());
     
+    circleShader.loadFrag(getDataPath()+"shaders/circle.frag");
+    
     terrainNoise.loadFrag(getDataPath()+"shaders/noise.frag");
     terrainNoiseTex.allocate(assets->terrainResolution(),assets->terrainResolution());
     
@@ -46,7 +48,6 @@ void RenderRadar::selfSetup(){
     terrainTex.begin();
     ofClear(0, 0);
     terrainTex.end();
-    
     
     for(int i=0;i<3;i++){
         terrainMask[i].allocate(assets->terrainResolution(),assets->terrainResolution());
@@ -70,6 +71,9 @@ void RenderRadar::selfSetupGuis(){
     guiAdd(audioTerrain);
     
     guiAdd(radarShader);
+    
+    guiAdd(circleShader);
+    
     guiAdd(terrainNoise);
     guiAdd(terrainTransition);
     
@@ -99,13 +103,7 @@ void RenderRadar::selfSetupSystemGui(){
     sysGui->add2DPad("Radar_Center",ofVec2f(0,assets->terrainResolution()),ofVec2f(0,assets->terrainResolution()),&radarCenter);
     sysGui->addSlider("Radar_Pct", 0.0, 1.0, &radarPct);
     sysGui->addSlider("Radar_Alpha",0,255, &radarAlpha);
-//    sysGui->addSlider("Radar_Color_R", 0 , 1.0, &radarColor.r);
-//    sysGui->addSlider("Radar_Color_G", 0 , 1.0, &radarColor.g);
-//    sysGui->addSlider("Radar_Color_B", 0 , 1.0, &radarColor.b);
     sysGui->addSlider("Radar_Height",assets->sceneMin.y,assets->sceneMax.y, &radarHeight);
-    
-    sysGui->addSlider("Radar_Radius", 0., assets->terrainResolution(), &radarRadius);
-    sysGui->addSlider("Radar_Radius_Alpha", 0., assets->terrainResolution(), &radarRadiusAlpha);
     
     sysGui->addLabel("Text");
     sysGui->add2DPad("Text_offset", ofVec2f(0,assets->terrainResolution()),ofVec2f(0,assets->terrainResolution()), &textOffset);
@@ -113,9 +111,6 @@ void RenderRadar::selfSetupSystemGui(){
     sysGui->addSlider("Text_Scale", 0.0, 1.0, &textScale);
     
     sysGui->addLabel("Ripples");
-//    sysGui->addSlider("Ripples_R", 0., 1., &ripplesColor.r);
-//    sysGui->addSlider("Ripples_G", 0., 1., &ripplesColor.g);
-//    sysGui->addSlider("Ripples_B", 0., 1., &ripplesColor.b);
     sysGui->addSlider("Lerp_To_RadarColor", 0., 0.1, &ripplesColorLerpToRadar);
     sysGui->addSlider("Lerp_To_WhiteColor", 0., 0.1, &ripplesColorLerpToWhite);
 }
@@ -273,24 +268,31 @@ void RenderRadar::selfUpdate(){
         terrainTex.begin();{
             ofClear(0,0);
             
+            circleShader.begin();
+            circleShader.getShader().setUniform3f("color",radarColor.r,radarColor.g,radarColor.b);
+            circleShader.getShader().setUniform2f("center", radarCenter.x, radarCenter.y);
+            circleShader.getShader().setUniform1f("resolution", assets->terrainResolution());
+            glBegin(GL_QUADS);
+            glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
+            glTexCoord2f(assets->terrainResolution(), 0); glVertex3f(assets->terrainResolution(), 0, 0);
+            glTexCoord2f(assets->terrainResolution(), assets->terrainResolution()); glVertex3f(assets->terrainResolution(), assets->terrainResolution(), 0);
+            glTexCoord2f(0,assets->terrainResolution());  glVertex3f(0,assets->terrainResolution(), 0);
+            glEnd();
+            circleShader.end();
+            
+            // Circle line
+            //
+            
             ofPushStyle();
             ofPushMatrix();
             ofTranslate(radarCenter);
             
-            ofSetLineWidth(1);
             // radar line
+            ofSetLineWidth(1);
             ofSetColor(radarColor,radarAlpha);
             float radius = assets->terrainResolution();
             float angle = TWO_PI*radarPct;
             ofLine(0,0,radius*cos(angle),radius*sin(angle));
-            
-            
-            ofSetLineWidth(2);
-            // Circle line
-            ofSetColor(radarColor,radarRadiusAlpha);
-            ofNoFill();
-            ofSetCircleResolution(36);
-            ofCircle(0, 0, radarRadius);
             
             ofPopMatrix();
             ofPopStyle();
@@ -304,7 +306,6 @@ void RenderRadar::selfUpdate(){
             ofTranslate(textOffset);
             ofRotate(-90);
             ofScale(textScale, textScale);
-//        assets->font.drawString(text, -textCenter.x, -textCenter.y );
             assets->font.drawString(text, 0.0, -textCenter.y );
             ofPopMatrix();
             

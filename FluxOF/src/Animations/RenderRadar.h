@@ -82,11 +82,12 @@ protected:
     //
     ofFloatColor    radarColor;
     ofPoint         radarCenter;
-    float           radarPct;
-    float           radarHeight;
-    float           radarRadius;
-    float           radarAlpha;
-    float           radarRadiusAlpha;
+    float           radarPct, radarHeight, radarAlpha;
+    
+    //  Circle
+    //
+    UIShader        circleShader;
+
     
     // TEST
     bool            testPatternEnabled;

@@ -22,17 +22,33 @@
     <SliderCurves>
         <Mapping>
             <Widget>
-                <WidgetName>Radar_Radius</WidgetName>
-                <WidgetID>26</WidgetID>
-                <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
+                <WidgetName>tailWidth</WidgetName>
+                <WidgetID>7</WidgetID>
+                <WidgetCanvasParent>radar</WidgetCanvasParent>
             </Widget>
             <Track></Track>
         </Mapping>
         <Mapping>
             <Widget>
-                <WidgetName>Radar_Radius_Alpha</WidgetName>
-                <WidgetID>28</WidgetID>
-                <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
+                <WidgetName>radius</WidgetName>
+                <WidgetID>19</WidgetID>
+                <WidgetCanvasParent>circle</WidgetCanvasParent>
+            </Widget>
+            <Track></Track>
+        </Mapping>
+        <Mapping>
+            <Widget>
+                <WidgetName>borderSize</WidgetName>
+                <WidgetID>21</WidgetID>
+                <WidgetCanvasParent>circle</WidgetCanvasParent>
+            </Widget>
+            <Track></Track>
+        </Mapping>
+        <Mapping>
+            <Widget>
+                <WidgetName>radarPct</WidgetName>
+                <WidgetID>15</WidgetID>
+                <WidgetCanvasParent>terrainMesh</WidgetCanvasParent>
             </Widget>
             <Track></Track>
         </Mapping>
@@ -57,22 +73,6 @@
                 <WidgetName>Radar_Height</WidgetName>
                 <WidgetID>24</WidgetID>
                 <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
-            </Widget>
-            <Track></Track>
-        </Mapping>
-        <Mapping>
-            <Widget>
-                <WidgetName>tailWidth</WidgetName>
-                <WidgetID>7</WidgetID>
-                <WidgetCanvasParent>radar</WidgetCanvasParent>
-            </Widget>
-            <Track></Track>
-        </Mapping>
-        <Mapping>
-            <Widget>
-                <WidgetName>radarPct</WidgetName>
-                <WidgetID>15</WidgetID>
-                <WidgetCanvasParent>terrainMesh</WidgetCanvasParent>
             </Widget>
             <Track></Track>
         </Mapping>
