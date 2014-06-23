@@ -32,6 +32,7 @@ Install addons:
     git clone https://github.com/kylemcdonald/ofxFft.git
     git clone https://github.com/charlesveasey/ofxMultiGLFWWindow.git
     git clone https://github.com/bakercp/ofxIO.git
+    git clone https://github.com/danomatika/ofxMidi.git
 
 Usage
 ===
