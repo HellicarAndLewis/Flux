@@ -1,7 +1,7 @@
 #pragma once
 
-#include "ofxOsc.h"
 #include "UIClass.h"
+#include "ofxMidi.h"
 
 class AudioTrigger : public UIClass{
 public:
@@ -17,5 +17,5 @@ protected:
     void    setupUI();
     void    guiEvent(ofxUIEventArgs &e);
     
-    ofxOscSender osc;
+    ofxMidiOut midiOut;
 };

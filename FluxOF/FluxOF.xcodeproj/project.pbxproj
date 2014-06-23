@@ -163,6 +163,15 @@
 		BFEC772F1958210400AE3300 /* ofxSyphonServerDirectory.mm in Sources */ = {isa = PBXBuildFile; fileRef = BFEC77241958210400AE3300 /* ofxSyphonServerDirectory.mm */; };
 		BFEC77301958210400AE3300 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEC77291958210400AE3300 /* Syphon.framework */; };
 		BFEC77311958210400AE3300 /* SyphonNameboundClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEC772C1958210400AE3300 /* SyphonNameboundClient.m */; };
+		BFEC776119582E5B00AE3300 /* ofxRtMidiIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFEC773519582E5B00AE3300 /* ofxRtMidiIn.cpp */; };
+		BFEC776219582E5B00AE3300 /* ofxRtMidiOut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFEC773719582E5B00AE3300 /* ofxRtMidiOut.cpp */; };
+		BFEC776319582E5B00AE3300 /* ofxBaseMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFEC774419582E5B00AE3300 /* ofxBaseMidi.cpp */; };
+		BFEC776419582E5B00AE3300 /* ofxMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFEC774619582E5B00AE3300 /* ofxMidi.cpp */; };
+		BFEC776519582E5B00AE3300 /* ofxMidiIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFEC774919582E5B00AE3300 /* ofxMidiIn.cpp */; };
+		BFEC776619582E5B00AE3300 /* ofxMidiMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFEC774B19582E5B00AE3300 /* ofxMidiMessage.cpp */; };
+		BFEC776719582E5B00AE3300 /* ofxMidiOut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFEC774D19582E5B00AE3300 /* ofxMidiOut.cpp */; };
+		BFEC776819582E5B00AE3300 /* RtMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFEC775E19582E5B00AE3300 /* RtMidi.cpp */; };
+		BFEC776919582E5B00AE3300 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEC776019582E5B00AE3300 /* CoreMIDI.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
 		E45BE97C0E8CC7DD009D7055 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */; };
@@ -771,6 +780,27 @@
 		BFEC77291958210400AE3300 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Syphon.framework; sourceTree = "<group>"; };
 		BFEC772B1958210400AE3300 /* SyphonNameboundClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyphonNameboundClient.h; sourceTree = "<group>"; };
 		BFEC772C1958210400AE3300 /* SyphonNameboundClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SyphonNameboundClient.m; sourceTree = "<group>"; };
+		BFEC773519582E5B00AE3300 /* ofxRtMidiIn.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxRtMidiIn.cpp; sourceTree = "<group>"; };
+		BFEC773619582E5B00AE3300 /* ofxRtMidiIn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxRtMidiIn.h; sourceTree = "<group>"; };
+		BFEC773719582E5B00AE3300 /* ofxRtMidiOut.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxRtMidiOut.cpp; sourceTree = "<group>"; };
+		BFEC773819582E5B00AE3300 /* ofxRtMidiOut.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxRtMidiOut.h; sourceTree = "<group>"; };
+		BFEC774419582E5B00AE3300 /* ofxBaseMidi.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBaseMidi.cpp; sourceTree = "<group>"; };
+		BFEC774519582E5B00AE3300 /* ofxBaseMidi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxBaseMidi.h; sourceTree = "<group>"; };
+		BFEC774619582E5B00AE3300 /* ofxMidi.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMidi.cpp; sourceTree = "<group>"; };
+		BFEC774719582E5B00AE3300 /* ofxMidi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxMidi.h; sourceTree = "<group>"; };
+		BFEC774819582E5B00AE3300 /* ofxMidiConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxMidiConstants.h; sourceTree = "<group>"; };
+		BFEC774919582E5B00AE3300 /* ofxMidiIn.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMidiIn.cpp; sourceTree = "<group>"; };
+		BFEC774A19582E5B00AE3300 /* ofxMidiIn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxMidiIn.h; sourceTree = "<group>"; };
+		BFEC774B19582E5B00AE3300 /* ofxMidiMessage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMidiMessage.cpp; sourceTree = "<group>"; };
+		BFEC774C19582E5B00AE3300 /* ofxMidiMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxMidiMessage.h; sourceTree = "<group>"; };
+		BFEC774D19582E5B00AE3300 /* ofxMidiOut.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMidiOut.cpp; sourceTree = "<group>"; };
+		BFEC774E19582E5B00AE3300 /* ofxMidiOut.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxMidiOut.h; sourceTree = "<group>"; };
+		BFEC774F19582E5B00AE3300 /* ofxMidiTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxMidiTypes.h; sourceTree = "<group>"; };
+		BFEC775C19582E5B00AE3300 /* readme */ = {isa = PBXFileReference; lastKnownFileType = text; path = readme; sourceTree = "<group>"; };
+		BFEC775D19582E5B00AE3300 /* RtError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RtError.h; sourceTree = "<group>"; };
+		BFEC775E19582E5B00AE3300 /* RtMidi.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RtMidi.cpp; sourceTree = "<group>"; };
+		BFEC775F19582E5B00AE3300 /* RtMidi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RtMidi.h; sourceTree = "<group>"; };
+		BFEC776019582E5B00AE3300 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = ../../../../../../../../../System/Library/Frameworks/CoreMIDI.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
 		E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
@@ -1011,6 +1041,7 @@
 				E4C2424710CC5A17004149E2 /* AppKit.framework in Frameworks */,
 				E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */,
 				E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */,
+				BFEC776919582E5B00AE3300 /* CoreMIDI.framework in Frameworks */,
 				E7E077E515D3B63C0020DFD4 /* CoreVideo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2032,6 +2063,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				BFEC773219582E5B00AE3300 /* ofxMidi */,
 				BFEC771C1958210400AE3300 /* ofxSyphon */,
 				3DC797B8195739E500FEE595 /* ofxPro */,
 				BF640DAB19570EE300B16603 /* ofxIO */,
@@ -2379,6 +2411,68 @@
 				BFEC772C1958210400AE3300 /* SyphonNameboundClient.m */,
 			);
 			path = src;
+			sourceTree = "<group>";
+		};
+		BFEC773219582E5B00AE3300 /* ofxMidi */ = {
+			isa = PBXGroup;
+			children = (
+				BFEC773319582E5B00AE3300 /* src */,
+				BFEC775019582E5B00AE3300 /* libs */,
+				BFEC776019582E5B00AE3300 /* CoreMIDI.framework */,
+			);
+			name = ofxMidi;
+			sourceTree = "<group>";
+		};
+		BFEC773319582E5B00AE3300 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				BFEC773419582E5B00AE3300 /* desktop */,
+				BFEC774419582E5B00AE3300 /* ofxBaseMidi.cpp */,
+				BFEC774519582E5B00AE3300 /* ofxBaseMidi.h */,
+				BFEC774619582E5B00AE3300 /* ofxMidi.cpp */,
+				BFEC774719582E5B00AE3300 /* ofxMidi.h */,
+				BFEC774819582E5B00AE3300 /* ofxMidiConstants.h */,
+				BFEC774919582E5B00AE3300 /* ofxMidiIn.cpp */,
+				BFEC774A19582E5B00AE3300 /* ofxMidiIn.h */,
+				BFEC774B19582E5B00AE3300 /* ofxMidiMessage.cpp */,
+				BFEC774C19582E5B00AE3300 /* ofxMidiMessage.h */,
+				BFEC774D19582E5B00AE3300 /* ofxMidiOut.cpp */,
+				BFEC774E19582E5B00AE3300 /* ofxMidiOut.h */,
+				BFEC774F19582E5B00AE3300 /* ofxMidiTypes.h */,
+			);
+			name = src;
+			path = ../../../addons/ofxMidi/src;
+			sourceTree = "<group>";
+		};
+		BFEC773419582E5B00AE3300 /* desktop */ = {
+			isa = PBXGroup;
+			children = (
+				BFEC773519582E5B00AE3300 /* ofxRtMidiIn.cpp */,
+				BFEC773619582E5B00AE3300 /* ofxRtMidiIn.h */,
+				BFEC773719582E5B00AE3300 /* ofxRtMidiOut.cpp */,
+				BFEC773819582E5B00AE3300 /* ofxRtMidiOut.h */,
+			);
+			path = desktop;
+			sourceTree = "<group>";
+		};
+		BFEC775019582E5B00AE3300 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				BFEC775B19582E5B00AE3300 /* rtmidi */,
+			);
+			name = libs;
+			path = ../../../addons/ofxMidi/libs;
+			sourceTree = "<group>";
+		};
+		BFEC775B19582E5B00AE3300 /* rtmidi */ = {
+			isa = PBXGroup;
+			children = (
+				BFEC775C19582E5B00AE3300 /* readme */,
+				BFEC775D19582E5B00AE3300 /* RtError.h */,
+				BFEC775E19582E5B00AE3300 /* RtMidi.cpp */,
+				BFEC775F19582E5B00AE3300 /* RtMidi.h */,
+			);
+			path = rtmidi;
 			sourceTree = "<group>";
 		};
 		E4328144138ABC890047C5CB /* Products */ = {
@@ -3079,6 +3173,7 @@
 				f3ad9e2a2e56b6af32a0bdaf2fc8a017 /* Server.cpp in Sources */,
 				3DFC7507195308D000A6634D /* ofxFXObject.cpp in Sources */,
 				9119bfc53670a98106e367bbc1bd167a /* ofxMSATimer.cpp in Sources */,
+				BFEC776319582E5B00AE3300 /* ofxBaseMidi.cpp in Sources */,
 				250a95ba26587be85db0a353e6e1dea2 /* ofxCvColorImage.cpp in Sources */,
 				BF640E0419570EE300B16603 /* LinkFilter.cpp in Sources */,
 				1d5f3298c2fa073628012944b1efde88 /* ofxCvContourFinder.cpp in Sources */,
@@ -3128,6 +3223,7 @@
 				4df88daf2c820a78327000e7ac0925c5 /* ofxTLEmptyKeyframes.cpp in Sources */,
 				98126aa8f306f3ee0f5f37bed7056435 /* ofxTLEmptyTrack.cpp in Sources */,
 				c3bc382653a57ce71d4513f1eaba414b /* ofxTLFlags.cpp in Sources */,
+				BFEC776119582E5B00AE3300 /* ofxRtMidiIn.cpp in Sources */,
 				1479a06207a85dfdeca39f009ad023d0 /* ofxTLImageSequence.cpp in Sources */,
 				def58837140932f5996c61c2241ef66e /* ofxTLImageSequenceFrame.cpp in Sources */,
 				95e6e69db45e5f9e4f1c21e09d04b380 /* ofxTLImageTrack.cpp in Sources */,
@@ -3141,12 +3237,16 @@
 				9e8ec2bf8bca13da057fa929463bbafb /* ofxTLSwitches.cpp in Sources */,
 				3a02cdf226d01ebb6533d47f0bb42c5a /* ofxTLTicker.cpp in Sources */,
 				BF640E0C19570EE300B16603 /* snappy-stubs-internal.cc in Sources */,
+				BFEC776419582E5B00AE3300 /* ofxMidi.cpp in Sources */,
 				f4a426f97ee8f1a3ead2a8f00212b48a /* ofxTLTrack.cpp in Sources */,
 				e6b21161287eea55fa4ea984beef0d72 /* ofxTLTrackHeader.cpp in Sources */,
 				65b24cd86db2ed8edd3385ac3e4a4783 /* ofxTLVideoThumb.cpp in Sources */,
 				3b32d3b612022d0c5b272bdd39e8a60f /* ofxTLVideoTrack.cpp in Sources */,
+				BFEC776219582E5B00AE3300 /* ofxRtMidiOut.cpp in Sources */,
+				BFEC776819582E5B00AE3300 /* RtMidi.cpp in Sources */,
 				ed77da7c8d99d9b1c9c240c836f5baf7 /* ofxTLZoomer.cpp in Sources */,
 				d5f416a7f5798651d8370d5e93c0c797 /* kiss_fft.c in Sources */,
+				BFEC776619582E5B00AE3300 /* ofxMidiMessage.cpp in Sources */,
 				782c2b355cb6ebc83bdb95e0bd931001 /* kiss_fftr.c in Sources */,
 				3DC798AF195739E500FEE595 /* UIBackground.cpp in Sources */,
 				de69bd6cb5972050a485ec9cb65cb655 /* ofOpenALSoundPlayer_TimelineAdditions.cpp in Sources */,
@@ -3186,8 +3286,10 @@
 				7be46522b64e24faede1a25d93f6298e /* ofxUICanvas.cpp in Sources */,
 				df0c851b244c4c867cea8806a6cdddab /* ofxUICircleSlider.cpp in Sources */,
 				9be4ae0aa2b8c436bdfe9d4d6ad0b03d /* ofxUIDragableLabelButton.cpp in Sources */,
+				BFEC776519582E5B00AE3300 /* ofxMidiIn.cpp in Sources */,
 				3DC798C6195739E500FEE595 /* UISurface.cpp in Sources */,
 				3DC798CA195739E500FEE595 /* SystemTextbox.mm in Sources */,
+				BFEC776719582E5B00AE3300 /* ofxMidiOut.cpp in Sources */,
 				f392a99d83698fc09912788025e19c5d /* ofxUIDropDownList.cpp in Sources */,
 				084025da517d8329301fe1b62b99dfa0 /* ofxUIEventArgs.cpp in Sources */,
 				7252706da14c1be63950adda6d4d0967 /* ofxUIFPS.cpp in Sources */,
