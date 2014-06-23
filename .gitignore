@@ -40,3 +40,4 @@ FluxOF/bin/data/RenderRadar/snapshots
 /photos
 
 /FluxNodeJS/tmp*
+/FluxOF/bin/data/imageQueue.xml

@@ -12,33 +12,33 @@
         <height>40.000000000</height>
     </element>
     <element name="Radar_Alpha">
-        <x>0.000000000</x>
-        <y>94.000000000</y>
-        <width>1680.000000000</width>
+        <x>4.000000000</x>
+        <y>854.000000000</y>
+        <width>1672.000000000</width>
         <height>34.000000000</height>
     </element>
     <element name="Radar_Height">
-        <x>0.000000000</x>
-        <y>134.000000000</y>
-        <width>1680.000000000</width>
+        <x>4.000000000</x>
+        <y>894.000000000</y>
+        <width>1672.000000000</width>
         <height>39.000000000</height>
     </element>
     <element name="Radar_Pct">
-        <x>0.000000000</x>
-        <y>45.000000000</y>
-        <width>1680.000000000</width>
+        <x>4.000000000</x>
+        <y>805.000000000</y>
+        <width>1672.000000000</width>
         <height>43.000000000</height>
     </element>
     <element name="Radar_Radius">
-        <x>0.000000000</x>
-        <y>179.000000000</y>
-        <width>1680.000000000</width>
+        <x>4.000000000</x>
+        <y>939.000000000</y>
+        <width>1672.000000000</width>
         <height>41.000000000</height>
     </element>
     <element name="Radar_Radius_Alpha">
-        <x>0.000000000</x>
-        <y>226.000000000</y>
-        <width>1680.000000000</width>
+        <x>4.000000000</x>
+        <y>986.000000000</y>
+        <width>1672.000000000</width>
         <height>40.000000000</height>
     </element>
 </positions>
