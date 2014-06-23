@@ -2,8 +2,8 @@
     <Kind>40</Kind>
     <Name>SystemSettings</Name>
     <IsMinified>1</IsMinified>
-    <XPosition>1.000000000</XPosition>
-    <YPosition>176.000000000</YPosition>
+    <XPosition>272.000000000</XPosition>
+    <YPosition>51.000000000</YPosition>
 </Canvas>
 <Widget>
     <Kind>2</Kind>
@@ -49,17 +49,17 @@
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Alpha</Name>
-    <Value>255.000000000</Value>
+    <Value>14.999999046</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Height</Name>
-    <Value>22.848497391</Value>
+    <Value>22.818984985</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Radius</Name>
-    <Value>302.660095215</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
