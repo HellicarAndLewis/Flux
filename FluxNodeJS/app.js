@@ -3,11 +3,17 @@ var WebSocketServer = require('ws').Server,
   request = require('request'),
   fs = require('fs'),
   gphoto2 = require('gphoto2'),
-  GPhoto = new gphoto2.GPhoto2();
+  GPhoto = new gphoto2.GPhoto2(),
+//  sys = require('sys'),
+  exec = require('child_process').exec,
+  gm = require('gm');
 
 var dataFolder = "../FluxOF/bin/data/"
 var imageFolder = dataFolder+"images/";
 var incommingItems = [];
+
+// Kill PTPCamera (otherwise we can't connect the camera)
+exec("killall PTPCamera");
 
 //
 // Setup the WebSocket to the oF app
@@ -90,9 +96,9 @@ GPhoto.list(function (list) {
 
   console.log("Preparing camera... hold on");
   camera.setConfigValue('imageformat', "Small Fine JPEG  (S1 Fine)", function (er) {
-    camera.setConfigValue('copyright', "", function (er) {
-      camera.setConfigValue('artist', "", function (er) {
-        console.log("Taking test photo in 4 seconds");
+   // camera.setConfigValue('copyright', "", function (er) {
+     // camera.setConfigValue('artist', "", function (er) {
+        console.log("Taking test photo");
         setTimeout(function(){
           takePhoto({name:'test'}, function(){
 
@@ -100,9 +106,9 @@ GPhoto.list(function (list) {
             //Start the pulling of images
             pullImages();
           });
-        }, 4000);
-      });
-    });
+        }, 1000);
+   //   });
+   // });
   });
 
    // Take picture with camera object obtained from list()
@@ -253,9 +259,18 @@ var takePhoto = function(options, cb){
     camera.takePicture({download: true}, function (er, data) {
       var path = __dirname+"/../photos" + '/'+options.name+'.jpg';
       fs.writeFileSync(path, data);
-      console.log("photo taken")
+      console.log("photo taken, resizing");
 
-      if(cb) cb(path);
+      gm(path)
+      .resize(1024,683)
+      .crop(1024, 512,0,0)
+      .noProfile()
+      .write(path, function (err) {
+        if (!err) console.log('done');
+        if(cb) cb(path);
+
+      });
+
     });
   }
 }

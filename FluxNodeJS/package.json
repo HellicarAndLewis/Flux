@@ -7,6 +7,7 @@
     "http": "latest",
     "q":"latest",
     "request": "latest",
-    "gphoto2": "latest"
+    "gphoto2": "latest",
+    "gm" : "latest"
   }
 }
