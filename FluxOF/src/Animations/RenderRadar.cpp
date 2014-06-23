@@ -18,6 +18,7 @@ void RenderRadar::selfSetup(){
     audioIn.start();
     
     audioTerrain.loadFrag(getDataPath()+"shaders/audioTerrain.frag");
+    audioTerrainDebug.loadFrag(getDataPath()+"shaders/audioTerrainDebug.frag");
     
     ripples.allocate(assets->terrainResolution(), assets->terrainResolution(), GL_RGBA);
     
@@ -69,6 +70,7 @@ void RenderRadar::selfSetupGuis(){
     
     // 2D (just frag shaders)
     guiAdd(audioTerrain);
+    guiAdd(audioTerrainDebug);
     
     guiAdd(radarShader);
     
@@ -529,6 +531,39 @@ void RenderRadar::selfDrawOverlay(){
         terrainTex.draw(0,0);
         ofPopMatrix();
         audioIn.texture.draw(0,0,audioIn.texture.getWidth()*2.0,10);
+        
+        if (audioTerrainDebug.bEnable) {
+            ofSetColor(255);
+            audioTerrainDebug.begin();
+            audioTerrainDebug.getShader().setUniformTexture("audioFft", audioIn.texture, 0);
+            audioTerrainDebug.getShader().setUniform1f("audioFftSize", audioIn.texture.getWidth());
+
+            //audioIn.texture.draw(audioIn.texture.getWidth()*2.0,0,audioIn.texture.getWidth()*2.0,150);
+            glPushMatrix();
+            
+            glTranslated(audioIn.texture.getWidth()*2.0, 0, 0);
+            glBegin(GL_QUADS);
+            glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
+            glTexCoord2f(audioIn.texture.getWidth(), 0); glVertex3f(audioIn.texture.getWidth()*2.0, 0, 0);
+            glTexCoord2f(audioIn.texture.getWidth(),100.); glVertex3f(audioIn.texture.getWidth()*2.0, 150, 0);
+            glTexCoord2f(0,100.);  glVertex3f(0,150, 0);
+            glEnd();
+            
+            glPopMatrix();
+
+            audioTerrainDebug.end();
+            /*audioTerrain.begin();
+            audioTerrain.getShader().setUniformTexture("heightMap", assets->terrainDepthMap, 0);
+            audioTerrain.getShader().setUniformTexture("audioFft", audioIn.texture, 1);
+            audioTerrain.getShader().setUniform1f("audioFftSize", audioIn.texture.getWidth());
+            glBegin(GL_QUADS);
+            glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
+            glTexCoord2f(assets->terrainResolution(), 0); glVertex3f(assets->terrainResolution(), 0, 0);
+            glTexCoord2f(assets->terrainResolution(), assets->terrainResolution()); glVertex3f(assets->terrainResolution(), assets->terrainResolution(), 0);
+            glTexCoord2f(0,assets->terrainResolution());  glVertex3f(0,assets->terrainResolution(), 0);
+            glEnd();
+            audioTerrain.end();*/
+        }
         
         
         float paletteSize = 10;
