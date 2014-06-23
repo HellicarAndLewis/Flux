@@ -2,13 +2,13 @@
     <Kind>40</Kind>
     <Name>audioTerrain</Name>
     <IsMinified>0</IsMinified>
-    <XPosition>298.000000000</XPosition>
-    <YPosition>552.000000000</YPosition>
+    <XPosition>1362.000000000</XPosition>
+    <YPosition>644.000000000</YPosition>
 </Canvas>
 <Widget>
     <Kind>2</Kind>
     <Name>ENABLE</Name>
-    <Value>0</Value>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>

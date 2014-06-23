@@ -141,7 +141,7 @@ void RenderRadar::guiRenderEvent(ofxUIEventArgs &e){
 void RenderRadar::selfUpdate(){
     RenderEngine::selfUpdate();
     
-    if(ofGetElapsedTimef()<3.0){
+    if(ofGetElapsedTimef()<5.0){
         ripples.begin();
         ofClear(0,255);
         ripples.end();
