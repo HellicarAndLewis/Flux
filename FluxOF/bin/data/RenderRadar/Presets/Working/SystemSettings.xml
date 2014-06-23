@@ -44,12 +44,12 @@
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Pct</Name>
-    <Value>0.630501628</Value>
+    <Value>1.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Alpha</Name>
-    <Value>255.000000000</Value>
+    <Value>14.999999046</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -59,7 +59,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>Radar_Radius</Name>
-    <Value>623.449523926</Value>
+    <Value>86.821823120</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
