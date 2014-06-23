@@ -1,5 +1,14 @@
 <Map>
-    <Bangs></Bangs>
+    <Bangs>
+        <Mapping>
+            <Widget>
+                <WidgetName>radarPing</WidgetName>
+                <WidgetID>5</WidgetID>
+                <WidgetCanvasParent>AUDIO-TRIGGER</WidgetCanvasParent>
+            </Widget>
+            <Track></Track>
+        </Mapping>
+    </Bangs>
     <Switches>
         <Mapping>
             <Widget>
@@ -21,7 +30,7 @@
         </Mapping>
         <Mapping>
             <Widget>
-                <WidgetName>Radar_Height</WidgetName>
+                <WidgetName>Radar_Alpha</WidgetName>
                 <WidgetID>22</WidgetID>
                 <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
             </Widget>
@@ -29,25 +38,25 @@
         </Mapping>
         <Mapping>
             <Widget>
-                <WidgetName>Lerp_To_RadarColor</WidgetName>
-                <WidgetID>32</WidgetID>
+                <WidgetName>Radar_Height</WidgetName>
+                <WidgetID>24</WidgetID>
                 <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
             </Widget>
             <Track></Track>
         </Mapping>
         <Mapping>
             <Widget>
-                <WidgetName>Lerp_To_WhiteColor</WidgetName>
-                <WidgetID>34</WidgetID>
+                <WidgetName>Radar_Radius</WidgetName>
+                <WidgetID>26</WidgetID>
                 <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
             </Widget>
             <Track></Track>
         </Mapping>
         <Mapping>
             <Widget>
-                <WidgetName>scale</WidgetName>
-                <WidgetID>7</WidgetID>
-                <WidgetCanvasParent>audioTerrain</WidgetCanvasParent>
+                <WidgetName>Radar_Radius_Alpha</WidgetName>
+                <WidgetID>28</WidgetID>
+                <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
             </Widget>
             <Track></Track>
         </Mapping>
