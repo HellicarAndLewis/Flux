@@ -49,7 +49,7 @@ protected:
     
     //  AUDIO
     //
-    UIShader        audioTerrain;
+    UIShader        audioTerrain, audioTerrainDebug;
     ofxRipples      ripples;
     ofFloatColor    ripplesColor;
     float           ripplesColorLerpToRadar;
