@@ -44,6 +44,7 @@ UIBufferIn::~UIBufferIn(){
 void UIBufferIn::setupUI(){
     gui->addWaveform("Buffer", audioIn, bufferSize);
     gui->addSpectrum("FFT", middleBins, fft->getBinSize());
+    gui->addSlider("gain", 1., 10.0, &gain);
 }
 
 void UIBufferIn::guiEvent(ofxUIEventArgs &e){
@@ -71,7 +72,7 @@ void UIBufferIn::stop(){
 }
 
 void UIBufferIn::audioReceived(float * input, int bufferSize, int nChannels ){
-    float maxValue = 0;
+   /* float maxValue = 0;
 	for(int i = 0; i < bufferSize; i++) {
 		if(abs(input[i]) > maxValue) {
 			maxValue = abs(input[i]);
@@ -81,12 +82,15 @@ void UIBufferIn::audioReceived(float * input, int bufferSize, int nChannels ){
 	for(int i = 0; i < bufferSize; i++) {
 		input[i] /= maxValue;
 	}
-	
+	*/
+    for(int i = 0; i < bufferSize; i++) {
+		input[i] *= gain;
+	}
 	fft->setSignal(input);
 	
 	float* curFft = fft->getAmplitude();
 	memcpy(&audioBins[0], curFft, sizeof(float) * fft->getBinSize());
-	
+/*
 	maxValue = 0;
 	for(int i = 0; i < fft->getBinSize(); i++) {
 		if(abs(audioBins[i]) > maxValue) {
@@ -96,7 +100,7 @@ void UIBufferIn::audioReceived(float * input, int bufferSize, int nChannels ){
 	for(int i = 0; i < fft->getBinSize(); i++) {
 		audioBins[i] /= maxValue;
 	}
-	
+*/
 	soundMutex.lock();
     for(int i = 0; i < fft->getBinSize(); i++){
         middleBins[i] = audioBins[i];

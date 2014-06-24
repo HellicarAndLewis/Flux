@@ -28,6 +28,7 @@ public:
     
     ofTexture           texture;
     
+    float gain;
 protected:
     void setupUI();
     void draw(ofEventArgs & args);
