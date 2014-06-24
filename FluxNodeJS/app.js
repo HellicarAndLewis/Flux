@@ -184,42 +184,54 @@ var handleIncommingImages = function(data){
     }
   }
 
-  
-  var downloading;
-  //Look for the items in the local version of the queue, and see if its new
-  for(var i=data.length-1; i>=0;i--){
-    //console.log("Search for ",data[i])
-    var itemFound = false;
-    for(var u in incommingItems){
-      if(incommingItems[u].id == data[i].id){
-        itemFound = true;
-      }
-    }
 
-    if(!itemFound){
-      console.log("New item "+data[i].username);
-      downloading = true;
-      //If its new, then download it
-      var d = data[i];
-      downloadImage(d, function(){
-        incommingItems.push(d);
-        sendIncommingImage();
-        setTimeout(pullImages, 3000);
-      });
-    }
-  }
 
   //Send the queue to oF app
   sendIncommingImage();
 
-  //Do this again after 3 seconds
-  if(!downloading)
+  if(data.length > 0){
+    data = data.reverse();
+    parseFirstDataElement(data);
+  } else {
     setTimeout(pullImages, 3000);
+  }
 };
 
 
 
+var parseFirstDataElement = function(data){
+  console.log("Parse, Data length "+data.length)
 
+  if(data.length == 0){
+    setTimeout(pullImages, 3000);
+    sendIncommingImage();
+    return;
+  }
+
+  var itemFound = false;
+  for(var u in incommingItems){
+    if(incommingItems[u].id == data[0].id){
+      itemFound = true;
+    }
+  }
+
+  if(!itemFound){
+    console.log("New item "+data[0].username);
+    downloading = true;
+    //If its new, then download it
+    var d = data[0];
+    downloadImage(d, function(){
+      incommingItems.push(d);
+      data.shift();
+        parseFirstDataElement(data);
+      
+     // setTimeout(pullImages, 3000);
+    });
+  } else {
+    data.shift();
+    parseFirstDataElement(data);
+  }
+}
 
 //
 // Download a item to the local folder
