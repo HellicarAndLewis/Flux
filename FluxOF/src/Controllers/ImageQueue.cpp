@@ -73,11 +73,13 @@ void ImageQueue::transitionToNextItem(){
     //
     if(incommingItemsQueue.size() > 0){
         //Transition to the first item in the incommint items
+        incommingItemsQueue[0].takePhoto = true;
         transitionTo(incommingItemsQueue[0]);
         oldItemsQueue.push_back(incommingItemsQueue[0]);
         incommingItemsQueue.pop_front();
     } else if(oldItemsQueue.size() > 0){
         //Transition to the first item in the old items, and move it to the back
+        oldItemsQueue[0].takePhoto = false;
         transitionTo(oldItemsQueue[0]);
         oldItemsQueue.push_back(oldItemsQueue[0]);
         oldItemsQueue.pop_front();

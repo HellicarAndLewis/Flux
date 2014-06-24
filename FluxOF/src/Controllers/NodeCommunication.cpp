@@ -36,8 +36,6 @@ void NodeCommunication::update(){
             //Connected
             if(imageQueue->currentItem.takePhoto){
                 if(triggerPicture && lastTriggerPicture != triggerPicture){
-                    imageQueue->currentItem.takePhoto = false;
-                    
                     cout<<"Take picutre"<<endl;
                     //ofSaveScreen("images_screenshots/"+ofToString(imageQueue->currentItem.itemId)+".png");
 
