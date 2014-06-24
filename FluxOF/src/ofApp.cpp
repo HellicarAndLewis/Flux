@@ -52,6 +52,26 @@ void ofApp::setup(){
         
     
 
+    } else if(numberOfMonitors == 2){
+        
+        
+        //Find the positions of the monitors
+        //
+        vector<ofRectangle> monitorSizes;
+        for (int iC=0; iC < numberOfMonitors; iC++){
+            int xM; int yM;
+            glfwGetMonitorPos(monitors[iC], &xM, &yM);
+            const GLFWvidmode * desktopMode = glfwGetVideoMode(monitors[iC]);
+            ofRectangle monitorRect(xM, yM, desktopMode->width, desktopMode->height);
+            monitorSizes.push_back(monitorRect);
+        }
+        
+        ofSetWindowPosition(monitorSizes[0].width + 200, 100);
+        ofSetFullscreen(true);
+        
+           
+        
+        
     } else {
         ofToggleFullscreen();
     }
