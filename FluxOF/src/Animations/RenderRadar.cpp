@@ -150,9 +150,9 @@ void RenderRadar::selfUpdate(){
         ripples.begin();
         if (audioTerrain.bEnable) {
             audioTerrain.begin();
-            audioTerrain.getShader().setUniformTexture("heightMap", assets->terrainDepthMap, 0);
-            audioTerrain.getShader().setUniformTexture("audioFft", audioIn.texture, 1);
-            audioTerrain.getShader().setUniform1f("audioFftSize", audioIn.texture.getWidth());
+            audioTerrain.setUniformTexture("heightMap", assets->terrainDepthMap, 0);
+            audioTerrain.setUniformTexture("audioFft", audioIn.texture, 1);
+            audioTerrain.setUniform1f("audioFftSize", audioIn.texture.getWidth());
             glBegin(GL_QUADS);
             glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
             glTexCoord2f(assets->terrainResolution(), 0); glVertex3f(assets->terrainResolution(), 0, 0);
@@ -197,8 +197,8 @@ void RenderRadar::selfUpdate(){
         ofClear(0,0);
         
         radarShader.begin();
-        radarShader.getShader().setUniform1f("pct", radarPct);
-        radarShader.getShader().setUniform2f("center", radarCenter.x, radarCenter.y);
+        radarShader.setUniform1f("pct", radarPct);
+        radarShader.setUniform2f("center", radarCenter.x, radarCenter.y);
         glBegin(GL_QUADS);
         glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
         glTexCoord2f(assets->terrainResolution(), 0); glVertex3f(assets->terrainResolution(), 0, 0);
@@ -228,31 +228,31 @@ void RenderRadar::selfUpdate(){
             ofClear(0,0);
             
             terrainTransition.begin();{
-                terrainTransition.getShader().setUniformTexture("backbuffer", *terrainTransitionTex.src, 0);
-                terrainTransition.getShader().setUniformTexture("depthMap", assets->terrainDepthMap, 1);
-                terrainTransition.getShader().setUniformTexture("terrainAreas", assets->terrainAreasMap, 2);
+                terrainTransition.setUniformTexture("backbuffer", *terrainTransitionTex.src, 0);
+                terrainTransition.setUniformTexture("depthMap", assets->terrainDepthMap, 1);
+                terrainTransition.setUniformTexture("terrainAreas", assets->terrainAreasMap, 2);
                 if(terrainNoise.bEnable){
-                    terrainTransition.getShader().setUniformTexture("normalMap", terrainNoiseTex, 3);
+                    terrainTransition.setUniformTexture("normalMap", terrainNoiseTex, 3);
                 } else {
-                    terrainTransition.getShader().setUniformTexture("normalMap", assets->terrainNormalMap, 3);
+                    terrainTransition.setUniformTexture("normalMap", assets->terrainNormalMap, 3);
                 }
-                terrainTransition.getShader().setUniformTexture("radarTex", radarTexture, 5);
+                terrainTransition.setUniformTexture("radarTex", radarTexture, 5);
                 
                 for(int i = 0; i < srcPalette.size(); i++){
-                    terrainTransition.getShader().setUniform3f("srcColor"+ofToString(i+1),
+                    terrainTransition.setUniform3f("srcColor"+ofToString(i+1),
                                                                ((float)srcPalette[i].r)/255.0,
                                                                ((float)srcPalette[i].g)/255.0,
                                                                ((float)srcPalette[i].b)/255.0);
                 }
                 
                 for(int i = 0; i < dstPalette.size(); i++){
-                    terrainTransition.getShader().setUniform3f("dstColor"+ofToString(i+1),
+                    terrainTransition.setUniform3f("dstColor"+ofToString(i+1),
                                                                ((float)dstPalette[i].r)/255.0,
                                                                ((float)dstPalette[i].g)/255.0,
                                                                ((float)dstPalette[i].b)/255.0);
                 }
                 
-                terrainTransition.getShader().setUniform1f("resolution", assets->terrainResolution());
+                terrainTransition.setUniform1f("resolution", assets->terrainResolution());
                 
                 glBegin(GL_QUADS);
                 glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
@@ -271,9 +271,9 @@ void RenderRadar::selfUpdate(){
             ofClear(0,0);
             
             circleShader.begin();
-            circleShader.getShader().setUniform3f("color",radarColor.r,radarColor.g,radarColor.b);
-            circleShader.getShader().setUniform2f("center", radarCenter.x, radarCenter.y);
-            circleShader.getShader().setUniform1f("resolution", assets->terrainResolution());
+            circleShader.setUniform3f("color",radarColor.r,radarColor.g,radarColor.b);
+            circleShader.setUniform2f("center", radarCenter.x, radarCenter.y);
+            circleShader.setUniform1f("resolution", assets->terrainResolution());
             glBegin(GL_QUADS);
             glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
             glTexCoord2f(assets->terrainResolution(), 0); glVertex3f(assets->terrainResolution(), 0, 0);
@@ -373,16 +373,16 @@ void RenderRadar::drawTerrain(int viewport){
     
     if(terrainShader.bEnable){
         terrainShader.begin();
-        terrainShader.getShader().setUniformTexture("terrainAreas", assets->terrainAreasMap, 0);
-        terrainShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 1);
-        terrainShader.getShader().setUniformTexture("overlayer", terrainTex, 2);
-        terrainShader.getShader().setUniformTexture("ripples", ripples, 3);
-        terrainShader.getShader().setUniformTexture("radarMask", radarTexture, 4);
+        terrainShader.setUniformTexture("terrainAreas", assets->terrainAreasMap, 0);
+        terrainShader.setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 1);
+        terrainShader.setUniformTexture("overlayer", terrainTex, 2);
+        terrainShader.setUniformTexture("ripples", ripples, 3);
+        terrainShader.setUniformTexture("radarMask", radarTexture, 4);
         
-        terrainShader.getShader().setUniform3f("ripplesColor", ripplesColor.r,ripplesColor.g,ripplesColor.b);
-        terrainShader.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
+        terrainShader.setUniform3f("ripplesColor", ripplesColor.r,ripplesColor.g,ripplesColor.b);
+        terrainShader.setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
         
-        terrainShader.getShader().setUniform1f("resolution", assets->terrainResolution());
+        terrainShader.setUniform1f("resolution", assets->terrainResolution());
         
         assets->terrainMesh.draw();
        
@@ -392,16 +392,16 @@ void RenderRadar::drawTerrain(int viewport){
     if(terrainMeshShader.bEnable){
         terrainMeshShader.begin();
         
-        terrainMeshShader.getShader().setUniformTexture("terrainAreas", assets->terrainAreasMap, 0);
-        terrainMeshShader.getShader().setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 1);
-        terrainMeshShader.getShader().setUniformTexture("overlayer", terrainTex, 2);
-        terrainMeshShader.getShader().setUniformTexture("ripples", ripples, 3);
-        terrainMeshShader.getShader().setUniformTexture("radarMask", radarTexture, 4);
+        terrainMeshShader.setUniformTexture("terrainAreas", assets->terrainAreasMap, 0);
+        terrainMeshShader.setUniformTexture("background", terrainTransitionTex.dst->getTextureReference(), 1);
+        terrainMeshShader.setUniformTexture("overlayer", terrainTex, 2);
+        terrainMeshShader.setUniformTexture("ripples", ripples, 3);
+        terrainMeshShader.setUniformTexture("radarMask", radarTexture, 4);
         
-        terrainMeshShader.getShader().setUniform3f("ripplesColor", ripplesColor.r,ripplesColor.g,ripplesColor.b);
-        terrainMeshShader.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
+        terrainMeshShader.setUniform3f("ripplesColor", ripplesColor.r,ripplesColor.g,ripplesColor.b);
+        terrainMeshShader.setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
         
-        terrainMeshShader.getShader().setUniform1f("resolution", assets->terrainResolution());
+        terrainMeshShader.setUniform1f("resolution", assets->terrainResolution());
         
         assets->terrainMesh.drawWireframe();
         terrainMeshShader.end();
@@ -436,22 +436,22 @@ void RenderRadar::drawShoeBackground(int viewport){
         
         if(shoeTransition.bEnable){
             shoeTransition.begin();
-            shoeTransition.getShader().setUniform1f("radarHeight", radarHeight);
-            shoeTransition.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
-            shoeTransition.getShader().setUniformTexture("srcTexture",shoeTex.src->getTextureReference(), 0);
-            shoeTransition.getShader().setUniformTexture("dstTexture",shoeTex.dst->getTextureReference(), 1);
-            shoeTransition.getShader().setUniformTexture("colorMaskTexture", assets->shoeColorMask, 2);
-            shoeTransition.getShader().setUniform1i("splitLaser", simulatorMode);
+            shoeTransition.setUniform1f("radarHeight", radarHeight);
+            shoeTransition.setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
+            shoeTransition.setUniformTexture("srcTexture",shoeTex.src->getTextureReference(), 0);
+            shoeTransition.setUniformTexture("dstTexture",shoeTex.dst->getTextureReference(), 1);
+            shoeTransition.setUniformTexture("colorMaskTexture", assets->shoeColorMask, 2);
+            shoeTransition.setUniform1i("splitLaser", simulatorMode);
             
             for(int i = 0; i < srcPalette.size(); i++){
-                shoeTransition.getShader().setUniform3f("srcColor"+ofToString(i+1),
+                shoeTransition.setUniform3f("srcColor"+ofToString(i+1),
                                                         ((float)srcPalette[i].r)/255.0,
                                                         ((float)srcPalette[i].g)/255.0,
                                                         ((float)srcPalette[i].b)/255.0);
             }
             
             for(int i = 0; i < dstPalette.size(); i++){
-                shoeTransition.getShader().setUniform3f("dstColor"+ofToString(i+1),
+                shoeTransition.setUniform3f("dstColor"+ofToString(i+1),
                                                         ((float)dstPalette[i].r)/255.0,
                                                         ((float)dstPalette[i].g)/255.0,
                                                         ((float)dstPalette[i].b)/255.0);
@@ -489,21 +489,21 @@ void RenderRadar::drawShoeForeground(int viewport){
         
         if(shoeLaserTransition.bEnable){
             shoeLaserTransition.begin();
-            shoeLaserTransition.getShader().setUniform1f("radarHeight", radarHeight);
-            shoeLaserTransition.getShader().setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
-            shoeLaserTransition.getShader().setUniformTexture("srcTexture",shoeTex.src->getTextureReference(), 0);
-            shoeLaserTransition.getShader().setUniformTexture("dstTexture",shoeTex.dst->getTextureReference(), 1);
-            shoeLaserTransition.getShader().setUniformTexture("colorMaskTexture", assets->shoeColorMask, 2);
+            shoeLaserTransition.setUniform1f("radarHeight", radarHeight);
+            shoeLaserTransition.setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
+            shoeLaserTransition.setUniformTexture("srcTexture",shoeTex.src->getTextureReference(), 0);
+            shoeLaserTransition.setUniformTexture("dstTexture",shoeTex.dst->getTextureReference(), 1);
+            shoeLaserTransition.setUniformTexture("colorMaskTexture", assets->shoeColorMask, 2);
             
             for(int i = 0; i < srcPalette.size(); i++){
-                shoeLaserTransition.getShader().setUniform3f("srcColor"+ofToString(i+1),
+                shoeLaserTransition.setUniform3f("srcColor"+ofToString(i+1),
                                                              ((float)srcPalette[i].r)/255.0,
                                                              ((float)srcPalette[i].g)/255.0,
                                                              ((float)srcPalette[i].b)/255.0);
             }
             
             for(int i = 0; i < dstPalette.size(); i++){
-                shoeLaserTransition.getShader().setUniform3f("dstColor"+ofToString(i+1),
+                shoeLaserTransition.setUniform3f("dstColor"+ofToString(i+1),
                                                              ((float)dstPalette[i].r)/255.0,
                                                              ((float)dstPalette[i].g)/255.0,
                                                              ((float)dstPalette[i].b)/255.0);
@@ -535,8 +535,8 @@ void RenderRadar::selfDrawOverlay(){
         if (audioTerrainDebug.bEnable) {
             ofSetColor(255);
             audioTerrainDebug.begin();
-            audioTerrainDebug.getShader().setUniformTexture("audioFft", audioIn.texture, 0);
-            audioTerrainDebug.getShader().setUniform1f("audioFftSize", audioIn.texture.getWidth());
+            audioTerrainDebug.setUniformTexture("audioFft", audioIn.texture, 0);
+            audioTerrainDebug.setUniform1f("audioFftSize", audioIn.texture.getWidth());
 
             //audioIn.texture.draw(audioIn.texture.getWidth()*2.0,0,audioIn.texture.getWidth()*2.0,150);
             glPushMatrix();
@@ -553,9 +553,9 @@ void RenderRadar::selfDrawOverlay(){
 
             audioTerrainDebug.end();
             /*audioTerrain.begin();
-            audioTerrain.getShader().setUniformTexture("heightMap", assets->terrainDepthMap, 0);
-            audioTerrain.getShader().setUniformTexture("audioFft", audioIn.texture, 1);
-            audioTerrain.getShader().setUniform1f("audioFftSize", audioIn.texture.getWidth());
+            audioTerrain.setUniformTexture("heightMap", assets->terrainDepthMap, 0);
+            audioTerrain.setUniformTexture("audioFft", audioIn.texture, 1);
+            audioTerrain.setUniform1f("audioFftSize", audioIn.texture.getWidth());
             glBegin(GL_QUADS);
             glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
             glTexCoord2f(assets->terrainResolution(), 0); glVertex3f(assets->terrainResolution(), 0, 0);
