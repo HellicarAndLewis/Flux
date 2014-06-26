@@ -5,6 +5,8 @@ void ofApp::setup(){
     ofSetVerticalSync(true);
     renderEngine = NULL;
     
+    guiShown = true;
+    
     ofxMultiGLFWWindow *glfw = (ofxMultiGLFWWindow*)ofGetWindowPtr();
 
     //Look for number of monitors
@@ -12,7 +14,21 @@ void ofApp::setup(){
     int numberOfMonitors;
 	GLFWmonitor** monitors = glfwGetMonitors(&numberOfMonitors);
     cout<<"Num windows: "<<numberOfMonitors<<endl;
+    
+    
+    //Find the positions of the monitors
+    //
+    
+    for (int iC=0; iC < numberOfMonitors; iC++){
+        int xM; int yM;
+        glfwGetMonitorPos(monitors[iC], &xM, &yM);
+        const GLFWvidmode * desktopMode = glfwGetVideoMode(monitors[iC]);
+        ofRectangle monitorRect(xM, yM, desktopMode->width, desktopMode->height);
+        monitorSizes.push_back(monitorRect);
+    }
+    
 
+    guiWindow = glfw->windows[0];
     
     // Setup the render views
     //
@@ -21,19 +37,7 @@ void ofApp::setup(){
         //Set the main window to full HD
         ofSetWindowShape(1920, 1080);
         
-        
-        //Find the positions of the monitors
-        //
-        vector<ofRectangle> monitorSizes;
-        for (int iC=0; iC < numberOfMonitors; iC++){
-            int xM; int yM;
-            glfwGetMonitorPos(monitors[iC], &xM, &yM);
-            const GLFWvidmode * desktopMode = glfwGetVideoMode(monitors[iC]);
-            ofRectangle monitorRect(xM, yM, desktopMode->width, desktopMode->height);
-            monitorSizes.push_back(monitorRect);
-        }
-
-        //Run through the windows, and create the additional render views
+              //Run through the windows, and create the additional render views
         for(int i=0;i<2;i++){
             GLFWwindow * window = glfw->createWindow();
             glfw->setWindow(window);
@@ -50,9 +54,9 @@ void ofApp::setup(){
         glfw->setWindow(glfw->windows.at(0));
         glfw->showWindow(glfw->windows.at(0));
         
+    }
     
-
-    } else if(numberOfMonitors == 2){
+    else if(numberOfMonitors == 2){
         
         
         //Find the positions of the monitors
@@ -145,7 +149,21 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    
+    if(key == 'i'){
+
+        ofxMultiGLFWWindow *glfw = (ofxMultiGLFWWindow*)ofGetWindowPtr();
+
+        glfw->setWindow(guiWindow);
+
+        if(guiShown){
+            ofSetWindowPosition(monitorSizes[0].width + monitorSizes[1].width +monitorSizes[2].width, 0);
+            guiShown = false;
+        } else {
+            ofSetWindowPosition(0, 0);
+            guiShown = true;
+        }
+
+    }
 }
 
 //--------------------------------------------------------------

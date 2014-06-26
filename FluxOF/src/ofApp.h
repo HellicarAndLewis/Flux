@@ -49,4 +49,9 @@ public:
     AudioTrigger audioTrigger;
     
     CalibrationLoader calibration;
+    
+    bool guiShown;
+    GLFWwindow * guiWindow;
+    vector<ofRectangle> monitorSizes;
+
 };
