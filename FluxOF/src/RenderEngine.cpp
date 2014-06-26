@@ -562,19 +562,26 @@ void RenderEngine::drawShoeForeground(int viewport){
 
 void RenderEngine::drawShoeMask(int viewport){
     ofSetColor(255);
-//    assets->shoeMask1.draw(0, ofGetHeight(), ofGetWidth(), -ofGetHeight());
-
+    //    assets->shoeMask1.draw(0, ofGetHeight(), ofGetWidth(), -ofGetHeight());
+    
     int x = assets->shoeMask1.getWidth();
     int y = assets->shoeMask1.getHeight();
-    assets->shoeMask1.bind();
+    if(viewport == 2){
+        assets->shoeMask2.bind();
+    } else {
+        assets->shoeMask1.bind();
+    }
     glBegin(GL_QUADS);{
-        glTexCoord2d(0, 0); glVertex2d(0, 0);
-        glTexCoord2d(x, 0); glVertex2d(x, 0);
-        glTexCoord2d(x, y); glVertex2d(x, y);
-        glTexCoord2d(0, y); glVertex2d(0, y);
+        glTexCoord2d(0, 0); glVertex2d(0, y);
+        glTexCoord2d(x, 0); glVertex2d(x, y);
+        glTexCoord2d(x, y); glVertex2d(x, 0);
+        glTexCoord2d(0, y); glVertex2d(0, 0);
     }glEnd();
-    assets->shoeMask1.unbind();
-}
+    if(viewport == 2){
+        assets->shoeMask2.unbind();
+    } else {
+        assets->shoeMask1.unbind();
+    }}
 
 
 
