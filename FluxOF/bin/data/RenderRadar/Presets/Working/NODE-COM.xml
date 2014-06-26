@@ -2,13 +2,13 @@
     <Kind>40</Kind>
     <Name>NODE-COM</Name>
     <IsMinified>1</IsMinified>
-    <XPosition>1.000000000</XPosition>
+    <XPosition>2.000000000</XPosition>
     <YPosition>701.000000000</YPosition>
 </Canvas>
 <Widget>
     <Kind>2</Kind>
     <Name>ENABLE</Name>
-    <Value>0</Value>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>

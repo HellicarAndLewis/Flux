@@ -1,9 +1,9 @@
 <Canvas>
     <Kind>40</Kind>
-    <Name>radar</Name>
+    <Name>shoesLaserTrans</Name>
     <IsMinified>1</IsMinified>
     <XPosition>1.000000000</XPosition>
-    <YPosition>476.000000000</YPosition>
+    <YPosition>601.000000000</YPosition>
 </Canvas>
 <Widget>
     <Kind>2</Kind>
@@ -12,13 +12,13 @@
 </Widget>
 <Widget>
     <Kind>4</Kind>
-    <Name>pct</Name>
-    <Value>0.527093589</Value>
+    <Name>radarHeight</Name>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
-    <Name>tailWidth</Name>
-    <Value>0.146341443</Value>
+    <Name>lineWidth</Name>
+    <Value>0.024630541</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
@@ -29,4 +29,14 @@
     <Kind>25</Kind>
     <Name>y</Name>
     <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>25</Kind>
+    <Name>z</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>tranNoiseZoom</Name>
+    <Value>1.000000000</Value>
 </Widget>
