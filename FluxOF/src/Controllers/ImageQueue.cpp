@@ -144,6 +144,7 @@ void ImageQueue::storeQueueToFile(){
         storedQueue.setValue("item:username", oldItemsQueue[i].username, i);
         storedQueue.setValue("item:itemId", oldItemsQueue[i].itemId, i);
         storedQueue.setValue("item:path", oldItemsQueue[i].path, i);
+        storedQueue.setValue("item:timestamp", oldItemsQueue[i].timestamp, i);
     }
     
     storedQueue.save("imageQueue.xml");
