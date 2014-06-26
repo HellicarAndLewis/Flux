@@ -159,8 +159,13 @@ var pullImages = function(){
 
     res.on('end', function() {
       //The response is done, go parse it
-      var responseObject = JSON.parse(responseString);
-      handleIncommingImages(responseObject);
+      try{
+        var responseObject = JSON.parse(responseString);
+        handleIncommingImages(responseObject);
+      } catch(e){
+        console.log("ERROR: ",e);
+        setTimeout(pullImages, 3000);
+      }
     });
   }).end();
 };
