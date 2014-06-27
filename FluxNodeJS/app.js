@@ -52,6 +52,10 @@ wss.on('connection', function(ws) {
 });
 
 
+function generateHash() {
+    return ("000000" + (Math.random()*Math.pow(36,6) << 0).toString(36)).slice(-6)
+}
+
 //
 // List cameras / assign list item to variable to use below options
 //
@@ -149,7 +153,7 @@ var pullImages = function(){
     }
   };
 
-  http.request(options, function(res) {
+  var req = http.request(options, function(res) {
     res.setEncoding('utf8');
 
     var responseString = '';
@@ -167,7 +171,16 @@ var pullImages = function(){
         setTimeout(pullImages, 3000);
       }
     });
-  }).end();
+  })
+
+
+  req.on('error', function(e) {
+    console.log('problem with request: ' + e.message);
+    setTimeout(pullImages, 3000);
+  });
+  
+
+  req.end();
 };
 
 //
@@ -274,19 +287,23 @@ var takePhoto = function(options, cb){
   console.log("Take photo")
   if(camera){
     camera.takePicture({download: true}, function (er, data) {
-      var path = __dirname+"/../photos" + '/'+options.name+'.jpg';
-      fs.writeFileSync(path, data);
-      console.log("photo taken, resizing");
+      if(er){
+        console.log("CAMERA ERROR!");
+      } else {
+        var path = __dirname+"/../photos" + '/'+options.name+"_"+generateHash()+'.jpg';
+        fs.writeFileSync(path, data);
+        console.log("photo taken, resizing");
 
-      gm(path)
-      .resize(1024,683)
-      .crop(1024, 512,0,0)
-      .noProfile()
-      .write(path, function (err) {
-        if (!err) console.log('done');
-        if(cb) cb(path);
+        gm(path)
+        .resize(1024,683)
+        .crop(1024, 512,0,0)
+        .noProfile()
+        .write(path, function (err) {
+          if (!err) console.log('done');
+          if(cb) cb(path);
 
-      });
+        });
+      }
 
     });
   }
