@@ -11,5 +11,6 @@ ofxTimecode
 ofxTimeline
 ofxTween
 ofxUI
-ofxUIProject
+ofxPro
+ofxTimelinePro
 ofxXmlSettings
