@@ -86,14 +86,30 @@ void RenderEngine::startTransitionTo(QueueItem queueItem){
     int size = 1024;
     float optimalWidth = 0.7;
     float optimalHeight = 0.95;
+    float rotate = 0;
     
     int width, height;
-    if(queueItem.image.getWidth()/optimalWidth > queueItem.image.getHeight()/optimalHeight){
-        height = size * optimalHeight;
+    if(queueItem.image.getWidth() > queueItem.image.getHeight()){
+        height = size * optimalWidth;
+
         width = height * queueItem.image.getWidth() /  queueItem.image.getHeight();
+        
+        if(width < size*optimalHeight){
+            width = size * optimalHeight;
+            height = width * queueItem.image.getHeight() /  queueItem.image.getWidth();
+            
+        }
+        rotate = -90;
     } else {
         width = size * optimalWidth;
         height = width * queueItem.image.getHeight() /  queueItem.image.getWidth();
+        
+        if(height < size*optimalHeight){
+            height = size * optimalHeight;
+            width = height * queueItem.image.getWidth() /  queueItem.image.getHeight();
+            
+        }
+
     }
     
     ofDisableArbTex();
@@ -106,7 +122,9 @@ void RenderEngine::startTransitionTo(QueueItem queueItem){
         ofClear(0);
         ofSetColor(255);
         ofSetRectMode(OF_RECTMODE_CENTER);
-        queueItem.image.draw(size/2.0,size/2.0, -width, -height);
+        ofTranslate(size/2.0,size/2.0);
+        ofRotate(rotate, 0, 0, 1);
+        queueItem.image.draw(0,0, -width, -height);
         ofSetRectMode(OF_RECTMODE_CORNER);
     } shoeTex.dst->end();
     
@@ -220,7 +238,7 @@ void RenderEngine::draw(ofEventArgs & args){
     getRenderTarget(currentViewPort).begin();{
         
         //Blue debug background
-        ofClear(0,0,100);
+        ofClear(0);
         
         
         renderPasses.clear();
