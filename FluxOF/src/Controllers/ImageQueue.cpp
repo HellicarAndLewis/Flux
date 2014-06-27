@@ -125,7 +125,7 @@ void ImageQueue::cleanupQueue(){
     }
     
     for(int i=0;i<oldItemsQueue.size();i++){
-        if(oldItemsQueue.size() > 3 && (ofGetUnixTime()-oldItemsQueue[i].timestamp) > 60*60){
+        if(oldItemsQueue.size() > 10 && (ofGetUnixTime()-oldItemsQueue[i].timestamp) > 60*60){
             cout<<"Delete element because its old ("<<oldItemsQueue[i].timestamp<<") now its "<<ofGetUnixTime()<<"  "<<(ofGetUnixTime()-oldItemsQueue[i].timestamp)<<endl;
             oldItemsQueue.erase(oldItemsQueue.begin()+i);
             i--;
