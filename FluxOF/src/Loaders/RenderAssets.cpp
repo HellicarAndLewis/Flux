@@ -149,6 +149,6 @@ void RenderAssets::load(){
     ofLoadImage(terrainUVWireframe, "textures/terrain_uv_wireframe.png");
     ofEnableArbTex();
     
-    font.loadFont("fonts/AdiHaus", 90);
+    font.loadFont("fonts/adiNeue2013-Bold.otf", 90);
 
 }
