@@ -62,8 +62,6 @@ void RenderRadar::selfSetup(){
 }
 
 void RenderRadar::selfSetupGuis(){
-    
-    backgroundSet(new UIMapBackground());
     lightAdd("SPOT", OF_LIGHT_SPOT);
     
     guiAdd(audioIn);
