@@ -102,4 +102,6 @@ public:
     ofxMultiGLFWWindow  *glfw;
     
     ofxSyphonClient     syphon;
+    
+    float shoe2y;
 };

@@ -33,6 +33,8 @@ void RenderEngine::selfSetupRenderGui(){
     rdrGui->addToggle("Shoe Details", &shoeDetailsDrawEnabled);
     rdrGui->addToggle("Shoe Foreground", &shoeForegroundDrawEnabled);
     rdrGui->addToggle("Shoe Mask", &shoeMaskDrawEnabled);
+    
+       rdrGui->addSlider("Shoe2y", -100, 100,  &shoe2y);
 }
 
 
@@ -553,6 +555,7 @@ void RenderEngine::drawTerrainMask(int viewport){
 
 void RenderEngine::drawShoeBackground(int viewport){
     assets->shoeUVWireframe.bind();
+  
     assets->shoeMesh.draw();
     assets->shoeUVWireframe.unbind();
 }
@@ -572,6 +575,9 @@ void RenderEngine::drawShoeDetails(int viewport){
 
 void RenderEngine::drawShoeForeground(int viewport){
     assets->shoeUVWireframe.bind();
+    if(viewport == 2){
+        ofTranslate(0, shoe2y,0);
+    }
     assets->shoeMesh.draw();
     assets->shoeUVWireframe.unbind();
 

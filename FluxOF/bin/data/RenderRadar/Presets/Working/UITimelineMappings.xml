@@ -22,14 +22,6 @@
     <SliderCurves>
         <Mapping>
             <Widget>
-                <WidgetName>Text_Alpha</WidgetName>
-                <WidgetID>29</WidgetID>
-                <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
-            </Widget>
-            <Track></Track>
-        </Mapping>
-        <Mapping>
-            <Widget>
                 <WidgetName>Radar_Pct</WidgetName>
                 <WidgetID>20</WidgetID>
                 <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
@@ -48,6 +40,14 @@
             <Widget>
                 <WidgetName>Radar_Height</WidgetName>
                 <WidgetID>24</WidgetID>
+                <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
+            </Widget>
+            <Track></Track>
+        </Mapping>
+        <Mapping>
+            <Widget>
+                <WidgetName>Text_Alpha</WidgetName>
+                <WidgetID>29</WidgetID>
                 <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
             </Widget>
             <Track></Track>
