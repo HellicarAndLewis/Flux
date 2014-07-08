@@ -90,6 +90,7 @@ public:
     vector<ofColor>     srcPalette;
     vector<ofColor>     dstPalette;
     
+    ofFbo               textFbo;
     ofPoint             textOffset;
     string              text;
     float               textAlpha;

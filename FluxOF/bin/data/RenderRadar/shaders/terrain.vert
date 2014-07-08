@@ -12,8 +12,6 @@ uniform vec3 ripplesColor;
 uniform sampler2DRect radarMask;
 uniform vec3 radarColor;
 
-
-
 varying vec4 ambientGlobal, eyeSpaceVertexPos;
 varying vec4 vertexPos;
 varying vec3 vertexNormal;

@@ -11,6 +11,8 @@ uniform vec3 radarColor;
 uniform sampler2DRect ripples;
 uniform vec3 ripplesColor;
 
+uniform sampler2DRect textTex;
+
 varying vec4 ambientGlobal, eyeSpaceVertexPos;
 varying vec4 vertexPos;
 varying vec3 vertexNormal;
@@ -187,9 +189,9 @@ void main(void){
     color *= calc_lighting_color(n).rgb;
   }
 
+  vec4 text = texture2DRect(textTex,uv);
 
-
-	gl_FragColor.rgb = color;
+	gl_FragColor.rgb = mix(color,text.rgb,text.a);
 	gl_FragColor.a = 1.0;
 
 /*  vec4 mask = texture2DRect(terrainMask,uv);

@@ -88,7 +88,6 @@ protected:
     //
     UIShader        circleShader;
 
-    
     // TEST
     bool            testPatternEnabled;
     string          testMode;

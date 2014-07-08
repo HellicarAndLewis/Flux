@@ -54,6 +54,8 @@ void RenderRadar::selfSetup(){
         terrainMask[i].allocate(assets->terrainResolution(),assets->terrainResolution());
     }
     
+    textFbo.allocate(assets->terrainResolution(),assets->terrainResolution());
+    
     //  Non-Arb
     ofDisableArbTex();
     shoeTex.allocate(100, 100);
@@ -297,21 +299,24 @@ void RenderRadar::selfUpdate(){
             ofPopMatrix();
             ofPopStyle();
             
-            // username text
-            //
-            ofPoint textCenter = assets->font.getStringBoundingBox(text,0,0).getCenter();
-            ofPushStyle();
-            ofSetColor(255, textAlpha*255.0);
-            ofPushMatrix();
-            ofTranslate(textOffset);
-            ofRotate(-90);
-            ofScale(textScale, textScale);
-            assets->font.drawString(text, 0.0, -textCenter.y );
-            ofPopMatrix();
-            
             ofPopStyle();
             
         }terrainTex.end();
+        
+        textFbo.begin();
+        ofClear(0,0);
+        // username text
+        //
+        ofPoint textCenter = assets->font.getStringBoundingBox(text,0,0).getCenter();
+        ofPushStyle();
+        ofSetColor(255, textAlpha*255.0);
+        ofPushMatrix();
+        ofTranslate(textOffset);
+        ofRotate(-90);
+        ofScale(textScale, textScale);
+        assets->font.drawString(text, 0.0, -textCenter.y );
+        ofPopMatrix();
+        textFbo.end();
     }
     
     // Mask
@@ -376,6 +381,7 @@ void RenderRadar::drawTerrain(int viewport){
         terrainShader.setUniformTexture("overlayer", terrainTex, 2);
         terrainShader.setUniformTexture("ripples", ripples, 3);
         terrainShader.setUniformTexture("radarMask", radarTexture, 4);
+        terrainShader.setUniformTexture("textTex", textFbo, 5);
         
         terrainShader.setUniform3f("ripplesColor", ripplesColor.r,ripplesColor.g,ripplesColor.b);
         terrainShader.setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
@@ -395,6 +401,7 @@ void RenderRadar::drawTerrain(int viewport){
         terrainMeshShader.setUniformTexture("overlayer", terrainTex, 2);
         terrainMeshShader.setUniformTexture("ripples", ripples, 3);
         terrainMeshShader.setUniformTexture("radarMask", radarTexture, 4);
+        terrainMeshShader.setUniformTexture("textTex", textFbo, 5);
         
         terrainMeshShader.setUniform3f("ripplesColor", ripplesColor.r,ripplesColor.g,ripplesColor.b);
         terrainMeshShader.setUniform3f("radarColor",radarColor.r,radarColor.g,radarColor.b);
