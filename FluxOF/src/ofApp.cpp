@@ -54,6 +54,10 @@ void ofApp::setup(){
         glfw->setWindow(glfw->windows.at(0));
         glfw->showWindow(glfw->windows.at(0));
         
+        ofSetWindowPosition(monitorSizes[0].width + monitorSizes[1].width +monitorSizes[2].width, 0);
+        guiShown = false;
+
+        
     }
     
     else if(numberOfMonitors == 2){
