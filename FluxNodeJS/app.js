@@ -144,7 +144,7 @@ var pullImages = function(){
     auth = "Basic " + new Buffer(username + ":" + password).toString("base64");
 
   var options = {
-    host: 'dev.adi063.adidas.u-dox.com',
+    host: 'prod.adi063.adidas.u-dox.com',
     port: 80,
     path: '/api/image-feed/',
     method: 'GET',
@@ -270,7 +270,7 @@ var downloadImage = function(item, cb){
 //
 var uploadImage = function(path, id){
   console.log("Uploading "+path+" to "+id);
-  var r = request.post('http://dev.adi063.adidas.u-dox.com/api/returned-image/', function optionalCallback (err, httpResponse, body) {
+  var r = request.post('http://prod.adi063.adidas.u-dox.com/api/returned-image/', function optionalCallback (err, httpResponse, body) {
     if (err) {
       return console.error('upload failed:', err);
     }
