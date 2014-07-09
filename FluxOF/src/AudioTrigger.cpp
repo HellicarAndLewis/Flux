@@ -5,6 +5,8 @@ void AudioTrigger::setup(){
     midiOut = new ofxMidiOut();
     midiOut->openPort("IAC Driver Bus 1");
     
+        //e.getButton()->setValue(false);
+        midiOut->sendNoteOn(2, 1);
 }
 
 void AudioTrigger::setupUI(){

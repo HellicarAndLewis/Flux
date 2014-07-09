@@ -22,38 +22,6 @@
     <SliderCurves>
         <Mapping>
             <Widget>
-                <WidgetName>Radar_Pct</WidgetName>
-                <WidgetID>20</WidgetID>
-                <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
-            </Widget>
-            <Track></Track>
-        </Mapping>
-        <Mapping>
-            <Widget>
-                <WidgetName>Radar_Alpha</WidgetName>
-                <WidgetID>22</WidgetID>
-                <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
-            </Widget>
-            <Track></Track>
-        </Mapping>
-        <Mapping>
-            <Widget>
-                <WidgetName>Radar_Height</WidgetName>
-                <WidgetID>24</WidgetID>
-                <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
-            </Widget>
-            <Track></Track>
-        </Mapping>
-        <Mapping>
-            <Widget>
-                <WidgetName>Text_Alpha</WidgetName>
-                <WidgetID>29</WidgetID>
-                <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
-            </Widget>
-            <Track></Track>
-        </Mapping>
-        <Mapping>
-            <Widget>
                 <WidgetName>tailWidth</WidgetName>
                 <WidgetID>7</WidgetID>
                 <WidgetCanvasParent>radar</WidgetCanvasParent>
@@ -81,6 +49,38 @@
                 <WidgetName>radarPct</WidgetName>
                 <WidgetID>15</WidgetID>
                 <WidgetCanvasParent>terrainMesh</WidgetCanvasParent>
+            </Widget>
+            <Track></Track>
+        </Mapping>
+        <Mapping>
+            <Widget>
+                <WidgetName>Text_Alpha</WidgetName>
+                <WidgetID>29</WidgetID>
+                <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
+            </Widget>
+            <Track></Track>
+        </Mapping>
+        <Mapping>
+            <Widget>
+                <WidgetName>Radar_Alpha</WidgetName>
+                <WidgetID>22</WidgetID>
+                <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
+            </Widget>
+            <Track></Track>
+        </Mapping>
+        <Mapping>
+            <Widget>
+                <WidgetName>Radar_Height</WidgetName>
+                <WidgetID>24</WidgetID>
+                <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
+            </Widget>
+            <Track></Track>
+        </Mapping>
+        <Mapping>
+            <Widget>
+                <WidgetName>Radar_Pct</WidgetName>
+                <WidgetID>20</WidgetID>
+                <WidgetCanvasParent>SystemSettings</WidgetCanvasParent>
             </Widget>
             <Track></Track>
         </Mapping>

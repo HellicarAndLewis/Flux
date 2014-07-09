@@ -13,19 +13,19 @@
     </element>
     <element name="Radar_Alpha">
         <x>0.000000000</x>
-        <y>94.000000000</y>
+        <y>91.000000000</y>
         <width>1920.000000000</width>
         <height>34.000000000</height>
     </element>
     <element name="Radar_Height">
         <x>0.000000000</x>
-        <y>134.000000000</y>
+        <y>131.000000000</y>
         <width>1920.000000000</width>
         <height>39.000000000</height>
     </element>
     <element name="Radar_Pct">
         <x>0.000000000</x>
-        <y>45.000000000</y>
+        <y>176.000000000</y>
         <width>1920.000000000</width>
         <height>43.000000000</height>
     </element>
@@ -43,7 +43,7 @@
     </element>
     <element name="Text_Alpha">
         <x>0.000000000</x>
-        <y>179.000000000</y>
+        <y>45.000000000</y>
         <width>1920.000000000</width>
         <height>40.000000000</height>
     </element>
