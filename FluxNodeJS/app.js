@@ -139,12 +139,12 @@ var sendIncommingImage = function(){
 var pullImages = function(){
   console.log("Pulling for new images");
 
-  var username = "adidas",
-    password = "udox and adidas",
+  var username = "USER",
+    password = "PASSWORD",
     auth = "Basic " + new Buffer(username + ":" + password).toString("base64");
 
   var options = {
-    host: 'prod.adi063.adidas.u-dox.com',
+    host: 'SERVER',
     port: 80,
     path: '/api/image-feed/',
     method: 'GET',
@@ -184,7 +184,7 @@ var pullImages = function(){
 };
 
 //
-// Parse the response from UDOX
+// Parse the response from SERVER
 //
 var handleIncommingImages = function(data){
 
@@ -275,7 +275,7 @@ var uploadImage = function(path, id){
       return console.error('upload failed:', err);
     }
     console.log('Upload successful!  Server responded with:', body);
-  }).auth('adidas', 'udox and adidas', true)
+  }).auth('USERNAME', 'USERNAME', true)
   var form = r.form()
   form.append('id', id)
   form.append('returned_image', fs.createReadStream(path))
